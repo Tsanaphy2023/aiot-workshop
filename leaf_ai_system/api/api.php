@@ -357,6 +357,8 @@ if ($action === 'export') {
         'output' => $output,
         'exported_files' => $exported
     ]);
+}
+
 // 9. OBJECT DETECTION & BOUNDING BOXES
 if ($action === 'detect_bounding_boxes') {
     $imagePath = '';
