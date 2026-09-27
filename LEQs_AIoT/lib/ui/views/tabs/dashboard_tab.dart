@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../view_models/farm_view_model.dart';
 import '../../core/widgets/sensor_gauge_card.dart';
 import '../../core/widgets/sparkline_chart.dart';
+import '../../core/widgets/ai_insights_card.dart';
 
 class DashboardTab extends StatelessWidget {
   const DashboardTab({super.key});
@@ -49,6 +50,10 @@ class DashboardTab extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(height: 14),
+
+          // Agriphysics & Explainable AI (xAI) Insights Card
+          AiInsightsCard(viewModel: vm),
           const SizedBox(height: 14),
 
           // Primary Soil Moisture Card (Large Highlight)

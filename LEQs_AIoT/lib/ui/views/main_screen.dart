@@ -6,6 +6,7 @@ import 'tabs/control_tab.dart';
 import 'tabs/automation_tab.dart';
 import 'tabs/espnow_tab.dart';
 import 'tabs/history_tab.dart';
+import 'tabs/leaf_doctor_tab.dart';
 import 'dialogs/connection_settings_dialog.dart';
 
 class MainScreen extends StatefulWidget {
@@ -27,6 +28,7 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> _tabs = const [
     DashboardTab(),
+    LeafDoctorTab(),
     ControlTab(),
     AutomationTab(),
     EspNowTab(),
@@ -163,6 +165,11 @@ class _MainScreenState extends State<MainScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
+        type: BottomNavigationBarType.fixed,
+        selectedFontSize: 11,
+        unselectedFontSize: 10,
+        selectedItemColor: const Color(0xFF10B981),
+        unselectedItemColor: Colors.grey.shade400,
         onTap: (index) {
           setState(() {
             _currentIndex = index;
@@ -173,6 +180,11 @@ class _MainScreenState extends State<MainScreen> {
             icon: Icon(Icons.dashboard_outlined),
             activeIcon: Icon(Icons.dashboard),
             label: 'แดชบอร์ด',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.document_scanner_outlined),
+            activeIcon: Icon(Icons.document_scanner),
+            label: 'หมอพืช AI',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.power_settings_new),

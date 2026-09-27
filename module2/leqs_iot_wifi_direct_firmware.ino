@@ -82,6 +82,12 @@ float currentSoilMoisture = 50.0;
 float currentLightLux = 350.0;
 bool  isWaterLow = false;
 
+// Edge Agriphysics & TinyML Metrics
+float currentVPD = 1.05;
+String currentPlantStress = "OPTIMAL_GROWTH";
+bool  isSensorAnomaly = false;
+String anomalyReason = "";
+
 bool  relayPumpState = false;
 bool  relayLightState = false;
 bool  relay3State = false;
@@ -90,6 +96,44 @@ bool  isEmergencyStopped = false;
 
 unsigned long pumpStartTime = 0;
 const unsigned long MAX_PUMP_RUNTIME_MS = 60000; // ตัดการทำงานอัตโนมัติหลัง 60 วินาที
+
+// =============================================================================
+// Edge Agriphysics: คำนวณ Vapor Pressure Deficit (VPD) ในหน่วย kPa
+// =============================================================================
+float calculateVPD(float tempC, float rhPercent) {
+  // Tetens equation for saturation vapor pressure (kPa)
+  float vpSat = 0.61078f * exp((17.27f * tempC) / (tempC + 237.3f));
+  float vpAct = vpSat * (rhPercent / 100.0f);
+  float vpd = vpSat - vpAct;
+  return (vpd < 0.0f) ? 0.0f : vpd;
+}
+
+String evaluatePlantStress(float vpd) {
+  if (vpd < 0.4f) return "LOW_TRANSPIRATION_FUNGAL_RISK";
+  if (vpd <= 1.2f) return "OPTIMAL_GROWTH";
+  if (vpd <= 1.6f) return "MILD_WATER_STRESS";
+  return "HIGH_TRANSPIRATION_STRESS";
+}
+
+// TinyML & Edge Anomaly Detection for Smart Farm Sensors
+void runEdgeAnomalyDetection() {
+  isSensorAnomaly = false;
+  anomalyReason = "";
+
+  // 1. SHT30 Out-of-bounds check (ชำรุดหรือสายหลุด)
+  if (currentTemperature < 2.0 || currentTemperature > 65.0 || currentHumidity <= 1.0 || currentHumidity > 100.0) {
+    isSensorAnomaly = true;
+    anomalyReason = "SHT30 sensor read error or wire disconnected";
+    return;
+  }
+
+  // 2. Soil Moisture Float / Sensor disconnected check
+  if (currentSoilMoisture <= 0.5) {
+    isSensorAnomaly = true;
+    anomalyReason = "Soil sensor disconnected or dry-air exposed";
+    return;
+  }
+}
 
 // =============================================================================
 // 4. ฟังก์ชันอ่านค่าเซนเซอร์ฮาร์ดแวร์
@@ -132,7 +176,12 @@ void readSensors() {
     }
   }
 
-  // 5. ระบบความปลอดภัย: หากน้ำแห้ง ให้ตัดปั๊มทันที (Dry-Run Protection)
+  // 5. คำนวณ Edge Agriphysics และตรวจจับ Anomaly
+  currentVPD = calculateVPD(currentTemperature, currentHumidity);
+  currentPlantStress = evaluatePlantStress(currentVPD);
+  runEdgeAnomalyDetection();
+
+  // 6. ระบบความปลอดภัย: หากน้ำแห้ง ให้ตัดปั๊มทันที (Dry-Run Protection)
   if (isWaterLow && relayPumpState) {
     relayPumpState = false;
     digitalWrite(PIN_RELAY_PUMP, LOW);
@@ -228,7 +277,7 @@ void setupRestApi() {
   // 2. GET /api/sensors
   server.on("/api/sensors", HTTP_GET, []() {
     readSensors();
-    StaticJsonDocument<300> doc;
+    StaticJsonDocument<512> doc;
     doc["temperature"] = currentTemperature;
     doc["humidity"] = currentHumidity;
     doc["soil_moisture"] = currentSoilMoisture;
@@ -236,6 +285,11 @@ void setupRestApi() {
     doc["water_low"] = isWaterLow;
     doc["pump_active"] = relayPumpState;
     doc["light_active"] = relayLightState;
+    // Edge Agriphysics & TinyML Telemetry
+    doc["vpd"] = round(currentVPD * 100.0) / 100.0;
+    doc["plant_stress"] = currentPlantStress;
+    doc["anomaly_detected"] = isSensorAnomaly;
+    doc["anomaly_message"] = anomalyReason;
 
     String res;
     serializeJson(doc, res);

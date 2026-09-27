@@ -30,13 +30,22 @@ class DirectBoardService {
       final res = await _client.get(url).timeout(const Duration(milliseconds: 2000));
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body) as Map<String, dynamic>;
+        final temp = (data['temperature'] as num?)?.toDouble() ?? 28.0;
+        final hum = (data['humidity'] as num?)?.toDouble() ?? 60.0;
+        final vpd = (data['vpd'] as num?)?.toDouble() ?? SensorTelemetry.calculateVpd(temp, hum);
+        final stress = data['plant_stress'] as String? ?? SensorTelemetry.evaluatePlantStress(vpd);
+
         return SensorTelemetry(
-          temperature: (data['temperature'] as num?)?.toDouble() ?? 28.0,
-          humidity: (data['humidity'] as num?)?.toDouble() ?? 60.0,
+          temperature: temp,
+          humidity: hum,
           soilMoisture: (data['soil_moisture'] as num?)?.toDouble() ?? 50.0,
           lightLux: (data['light_lux'] as num?)?.toDouble() ?? 300.0,
           isWaterLow: data['water_low'] as bool? ?? false,
           timestamp: DateTime.now(),
+          vpd: vpd,
+          plantStress: stress,
+          isSensorAnomaly: data['anomaly_detected'] as bool? ?? false,
+          anomalyMessage: data['anomaly_message'] as String? ?? '',
         );
       }
     } catch (_) {}

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../view_models/farm_view_model.dart';
+import '../../core/widgets/predictive_moisture_card.dart';
 
 class AutomationTab extends StatelessWidget {
   const AutomationTab({super.key});
@@ -44,6 +45,14 @@ class AutomationTab extends StatelessWidget {
                 ],
               ),
             ),
+          ),
+          const SizedBox(height: 14),
+
+          // 6-Hour Time-Series Predictive Moisture Card
+          PredictiveMoistureCard(
+            predictions: vm.soilPredictions,
+            currentMoisture: vm.sensors.soilMoisture,
+            wiltingThreshold: auto.soilMoistureLowThreshold,
           ),
           const SizedBox(height: 16),
 

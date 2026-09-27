@@ -5,6 +5,9 @@ import '../services/farm_simulator_service.dart';
 import '../services/home_assistant_service.dart';
 import '../services/direct_board_service.dart';
 import '../services/board_discovery_service.dart';
+import '../services/leaf_disease_service.dart';
+import '../services/predictive_moisture_service.dart';
+import '../services/explainable_ai_service.dart';
 
 enum ConnectionMode {
   simulator,
@@ -18,6 +21,9 @@ class FarmRepository {
   final HomeAssistantService haService;
   final DirectBoardService directBoardService;
   final BoardDiscoveryService discoveryService;
+  final LeafDiseaseService leafDiseaseService;
+  final PredictiveMoistureService predictiveMoistureService;
+  final ExplainableAiService explainableAiService;
 
   ConnectionMode connectionMode = ConnectionMode.simulator;
   String? connectedBoardIp;
@@ -34,9 +40,15 @@ class FarmRepository {
     required this.haService,
     DirectBoardService? directBoardService,
     BoardDiscoveryService? discoveryService,
+    LeafDiseaseService? leafDiseaseService,
+    PredictiveMoistureService? predictiveMoistureService,
+    ExplainableAiService? explainableAiService,
   })  : _simulatorService = simulatorService,
         directBoardService = directBoardService ?? DirectBoardService(),
-        discoveryService = discoveryService ?? BoardDiscoveryService() {
+        discoveryService = discoveryService ?? BoardDiscoveryService(),
+        leafDiseaseService = leafDiseaseService ?? LeafDiseaseService(),
+        predictiveMoistureService = predictiveMoistureService ?? PredictiveMoistureService(),
+        explainableAiService = explainableAiService ?? ExplainableAiService() {
     _initHistory();
   }
 

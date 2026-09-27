@@ -28,6 +28,10 @@ class FarmViewModel extends ChangeNotifier {
   bool _isScanning = false;
   String _scanStatusMessage = '';
 
+  // Deep Learning & Vision AI State
+  LeafDiseaseDiagnosis? _currentLeafDiagnosis;
+  bool _isDiagnosingLeaf = false;
+
   FarmViewModel({required FarmRepository repository})
       : _repository = repository {
     _init();
@@ -50,6 +54,42 @@ class FarmViewModel extends ChangeNotifier {
   List<DiscoveredBoard> get discoveredBoards => _discoveredBoards;
   bool get isScanning => _isScanning;
   String get scanStatusMessage => _scanStatusMessage;
+
+  // AI & Agriphysics Getters
+  bool get isDiagnosingLeaf => _isDiagnosingLeaf;
+  LeafDiseaseDiagnosis get currentLeafDiagnosis =>
+      _currentLeafDiagnosis ?? _repository.leafDiseaseService.getSampleDiagnosis('powdery_mildew');
+
+  ExplainableAiRecommendation get aiRecommendation =>
+      _repository.explainableAiService.evaluateIrrigation(
+        telemetry: _sensors,
+        settings: _automation,
+        isPumpActive: _actuators.isPumpOn,
+      );
+
+  List<SoilPredictionPoint> get soilPredictions =>
+      _repository.predictiveMoistureService.forecastSoilMoisture(
+        currentMoisture: _sensors.soilMoisture,
+        currentVpd: _sensors.vpd,
+        currentLux: _sensors.lightLux,
+        isPumpRunning: _actuators.isPumpOn,
+        wiltingThreshold: _automation.soilMoistureLowThreshold,
+      );
+
+  /// Trigger Vision Deep Learning diagnosis for plant leaf
+  Future<void> diagnoseLeaf({String? sampleId}) async {
+    _isDiagnosingLeaf = true;
+    notifyListeners();
+
+    try {
+      final diag = await _repository.leafDiseaseService.diagnoseFromImage(targetDiseaseId: sampleId);
+      _currentLeafDiagnosis = diag;
+    } catch (_) {
+    } finally {
+      _isDiagnosingLeaf = false;
+      notifyListeners();
+    }
+  }
 
   void setTeamNumber(int no) {
     _teamNumber = no;

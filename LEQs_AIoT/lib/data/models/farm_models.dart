@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:flutter/foundation.dart';
 
 /// Real-time sensor telemetry model from GoGo-IoT field node
@@ -10,6 +11,12 @@ class SensorTelemetry {
   final bool isWaterLow; // Float Switch: true = water dry/empty
   final DateTime timestamp;
 
+  // Edge Agriphysics & TinyML Metrics
+  final double vpd; // Vapor Pressure Deficit in kPa
+  final String plantStress; // OPTIMAL, MILD_STRESS, HIGH_TRANSPIRATION, FUNGAL_RISK
+  final bool isSensorAnomaly;
+  final String anomalyMessage;
+
   const SensorTelemetry({
     required this.temperature,
     required this.humidity,
@@ -17,16 +24,47 @@ class SensorTelemetry {
     required this.soilMoisture,
     required this.isWaterLow,
     required this.timestamp,
-  });
+    double? vpd,
+    this.plantStress = 'OPTIMAL',
+    this.isSensorAnomaly = false,
+    this.anomalyMessage = '',
+  }) : vpd = vpd ?? 1.05;
+
+  static double calculateVpd(double tempC, double rhPercent) {
+    // Tetens equation: Saturation Vapor Pressure (kPa)
+    final vpSat = 0.61078 * math.exp((17.27 * tempC) / (tempC + 237.3));
+    final vpAct = vpSat * (rhPercent / 100.0);
+    final v = vpSat - vpAct;
+    return v < 0.0 ? 0.0 : double.parse(v.toStringAsFixed(2));
+  }
+
+  static String evaluatePlantStress(double vpdVal) {
+    if (vpdVal < 0.4) return 'FUNGAL_RISK';
+    if (vpdVal <= 1.2) return 'OPTIMAL';
+    if (vpdVal <= 1.6) return 'MILD_STRESS';
+    return 'HIGH_TRANSPIRATION';
+  }
+
+  String get vpdStatusTh {
+    if (vpd < 0.4) return 'ต่ำ (เสี่ยงเกิดเชื้อรา/โรคพืช)';
+    if (vpd <= 1.2) return 'เหมาะสม (ปากใบเปิดสมบูรณ์)';
+    if (vpd <= 1.6) return 'เริ่มเครียด (คายน้ำปานกลาง)';
+    return 'วิกฤต (พืชคายน้ำรุนแรง)';
+  }
 
   factory SensorTelemetry.initial() {
+    const t = 28.4;
+    const h = 61.2;
+    final v = SensorTelemetry.calculateVpd(t, h);
     return SensorTelemetry(
-      temperature: 28.4,
-      humidity: 61.2,
+      temperature: t,
+      humidity: h,
       lightLux: 350.0,
       soilMoisture: 48.5,
       isWaterLow: false,
       timestamp: DateTime.now(),
+      vpd: v,
+      plantStress: SensorTelemetry.evaluatePlantStress(v),
     );
   }
 
@@ -37,14 +75,26 @@ class SensorTelemetry {
     double? soilMoisture,
     bool? isWaterLow,
     DateTime? timestamp,
+    double? vpd,
+    String? plantStress,
+    bool? isSensorAnomaly,
+    String? anomalyMessage,
   }) {
+    final newTemp = temperature ?? this.temperature;
+    final newHum = humidity ?? this.humidity;
+    final computedVpd = vpd ?? SensorTelemetry.calculateVpd(newTemp, newHum);
+
     return SensorTelemetry(
-      temperature: temperature ?? this.temperature,
-      humidity: humidity ?? this.humidity,
+      temperature: newTemp,
+      humidity: newHum,
       lightLux: lightLux ?? this.lightLux,
       soilMoisture: soilMoisture ?? this.soilMoisture,
       isWaterLow: isWaterLow ?? this.isWaterLow,
       timestamp: timestamp ?? this.timestamp,
+      vpd: computedVpd,
+      plantStress: plantStress ?? SensorTelemetry.evaluatePlantStress(computedVpd),
+      isSensorAnomaly: isSensorAnomaly ?? this.isSensorAnomaly,
+      anomalyMessage: anomalyMessage ?? this.anomalyMessage,
     );
   }
 
@@ -54,6 +104,10 @@ class SensorTelemetry {
         'lightLux': lightLux,
         'soilMoisture': soilMoisture,
         'isWaterLow': isWaterLow,
+        'vpd': vpd,
+        'plantStress': plantStress,
+        'isSensorAnomaly': isSensorAnomaly,
+        'anomalyMessage': anomalyMessage,
         'timestamp': timestamp.toIso8601String(),
       };
 }
@@ -259,3 +313,94 @@ class HistoryRecord {
     required this.isPumpActive,
   });
 }
+
+/// Vision Deep Learning: Leaf Disease Diagnosis Model
+@immutable
+class LeafDiseaseDiagnosis {
+  final String diseaseId;
+  final String diseaseNameTh;
+  final String diseaseNameEn;
+  final String scientificName;
+  final double confidence; // 0.0 - 1.0 (e.g. 0.94)
+  final String severity; // "ปกติ/สมบูรณ์", "ระยะเริ่มต้น (Mild)", "ระยะปานกลาง (Moderate)", "ระยะวิกฤต (Severe)"
+  final String symptomsTh;
+  final List<String> organicRemedies;
+  final List<String> chemicalRemedies;
+  final List<String> preventionTips;
+  final DateTime diagnosedAt;
+
+  const LeafDiseaseDiagnosis({
+    required this.diseaseId,
+    required this.diseaseNameTh,
+    required this.diseaseNameEn,
+    required this.scientificName,
+    required this.confidence,
+    required this.severity,
+    required this.symptomsTh,
+    required this.organicRemedies,
+    required this.chemicalRemedies,
+    required this.preventionTips,
+    required this.diagnosedAt,
+  });
+
+  bool get isHealthy => diseaseId == 'healthy';
+}
+
+/// Time-Series Deep Learning / Regression: 6-Hour Soil Moisture Forecast Point
+@immutable
+class SoilPredictionPoint {
+  final DateTime targetTime;
+  final double predictedMoisture; // Projected %
+  final double lowerConfidence; // 95% Confidence interval lower
+  final double upperConfidence; // 95% Confidence interval upper
+  final bool isWiltingRisk; // True if falling below wilting threshold
+
+  const SoilPredictionPoint({
+    required this.targetTime,
+    required this.predictedMoisture,
+    required this.lowerConfidence,
+    required this.upperConfidence,
+    required this.isWiltingRisk,
+  });
+}
+
+/// Explainable AI (xAI): Reasoning factor with feature weight
+@immutable
+class AiReasoningFactor {
+  final String factorName;
+  final double contributionPercent; // e.g. 42.0%
+  final bool isDriverForWatering; // True if push towards watering
+  final String physicalObservation; // e.g. "VPD 1.75 kPa อยู่ในเกณฑ์คายน้ำรุนแรง"
+
+  const AiReasoningFactor({
+    required this.factorName,
+    required this.contributionPercent,
+    required this.isDriverForWatering,
+    required this.physicalObservation,
+  });
+}
+
+/// Explainable AI (xAI): Full Decision & Recommendation Report
+@immutable
+class ExplainableAiRecommendation {
+  final String decisionTitle; // e.g. "แนะนำรดน้ำทันทีเพื่อคลายความเครียดพืช"
+  final String urgencyLevel; // "เหมาะสม/ปกติ", "ควรพิจารณา", "ด่วนที่สุด"
+  final int recommendedWaterSeconds; // e.g. 45 วินาที
+  final int estimatedVolumeMl; // e.g. 350 ml
+  final double overallConfidence; // e.g. 0.96
+  final List<AiReasoningFactor> factors;
+  final String naturalLanguageExplanation;
+  final DateTime generatedAt;
+
+  const ExplainableAiRecommendation({
+    required this.decisionTitle,
+    required this.urgencyLevel,
+    required this.recommendedWaterSeconds,
+    required this.estimatedVolumeMl,
+    required this.overallConfidence,
+    required this.factors,
+    required this.naturalLanguageExplanation,
+    required this.generatedAt,
+  });
+}
+
