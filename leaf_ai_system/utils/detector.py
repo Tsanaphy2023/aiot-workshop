@@ -367,3 +367,327 @@ def draw_bounding_boxes_on_image(image_path, detections, output_path):
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     result.save(output_path, "JPEG", quality=92)
     return output_path
+
+# ==============================================================================
+# SMART SELECT BOUNDING BOX ENGINE (healthy / leaf_rust / phoma)
+# ==============================================================================
+
+COFFEE_CLASS_COLORS = {
+    "healthy": "#10B981",    # Emerald Green
+    "leaf_rust": "#F59E0B",  # Golden Amber / Rust Orange
+    "phoma": "#EF4444"       # Deep Crimson Red
+}
+
+def smart_select_coffee_dataset(image_path, target_class=None, min_area=35):
+    """
+    Performs precise Smart-Select Bounding Box extraction for Coffee Dataset:
+    - healthy: tight bounding box enclosing the healthy green leaf blade
+    - leaf_rust: fine-grained localization of rust pustules (orange/amber spore clusters)
+    - phoma: precise bounding boxes for necrotic spots and dark concentric blight rings
+    """
+    img = Image.open(image_path).convert("RGB")
+    width, height = img.size
+    total_pixels = width * height
+
+    # Normalize working size for consistent contour thresholds
+    work_w = min(width, 640)
+    scale = work_w / float(width)
+    work_h = int(height * scale)
+    scaled_img = img.resize((work_w, work_h), Image.Resampling.BILINEAR)
+
+    arr = np.array(scaled_img, dtype=np.float32)
+    r, g, b = arr[:, :, 0], arr[:, :, 1], arr[:, :, 2]
+
+    # Chromaticity-based leaf isolation
+    is_green_leaf = (g > r + 14) & (g > b + 18) & (g > 38)
+    is_lesion_tissue = (r > b + 22) & (g > b + 10) & (r > 55) & (b < 120)
+    leaf_mask = is_green_leaf | is_lesion_tissue
+
+    detections = []
+    
+    # Auto-infer target class from filename/folder if not given
+    if not target_class:
+        p_lower = str(image_path).lower()
+        if "rust" in p_lower:
+            target_class = "leaf_rust"
+        elif "phoma" in p_lower:
+            target_class = "phoma"
+        else:
+            target_class = "healthy"
+
+    if target_class == "healthy":
+        # Smart Bounding Box covering the entire healthy leaf
+        leaf_pts = np.argwhere(leaf_mask)
+        if len(leaf_pts) > 100:
+            ymin, xmin = leaf_pts.min(axis=0)
+            ymax, xmax = leaf_pts.max(axis=0)
+
+            # Pad slightly by 2%
+            pad_x = int((xmax - xmin) * 0.02)
+            pad_y = int((ymax - ymin) * 0.02)
+            xmin = max(0, xmin - pad_x)
+            ymin = max(0, ymin - pad_y)
+            xmax = min(work_w, xmax + pad_x)
+            ymax = min(work_h, ymax + pad_y)
+
+            # Scale back to original resolution
+            orig_x = int(round(xmin / scale))
+            orig_y = int(round(ymin / scale))
+            orig_w = int(round((xmax - xmin) / scale))
+            orig_h = int(round((ymax - ymin) / scale))
+
+            norm_cx = (orig_x + orig_w / 2.0) / float(width)
+            norm_cy = (orig_y + orig_h / 2.0) / float(height)
+            norm_w = orig_w / float(width)
+            norm_h = orig_h / float(height)
+
+            detections.append({
+                "id": 1,
+                "class": "healthy",
+                "confidence": 0.98,
+                "confidence_pct": 98.0,
+                "bbox": [orig_x, orig_y, orig_w, orig_h],
+                "yolo_bbox": [round(norm_cx, 5), round(norm_cy, 5), round(norm_w, 5), round(norm_h, 5)],
+                "area_px": orig_w * orig_h,
+                "area_pct": round(((orig_w * orig_h) / total_pixels) * 100, 2),
+                "severity": "Normal",
+                "color": COFFEE_CLASS_COLORS["healthy"]
+            })
+
+    elif target_class == "leaf_rust":
+        # Rust Pustules signature: Amber/Orange/Yellow on leaf
+        # R > G + 15, R > B + 45, G > B + 15
+        rust_mask = leaf_mask & (r > (g + 10)) & (r > (b + 40)) & (r > 90) & (b < 120)
+
+        # Morphological grid pooling to find pustule islands
+        step = 6
+        grid_h = work_h // step
+        grid_w = work_w // step
+        candidates = []
+
+        for gy in range(grid_h):
+            for gx in range(grid_w):
+                sy, ey = gy * step, (gy + 1) * step
+                sx, ex = gx * step, (gx + 1) * step
+                sub = rust_mask[sy:ey, sx:ex]
+                if np.sum(sub) >= 4:
+                    candidates.append([sx, sy, step, step])
+
+        # Cluster adjacent cells
+        clustered = _cluster_bounding_boxes(candidates, max_dist=16)
+
+        for c_box in clustered:
+            cx, cy, cw, ch = c_box
+            # Refine tight boundaries
+            pad = 4
+            bx = max(0, cx - pad)
+            by = max(0, cy - pad)
+            bw = min(work_w - bx, cw + (pad * 2))
+            bh = min(work_h - by, ch + (pad * 2))
+
+            # Scale to original resolution
+            orig_x = int(round(bx / scale))
+            orig_y = int(round(by / scale))
+            orig_w = int(round(bw / scale))
+            orig_h = int(round(bh / scale))
+
+            if orig_w * orig_h < min_area:
+                continue
+
+            norm_cx = (orig_x + orig_w / 2.0) / float(width)
+            norm_cy = (orig_y + orig_h / 2.0) / float(height)
+            norm_w = orig_w / float(width)
+            norm_h = orig_h / float(height)
+
+            detections.append({
+                "class": "leaf_rust",
+                "confidence": 0.88,
+                "confidence_pct": 88.0,
+                "bbox": [orig_x, orig_y, orig_w, orig_h],
+                "yolo_bbox": [round(norm_cx, 5), round(norm_cy, 5), round(norm_w, 5), round(norm_h, 5)],
+                "area_px": orig_w * orig_h,
+                "area_pct": round(((orig_w * orig_h) / total_pixels) * 100, 2),
+                "severity": "Medium",
+                "color": COFFEE_CLASS_COLORS["leaf_rust"]
+            })
+
+    elif target_class == "phoma":
+        # Phoma Blight signature: Dark brown to black circular lesions + pale halo
+        # Necrotic dark center: low intensity inside leaf
+        intensity = (r * 0.299 + g * 0.587 + b * 0.114)
+        mean_leaf_intensity = np.mean(intensity[leaf_mask]) if np.any(leaf_mask) else 128.0
+        
+        phoma_mask = leaf_mask & (intensity < (mean_leaf_intensity * 0.62)) & (r < 110) & (b < 90)
+
+        step = 6
+        grid_h = work_h // step
+        grid_w = work_w // step
+        candidates = []
+
+        for gy in range(grid_h):
+            for gx in range(grid_w):
+                sy, ey = gy * step, (gy + 1) * step
+                sx, ex = gx * step, (gx + 1) * step
+                sub = phoma_mask[sy:ey, sx:ex]
+                if np.sum(sub) >= 4:
+                    candidates.append([sx, sy, step, step])
+
+        clustered = _cluster_bounding_boxes(candidates, max_dist=18)
+
+        for c_box in clustered:
+            cx, cy, cw, ch = c_box
+            pad = 5
+            bx = max(0, cx - pad)
+            by = max(0, cy - pad)
+            bw = min(work_w - bx, cw + (pad * 2))
+            bh = min(work_h - by, ch + (pad * 2))
+
+            orig_x = int(round(bx / scale))
+            orig_y = int(round(by / scale))
+            orig_w = int(round(bw / scale))
+            orig_h = int(round(bh / scale))
+
+            if orig_w * orig_h < min_area:
+                continue
+
+            norm_cx = (orig_x + orig_w / 2.0) / float(width)
+            norm_cy = (orig_y + orig_h / 2.0) / float(height)
+            norm_w = orig_w / float(width)
+            norm_h = orig_h / float(height)
+
+            detections.append({
+                "class": "phoma",
+                "confidence": 0.85,
+                "confidence_pct": 85.0,
+                "bbox": [orig_x, orig_y, orig_w, orig_h],
+                "yolo_bbox": [round(norm_cx, 5), round(norm_cy, 5), round(norm_w, 5), round(norm_h, 5)],
+                "area_px": orig_w * orig_h,
+                "area_pct": round(((orig_w * orig_h) / total_pixels) * 100, 2),
+                "severity": "High",
+                "color": COFFEE_CLASS_COLORS["phoma"]
+            })
+
+    # Apply NMS
+    filtered = apply_nms(detections, iou_threshold=0.42)
+    # Number IDs sequentially
+    for idx, d in enumerate(filtered, 1):
+        d["id"] = idx
+
+    return {
+        "status": "success",
+        "image_width": width,
+        "image_height": height,
+        "target_class": target_class,
+        "total_detections": len(filtered),
+        "detections": filtered
+    }
+
+def _cluster_bounding_boxes(boxes, max_dist=15):
+    """
+    Merges nearby candidate grid tiles into tight cohesive bounding boxes.
+    """
+    if not boxes:
+        return []
+
+    clusters = []
+    for b in boxes:
+        merged = False
+        bx, by, bw, bh = b
+        for c in clusters:
+            cx, cy, cw, ch = c
+            # Check adjacency
+            if (bx <= cx + cw + max_dist and bx + bw >= cx - max_dist and
+                by <= cy + ch + max_dist and by + bh >= cy - max_dist):
+                nx = min(bx, cx)
+                ny = min(by, cy)
+                nw = max(bx + bw, cx + cw) - nx
+                nh = max(by + bh, cy + ch) - ny
+                c[0], c[1], c[2], c[3] = nx, ny, nw, nh
+                merged = True
+                break
+        if not merged:
+            clusters.append(list(b))
+
+    return clusters
+
+def smart_click_select(image_path, click_x, click_y, preferred_class="auto"):
+    """
+    Smart Select by Click: User clicks on a lesion or leaf region,
+    and this function automatically expands the seed into a tight bounding box,
+    classifying it as healthy, leaf_rust, or phoma.
+    """
+    img = Image.open(image_path).convert("RGB")
+    width, height = img.size
+    
+    # Boundary clamp
+    click_x = max(0, min(width - 1, int(click_x)))
+    click_y = max(0, min(height - 1, int(click_y)))
+
+    arr = np.array(img, dtype=np.float32)
+    r_val, g_val, b_val = arr[click_y, click_x, :3]
+
+    # Infer class based on RGB signature at click location
+    if preferred_class == "auto":
+        if r_val > g_val + 15 and r_val > b_val + 35:
+            inferred_class = "leaf_rust"
+        elif (r_val < 105 and g_val < 95 and b_val < 85) or (abs(r_val - g_val) < 20 and r_val < 120):
+            inferred_class = "phoma"
+        else:
+            inferred_class = "healthy"
+    else:
+        inferred_class = preferred_class
+
+    # Run Smart Select for the inferred class
+    smart_res = smart_select_coffee_dataset(image_path, target_class=inferred_class)
+    
+    # Find the detection box closest to the click point
+    best_box = None
+    min_dist = float("inf")
+
+    for d in smart_res["detections"]:
+        bx, by, bw, bh = d["bbox"]
+        # Distance to center
+        cx = bx + bw / 2.0
+        cy = by + bh / 2.0
+        dist = math.hypot(click_x - cx, click_y - cy)
+        
+        # Priority if click falls directly inside the box
+        if bx <= click_x <= bx + bw and by <= click_y <= by + bh:
+            dist -= 1000.0
+
+        if dist < min_dist:
+            min_dist = dist
+            best_box = d
+
+    # If no box found, generate local window around click
+    if not best_box:
+        win_size = 48
+        bx = max(0, click_x - win_size // 2)
+        by = max(0, click_y - win_size // 2)
+        bw = min(width - bx, win_size)
+        bh = min(height - by, win_size)
+        
+        norm_cx = (bx + bw / 2.0) / float(width)
+        norm_cy = (by + bh / 2.0) / float(height)
+        norm_w = bw / float(width)
+        norm_h = bh / float(height)
+
+        best_box = {
+            "id": 1,
+            "class": inferred_class,
+            "confidence": 0.85,
+            "confidence_pct": 85.0,
+            "bbox": [bx, by, bw, bh],
+            "yolo_bbox": [round(norm_cx, 5), round(norm_cy, 5), round(norm_w, 5), round(norm_h, 5)],
+            "area_px": bw * bh,
+            "area_pct": round(((bw * bh) / (width * height)) * 100, 2),
+            "severity": "Medium",
+            "color": COFFEE_CLASS_COLORS[inferred_class]
+        }
+
+    return {
+        "status": "success",
+        "inferred_class": inferred_class,
+        "box": best_box
+    }
+

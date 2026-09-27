@@ -17,8 +17,8 @@ PROJECT = "aiot_workshop2026"
 WORKSPACE = "durian-nodisease"
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-IMAGES_DIR = PROJECT_ROOT / "outputs" / "coffee_yolo_dataset" / "images"
-LABELS_DIR = PROJECT_ROOT / "outputs" / "coffee_yolo_dataset" / "labels"
+IMAGES_DIR = PROJECT_ROOT / "outputs" / "coffee_smart_select_dataset" / "images"
+LABELS_DIR = PROJECT_ROOT / "outputs" / "coffee_smart_select_dataset" / "labels"
 
 def upload_single_image_and_annotation(img_path, label_path):
     img_name = img_path.name
@@ -57,7 +57,7 @@ def upload_single_image_and_annotation(img_path, label_path):
         return True, f"Image uploaded (empty label): {image_id}"
 
     # 4. Upload annotation to Roboflow
-    ann_url = f"https://api.roboflow.com/dataset/{PROJECT}/annotate/{image_id}?api_key={API_KEY}&name={img_path.stem}.txt"
+    ann_url = f"https://api.roboflow.com/dataset/{PROJECT}/annotate/{image_id}?api_key={API_KEY}&name={img_path.stem}.txt&overwrite=true"
     ann_req = urllib.request.Request(
         ann_url,
         data=label_content.encode("utf-8"),
