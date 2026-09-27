@@ -61,15 +61,19 @@ class AiInsightsCard extends StatelessWidget {
                   child: Icon(Icons.psychology, size: 16, color: vpdColor),
                 ),
                 const SizedBox(width: 8),
-                const Text(
-                  'สมองกลเกษตร AI (Agriphysics Engine)',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                    color: AppTheme.textPrimaryDark,
+                Expanded(
+                  child: Text(
+                    'สมองกลเกษตร AI (Agriphysics Engine)',
+                    style: const TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                      color: AppTheme.textPrimaryDark,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                const Spacer(),
+                const SizedBox(width: 6),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
                   decoration: BoxDecoration(
@@ -95,65 +99,78 @@ class AiInsightsCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Live VPD Meter & Status
+                // Live VPD Meter & Status (Responsive & Overflow-safe)
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.baseline,
-                  textBaseline: TextBaseline.alphabetic,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'แรงดึงระเหยน้ำบรรยากาศ (VPD)',
-                          style: TextStyle(fontSize: 11, color: AppTheme.textSecondaryDark),
+                    Expanded(
+                      flex: 5,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'แรงดึงระเหยน้ำบรรยากาศ (VPD)',
+                            style: TextStyle(fontSize: 11, color: AppTheme.textSecondaryDark),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 2),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.baseline,
+                            textBaseline: TextBaseline.alphabetic,
+                            children: [
+                              Text(
+                                s.vpd.toStringAsFixed(2),
+                                style: TextStyle(
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.bold,
+                                  color: vpdColor,
+                                  letterSpacing: -1,
+                                ),
+                              ),
+                              const SizedBox(width: 4),
+                              const Text(
+                                'kPa',
+                                style: TextStyle(fontSize: 12, color: AppTheme.textSecondaryDark),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Flexible(
+                      flex: 6,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: vpdColor.withValues(alpha: 0.15),
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: vpdColor.withValues(alpha: 0.4)),
                         ),
-                        const SizedBox(height: 2),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.baseline,
-                          textBaseline: TextBaseline.alphabetic,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              s.vpd.toStringAsFixed(2),
+                              'สถานะปากใบพืช',
+                              style: TextStyle(fontSize: 10, color: vpdColor.withValues(alpha: 0.8)),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              s.vpdStatusTh,
                               style: TextStyle(
-                                fontSize: 28,
+                                fontSize: 11,
                                 fontWeight: FontWeight.bold,
                                 color: vpdColor,
-                                letterSpacing: -1,
                               ),
-                            ),
-                            const SizedBox(width: 4),
-                            const Text(
-                              'kPa',
-                              style: TextStyle(fontSize: 12, color: AppTheme.textSecondaryDark),
+                              textAlign: TextAlign.end,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                    const Spacer(),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                      decoration: BoxDecoration(
-                        color: vpdColor.withValues(alpha: 0.15),
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: vpdColor.withValues(alpha: 0.4)),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            'สถานะปากใบพืช',
-                            style: TextStyle(fontSize: 10, color: vpdColor.withValues(alpha: 0.8)),
-                          ),
-                          Text(
-                            s.vpdStatusTh,
-                            style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.bold,
-                              color: vpdColor,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
                   ],

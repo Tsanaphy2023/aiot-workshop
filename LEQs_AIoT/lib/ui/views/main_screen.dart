@@ -41,18 +41,19 @@ class _MainScreenState extends State<MainScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        titleSpacing: 12,
+        titleSpacing: 8,
         title: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              padding: const EdgeInsets.all(6),
+              padding: const EdgeInsets.all(5),
               decoration: BoxDecoration(
                 color: const Color(0xFF10B981).withValues(alpha: 0.2),
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(7),
               ),
-              child: const Icon(Icons.eco, color: Color(0xFF10B981), size: 20),
+              child: const Icon(Icons.eco, color: Color(0xFF10B981), size: 18),
             ),
-            const SizedBox(width: 8),
+            const SizedBox(width: 6),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,13 +61,13 @@ class _MainScreenState extends State<MainScreen> {
                 children: [
                   const Text(
                     'LEQs AIoT',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
                   Text(
-                    'ESP-NOW • GoGo-IoT • HA',
-                    style: TextStyle(fontSize: 10, color: Colors.grey.shade400),
+                    'ESP-NOW • GoGo-IoT',
+                    style: TextStyle(fontSize: 9, color: Colors.grey.shade400),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
@@ -77,53 +78,78 @@ class _MainScreenState extends State<MainScreen> {
         ),
         actions: [
           // Hardware Connection Indicator & Settings Button
-          ActionChip(
-            visualDensity: VisualDensity.compact,
-            padding: const EdgeInsets.symmetric(horizontal: 2),
-            backgroundColor: vm.isDirectBoard
-                ? const Color(0xFF10B981).withValues(alpha: 0.18)
-                : null,
-            side: vm.isDirectBoard
-                ? const BorderSide(color: Color(0xFF10B981), width: 1.2)
-                : null,
-            avatar: Icon(
-              vm.isDirectBoard ? Icons.wifi : Icons.sensors_outlined,
-              size: 14,
-              color: vm.isDirectBoard ? const Color(0xFF10B981) : Colors.grey,
-            ),
-            label: Text(
-              vm.isDirectBoard ? (vm.connectedBoardName ?? 'ต่อบอร์ด') : 'Sim',
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: vm.isDirectBoard ? FontWeight.bold : FontWeight.normal,
-                color: vm.isDirectBoard ? const Color(0xFF10B981) : null,
+          InkWell(
+            borderRadius: BorderRadius.circular(8),
+            onTap: () => ConnectionSettingsDialog.show(context),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 5),
+              decoration: BoxDecoration(
+                color: vm.isDirectBoard
+                    ? const Color(0xFF10B981).withValues(alpha: 0.18)
+                    : Colors.white.withValues(alpha: 0.08),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: vm.isDirectBoard ? const Color(0xFF10B981) : Colors.white24,
+                  width: 1,
+                ),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    vm.isDirectBoard ? Icons.wifi : Icons.sensors_outlined,
+                    size: 13,
+                    color: vm.isDirectBoard ? const Color(0xFF10B981) : Colors.grey,
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    vm.isDirectBoard ? (vm.connectedBoardName ?? 'ต่อบอร์ด') : 'Sim',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: vm.isDirectBoard ? FontWeight.bold : FontWeight.normal,
+                      color: vm.isDirectBoard ? const Color(0xFF10B981) : Colors.grey.shade300,
+                    ),
+                  ),
+                ],
               ),
             ),
-            onPressed: () => ConnectionSettingsDialog.show(context),
           ),
-          const SizedBox(width: 4),
+          const SizedBox(width: 5),
 
           // Team Selector Button (Compact for smartphone)
-          ActionChip(
-            visualDensity: VisualDensity.compact,
-            padding: const EdgeInsets.symmetric(horizontal: 2),
-            avatar: const Icon(Icons.badge_outlined, size: 14),
-            label: Text(
-              'กลุ่ม ${vm.teamNumber}',
-              style: const TextStyle(fontSize: 12),
+          InkWell(
+            borderRadius: BorderRadius.circular(8),
+            onTap: () => _showTeamPicker(context, vm),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 5),
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.08),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.white24, width: 1),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.badge_outlined, size: 13, color: Colors.grey),
+                  const SizedBox(width: 4),
+                  Text(
+                    'กลุ่ม ${vm.teamNumber}',
+                    style: const TextStyle(fontSize: 11, color: Colors.white),
+                  ),
+                ],
+              ),
             ),
-            onPressed: () => _showTeamPicker(context, vm),
           ),
-          const SizedBox(width: 4),
+          const SizedBox(width: 2),
 
           // Theme Toggle
           IconButton(
             visualDensity: VisualDensity.compact,
-            icon: Icon(widget.isDarkMode ? Icons.light_mode : Icons.dark_mode, size: 20),
+            icon: Icon(widget.isDarkMode ? Icons.light_mode : Icons.dark_mode, size: 18),
             tooltip: 'เปลี่ยนธีมสี',
             onPressed: widget.onToggleTheme,
           ),
-          const SizedBox(width: 6),
+          const SizedBox(width: 4),
         ],
       ),
       body: Column(
