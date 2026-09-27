@@ -50,7 +50,7 @@ class _SmartFarmAppState extends State<SmartFarmApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'CMU AIoT Smart Farm',
+      title: 'LEQs AIoT',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme(),
       darkTheme: AppTheme.darkTheme(),

@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_aiot/data/repositories/farm_repository.dart';
-import 'package:flutter_aiot/data/services/farm_simulator_service.dart';
-import 'package:flutter_aiot/data/services/home_assistant_service.dart';
-import 'package:flutter_aiot/ui/view_models/farm_view_model.dart';
-import 'package:flutter_aiot/main.dart';
+import 'package:leqs_aiot/data/repositories/farm_repository.dart';
+import 'package:leqs_aiot/data/services/farm_simulator_service.dart';
+import 'package:leqs_aiot/data/services/home_assistant_service.dart';
+import 'package:leqs_aiot/ui/view_models/farm_view_model.dart';
+import 'package:leqs_aiot/main.dart';
 
 void main() {
   testWidgets('SmartFarmApp initializes and renders Dashboard smoke test',
@@ -26,8 +26,8 @@ void main() {
     await tester.pump();
 
     // Verify main screen and sensor titles are rendered
-    expect(find.text('CMU AIoT Smart Farm'), findsOneWidget);
-    expect(find.text('ความชื้นในดิน (Soil Moisture)'), findsOneWidget);
+    expect(find.text('LEQs AIoT'), findsOneWidget);
+    expect(find.text('ความชื้นในดิน'), findsOneWidget);
 
     vm.dispose();
   });

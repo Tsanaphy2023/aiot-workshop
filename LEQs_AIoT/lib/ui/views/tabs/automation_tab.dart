@@ -59,9 +59,9 @@ class AutomationTab extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('เกณฑ์เริ่มรดน้ำ (เมื่อความชื้นต่ำกว่า)'),
+                      const Expanded(child: Text('เกณฑ์เริ่มรดน้ำ (เมื่อความชื้นต่ำกว่า)')),
+                      const SizedBox(width: 8),
                       Text(
                         '${auto.soilMoistureLowThreshold.toStringAsFixed(0)} %',
                         style: const TextStyle(
@@ -100,9 +100,9 @@ class AutomationTab extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('เกณฑ์หยุดรดน้ำ (เมื่อความชื้นถึง)'),
+                      const Expanded(child: Text('เกณฑ์หยุดรดน้ำ (เมื่อความชื้นถึง)')),
+                      const SizedBox(width: 8),
                       Text(
                         '${auto.soilMoistureHighThreshold.toStringAsFixed(0)} %',
                         style: const TextStyle(
@@ -145,11 +145,11 @@ class AutomationTab extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('เวลาทำงานสูงสุดของปั๊ม (Max Runtime)'),
+                      const Expanded(child: Text('เวลาทำงานสูงสุดของปั๊ม (Max Runtime)')),
+                      const SizedBox(width: 8),
                       Text(
-                        '${auto.maxPumpRunSeconds} วินาที',
+                        '${auto.maxPumpRunSeconds}s',
                         style: const TextStyle(
                           color: Colors.orange,
                           fontWeight: FontWeight.bold,

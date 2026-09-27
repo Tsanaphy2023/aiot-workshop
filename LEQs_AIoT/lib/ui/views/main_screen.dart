@@ -38,6 +38,7 @@ class _MainScreenState extends State<MainScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        titleSpacing: 12,
         title: Row(
           children: [
             Container(
@@ -48,38 +49,51 @@ class _MainScreenState extends State<MainScreen> {
               ),
               child: const Icon(Icons.eco, color: Color(0xFF10B981), size: 20),
             ),
-            const SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'CMU AIoT Smart Farm',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  'GoGo-IoT • ESP-NOW • Home Assistant',
-                  style: TextStyle(fontSize: 11, color: Colors.grey.shade400),
-                ),
-              ],
+            const SizedBox(width: 8),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    'LEQs AIoT',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                  Text(
+                    'ESP-NOW • GoGo-IoT • HA',
+                    style: TextStyle(fontSize: 10, color: Colors.grey.shade400),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                ],
+              ),
             ),
           ],
         ),
         actions: [
-          // Team Selector Button
+          // Team Selector Button (Compact for smartphone)
           ActionChip(
-            avatar: const Icon(Icons.badge_outlined, size: 16),
-            label: Text('กลุ่ม ${vm.teamNumber}'),
+            visualDensity: VisualDensity.compact,
+            padding: const EdgeInsets.symmetric(horizontal: 2),
+            avatar: const Icon(Icons.badge_outlined, size: 14),
+            label: Text(
+              'กลุ่ม ${vm.teamNumber}',
+              style: const TextStyle(fontSize: 12),
+            ),
             onPressed: () => _showTeamPicker(context, vm),
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 4),
 
           // Theme Toggle
           IconButton(
-            icon: Icon(widget.isDarkMode ? Icons.light_mode : Icons.dark_mode),
+            visualDensity: VisualDensity.compact,
+            icon: Icon(widget.isDarkMode ? Icons.light_mode : Icons.dark_mode, size: 20),
             tooltip: 'เปลี่ยนธีมสี',
             onPressed: widget.onToggleTheme,
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 6),
         ],
       ),
       body: Column(

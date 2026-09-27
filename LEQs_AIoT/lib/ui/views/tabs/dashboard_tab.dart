@@ -22,26 +22,26 @@ class DashboardTab extends StatelessWidget {
           Card(
             color: Theme.of(context).cardTheme.color,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: Row(
                 children: [
                   _buildStatusChip(
                     context,
-                    label: 'กลุ่มที่ ${vm.teamNumber}',
+                    label: 'กลุ่ม ${vm.teamNumber}',
                     icon: Icons.groups_outlined,
                     color: Colors.blueAccent,
                   ),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 6),
                   _buildStatusChip(
                     context,
-                    label: esp.isLinkConnected ? 'ESP-NOW เชื่อมต่อ' : 'ขาดการติดต่อ',
+                    label: esp.isLinkConnected ? 'ESP-NOW' : 'ออฟไลน์',
                     icon: esp.isLinkConnected ? Icons.wifi : Icons.wifi_off,
                     color: esp.isLinkConnected ? const Color(0xFF10B981) : Colors.red,
                   ),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 6),
                   _buildStatusChip(
                     context,
-                    label: s.isWaterLow ? 'น้ำแห้ง!' : 'ระดับน้ำปกติ',
+                    label: s.isWaterLow ? 'น้ำแห้ง' : 'น้ำปกติ',
                     icon: s.isWaterLow ? Icons.warning_amber_rounded : Icons.water_drop,
                     color: s.isWaterLow ? Colors.red : const Color(0xFF06B6D4),
                   ),
@@ -49,20 +49,20 @@ class DashboardTab extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 14),
 
           // Primary Soil Moisture Card (Large Highlight)
           SensorGaugeCard(
-            title: 'ความชื้นในดิน (Soil Moisture)',
+            title: 'ความชื้นในดิน',
             value: s.soilMoisture.toStringAsFixed(1),
             unit: '%',
             icon: Icons.grass,
             accentColor: const Color(0xFF10B981),
             statusText: s.soilMoisture < vm.automation.soilMoistureLowThreshold
-                ? 'ดินแห้ง (ต้องการน้ำ)'
+                ? 'ดินแห้ง'
                 : (s.soilMoisture > vm.automation.soilMoistureHighThreshold
                     ? 'ดินชุ่มชื้นสูง'
-                    : 'ระดับเหมาะสม'),
+                    : 'เหมาะสม'),
             statusColor: s.soilMoisture < vm.automation.soilMoistureLowThreshold
                 ? Colors.orange
                 : const Color(0xFF10B981),
@@ -75,7 +75,7 @@ class DashboardTab extends StatelessWidget {
             children: [
               Expanded(
                 child: SensorGaugeCard(
-                  title: 'อุณหภูมิอากาศ (SHT30)',
+                  title: 'อุณหภูมิอากาศ',
                   value: s.temperature.toStringAsFixed(1),
                   unit: '°C',
                   icon: Icons.thermostat,
@@ -84,10 +84,10 @@ class DashboardTab extends StatelessWidget {
                   statusColor: s.temperature > 35.0 ? Colors.red : const Color(0xFF10B981),
                 ),
               ),
-              const SizedBox(width: 12),
+              const SizedBox(width: 10),
               Expanded(
                 child: SensorGaugeCard(
-                  title: 'ความชื้นอากาศ (SHT30)',
+                  title: 'ความชื้นสัมพัทธ์',
                   value: s.humidity.toStringAsFixed(1),
                   unit: '%',
                   icon: Icons.cloud,
@@ -100,7 +100,7 @@ class DashboardTab extends StatelessWidget {
           const SizedBox(height: 12),
 
           SensorGaugeCard(
-            title: 'ความเข้มแสงแดด (BH1750)',
+            title: 'ความเข้มแสงแดด',
             value: s.lightLux.toStringAsFixed(0),
             unit: 'Lux',
             icon: Icons.wb_sunny_outlined,
@@ -108,13 +108,13 @@ class DashboardTab extends StatelessWidget {
             statusText: s.lightLux > 1000 ? 'แดดจ้า' : (s.lightLux > 200 ? 'แสงปานกลาง' : 'แสงน้อย'),
             progressPercent: (s.lightLux / 2000.0).clamp(0.0, 1.0),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 14),
 
           // Soil Moisture Sparkline Trend
           SparklineChart(
             data: vm.history.map((h) => h.soilMoisture).toList(),
             lineColor: const Color(0xFF10B981),
-            title: 'แนวโน้มความชื้นดิน (Soil Moisture Trend)',
+            title: 'แนวโน้มความชื้นดิน',
             unit: '%',
             height: 120,
           ),
@@ -131,7 +131,7 @@ class DashboardTab extends StatelessWidget {
   }) {
     return Expanded(
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
         decoration: BoxDecoration(
           color: color.withValues(alpha: 0.12),
           borderRadius: BorderRadius.circular(8),

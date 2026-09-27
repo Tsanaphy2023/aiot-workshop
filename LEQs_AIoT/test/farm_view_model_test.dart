@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_aiot/data/repositories/farm_repository.dart';
-import 'package:flutter_aiot/data/services/farm_simulator_service.dart';
-import 'package:flutter_aiot/data/services/home_assistant_service.dart';
-import 'package:flutter_aiot/ui/view_models/farm_view_model.dart';
+import 'package:leqs_aiot/data/repositories/farm_repository.dart';
+import 'package:leqs_aiot/data/services/farm_simulator_service.dart';
+import 'package:leqs_aiot/data/services/home_assistant_service.dart';
+import 'package:leqs_aiot/ui/view_models/farm_view_model.dart';
 
 void main() {
   group('FarmViewModel & Fail-Safe Logic Tests', () {

@@ -56,8 +56,8 @@ def generate_icons(source_path: str, project_dir: str):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate Flutter/Android/iOS/Web app icons from master image.")
-    parser.add_argument("--source", default="/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/Flutter AIoT/assets/icons/app_icon.png", help="Path to master PNG/JPG icon")
-    parser.add_argument("--project-dir", default="/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/Flutter AIoT", help="Path to Flutter project directory")
+    parser.add_argument("--source", default="/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/LEQs_AIoT/assets/icons/app_icon.png", help="Path to master PNG/JPG icon")
+    parser.add_argument("--project-dir", default="/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/LEQs_AIoT", help="Path to Flutter project directory")
     args = parser.parse_args()
 
     generate_icons(args.source, args.project_dir)

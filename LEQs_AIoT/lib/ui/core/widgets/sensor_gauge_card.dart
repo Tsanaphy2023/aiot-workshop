@@ -29,61 +29,58 @@ class SensorGaugeCard extends StatelessWidget {
 
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(14.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Top Row: Icon Container on Left, Status Badge on Right
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
-                  child: Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: accentColor.withValues(alpha: 0.15),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Icon(icon, color: accentColor, size: 20),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                          title,
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            color: isDark ? Colors.white70 : Colors.black87,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 8),
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding: const EdgeInsets.all(7),
                   decoration: BoxDecoration(
-                    color: (statusColor ?? accentColor).withValues(alpha: 0.12),
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color: (statusColor ?? accentColor).withValues(alpha: 0.3),
-                    ),
+                    color: accentColor.withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Text(
-                    statusText,
-                    style: TextStyle(
-                      color: statusColor ?? accentColor,
-                      fontSize: 11,
-                      fontWeight: FontWeight.bold,
+                  child: Icon(icon, color: accentColor, size: 20),
+                ),
+                Flexible(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    decoration: BoxDecoration(
+                      color: (statusColor ?? accentColor).withValues(alpha: 0.12),
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: (statusColor ?? accentColor).withValues(alpha: 0.3),
+                      ),
+                    ),
+                    child: Text(
+                      statusText,
+                      style: TextStyle(
+                        color: statusColor ?? accentColor,
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 14),
+            const SizedBox(height: 10),
+            // Title Text with full width
+            Text(
+              title,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: isDark ? Colors.white70 : Colors.black87,
+                fontWeight: FontWeight.w600,
+              ),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
+            const SizedBox(height: 4),
             Row(
               crossAxisAlignment: CrossAxisAlignment.baseline,
               textBaseline: TextBaseline.alphabetic,
@@ -106,13 +103,13 @@ class SensorGaugeCard extends StatelessWidget {
               ],
             ),
             if (progressPercent != null) ...[
-              const SizedBox(height: 12),
+              const SizedBox(height: 10),
               ClipRRect(
-                borderRadius: BorderRadius.circular(6),
+                borderRadius: BorderRadius.circular(4),
                 child: LinearProgressIndicator(
                   value: progressPercent!.clamp(0.0, 1.0),
                   minHeight: 6,
-                  backgroundColor: accentColor.withValues(alpha: 0.15),
+                  backgroundColor: isDark ? Colors.white10 : Colors.black12,
                   valueColor: AlwaysStoppedAnimation<Color>(accentColor),
                 ),
               ),

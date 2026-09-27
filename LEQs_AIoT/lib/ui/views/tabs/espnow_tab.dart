@@ -258,11 +258,14 @@ class EspNowTab extends StatelessWidget {
 
   Widget _buildDataRow(String label, String value, {Color? valueColor}) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, style: const TextStyle(color: Colors.grey, fontSize: 13)),
+        Expanded(
+          child: Text(label, style: const TextStyle(color: Colors.grey, fontSize: 13)),
+        ),
+        const SizedBox(width: 8),
         Text(
           value,
+          textAlign: TextAlign.end,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 13,

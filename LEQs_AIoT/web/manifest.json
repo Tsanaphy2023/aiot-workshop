@@ -1,11 +1,11 @@
 {
-    "name": "flutter_aiot",
-    "short_name": "flutter_aiot",
+    "name": "LEQs AIoT",
+    "short_name": "LEQs AIoT",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#0F172A",
+    "theme_color": "#10B981",
+    "description": "LEQs AIoT Smart Farm Mobile Application",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

@@ -81,7 +81,7 @@ class ControlTab extends StatelessWidget {
 
           // Relay 1: Irrigation Pump
           ActuatorCard(
-            title: 'ปั๊มรดน้ำแปลงปลูก (Relay 1 - Irrigation Pump)',
+            title: 'ปั๊มรดน้ำแปลงปลูก (Relay 1)',
             subtitle: act.isPumpOn ? 'กำลังรดน้ำแปลงปลูก' : 'ปั๊มน้ำปิดอยู่',
             icon: Icons.water,
             isOn: act.isPumpOn,
@@ -95,7 +95,7 @@ class ControlTab extends StatelessWidget {
 
           // Relay 2: Grow Light
           ActuatorCard(
-            title: 'หลอดไฟปลูกพืช (Relay 2 - Grow Lights)',
+            title: 'หลอดไฟปลูกพืช (Relay 2)',
             subtitle: act.isGrowLightOn ? 'เปิดไฟเพิ่มแสงสังเคราะห์' : 'หลอดไฟปิดอยู่',
             icon: Icons.lightbulb,
             isOn: act.isGrowLightOn,
@@ -114,50 +114,79 @@ class ControlTab extends StatelessWidget {
           const SizedBox(height: 8),
           Card(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(14.0),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    leading: Icon(
-                      s.isWaterLow ? Icons.error : Icons.check_circle,
-                      color: s.isWaterLow ? Colors.red : const Color(0xFF10B981),
-                    ),
-                    title: const Text('สวิตช์ลูกลอยตรวจจับระดับน้ำ (Float Switch)'),
-                    subtitle: Text(
-                      s.isWaterLow
-                          ? 'สถานะ: น้ำแห้ง (Triggered) - ปั๊มถูกล็อคห้ามทำงาน'
-                          : 'สถานะ: มีน้ำเพียงพอ (Normal)',
-                      style: TextStyle(color: s.isWaterLow ? Colors.red : null),
-                    ),
-                    trailing: OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: s.isWaterLow ? const Color(0xFF10B981) : Colors.orange,
+                  Row(
+                    children: [
+                      Icon(
+                        s.isWaterLow ? Icons.error : Icons.check_circle,
+                        color: s.isWaterLow ? Colors.red : const Color(0xFF10B981),
+                        size: 22,
                       ),
-                      onPressed: () => vm.simulateWaterFloatToggle(),
-                      child: Text(s.isWaterLow ? 'เติมน้ำ (Reset)' : 'จำลองน้ำแห้ง'),
-                    ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'สวิตช์ลูกลอยตรวจจับระดับน้ำ',
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                            Text(
+                              s.isWaterLow
+                                  ? 'น้ำแห้ง (Triggered) - ล็อคปั๊ม'
+                                  : 'มีน้ำเพียงพอ (Normal)',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: s.isWaterLow ? Colors.red : Colors.grey,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          visualDensity: VisualDensity.compact,
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                          foregroundColor: s.isWaterLow ? const Color(0xFF10B981) : Colors.orange,
+                        ),
+                        onPressed: () => vm.simulateWaterFloatToggle(),
+                        child: Text(
+                          s.isWaterLow ? 'เติมน้ำ' : 'จำลองแห้ง',
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 20),
 
           // Big Red Emergency Stop Button
           SizedBox(
             width: double.infinity,
-            height: 54,
+            height: 52,
             child: ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                 backgroundColor: act.isEmergencyStopped ? Colors.grey : const Color(0xFFDC2626),
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
-              icon: Icon(act.isEmergencyStopped ? Icons.restart_alt : Icons.emergency, size: 24),
+              icon: Icon(act.isEmergencyStopped ? Icons.restart_alt : Icons.emergency, size: 22),
               label: Text(
-                act.isEmergencyStopped ? 'ปลดล็อคระบบหยุดฉุกเฉิน (RESET E-STOP)' : 'หยุดฉุกเฉินทันที (EMERGENCY STOP)',
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                act.isEmergencyStopped ? 'ปลดล็อคหยุดฉุกเฉิน (RESET)' : 'หยุดฉุกเฉินทันที (EMERGENCY STOP)',
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
               ),
               onPressed: () {
                 if (act.isEmergencyStopped) {

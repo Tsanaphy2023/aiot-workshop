@@ -33,24 +33,34 @@ class HistoryTab extends StatelessWidget {
         children: [
           // Header with Export Button
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'ข้อมูลย้อนหลังและการวิเคราะห์',
-                    style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    'บันทึกจุดตรวจวัดทั้งหมด ${history.length} จุด',
-                    style: const TextStyle(fontSize: 12, color: Colors.grey),
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'ข้อมูลย้อนหลังและการวิเคราะห์',
+                      style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                    Text(
+                      'บันทึกจุดตรวจวัดทั้งหมด ${history.length} จุด',
+                      style: const TextStyle(fontSize: 12, color: Colors.grey),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                  ],
+                ),
               ),
+              const SizedBox(width: 8),
               FilledButton.tonalIcon(
-                icon: const Icon(Icons.download, size: 16),
-                label: const Text('ส่งออก JSON'),
+                style: FilledButton.styleFrom(
+                  visualDensity: VisualDensity.compact,
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                ),
+                icon: const Icon(Icons.download, size: 14),
+                label: const Text('ส่งออก', style: TextStyle(fontSize: 12)),
                 onPressed: () {
                   _showExportDialog(context, vm);
                 },
@@ -59,16 +69,17 @@ class HistoryTab extends StatelessWidget {
           ),
           const SizedBox(height: 16),
 
-          // Average Summary Banner
+          // Average Summary Banner (Evenly distributed for any phone screen)
           Card(
             child: Padding(
-              padding: const EdgeInsets.all(14.0),
+              padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _buildStatItem('ความชื้นดินเฉลี่ย', '${avgSoil.toStringAsFixed(1)}%', const Color(0xFF10B981)),
-                  _buildStatItem('อุณหภูมิเฉลี่ย', '${avgTemp.toStringAsFixed(1)}°C', const Color(0xFFF59E0B)),
-                  _buildStatItem('ความชื้นสัมพัทธ์', '${avgHum.toStringAsFixed(1)}%', const Color(0xFF06B6D4)),
+                  Expanded(child: _buildStatItem('ความชื้นดินเฉลี่ย', '${avgSoil.toStringAsFixed(1)}%', const Color(0xFF10B981))),
+                  Container(height: 24, width: 1, color: Colors.grey.withValues(alpha: 0.2)),
+                  Expanded(child: _buildStatItem('อุณหภูมิเฉลี่ย', '${avgTemp.toStringAsFixed(1)}°C', const Color(0xFFF59E0B))),
+                  Container(height: 24, width: 1, color: Colors.grey.withValues(alpha: 0.2)),
+                  Expanded(child: _buildStatItem('ความชื้นสัมพัทธ์', '${avgHum.toStringAsFixed(1)}%', const Color(0xFF06B6D4))),
                 ],
               ),
             ),
@@ -113,10 +124,17 @@ class HistoryTab extends StatelessWidget {
 
   Widget _buildStatItem(String label, String value, Color color) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Text(value, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: color)),
         const SizedBox(height: 2),
-        Text(label, style: const TextStyle(fontSize: 11, color: Colors.grey)),
+        Text(
+          label,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 11, color: Colors.grey),
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+        ),
       ],
     );
   }
