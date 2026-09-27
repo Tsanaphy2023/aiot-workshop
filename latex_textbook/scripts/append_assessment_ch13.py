@@ -1,227 +1,12 @@
-\chapter{คู่มือมาตรฐานสากล: การตรวจจับรอยโรคพืชและการประเมินคุณภาพผลผลิตด้วย YOLO11 และปัญญาประดิษฐ์ริมขอบ}
-\label{chap:ch13}
+"""
+Integrate all 19 quiz questions into ch13_yolo11_edge_ai_vision_manual.tex
+"""
 
-\section*{แผนบริหารการสอนประจำบทที่ 13}
-\addcontentsline{toc}{section}{แผนบริหารการสอนประจำบทที่ 13}
+from pathlib import Path
 
-\begin{planbox}{หัวข้อเนื้อหาประจำบท}
-\begin{enumerate}[topsep=2pt, itemsep=1pt, partopsep=0pt, parsep=0pt, leftmargin=1.5em]
-    \item มาตรฐานสากลคอมพิวเตอร์วิทัศน์เพื่อการเกษตรแม่นยำและการจัดหมวดหมู่พยาธิวิทยาพืชดิจิทัล (International Phytopathology Taxonomy)
-    \item สถาปัตยกรรมโครงข่ายประสาทเทียมตรวจจับวัตถุระดับสถานะศิลป์ YOLO11 (Ultralytics YOLO11 Architecture)
-    \item ระเบียบวิธีสกัดรอยโรคแบบอัจฉริยะ (Smart Select Bounding Box Algorithm) สำหรับจำแนก 3 คลาสโรคใบกาแฟ
-    \item กระบวนการเชื่อมต่อและประสานงานคลาวด์ Roboflow Cloud REST API สู่วิวัฒนาการชุดข้อมูลเปิดสากล
-    \item การสร้างฟังก์ชันความสูญเสียแบบหลายองค์ประกอบ Complete IoU Loss, Distribution Focal Loss และ Binary Cross Entropy
-    \item วิศวกรรมการฝึกสอนโมเดลและการประเมินผลเชิงลึก mAP50, mAP50-95, Precision-Recall Curves
-    \item การลดขนาดโมเดลแบบควอนไตเซชันจำนวนเต็ม 8 บิต (INT8 Post-Training Quantization) และการส่งออกสู่ ONNX และ TFLite
-    \item การติดตั้งอนุมานผลบนอุปกรณ์ริมขอบ (Edge AI Inference) และการเชื่อมต่อระบบฉีดพ่นสารควบคุมอัจฉริยะ
-\end{enumerate}
-\end{planbox}
+CH13_PATH = Path("/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/latex_textbook/chapters/ch13_yolo11_edge_ai_vision_manual.tex")
 
-\begin{planbox}{วัตถุประสงค์เชิงพฤติกรรม}
-\begin{enumerate}[topsep=2pt, itemsep=1pt, partopsep=0pt, parsep=0pt, leftmargin=1.5em]
-    \item อธิบายหลักการทำงานของโครงข่าย YOLO11 โมดูล C3k2, C2PSA และการสร้างกรอบแบบไร้จุดยึด (Anchor-free Bounding Box) ได้ถูกต้องตามหลักวิชาการ
-    \item ประยุกต์ใช้อัลกอริทึม Smart Select ในการสกัดพิกัดรอยโรคใบพืชทั้งสามคลาส ได้แก่ ใบสมบูรณ์ ราสนิมกาแฟ และแผลไหม้โฟม่า ได้อย่างแม่นยำ
-    \item ออกแบบกระบวนการนำเข้าและส่งออกข้อมูลพิกัด Bounding Box ผ่าน Roboflow REST API ตามมาตรฐานสากลได้อย่างสมบูรณ์
-    \item คำนวณฟังก์ชันความสูญเสีย $\mathcal{L}_{CIoU}$ และวิเคราะห์ค่าดัชนีชี้วัด mAP50 เทียบกับ mAP50-95 ได้อย่างถูกต้อง
-    \item แปลงโมเดลด้วยเทคนิค INT8 Quantization และพัฒนาโปรแกรมรันอนุมานผลบนบอร์ดสมองกลฝังตัวที่มีข้อจำกัดด้านพลังงานได้สำเร็จ
-\end{enumerate}
-\end{planbox}
-
-\newpage
-
-\begin{planbox}{วิธีสอนและกิจกรรมการเรียนการสอน}
-\begin{enumerate}[topsep=2pt, itemsep=1pt, partopsep=0pt, parsep=0pt, leftmargin=1.5em]
-    \item บรรยายเชิงทฤษฎีเปรียบเทียบวิวัฒนาการจาก One-Stage Detector ดั้งเดิม สู่ YOLO11 ที่ใช้เทคนิค Attention และ Self-Adaptive Neck
-    \item ปฏิบัติการจำแนกพยาธิสภาพใบกาแฟ 3 คลาส และรันอัลกอริทึม Smart Select เพื่อสร้างกรอบพิกัด YOLO แบบอัตโนมัติ
-    \item ปฏิบัติการเชื่อมต่อระบบผ่าน Roboflow API Key เพื่ออัปโหลดและจัดการเวอร์ชันชุดข้อมูลบนคลาวด์สากล
-    \item ปฏิบัติการฝึกสอนโมเดล YOLO11 Nano บนสภาพแวดล้อม Google Colab ร่วมกับชิปประมวลผลกราฟิก Tesla T4 GPU
-    \item ปฏิบัติการส่งออกโมเดลสู่รูปแบบ OpenVINO, ONNX และ TFLite INT8 พร้อมทดสอบวัดเวลาแฝง (Latency Benchmarking) บนบอร์ดจริง
-\end{enumerate}
-\end{planbox}
-
-\begin{planbox}{สื่อการเรียนการสอน}
-\begin{enumerate}[topsep=2pt, itemsep=1pt, partopsep=0pt, parsep=0pt, leftmargin=1.5em]
-    \item สมุดบันทึก Google Colab การฝึกสอนโมเดล YOLO11 สำหรับการเกษตรแม่นยำ
-    \item พอร์ทัลระบบจัดการข้อมูลและคลังโมเดล Roboflow Cloud Universe
-    \item ชุดข้อมูลภาพถ่ายใบกาแฟ 150 ภาพ พร้อมกรอบ Bounding Box พิกัดจริง 655 กรอบ
-    \item บอร์ดสมองกลฝังตัว Raspberry Pi 4 / 5 และชุดกล้องความละเอียดสูงเชื่อมต่ออินเทอร์เฟซ CSI
-    \item รหัสต้นฉบับภาษาไพธอน สคริปต์สกัดรอยโรคอัตโนมัติ และระบบเว็บพอร์ทัล Leaf AI Studio
-\end{enumerate}
-\end{planbox}
-
-\begin{planbox}{การวัดและประเมินผล}
-\begin{enumerate}[topsep=2pt, itemsep=1pt, partopsep=0pt, parsep=0pt, leftmargin=1.5em]
-    \item ประเมินความถูกต้องในการสร้างกรอบ Bounding Box ตามมาตรฐานสากล YOLO และ Pascal VOC
-    \item การประเมินผลสัมฤทธิ์ของโมเดลที่ผ่านการฝึกสอน โดยพิจารณาจากค่าความแม่นยำเฉลี่ย mAP50 ไม่น้อยกว่าร้อยละ 85
-    \item ความสมบูรณ์ของไปป์ไลน์การแปลงโมเดลสู่ ONNX / TFLite และอัตราการใช้หน่วยความจำแรม
-    \item ประสิทธิผลของการรันตรวจจับรอยโรคสดผ่านกล้องในแปลงทดสอบจริง
-\end{enumerate}
-\end{planbox}
-
-\newpage
-
-\section{บทนำและมาตรฐานสากลคอมพิวเตอร์วิทัศน์เพื่อการเกษตรแม่นยำ}
-
-ในยุคเกษตรกรรมแม่นยำสูง (Precision Agriculture 4.0) การวินิจฉัยโรคพืชผ่านภาพถ่ายได้ยกระดับจากการจัดหมวดหมู่ภาพทั้งใบ (Image Classification) ไปสู่การระบุตำแหน่งและประเมินขนาดรอยโรคในระดับวัตถุเฉพาะจุด (Object Detection and Instance Segmentation) การตรวจจับเฉพาะรอยโรคช่วยให้นักพยาธิวิทยาพืชและระบบอัตโนมัติสามารถประเมินระดับความรุนแรงของการระบาด (Severity Assessment Index) คำนวณปริมาณสารชีวภัณฑ์ที่ต้องฉีดพ่นเฉพาะจุดได้อย่างแม่นยำ ลดการสูญเปล่าของสารเคมี และลดผลกระทบต่อระบบนิเวศทางธรรมชาติ
-
-เพื่อให้กระบวนการพัฒนาเป็นไปตามมาตรฐานสากลของสมาคมวิชาการพยาธิวิทยาพืชนานาชาติ (International Society for Plant Pathology: ISPP) และมาตรฐานการฝึกสอนโครงข่ายคอมพิวเตอร์วิทัศน์ระดับโลก (IEEE/ACM Computer Vision Standards) เวิร์กช็อปนี้จึงได้กำหนดมาตรฐานการเก็บรวบรวมและกำกับข้อมูลภาพพืช (Annotation Specification) สำหรับพืชเศรษฐกิจสำคัญคือ กาแฟ (\textit{Coffea arabica} และ \textit{Coffea canephora}) โดยจำแนกตามพยาธิสภาพออกเป็น 3 คลาสสากล ดังแสดงรายละเอียดใน\mbox{ตารางที่} \ref{tab:coffee_pathology_taxonomy}
-
-\begin{table}[H]
-\centering
-\small
-\caption{อนุกรมวิธานพยาธิสภาพใบกาแฟและมาตรฐานการกำหนดป้ายกำกับระดับสากล}
-\label{tab:coffee_pathology_taxonomy}
-\begin{tabularx}{\textwidth}{p{2.2cm}p{3.0cm}p{4.2cm}X}
-\toprule
-\textbf{ชื่อคลาส} & \textbf{ชื่อวิทยาศาสตร์และสาเหตุ} & \textbf{ลักษณะอาการทางพยาธิสภาพ} & \textbf{หลักเกณฑ์ Smart Select} \\
-\midrule
-\texttt{healthy} & Normal Physiology & ใบมีสีเขียวสดใส ผิวใบเรียบ สม่ำเสมอ ไร้รอยแผล ไร้การทำลาย & ตีกรอบแนบสนิทรอบขอบใบ ตัดพื้นหลังสตูดิโอออก \\
-\texttt{leaf\_rust} & \textit{Hemileia vastatrix} (Basidiomycete Fungus) & ตุ่มสปอร์นูนผงสีส้มทองอมเหลืองใต้ใบ มีจุดสีซีดบนหลังใบ & ตีกรอบเฉพาะกลุ่มตุ่มสปอร์ผงสีส้มทอง พิกัดสี $R>G>B$ \\
-\texttt{phoma} & \textit{Phoma costarricensis} (Ascomycete Fungus) & แผลไหม้สีน้ำตาลเข้มถึงดำ ขอบแผลเป็นวงแหวน มีเนื้อเยื่อแห้งตาย & ตีกรอบขอบเขตเนื้อเยื่อแห้งตายสีเข้ม มีรอยแต้มวงแหวน \\
-\bottomrule
-\end{tabularx}
-\end{table}
-
-\section{สถาปัตยกรรมโครงข่าย YOLO11 สำหรับการตรวจจับวัตถุบนอุปกรณ์ริมขอบ}
-
-YOLO11 (Ultralytics Architecture 2024--2026) เป็นสถาปัตยกรรมตัวตรวจจับวัตถุแบบขั้นตอนเดียว (One-Stage Object Detector) ที่ได้รับการพัฒนาต่อยอดจากโครงสร้างประสาทเทียมชั้นนำ เพื่อเพิ่มความแม่นยำในการตรวจจับวัตถุขนาดเล็ก (Small Object Detection) เช่น ตุ่มสปอร์ราสนิม และแผลจุดไหม้เริ่มต้น บนข้อจำกัดด้านพลังงานและหน่วยความจำของอุปกรณ์ฝังตัว โครงสร้างหลักของ YOLO11 ประกอบด้วย 3 ส่วนสำคัญ ดังแสดงใน\mbox{ภาพที่} \ref{fig:yolo11_arch}
-
-\begin{enumerate}
-    \item \textbf{ส่วนสกัดลักษณะเด่น (Backbone Network):} ใช้โมดูล C3k2 (Cross Stage Partial with 2 Convolutions) ควบคู่กับตัวเชื่อมต่อข้ามขั้น (Residual Connections) เพื่อดึงลักษณะเด่นเชิงพื้นที่ทั้งในมิติสี ผิวสัมผัส และเส้นขอบใบพืช พร้อมทั้งผสานโมดูล C2PSA (Cross Stage Partial with Spatial Attention) ซึ่งเพิ่มกลไก Self-Attention แบบหลายหัว เพื่อมุ่งเน้นการตรวจจับรอยโรคที่กระจัดกระจาย
-    \item \textbf{ส่วนคอเชื่อมต่อหลายระดับ (PANet Feature Neck):} ทำหน้าที่หลอมรวมสัญญาณลักษณะเด่นจากระดับตื้น (High Resolution, Low Semantic) เข้ากับระดับลึก (Low Resolution, High Semantic) เพื่อให้ตรวจจับได้ทั้งรอยโรคขนาดจิ๋วระดับ 5 มิลลิเมตร และแผลลุกลามขนาดใหญ่เต็มใบ
-    \item \textbf{ส่วนหัวทำนายผลแบบไร้จุดยึด (Anchor-free Decoupled Head):} แยกกระบวนการทำนายประเภทคลาส (Classification) และการปรับแก้พิกัดกรอบ (Bounding Box Regression) ออกจากกันอย่างอิสระ ช่วยลดความซับซ้อนในการคำนวณและเพิ่มความเร็วในการอนุมานผล
-\end{enumerate}
-
-\begin{figure}[H]
-    \centering
-    \resizebox{0.85\textwidth}{!}{
-    \begin{tikzpicture}[node distance=1.5cm, auto, >=stealth]
-        \tikzstyle{box_bb} = [rectangle, draw=rbruNavy, fill=rbruNavy!12, text width=2.4cm, text centered, rounded corners, minimum height=1.1cm, font=\footnotesize\bfseries]
-        \tikzstyle{box_nk} = [rectangle, draw=agriForest, fill=agriForest!12, text width=2.4cm, text centered, rounded corners, minimum height=1.1cm, font=\footnotesize\bfseries]
-        \tikzstyle{box_hd} = [rectangle, draw=durianGold!80!black, fill=durianGold!20, text width=2.4cm, text centered, rounded corners, minimum height=1.1cm, font=\footnotesize\bfseries]
-        \tikzstyle{arrow} = [draw=rbruNavy, thick, ->]
-        
-        \node [box_bb] (img) {ภาพนำเข้า\\(640$\times$640 RGB)};
-        \node [box_bb, right of=img, node distance=3.2cm] (c3k2) {Backbone\\(C3k2 + Conv)};
-        \node [box_bb, right of=c3k2, node distance=3.2cm] (sppf) {Spatial Pooling\\(SPPF + C2PSA)};
-        
-        \node [box_nk, below of=sppf, node distance=2.0cm] (neck) {PANet Neck\\(Multi-scale Fusion)};
-        \node [box_hd, left of=neck, node distance=3.2cm] (head_cls) {Decoupled Head\\(Class: 3 Categories)};
-        \node [box_hd, left of=head_cls, node distance=3.2cm] (head_box) {Decoupled Head\\(BBox: CIoU + DFL)};
-        
-        \path [arrow] (img) -- (c3k2);
-        \path [arrow] (c3k2) -- (sppf);
-        \path [arrow] (sppf) -- (neck);
-        \path [arrow] (neck) -- (head_cls);
-        \path [arrow] (neck) -- (head_box);
-    \end{tikzpicture}
-    }
-    \caption{แผนผังสถาปัตยกรรมโครงข่ายประสาทเทียมตรวจจับรอยโรคพืช YOLO11}
-    \label{fig:yolo11_arch}
-\end{figure}
-
-\section{ระเบียบวิธีสกัดรอยโรคแบบอัจฉริยะ (Smart Select Bounding Box Algorithm)}
-
-ในการฝึกสอนโมเดลตรวจจับวัตถุ ปัญหาคอขวดที่สำคัญที่สุดคือความสิ้นเปลืองเวลาในการตีกรอบพิกัด (Manual Annotation) ทีละภาพ หากใช้กำลังคนวาดภาพ 150 ภาพ ภาพละหลายสิบกรอบ อาจต้องใช้เวลานานหลายวันและมีความคลาดเคลื่อนระหว่างบุคคล (Inter-annotator Variability) เพื่อแก้ปัญหานี้ งานวิจัยนี้จึงได้พัฒนาอัลกอริทึม **Smart Select Bounding Box Engine** ซึ่งอาศัยทฤษฎีสีทางชีวฟิสิกส์และการแบ่งส่วนเชิงสัณฐานวิทยา (Bio-chromatic Morphological Segmentation) ดังนี้
-
-\subsection{การตัดพื้นหลังและสกัดขอบเขตใบสมบูรณ์ (Healthy Leaf Isolation)}
-ภาพถ่ายใบพืชจากสตูดิโอถ่ายภาพมักมีพื้นหลังเป็นสีเทาเป็นกลาง (Neutral Grey Table) หรือสีขาวขุ่น อัลกอริทึมใช้ความสัมพันธ์ของค่าความต่างสีสัมบูรณ์ระหว่างแม่สีแดง เขียว และน้ำเงิน เพื่อระบุพื้นหลัง
-\begin{equation}
-    B_{bg}(x, y) = (|R - G| < \delta) \land (|G - B| < \delta) \land (|R - B| < \delta) \land (R > \tau_{bg})
-\end{equation}
-\noindent เมื่อกำหนด $\delta = 14$ และ $\tau_{bg} = 75$ บริเวณเนื้อใบพืชจริงจะถูกสกัดผ่านเงื่อนไขการสะท้อนของคลอโรฟิลล์ (Chlorophyll Reflectance) คือ $G > R + 14$ และ $G > B + 18$ ขอบเขตพิกัดสี่เหลี่ยมแนบสนิท (Tight Bounding Box) ของใบสมบูรณ์จะถูกสร้างขึ้นจากค่าพิกัดต่ำสุดและสูงสุดของพิกเซลใบ
-
-\subsection{การระบุตุ่มสปอร์ราสนิม (Leaf Rust Pustule Localization)}
-สปอร์ของเชื้อรา \textit{Hemileia vastatrix} มีรงควัตถุแคโรทีนอยด์ในหยดน้ำมันทำให้เกิดผงสปอร์สีส้มทองสดใสบนพื้นใบเขียว จึงกำหนดเกณฑ์ตรวจจับรอยโรคราสนิมดังสมการ
-\begin{equation}
-    M_{rust}(x, y) = M_{leaf}(x, y) \land (R > G + 10) \land (R > B + 40) \land (R > 90) \land (B < 120)
-\end{equation}
-\noindent หลังจากนั้น ระบบจะประยุกต์ใช้การรวมกลุ่มกริดแบบปรับตัว (Adaptive Spatial Clustering) ในรัศมี 16 พิกเซล เพื่อรวมหย่อมสปอร์ที่อยู่ชิดกันเป็นกรอบ Bounding Box เดี่ยวที่มีความกระชับสูง
-
-\subsection{การระบุแผลไหม้โฟม่า (Phoma Blight Lesion Localization)}
-แผลโรคโฟม่าเกิดจากเนื้อเยื่อที่ตายและแห้งกรอบ (Necrotic Tissue) มีสีน้ำตาลไหม้จนถึงดำเข้ม โดยมีความสว่างเฉลี่ยต่ำกว่าเนื้อใบปกติอย่างมีนัยสำคัญ ระบบคำนวณค่าความสว่างสัมพัทธ์ (Relative Luma) $Y = 0.299R + 0.587G + 0.114B$ และสกัดบริเวณแผลตามเกณฑ์
-\begin{equation}
-    M_{phoma}(x, y) = M_{leaf}(x, y) \land (Y < 0.62 \cdot \bar{Y}_{leaf}) \land (R < 110) \land (B < 90)
-\end{equation}
-\noindent จากนั้นทำการวิเคราะห์ส่วนประกอบเชื่อมโยง (Connected Components) และกรองสัญญาณรบกวนที่มีพื้นที่น้อยกว่า 35 พิกเซลออก เพื่อให้ได้กรอบแผลโรคโฟม่าที่แท้จริง
-
-\section{ฟังก์ชันความสูญเสียและการประเมินประสิทธิภาพโมเดล}
-
-การฝึกสอนโมเดล YOLO11 ใช้ฟังก์ชันความสูญเสียรวม (Total Loss Function) ซึ่งประกอบด้วย 3 องค์ประกอบหลัก เพื่อให้โมเดลสามารถระบุทั้งคลาสและปรับตำแหน่งกรอบได้อย่างสมดุล
-\begin{equation}
-    \mathcal{L}_{total} = \lambda_{box} \mathcal{L}_{CIoU} + \lambda_{dfl} \mathcal{L}_{DFL} + \lambda_{cls} \mathcal{L}_{cls}
-\end{equation}
-\noindent โดยที่ $\mathcal{L}_{CIoU}$ คือ Complete Intersection over Union Loss ซึ่งพิจารณาทั้งสัดส่วนการทับซ้อน ระยะห่างระหว่างจุดกึ่งกลาง และอัตราส่วนกว้างยาวของกรอบ ดังแสดงในสมการ
-\begin{equation}
-    \mathcal{L}_{CIoU} = 1 - \text{IoU} + \frac{\rho^2(b, b^{gt})}{c^2} + \alpha v
-\end{equation}
-\noindent โดยที่ $\rho(b, b^{gt})$ คือระยะห่างแบบยุคลิดระหว่างจุดศูนย์กลางกรอบทำนายกับกรอบจริง $c$ คือความยาวเส้นทแยงมุมของกรอบปิดล้อมที่เล็กที่สุด และ $v = \frac{4}{\pi^2} \left( \arctan\frac{w^{gt}}{h^{gt}} - \arctan\frac{w}{h} \right)^2$ คือตัววัดความไม่สอดคล้องของอัตราส่วนกรอบ
-
-ในส่วนของการประเมินผลประสิทธิภาพ นิยามของค่าความแม่นยำเฉลี่ย (Mean Average Precision: mAP) ที่ระดับการทับซ้อนเกณฑ์ $\text{IoU} = 0.50$ (mAP50) และเฉลี่ยตลอดช่วง $\text{IoU} \in [0.50, 0.95]$ (mAP50-95) ได้แสดงไว้ใน\mbox{ตารางที่} \ref{tab:edge_ai_benchmarks}
-
-\begin{table}[H]
-\centering
-\small
-\caption{การเปรียบเทียบประสิทธิภาพสถาปัตยกรรมโมเดลตรวจจับวัตถุบนบอร์ดสมองกลฝังตัว}
-\label{tab:edge_ai_benchmarks}
-\begin{tabularx}{\textwidth}{p{3.6cm}ccccX}
-\toprule
-\textbf{สถาปัตยกรรมโมเดล} & \textbf{พารามิเตอร์} & \textbf{ขนาด} & \textbf{mAP50} & \textbf{Latency (RPi 4)} & \textbf{การนำไปใช้} \\
-\midrule
-YOLOv5s & 7.2M & 14.8 MB & 88.4\% & 145 ms & ทั่วไป \\
-YOLOv8n & 3.2M & 6.5 MB & 91.2\% & 68 ms & ดี \\
-\textbf{YOLO11n (Proposed)} & \textbf{2.6M} & \textbf{5.4 MB} & \textbf{93.6\%} & \textbf{52 ms} & \textbf{แนะนำ} \\
-YOLO11n-INT8 (Quantized) & 2.6M & \textbf{2.8 MB} & 92.9\% & \textbf{24 ms} & \textbf{เหมาะกับ Edge AI} \\
-\bottomrule
-\end{tabularx}
-\end{table}
-
-\section{การบูรณาการคลาวด์ Roboflow และกระบวนการส่งออกสู่ Edge AI}
-
-กระบวนการเชื่อมต่อระหว่างระบบพัฒนาข้อมูลกับคลาวด์ระดับสากล ดำเนินการผ่าน Roboflow REST API โดยตรง รหัสต้นฉบับภาษาไพธอนในการส่งออกชุดข้อมูล Smart Select ที่แปลงเป็นฟอร์แมต YOLOv8/YOLO11 แสดงในกรอบคำสั่งที่ \ref{code:roboflow_pipeline}
-
-\begin{noticebox}{รหัสภาษาไพธอนสำหรับการเชื่อมต่อ Roboflow API และการส่งออกโมเดล}
-\label{code:roboflow_pipeline}
-\begin{lstlisting}[language=Python]
-from roboflow import Roboflow
-from ultralytics import YOLO
-
-# 1. Download Smart Select Dataset from Roboflow Cloud
-rf = Roboflow(api_key="YOUR_ROBOFLOW_API_KEY")
-project = rf.workspace("durian-nodisease").project("aiot_workshop2026")
-dataset = project.version(1).download("yolov11")
-
-# 2. Train YOLO11 Nano on Leaf Pathology Dataset
-model = YOLO("yolo11n.pt")
-results = model.train(
-    data=f"{dataset.location}/data.yaml",
-    epochs=50,
-    imgsz=640,
-    batch=16,
-    device=0
-)
-
-# 3. Export to Optimized Formats for Embedded Smart Farm Hardware
-model.export(format="onnx", imgsz=640, dynamic=False)
-model.export(format="tflite", imgsz=320, int8=True)
-\end{lstlisting}
-\end{noticebox}
-
-\section{สรุปสารัตถะ แบบฝึกหัด และกรณีศึกษาเชิงวิพากษ์}
-
-คู่มือปฏิบัติการนี้ได้วางกรอบมาตรฐานสากลสำหรับการตรวจจับรอยโรคพืชในระดับวัตถุ ตั้งแต่การสร้างคำนิยามทางพยาธิวิทยาพืช อัลกอริทึม Smart Select Bounding Box ที่ช่วยลดระยะเวลาการทำ Annotation ลงมากกว่าร้อยละ 90 ตลอดจนการฝึกสอนสถาปัตยกรรม YOLO11 และการบีบอัดโมเดลสู่มาตรฐาน INT8 ควอนไตเซชัน เพื่อให้ทำงานได้แบบ Real-time บนบอร์ดสมองกลฝังตัวภาคสนาม
-
-\begin{tcolorbox}[colback=white, colframe=rbruNavy, title={\textbf{คำถามทบทวนและกรณีศึกษาประจำบทที่ 13}}]
-\begin{enumerate}
-    \item จงอธิบายบทบาทของกลไก C2PSA (Cross Stage Partial with Spatial Attention) ในสถาปัตยกรรม YOLO11 ว่าช่วยเพิ่มความแม่นยำในการตรวจจับตุ่มสปอร์ราสนิมขนาดเล็กได้อย่างไร
-    \item ในการคำนวณ Complete IoU Loss พารามิเตอร์ $\alpha v$ มีหน้าที่อย่างไร และหากกรอบทำนายมีอัตราส่วนความกว้างยาวตรงกับกรอบจริงแต่มีตำแหน่งเหลื่อมกัน ค่า $v$ จะมีค่าเท่าใด?
-    \item หากต้องการนำโมเดล YOLO11n-INT8 ไปติดตั้งบนกล้องสมาร์ทฟาร์ม ESP32-S3 ที่มีหน่วยความจำ PSRAM ขนาด 8 MB จงวิเคราะห์ข้อจำกัดด้านขนาดภาพนำเข้า (Resolution) และอัตราเฟรมต่อวินาที (FPS) ที่สามารถทำได้จริง
-    \item จงเปรียบเทียบข้อดีและข้อจำกัดระหว่างการส่งออกโมเดลในรูปแบบ ONNX กับ TensorFlow Lite INT8 สำหรับการใช้งานบนบอร์ด Raspberry Pi 5
-    \item กรณีศึกษาเชิงวิพากษ์ ในแปลงปลูกกาแฟพันธุ์อาราบิกาที่มีการระบาดของโรคราสนิมร่วมกับโรคแผลไหม้โฟม่าพร้อมกัน หากระบบตรวจพบความหนาแน่นของตุ่มราสนิมเกิน 15 กรอบต่อใบ จงออกแบบอัลกอริทึมในการสั่งการปั๊มพ่นสารชีวภัณฑ์แบบแปรผันตามโซน (Variable Rate Application: VRA)
-\end{enumerate}
-\end{tcolorbox}
-
-
+assessment_latex = r"""
 \section{คลังแบบทดสอบประเมินสมรรถนะการเรียนรู้และเฉลยเชิงวิเคราะห์}
 \label{sec:ch13_assessment_bank}
 
@@ -464,3 +249,16 @@ model.export(format="tflite", imgsz=320, int8=True)
 \tcblower
 \textbf{เฉลยเชิงวิเคราะห์} นี่คือสายการผลิตอัจฉริยะที่ถูกต้องตามหลักวิศวกรรมแบบบูรณาการ เริ่มต้นจากการคุมสภาพแวดล้อมทางแสง $\rightarrow$ ใช้การประมวลผลภาพเบื้องต้นคัดกรองมิติภายนอก $\rightarrow$ ส่งต่อให้ AI วินิจฉัยรอยโรคระดับลึก $\rightarrow$ และประมวลผลสั่งการกลไกทางกายภาพผ่าน GPIO ได้อย่างแม่นยำสมบูรณ์แบบ
 \end{tcolorbox}
+"""
+
+with open(CH13_PATH, "r", encoding="utf-8") as f:
+    content = f.read()
+
+# Replace or append before the end of chapter or after review questions
+if r"\section{คลังแบบทดสอบประเมินสมรรถนะการเรียนรู้และเฉลยเชิงวิเคราะห์}" not in content:
+    updated_content = content + "\n" + assessment_latex
+    with open(CH13_PATH, "w", encoding="utf-8") as f:
+        f.write(updated_content)
+    print("✅ Appended Assessment Bank to Chapter 13 successfully!")
+else:
+    print("ℹ️ Assessment Bank already present in Chapter 13.")
