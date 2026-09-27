@@ -1,5 +1,6 @@
 from .config import (
     BASE_DIR,
+    WORKSPACE_DIR,
     RAW_DATASET_DIR,
     DATA_DIR,
     SPLITS_DIR,

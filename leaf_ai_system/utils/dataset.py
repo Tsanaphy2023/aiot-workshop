@@ -16,7 +16,10 @@ from config import (
     SPLITS_DIR,
     TRAIN_CONFIG,
     IMAGE_MEAN,
-    IMAGE_STD
+    IMAGE_STD,
+    RAW_DATASET_DIR,
+    WORKSPACE_DIR,
+    CROPS_CONFIG
 )
 
 def get_transforms(image_size: int = 224, is_train: bool = True):
@@ -68,9 +71,79 @@ class LeafDataset(Dataset):
     def __len__(self):
         return len(self.df)
 
+    def _resolve_image_path(self, row) -> Path:
+        raw_val = str(row.get("filepath", "")).strip()
+        path = Path(raw_val)
+        if path.exists():
+            return path
+
+        # Normalize slashes
+        norm_str = raw_val.replace("\\", "/")
+        rel_subpath = None
+        if "leaf workshop/" in norm_str:
+            rel_subpath = norm_str.split("leaf workshop/", 1)[1]
+        elif "leaf workshop" in norm_str:
+            parts = norm_str.split("leaf workshop")
+            rel_subpath = parts[-1].lstrip("/")
+
+        crop = row.get("crop", None)
+        folder = CROPS_CONFIG.get(crop, {}).get("folder", "") if crop else ""
+        raw_label = row.get("raw_label", "")
+        filename = row.get("filename", path.name)
+
+        candidate_bases = [
+            RAW_DATASET_DIR,
+            WORKSPACE_DIR / "leaf workshop",
+            Path("../leaf workshop").resolve(),
+            Path("leaf workshop").resolve(),
+            Path("/content/leaf workshop"),
+            Path("/content/aiot-workshop/leaf workshop"),
+            Path("/content/drive/MyDrive/leaf workshop"),
+            Path("/content/drive/MyDrive/aiot-workshop/leaf workshop"),
+            Path(__file__).resolve().parent.parent.parent / "leaf workshop",
+            Path.cwd().parent / "leaf workshop",
+            Path.cwd() / "leaf workshop"
+        ]
+
+        for base in candidate_bases:
+            if not base or not base.exists():
+                continue
+
+            # Candidate 1: base / rel_subpath
+            if rel_subpath:
+                cand = base / rel_subpath
+                if cand.exists():
+                    return cand
+
+            # Candidate 2: base / folder / raw_label / filename
+            if folder and raw_label and filename:
+                cand = base / folder / raw_label / filename
+                if cand.exists():
+                    return cand
+
+            # Candidate 3: base / raw_label / filename
+            if raw_label and filename:
+                cand = base / raw_label / filename
+                if cand.exists():
+                    return cand
+
+        # Check relative to cwd or workspace if not absolute
+        if not path.is_absolute():
+            for base in [WORKSPACE_DIR, Path.cwd(), Path.cwd().parent]:
+                cand = base / path
+                if cand.exists():
+                    return cand
+
+        raise FileNotFoundError(
+            f"Image file not found: '{raw_val}'.\n"
+            f"Could not locate image under 'leaf workshop'.\n"
+            f"Checked locations: {[str(b) for b in candidate_bases if b.exists()] or 'No leaf workshop directory found'}.\n"
+            f"Please verify that the dataset is uncompressed/mounted at '../leaf workshop' or '/content/leaf workshop'."
+        )
+
     def __getitem__(self, idx):
         row = self.df.iloc[idx]
-        img_path = row["filepath"]
+        img_path = self._resolve_image_path(row)
         label_id = int(row["label_id"])
 
         try:
@@ -81,7 +154,7 @@ class LeafDataset(Dataset):
         if self.transform:
             image = self.transform(image)
 
-        return image, label_id, img_path
+        return image, label_id, str(img_path)
 
 def get_dataloaders(crop: str = "corn", batch_size: int = None, image_size: int = None, num_workers: int = 2):
     """

@@ -98,10 +98,14 @@
       </button>
       <button class="tab-btn" data-tab="tab-predict">
         <span class="tab-num">05</span>
-        <span class="tab-title">ทดสอบทำนายภาพ</span>
+        <span class="tab-title">จำแนกโรค (Classification)</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-bbox">
+        <span class="tab-num">06</span>
+        <span class="tab-title">ตรวจจับ Bounding Box</span>
       </button>
       <button class="tab-btn" data-tab="tab-export">
-        <span class="tab-num">06</span>
+        <span class="tab-num">07</span>
         <span class="tab-title">ส่งออก Edge AI</span>
       </button>
     </nav>
@@ -462,16 +466,199 @@
                 <!-- Injected dynamically -->
               </div>
             </div>
+
+            <div class="mt-4 pt-3" style="border-top: 1px solid rgba(255,255,255,0.1);">
+              <button id="btn-jump-to-bbox" class="btn btn-outline btn-block" style="border-color: #EF4444; color: #EF4444;">
+                <span>🎯 ตีกรอบระบุตำแหน่ง Bounding Box สำหรับภาพนี้ (Go to Bounding Box Studio) ➔</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- TAB 6: EDGE AI EXPORT -->
+    <!-- TAB 6: OBJECT DETECTION & BOUNDING BOX STUDIO -->
+    <section id="tab-bbox" class="tab-content">
+      <div class="panel-header">
+        <div>
+          <h2>🎯 ขั้นตอนที่ 6: ตรวจจับตำแหน่งรอยโรคและผลผลิตด้วย Bounding Box (Object Detection Studio)</h2>
+          <p class="panel-sub">ระบบตรวจหาพิกัดรอยโรค (Lesion Localization), ตีกรอบความเสียหายพืช, เครื่องมือวาด Label กำหนดกรอบวัตถุ (Roboflow Style) และส่งออกพิกัดมาตรฐาน YOLO / COCO</p>
+        </div>
+        <div class="panel-tools">
+          <span class="badge" style="background: rgba(239, 68, 68, 0.2); color: #EF4444; border: 1px solid rgba(239, 68, 68, 0.4);">YOLO / Bounding Box Ready</span>
+        </div>
+      </div>
+
+      <!-- Detection Setting Ribbon -->
+      <div class="card mb-4" style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(16, 185, 129, 0.25);">
+        <div class="bbox-controls-grid">
+          <div class="control-group">
+            <label class="control-label">โหมดการทำงาน (Mode):</label>
+            <div class="mode-toggle-group">
+              <button class="btn btn-sm btn-mode active" id="btn-mode-auto">🤖 AI Auto-Detect</button>
+              <button class="btn btn-sm btn-mode" id="btn-mode-manual">✏️ Manual Labeler</button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="bbox-crop-select">พืชเป้าหมาย (Target Crop):</label>
+            <select id="bbox-crop-select" class="form-select">
+              <option value="auto">🔍 อัตโนมัติ (Auto Detect)</option>
+              <option value="corn">🌽 ข้าวโพด (Corn - Blight / Rust / Spot)</option>
+              <option value="coffee">☕ กาแฟ (Coffee - Rust / Phoma)</option>
+              <option value="potato">🥔 มันฝรั่ง (Potato - Early / Late Blight)</option>
+              <option value="orange">🍊 ส้ม (Orange - Ripe / Defect)</option>
+              <option value="mango">🥭 มะม่วง (Mango - Anthracnose / Quality)</option>
+              <option value="banana">🍌 กล้วย (Banana - Ripeness / Rotten)</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <div class="flex-between">
+              <label class="control-label" for="slider-conf">เกณฑ์ความมั่นใจ (Confidence Threshold):</label>
+              <span class="slider-badge" id="val-conf">35%</span>
+            </div>
+            <input type="range" id="slider-conf" min="10" max="95" value="35" class="slider">
+          </div>
+
+          <div class="control-group">
+            <div class="flex-between">
+              <label class="control-label" for="slider-iou">เกณฑ์ตัดกรอบซ้อน (NMS IoU):</label>
+              <span class="slider-badge" id="val-iou">45%</span>
+            </div>
+            <input type="range" id="slider-iou" min="10" max="80" value="45" class="slider">
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2col">
+        <!-- Left: Image Selection & Annotation Toolbar -->
+        <div class="card">
+          <h3 class="card-title">📤 1. เลือกภาพหรืออัปโหลด</h3>
+
+          <!-- Dropzone for Bounding Box -->
+          <div class="upload-dropzone" id="bbox-dropzone">
+            <input type="file" id="bbox-file-input" accept="image/*" class="file-input-hidden">
+            <div class="dropzone-icon">🎯</div>
+            <h4>ลากไฟล์ภาพใบพืชมาวางที่นี่ หรือคลิกเพื่ออัปโหลด</h4>
+            <p class="text-muted">รองรับไฟล์ภาพ JPG, PNG สำหรับตรวจจับ Bounding Box</p>
+          </div>
+
+          <div class="divider-text"><span>หรือเลือกภาพตัวอย่างรอยโรคจากแปลง</span></div>
+
+          <div class="sample-picks-grid" id="bbox-sample-picks">
+            <!-- Thumbnails injected via JS -->
+          </div>
+
+          <!-- Manual Annotation Toolbar (Visible in Manual Mode) -->
+          <div id="manual-label-toolbar" class="manual-toolbar mt-3" style="display: none;">
+            <div class="toolbar-header">
+              <span class="toolbar-title">🎨 กล่องเครื่องมือวาด Bounding Box:</span>
+              <span class="toolbar-tip">คลิกแล้วลากเมาส์บนภาพเพื่อวาดกรอบ</span>
+            </div>
+            <div class="flex-gap mt-2">
+              <select id="manual-class-select" class="form-select flex-1">
+                <option value="Blight_Lesion" data-color="#EF4444">🔴 Blight_Lesion (รอยไหม้/จุดแผล)</option>
+                <option value="Rust_Pustule" data-color="#F59E0B">🟠 Rust_Pustule (ตุ่มราสนิม)</option>
+                <option value="Spot_Damage" data-color="#EC4899">🟣 Spot_Damage (จุดวงแหวน/เนื้อตาย)</option>
+                <option value="Rotten_Defect" data-color="#DC2626">🟤 Rotten_Defect (ผลเน่า/ตำหนิ)</option>
+                <option value="Fruit_Body" data-color="#3B82F6">🔵 Fruit_Body (ผลผลิตเดี่ยว)</option>
+                <option value="Healthy_Area" data-color="#10B981">🟢 Healthy_Area (ใบสมบูรณ์)</option>
+              </select>
+              <button id="btn-undo-box" class="btn btn-sm btn-outline" title="ย้อนกลับกรอบล่าสุด">↩ ย้อนกลับ</button>
+              <button id="btn-clear-boxes" class="btn btn-sm btn-outline text-danger" title="ล้างกรอบทั้งหมด">🗑 ล้างทั้งหมด</button>
+            </div>
+          </div>
+
+          <button id="btn-detect-bbox" class="btn btn-primary btn-block mt-4" disabled>
+            <span>✨ สแกนและตีกรอบ Bounding Box ทันที (Detect Bounding Boxes)</span>
+          </button>
+        </div>
+
+        <!-- Right: Interactive Canvas & Detection Table -->
+        <div class="card">
+          <div class="flex-between mb-2">
+            <h3 class="card-title mb-0">🖼️ 2. ผลการตีกรอบ Bounding Box (Visual Canvas)</h3>
+            <span class="badge" id="bbox-count-badge">0 วัตถุที่ตรวจพบ</span>
+          </div>
+
+          <div id="bbox-empty" class="text-center p-6 text-muted">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">🎯</div>
+            <p>กรุณาเลือกภาพจากฝั่งซ้าย แล้วกดปุ่ม "สแกนและตีกรอบ Bounding Box ทันที"</p>
+          </div>
+
+          <div id="bbox-viewer-wrap" style="display: none;">
+            <!-- Canvas Container -->
+            <div class="canvas-viewport" id="canvas-viewport">
+              <canvas id="bbox-canvas"></canvas>
+              <div id="canvas-crosshair"></div>
+            </div>
+
+            <!-- Agronomic Diagnosis Alert -->
+            <div class="diagnosis-banner mt-3" id="diagnosis-banner">
+              <div class="diagnosis-icon" id="diagnosis-icon">🩺</div>
+              <div>
+                <div class="diagnosis-title" id="diagnosis-title">วิเคราะห์ระดับอาการ: -</div>
+                <div class="diagnosis-desc" id="diagnosis-desc">-</div>
+              </div>
+            </div>
+
+            <!-- Stats Ribbon -->
+            <div class="bbox-mini-stats mt-3">
+              <div class="mini-stat">
+                <span class="mini-stat-lbl">จำนวน Bounding Box</span>
+                <span class="mini-stat-val text-primary" id="stat-total-boxes">0</span>
+              </div>
+              <div class="mini-stat">
+                <span class="mini-stat-lbl">สัดส่วนพื้นที่ติดโรค (Area %)</span>
+                <span class="mini-stat-val text-warning" id="stat-damage-pct">0.0%</span>
+              </div>
+              <div class="mini-stat">
+                <span class="mini-stat-lbl">ระดับความรุนแรง (Severity)</span>
+                <span class="mini-stat-val" id="stat-severity">Normal</span>
+              </div>
+            </div>
+
+            <!-- Bounding Box Table Inspector -->
+            <div class="mt-4">
+              <div class="flex-between mb-2">
+                <h4 class="subhead mb-0">📋 รายการ Bounding Boxes ที่ตรวจพบ:</h4>
+                <div class="export-actions-group">
+                  <button id="btn-export-yolo" class="btn btn-xs btn-outline">📥 YOLO (labels.txt)</button>
+                  <button id="btn-export-json" class="btn btn-xs btn-outline">📥 COCO / VOC (JSON)</button>
+                  <button id="btn-download-annotated" class="btn btn-xs btn-outline">🖼️ บันทึกภาพ</button>
+                </div>
+              </div>
+
+              <div class="table-responsive">
+                <table class="data-table" id="bbox-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 40px;">#</th>
+                      <th>คลาส (Class Label)</th>
+                      <th>ความมั่นใจ</th>
+                      <th>พิกัด BBox [X, Y, W, H]</th>
+                      <th>YOLO Normalized</th>
+                      <th>พื้นที่</th>
+                      <th style="width: 50px;">ลบ</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bbox-table-body">
+                    <!-- Injected dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 7: EDGE AI EXPORT -->
     <section id="tab-export" class="tab-content">
       <div class="panel-header">
         <div>
-          <h2>📦 ขั้นตอนที่ 6: ส่งออกโมเดลสำหรับ Edge AI & IoT (ONNX / TorchScript)</h2>
+          <h2>📦 ขั้นตอนที่ 7: ส่งออกโมเดลสำหรับ Edge AI & IoT (ONNX / TorchScript)</h2>
           <p class="panel-sub">ส่งออกโมเดลสำหรับนำไปใช้งานจริงบนอุปกรณ์ IoT, บอร์ด ESP32-CAM, Raspberry Pi, หรือ Web Application</p>
         </div>
         <div>

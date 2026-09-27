@@ -357,6 +357,66 @@ if ($action === 'export') {
         'output' => $output,
         'exported_files' => $exported
     ]);
+// 9. OBJECT DETECTION & BOUNDING BOXES
+if ($action === 'detect_bounding_boxes') {
+    $imagePath = '';
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        $uploadDir = "$baseDir/outputs/uploads";
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
+        $filename = 'det_upload_' . time() . '_' . basename($_FILES['image']['name']);
+        $imagePath = "$uploadDir/$filename";
+        move_uploaded_file($_FILES['image']['tmp_name'], $imagePath);
+    } elseif (!empty($_POST['image_path'])) {
+        $imagePath = $_POST['image_path'];
+    }
+
+    if (!$imagePath || !file_exists($imagePath)) {
+        json_response(['status' => 'error', 'message' => 'Image file not provided or not found.'], 400);
+    }
+
+    $crop = $_POST['crop'] ?? 'auto';
+    $conf = floatval($_POST['conf_threshold'] ?? 0.35);
+    $iou = floatval($_POST['iou_threshold'] ?? 0.45);
+
+    $outDir = "$baseDir/outputs/detections";
+    if (!is_dir($outDir)) {
+        mkdir($outDir, 0777, true);
+    }
+    $annotatedName = 'annotated_' . time() . '_' . pathinfo($imagePath, PATHINFO_FILENAME) . '.jpg';
+    $outputPath = "$outDir/$annotatedName";
+
+    $cmd = sprintf(
+        '%s %s/scripts/05_object_detection.py --image %s --crop %s --conf_threshold %f --iou_threshold %f --output_img %s --json 2>&1',
+        escapeshellcmd($venvPython),
+        escapeshellcmd($baseDir),
+        escapeshellarg($imagePath),
+        escapeshellarg($crop),
+        $conf,
+        $iou,
+        escapeshellarg($outputPath)
+    );
+
+    $raw = shell_exec($cmd);
+    $jsonStart = strpos($raw, '{');
+    $jsonEnd = strrpos($raw, '}');
+    $parsed = null;
+    if ($jsonStart !== false && $jsonEnd !== false) {
+        $jsonStr = substr($raw, $jsonStart, $jsonEnd - $jsonStart + 1);
+        $parsed = json_decode($jsonStr, true);
+    }
+
+    if ($parsed && !empty($parsed['annotated_image_filename'])) {
+        $parsed['annotated_image_url'] = 'outputs/detections/' . $parsed['annotated_image_filename'];
+    }
+
+    json_response([
+        'status' => 'success',
+        'result' => $parsed,
+        'annotated_image_url' => 'outputs/detections/' . $annotatedName,
+        'raw_output' => $raw
+    ]);
 }
 
 json_response(['status' => 'error', 'message' => "Unknown action: $action"], 400);

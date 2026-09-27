@@ -9,7 +9,24 @@ from pathlib import Path
 # Base Paths
 BASE_DIR = Path(__file__).resolve().parent.parent
 WORKSPACE_DIR = BASE_DIR.parent
-RAW_DATASET_DIR = WORKSPACE_DIR / "leaf workshop"
+
+# Dynamically locate RAW_DATASET_DIR across Mac, Linux/Colab, or Drive environments
+def find_dataset_dir() -> Path:
+    candidates = [
+        WORKSPACE_DIR / "leaf workshop",
+        Path("../leaf workshop").resolve(),
+        Path("leaf workshop").resolve(),
+        Path("/content/leaf workshop"),
+        Path("/content/aiot-workshop/leaf workshop"),
+        Path("/content/drive/MyDrive/leaf workshop"),
+        BASE_DIR.parent.parent / "leaf workshop"
+    ]
+    for c in candidates:
+        if c.exists() and c.is_dir():
+            return c
+    return WORKSPACE_DIR / "leaf workshop"
+
+RAW_DATASET_DIR = find_dataset_dir()
 
 DATA_DIR = BASE_DIR / "data"
 SPLITS_DIR = DATA_DIR / "splits"

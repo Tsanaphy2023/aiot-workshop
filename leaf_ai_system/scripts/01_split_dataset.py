@@ -60,8 +60,10 @@ def scan_crop_images(crop_key: str):
                 if file.is_file() and file.suffix.lower() in [".jpg", ".jpeg", ".png"]:
                     # When training 'all', prefix crop to prevent class name collisions
                     final_label = f"{c}_{cls_name}" if crop_key == "all" else cls_name
+                    # Store relative portable path across Mac, Windows, Linux, and Colab
+                    rel_filepath = f"leaf workshop/{cfg['folder']}/{cls_name}/{file.name}"
                     records.append({
-                        "filepath": str(file.resolve()),
+                        "filepath": rel_filepath,
                         "crop": c,
                         "raw_label": cls_name,
                         "label_name": final_label,
