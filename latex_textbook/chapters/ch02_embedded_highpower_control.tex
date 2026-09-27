@@ -75,6 +75,44 @@
 \end{tabularx}
 \end{table}
 
+\subsection{สถาปัตยกรรมบอร์ดพัฒนา GoGo-IoT v.2B และผังการเชื่อมต่อวงจร (Hardware Pinout)}
+
+สำหรับการเรียนรู้และประยุกต์ใช้งานจริงในหลักสูตร AIoT ได้มีการนำบอร์ดพัฒนา \textbf{GoGo-IoT v.2B}\index{GoGo-IoT v.2B} ซึ่งออกแบบและพัฒนาโดย อ.ดร.อานันท์ สีห์พิทักษ์เกียรติ มหาวิทยาลัยเชียงใหม่ มาใช้เป็นแกนกลางหลักในการเชื่อมต่อเซนเซอร์และระบบควบคุมชลศาสตร์แปลงเกษตร ตัวบอร์ดผนวกชิปประมวลผล ESP32 สองแกนประมวลผล เข้ากับเซนเซอร์วัดสภาวะแวดล้อมบนบัส $\text{I}^2\text{C}$ ในตัว และคอนเนกเตอร์ขยายสัญญาณแบบ Plug-and-Play
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth]{figures/gogo_iot_pinout.jpg}
+\caption{ผังการกำหนดขาและบล็อกไดอะแกรมวงจรของบอร์ด GoGo-IoT v.2B (Schematic \& Virtual Pinout Architecture)}
+\label{fig:gogo_iot_pinout}
+\end{figure}
+
+จากผังวงจรและภาพโครงสร้างอุปกรณ์เสมือนจริงในรูปที่ \ref{fig:gogo_iot_pinout} สถาปัตยกรรมฮาร์ดแวร์ประกอบด้วยส่วนประกอบสำคัญดังนี้:
+\begin{enumerate}[leftmargin=1.5em]
+    \item \textbf{On-Board $\text{I}^2\text{C}$ Sensor Bus (SDA: GPIO 21, SCL: GPIO 22):}
+    \begin{itemize}
+        \item \textbf{SHT3x (Address 0x44):} เซนเซอร์วัดอุณหภูมิและความชื้นสัมพัทธ์ในอากาศ ความแม่นยำสูง ($\pm 0.2^\circ\text{C}, \pm 2\%\text{RH}$) สำหรับประเมินค่า VPD
+        \item \textbf{BMP280 (Address 0x76):} เซนเซอร์วัดความกดอากาศและระดับความสูง (Barometric Pressure \& Altimeter)
+        \item \textbf{BH1750 (Address 0x23):} เซนเซอร์วัดความเข้มแสงแวดล้อม (Ambient Light Lux Meter)
+        \item \textbf{LIS3DH (Address 0x18):} เซนเซอร์วัดความเร่ง 3 แกน (3-Axis Accelerometer) สำหรับตรวจจับความเอียงและการเคลื่อนไหว
+    \end{itemize}
+    \item \textbf{Pin Headers \& Expansion Interfaces:}
+    \begin{itemize}
+        \item \textbf{Top Header:} ประกอบด้วยขา GPIO 21 (SDA), GPIO 22 (SCL), GPIO 30, GPIO 31, GND, GND และปุ่มกด BOOT (GPIO 0)
+        \item \textbf{Bottom Header:} ประกอบด้วยแรงดันไฟ 5V, 3.3V LDO, GPIO 5 (PWM), GPIO 16, GPIO 19 (ADC), GPIO 20 และ GND
+        \item \textbf{UART Port (Blue JST Connector):} พอร์ตสื่อสารอนุกรม (TX: GPIO 1, RX: GPIO 3, 5V, GND) รองรับการต่อพ่วง GPS หรือหน้าจอสัมผัส Nextion
+        \item \textbf{Multi Port (Purple JST Connector):} พอร์ตขยายสัญญาณบัส $\text{I}^2\text{C}$ (SDA, SCL, 3.3V, GND) สำหรับต่อเซนเซอร์เพิ่มเติม เช่น เซนเซอร์วัดธาตุอาหาร NPK ดิน
+    \end{itemize}
+    \item \textbf{High-Power Actuator \& Sensor Screw Terminals:}
+    \begin{itemize}
+        \item \textbf{Configurable 1 (Green Terminal):} วงจรเอาต์พุตขับรีเลย์/โซลินอยด์วาล์วน้ำ (ควบคุมด้วยขา GPIO 16) พร้อมไฟ LED แสดงสถานะการทำงาน
+        \item \textbf{Configurable 2 (Green Terminal):} ช่องรับสัญญาณอนาล็อกจากโพรบวัดแรงดึงน้ำในดิน (Tensiometer) ผ่านขา GPIO 19 (ADC)
+    \end{itemize}
+    \item \textbf{Power Management Circuitry:} ช่องชาร์จและเชื่อมต่อข้อมูลผ่านพอร์ต USB Type-C, สวิตช์เปิด-ปิดหลัก (Slide Switch), วงจรชาร์จแบตเตอรี่ลิเธียมไอออน พร้อมไฟ LED แสดงสถานะไฟเลี้ยง (PWR), สถานะชาร์จเต็ม (Charge Full) และเตือนแบตเตอรี่ต่ำ (Low Battery)
+\end{enumerate}
+
+ผู้เรียนสามารถทดสอบการทำงานของบอร์ดเสมือนจริงและศึกษาวงจรควบคุมผ่านระบบ \textbf{GoGo-IoT v.2B Virtual Lab \& Real-time Interactive Simulator} ได้บนเว็บพอร์ทัล ซึ่งจำลองการตอบสนองของเซนเซอร์ กราฟออสซิลโลสโคปความเร็ว 60 FPS และระบบ Virtual Serial Monitor เสมือนต่อกับบอร์ดจริงทุกประการ
+
+
 \section{ระบบปฏิบัติการเวลาจริง FreeRTOS และการจัดสรรภารกิจ}
 
 ในระบบควบคุมฟาร์ม การอ่านค่าเซนเซอร์ การรับส่งข้อมูลผ่านโครงข่ายไร้สาย และการควบคุมวาล์วหรือมอเตอร์ ต้องทำงานพร้อมกันอย่างแม่นยำ การเขียนโปรแกรมแบบวนลูปเดี่ยวดั้งเดิมจะทำให้เกิดการปิดกั้นการทำงาน (Blocking) การนำระบบปฏิบัติการเวลาจริง \textbf{FreeRTOS} เข้ามาบริหารจัดการ ทำให้สามารถแยกงานออกเป็นภารกิจย่อย (Tasks) ที่มีลำดับความสำคัญต่างกันได้
@@ -151,13 +189,17 @@ def build_vfd_write_frequency_packet(slave_id: int, target_hz: float) -> bytes:
 # cmd = build_vfd_write_frequency_packet(1, 42.50)
 \end{pythonbox}
 
-\section*{คำถามทบทวนท้ายบทที่ 2}
-\addcontentsline{toc}{section}{คำถามทบทวนท้ายบทที่ 2}
+\section*{คำถามทบทวนและการวิเคราะห์ปัญหาเชิงวิศวกรรมท้ายบทที่ 2}
+\addcontentsline{toc}{section}{คำถามทบทวนและการวิเคราะห์ปัญหาเชิงวิศวกรรมท้ายบทที่ 2}
 
 \begin{enumerate}
     \item จงอธิบายบทบาทของหน่วยประมวลผลเวกเตอร์ในชิป ESP32-S3 ว่ามีส่วนช่วยเร่งความเร็วในการประมวลผลปัญญาประดิษฐ์ที่ขอบอย่างไร
     \item ปรากฏการณ์ค้อนน้ำ (Water Hammer) เกิดจากสาเหตุใด และสามารถใช้หลักการควบคุมเชิงซอฟต์แวร์ป้องกันได้อย่างไร
     \item เหตุใดการขับโซลินอยด์วาล์ว 24VAC จึงต้องใช้โซลิดสเตตรีเลย์หรือไตรแอกชนิด Zero-Crossing
     \item หากต้องการลดการใช้พลังงานไฟฟ้าของเครื่องตีน้ำบ่อกุ้งลงร้อยละ 40 ควรปรับลดความถี่ของอินเวอร์เตอร์ VFD ลงเท่าใดตามกฎของพัดลมและปั๊ม (Affinity Laws)
+    \item \textbf{การวิเคราะห์ระบบอัตโนมัติ (Automation Timing Analysis):} หากต้องการตั้งกฎเปิดไฟส่องสว่างเมื่อมืดและเวลาตั้งแต่ 18.30 น. เป็นต้นไป จงอธิบายว่าเหตุใดการใช้ Trigger ตรวจสอบระดับแสงเพียงอย่างเดียวจึงทำให้ไฟไม่เปิดตอน 18.30 น. ในกรณีที่ฟ้ามืดก่อนเวลา และจงออกแบบ State Machine พร้อมการตั้งค่า Trigger และ Condition ที่สมบูรณ์
+    \item \textbf{การควบคุมแบบฮิสเทอรีซิส (Hysteresis Deadband Control):} จงวิเคราะห์ลำดับสถานะการทำงานของรีเลย์ควบคุมฮีตเตอร์ เมื่อตั้งเงื่อนไขเปิดที่อุณหภูมิต่ำกว่า 24$^\circ$C และปิดเมื่อสูงกว่า 28$^\circ$C หากเริ่มต้นที่ 30$^\circ$C แล้วอุณหภูมิเปลี่ยนเป็น 22$^\circ$C, 26$^\circ$C, 29$^\circ$C และ 25$^\circ$C ตามลำดับ พร้อมอธิบายประโยชน์ของแถบ Deadband ในการยืดอายุหน้าสัมผัสรีเลย์
+    \item \textbf{การแยกแยะจุดเสียของวงจรขับกำลัง (Relay Circuit Troubleshooting):} เมื่อสั่งเปิดรีเลย์ผ่านมิดเดิลแวร์ Home Assistant พบว่าสถานะขึ้น On และไฟ LED แสดงสถานะบนโมดูลรีเลย์สว่างขึ้น แต่หลอดไฟภายนอกไม่ทำงาน จงระบุขั้นตอนการตรวจสอบทางกายภาพและการวัดแรงดันเพื่อจำแนกระหว่างความผิดพลาดของวงจรควบคุมและวงจรโหลด
+    \item \textbf{การประเมินสถาปัตยกรรม Local Edge กับ Cloud IoT:} จงเปรียบเทียบพฤติกรรมการทำงานของระบบควบคุมอัตโนมัติภายในฟาร์มระหว่างระบบที่ประมวลผลบนเครื่องแม่ข่ายแลนท้องถิ่น (Local Edge Server) กับระบบที่พึ่งพาบริการคลาวด์ภายนอก ในสภาวะที่โครงข่ายอินเทอร์เน็ตหลุดแต่ไฟฟ้าและสัญญาณ Wi-Fi ภายในฟาร์มยังทำงานปกติ
 \end{enumerate}
 \clearpage

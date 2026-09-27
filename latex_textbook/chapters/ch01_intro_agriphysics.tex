@@ -9,6 +9,7 @@
     \item ความสำคัญของวิศวกรรมฟิสิกส์เกษตรดิจิทัลต่อการผลิตผลไม้มูลค่าสูงและการเพาะเลี้ยงสัตว์น้ำ
     \item รากฐานฟิสิกส์และเคมีไฟฟ้าของหัววัดสารอาหารและสภาพดินแบบบูรณาการ 7-in-1
     \item การแพร่ของก๊าซและอุณหพลศาสตร์แรงดึงระเหยน้ำของบรรยากาศสำหรับพืชสวน
+    \item การคำนวณอุณหภูมิสะสม (Growing Degree Days: GDD) และอุณหภูมิฐาน ($T_{base}$) เพื่อทำนายระยะฟีโนโลยีของพืช
     \item ฟิสิกส์การวัดออกซิเจนละลายน้ำเชิงแสงและสมดุลเคมีของน้ำในบ่อเพาะเลี้ยงสัตว์น้ำ
     \item โปรโตคอลการสื่อสารข้อมูลเซนเซอร์อุตสาหกรรมด้วย Modbus RTU\index{โปรโตคอลมอดบัส (Modbus RTU)}\index{Modbus RTU} ผ่านสายสัญญาณ RS485
 \end{enumerate}
@@ -18,6 +19,7 @@
 \begin{enumerate}[topsep=2pt, itemsep=1pt, partopsep=0pt, parsep=0pt, leftmargin=1.5em]
     \item อธิบายสมการเนิร์นสต์และความสัมพันธ์เชิงฟิสิกส์ของหัววัดค่ากรด-ด่างและความเค็มได้อย่างถูกต้อง
     \item คำนวณค่าแรงดึงระเหยน้ำของอากาศจากอุณหภูมิและความชื้นสัมพัทธ์ได้อย่างแม่นยำ
+    \item คำนวณค่าอุณหภูมิสะสม (GDD) และประยุกต์ใช้ค่า $T_{base}$ ในการวางแผนพยากรณ์การเจริญเติบโตและวันเก็บเกี่ยวผลผลิตทางการเกษตรได้อย่างถูกต้อง
     \item อธิบายหลักการดับการเรืองแสงเชิงแสงในการวัดออกซิเจนละลายน้ำได้อย่างถูกต้อง
     \item ออกแบบการเชื่อมต่อโครงข่ายเซนเซอร์ RS485 ร่วมกับการคำนวณรหัสตรวจสอบความถูกต้อง CRC-16 ได้อย่างสมบูรณ์
 \end{enumerate}
@@ -93,6 +95,24 @@ E = E^0 - \frac{2.303 R T}{n F} \text{pH}
 \end{tabularx}
 \end{table}
 
+\subsection{ฟิสิกส์แรงดึงน้ำในดินและสถานะความชื้นของพืช}
+
+การกักเก็บและปลดปล่อยน้ำของดินถูกควบคุมโดยพลังงานอิสระของโมเลกุลน้ำ \textbf{แรงดึงน้ำในดิน (Soil Water Tension หรือ Matric Suction)\index{แรงดึงน้ำในดิน (Soil Water Tension)}\index{Matric Potential}} เป็นตัวแปรเชิงฟิสิกส์ที่บ่งชี้แรงที่เม็ดดินยึดเหนี่ยวน้ำไว้ด้วยแรงตึงผิวและแรงแคปิลลารี ยิ่งดินมีน้ำน้อย เม็ดดินจะยิ่งจับน้ำไว้แน่น ทำให้รากพืชต้องออกแรงดึงน้ำสูงขึ้นตามลำดับ
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth]{figures/soil_water_tension_infographic.jpg}
+\caption{สภาวะทางฟิสิกส์ของแรงดึงน้ำในดิน 3 ระยะหลัก: สภาวะอิ่มตัวน้ำ ($0\text{ kPa}$), ความจุความชื้นสนามและช่วงเหมาะสม ($10$--$33\text{ kPa}$), และจุดเหี่ยวถาวร ($1,500\text{ kPa}$)}
+\label{fig:soil_water_tension}
+\end{figure}
+
+สภาวะทางชลศาสตร์ของน้ำในดินแบ่งออกเป็น 3 ระดับสำคัญ:
+\begin{enumerate}
+    \item \textbf{จุดอิ่มตัวด้วยน้ำ (Saturation, $\approx 0\text{ kPa}$):} ช่องว่างในดินทุกช่องถูกแทนที่ด้วยน้ำ เกิดภาวะขาดออกซิเจน (Hypoxia) ในเขตรากพืช เสี่ยงต่อการเกิดโรครากเน่าโคนเน่า
+    \item \textbf{ความจุความชื้นสนาม (Field Capacity: FC, $10$--$33\text{ kPa}$):} สภาวะสมดุลหลังน้ำส่วนเกินระบายทิ้ง เป็นช่วงน้ำที่เป็นประโยชน์ (Available Water) ที่รากพืชดูดซึมธาตุอาหารได้ดีที่สุด
+    \item \textbf{จุดเหี่ยวถาวร (Permanent Wilting Point: PWP, $1,500\text{ kPa}$):} น้ำถูกอนุภาคดินยึดไว้อย่างเหนียวแน่นจนรากพืชไม่สามารถดูดน้ำได้อีก ส่งผลให้พืชเหี่ยวเฉาถาวรและแห้งตาย
+\end{enumerate}
+
 \subsection{การคำนวณแรงดึงระเหยน้ำของอากาศสำหรับพืชสวน}
 
 การคายน้ำของพืชถูกควบคุมโดยสภาวะทางอุณหพลศาสตร์ของอากาศรอบทรงพุ่ม \textbf{ค่าแรงดึงระเหยน้ำของอากาศ (Vapor Pressure Deficit หรือ VPD)\index{แรงดึงระเหยน้ำของอากาศ (VPD)}\index{Vapor Pressure Deficit (VPD)}} เป็นตัวชี้วัดที่แม่นยำกว่าความชื้นสัมพัทธ์ โดยคำนวณจากผลต่างระหว่างความดันไอน้ำอิ่มตัว $e_s(T)$ กับความดันไอน้ำจริง $e_a$ ดังสมการ
@@ -108,6 +128,119 @@ e_s(T) = 0.61078 \exp\left( \frac{17.27 T}{T + 237.3} \right) \quad (\text{kPa})
 \end{equation}
 
 สำหรับต้นทุเรียนในระยะออกดอกและติดผล ช่วงค่า VPD ที่เหมาะสมสำหรับการเปิดปากใบและการสังเคราะห์ด้วยแสงจะอยู่ระหว่าง $0.8 - 1.2\text{ kPa}$ หากค่า VPD สูงเกินกว่า $1.6\text{ kPa}$ พืชจะปิดปากใบเพื่อป้องกันการสูญเสียน้ำ นำไปสู่การชะงักงันของการดูดซึมธาตุอาหารแคลเซียมและโบรอน
+
+\subsection{การคำนวณอุณหภูมิสะสม (Growing Degree Days) และอุณหภูมิฐาน ($T_{base}$) ทางสรีรวิทยาพืช}
+
+การเติบโตและการเปลี่ยนผ่านระยะทางสรีรวิทยาของพืช (Phenological Development) เช่น การงอก การแตกใบอ่อน การสร้างตาดอก การบานของดอก การสะสมแป้ง และการสุกแก่ของผล ไม่ได้ขึ้นอยู่กับจำนวนวันตามปฏิทิน (Chronological Time) หากแต่ขึ้นอยู่กับอัตราเร็วของปฏิกิริยาชีวเคมีภายในเซลล์ซึ่งถูกเร่งโดยพลังงานความร้อนในบรรยากาศ แนวคิดเรื่อง \textbf{อุณหภูมิสะสม (Growing Degree Days หรือ GDD)}\index{อุณหภูมิสะสม (Growing Degree Days)}\index{Growing Degree Days (GDD)}\index{Thermal Time} หรือเวลาเชิงความร้อน (Thermal Time) จึงเป็นหัวใจสำคัญของวิศวกรรมเกษตรแม่นยำในการคาดการณ์ระยะเวลาเก็บเกี่ยวและการจัดการแปลงปลูก
+
+\subsubsection{พารามิเตอร์ขอบเขตอุณหภูมิทางสรีรวิทยา}
+
+การตอบสนองของพืชต่ออุณหภูมิสามารถจำแนกออกเป็น 3 จุดวิกฤติหลัก (Cardinal Temperatures):
+\begin{enumerate}
+    \item \textbf{อุณหภูมิฐาน ($T_{base}$):} อุณหภูมิต่ำสุดที่กระบวนการแบ่งเซลล์และการเจริญเติบโตเริ่มทำงาน หากอุณหภูมิสิ่งแวดล้อมต่ำกว่า $T_{base}$ กระบวนการพัฒนาการของพืชจะหยุดชะงักลงโดยสมบูรณ์
+    \item \textbf{อุณหภูมิเหมาะสมที่สุด ($T_{opt}$):} ช่วงอุณหภูมิที่เอนไซม์และอัตราการสังเคราะห์ด้วยแสงทำงานได้ประสิทธิภาพสูงสุด
+    \item \textbf{อุณหภูมิวิกฤตขั้นสูง ($T_{upper}$):} อุณหภูมิเพดานสูงสุดที่พืชเริ่มเกิดภาวะเครียดจากความร้อน (Heat Stress) ปากใบปิดตัว และอัตราการเจริญเติบโตลดฮวบลงหรือหยุดชะงัก
+\end{enumerate}
+
+\subsubsection{สมการการคำนวณค่าอุณหภูมิสะสม (GDD Models)}
+
+ในระบบการเกษตรดิจิทัลและการประมวลผลผ่านเซนเซอร์วัดสภาพอากาศ มีระเบียบวิธีคำนวณ GDD ที่สำคัญ 3 รูปแบบ:
+
+\paragraph{1. วิธีเฉลี่ยอย่างง่าย (Simple Averaging Method)} เป็นวิธีมาตรฐานสากล (FAO-56) โดยใช้อุณหภูมิสูงสุด ($T_{max}$) และต่ำสุด ($T_{min}$) ในรอบวัน:
+\begin{equation}
+\text{GDD}_{daily} = \max\left(0, \frac{T_{max} + T_{min}}{2} - T_{base}\right)
+\label{eq:gdd_simple}
+\end{equation}
+
+\paragraph{2. วิธีดัดแปลงจำกัดขอบเขต (Modified Sine / Cut-off Method)} ใช้สำหรับพืชที่มีอุณหภูมิเพดานชัดเจนเพื่อป้องกันการคิดความร้อนส่วนเกินที่เป็นพิษต่อพืช:
+\begin{align}
+T_{min}^* &= \max(T_{min}, T_{base}) \\
+T_{max}^* &= \min(T_{max}, T_{upper}) \\
+\text{GDD}_{daily} &= \max\left(0, \frac{T_{max}^* + T_{min}^*}{2} - T_{base}\right)
+\label{eq:gdd_modified}
+\end{align}
+
+\paragraph{3. วิธีอินทิเกรตรายชั่วโมงตามเวลาจริง (Hourly Thermal Time Integration)} เหมาะอย่างยิ่งสำหรับการคำนวณบนอุปกรณ์ Edge Node ในระบบ AIoT ที่อ่านค่าจากหัววัดอุณหภูมิทุกชั่วโมง ($h=1, 2, \dots, 24$):
+\begin{equation}
+\text{GDD}_{daily} = \frac{1}{24} \sum_{h=1}^{24} \max\left(0, \min(T_h, T_{upper}) - T_{base}\right)
+\label{eq:gdd_hourly}
+\end{equation}
+การสะสมค่าอุณหภูมิตลอดช่วงอายุการปลูกตั้งแต่ระยะเริ่มต้น ($d=1$) ถึงระยะที่สนใจ ($N$ วัน) คำนวณได้จาก:
+\begin{equation}
+\sum \text{GDD} = \sum_{d=1}^{N} \text{GDD}_{daily}(d)
+\label{eq:gdd_accumulated}
+\end{equation}
+
+\begin{table}[H]
+\centering
+\caption{ค่าอุณหภูมิฐาน ($T_{base}$), อุณหภูมิเพดาน ($T_{upper}$) และความต้องการอุณหภูมิสะสมของพืชเศรษฐกิจสำคัญ}
+\label{tab:crop_gdd_database}
+\begin{tabularx}{\textwidth}{lccccY}
+    \toprule
+    \textbf{ชนิดพืชเศรษฐกิจ} & \textbf{ชื่อวิทยาศาสตร์} & \textbf{$T_{base}$ ($^\circ\text{C}$)} & \textbf{$T_{opt}$ ($^\circ\text{C}$)} & \textbf{$T_{upper}$ ($^\circ\text{C}$)} & \textbf{ความต้องการ $\sum\text{GDD}$ ($^\circ\text{C}\cdot\text{day}$)} \\
+    \midrule
+    \textbf{ข้าว} (นาปี/นาปรัง) & \textit{Oryza sativa} & 10.0 & 25.0--32.0 & 35.0 & 1,800--2,400 (ตั้งแต่ปักดำถึงเก็บเกี่ยว) \\
+    \textbf{ข้าวโพดเลี้ยงสัตว์} & \textit{Zea mays} & 10.0 & 24.0--30.0 & 30.0 & 1,300--1,700 (ระยะสุกแก่ทางสรีรวิทยา) \\
+    \textbf{ข้าวโพดหวาน} & \textit{Zea mays} var. \textit{saccharata} & 10.0 & 24.0--30.0 & 30.0 & 850--1,100 (ระยะเก็บฝักสด) \\
+    \textbf{อ้อย} & \textit{Saccharum officinarum} & 12.0 & 30.0--34.0 & 38.0 & 3,500--4,500 (รอบตัด 10--12 เดือน) \\
+    \textbf{มันสำปะหลัง} & \textit{Manihot esculenta} & 13.0 & 28.0--30.0 & 38.0 & 3,000--4,000 (ระยะหัวสมบูรณ์ 8--10 เดือน) \\
+    \textbf{ถั่วเหลือง} & \textit{Glycine max} & 10.0 & 25.0--28.0 & 30.0 & 1,200--1,800 (ปลูกถึงระยะฝักสุก) \\
+    \textbf{มะเขือเทศ} & \textit{Solanum lycopersicum} & 10.0 & 22.0--26.0 & 30.0 & 1,200--1,600 (ย้ายกล้าถึงเก็บเกี่ยว) \\
+    \textbf{เมลอน} & \textit{Cucumis melo} & 10.0 & 25.0--30.0 & 32.0 & 1,000--1,300 (หลังผสมเกสร $\approx 45$ วัน) \\
+    \textbf{ผักสลัดไฮโดรโปนิกส์} & \textit{Lactuca sativa} & 4.5 & 16.0--20.0 & 24.0 & 600--850 (เพาะเมล็ดถึงต้นโตเต็มวัย) \\
+    \textbf{มะม่วง} (น้ำดอกไม้) & \textit{Mangifera indica} & 15.0 & 26.0--32.0 & 36.0 & 1,200--1,500 (แทงช่อดอกถึงผลแก่) \\
+    \textbf{ทุเรียนหมอนทอง} & \textit{Durio zibethinus} Murr. & 15.0 & 26.0--32.0 & 36.0 & 1,550--1,750 (ดอกบานถึงตัด $\approx 110$--125 วัน) \\
+    \bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{theorybox}[การนำ GDD ไปประยุกต์ทำนายระยะตัดทุเรียนหมอนทองภาคตะวันออก]
+ในเขตจังหวัดจันทบุรีและระยอง ทุเรียนพันธุ์หมอนทองมีเกณฑ์อายุการเก็บเกี่ยวมาตรฐานอยู่ที่ 110--120 วันหลังดอกบาน แต่ในรอบปีที่อากาศร้อนจัด (อุณหภูมิเฉลี่ยรายวัน $29--30^\circ\text{C}$) อัตราการสะสม GDD รายวันจะสูงถึง $14--15^\circ\text{C}\cdot\text{day}$ ทำให้ทุเรียนได้รับอุณหภูมิสะสมครบ $1,600^\circ\text{C}\cdot\text{day}$ ภายในเวลาเพียง 108 วัน ซึ่งเร็วกว่ารอบปีที่สภาพอากาศหนาวเย็นหรือมีฝนตกชุก การใช้สถานีตรวจวัดอากาศ AIoT คำนวณค่า GDD สะสมจึงช่วยให้ชาวสวนกำหนดวันตัดทุเรียนได้อย่างแม่นยำ ป้องกันปัญหาทุเรียนอ่อนและเนื้อแกมได้อย่างเด็ดขาด
+\end{theorybox}
+
+\begin{pythonbox}[อัลกอริทึม MicroPython คำนวณ GDD สะสมและพยากรณ์วันเก็บเกี่ยว]
+def calculate_daily_gdd(t_max: float, t_min: float, t_base: float = 15.0, t_upper: float = 36.0) -> float:
+    """คำนวณค่า GDD รายวันแบบ Modified Cut-off Method"""
+    # ปรับขอบเขตอุณหภูมิไม่ให้เกินเพดานความเครียดของพืช
+    t_min_adj = max(t_min, t_base)
+    t_max_adj = min(t_max, t_upper)
+    
+    mean_temp = (t_max_adj + t_min_adj) / 2.0
+    gdd = max(0.0, mean_temp - t_base)
+    return round(gdd, 2)
+
+class CropPhenologyTracker:
+    def __init__(self, crop_name: str, t_base: float, target_gdd: float):
+        self.crop_name = crop_name
+        self.t_base = t_base
+        self.target_gdd = target_gdd
+        self.accumulated_gdd = 0.0
+        self.days_tracked = 0
+
+    def add_daily_temperature(self, t_max: float, t_min: float):
+        daily_gdd = calculate_daily_gdd(t_max, t_min, self.t_base)
+        self.accumulated_gdd += daily_gdd
+        self.days_tracked += 1
+        
+        pct_progress = min(100.0, (self.accumulated_gdd / self.target_gdd) * 100.0)
+        remaining_gdd = max(0.0, self.target_gdd - self.accumulated_gdd)
+        
+        # ทำนายจำนวนวันที่เหลือโดยใช้ค่าเฉลี่ย GDD ที่ผ่านมา
+        avg_gdd_per_day = self.accumulated_gdd / self.days_tracked if self.days_tracked > 0 else 1.0
+        est_days_left = int(remaining_gdd / avg_gdd_per_day) if avg_gdd_per_day > 0 else 0
+        
+        return {
+            "accumulated_gdd": round(self.accumulated_gdd, 2),
+            "progress_pct": round(pct_progress, 1),
+            "estimated_days_left": est_days_left
+        }
+
+# ตัวอย่างการใช้งานสำหรับทุเรียนหมอนทอง (T_base = 15°C, เป้าหมาย = 1650 °C-day)
+durian_tracker = CropPhenologyTracker("Durian Monthong", t_base=15.0, target_gdd=1650.0)
+# จำลองสภาพอากาศ 1 วัน: กลางวัน 34°C, กลางคืน 24°C
+status = durian_tracker.add_daily_temperature(t_max=34.0, t_min=24.0)
+print("สถานะการสะสมความร้อนทุเรียน:", status)
+\end{pythonbox}
 
 \section{ฟิสิกส์การวัดออกซิเจนละลายน้ำเชิงแสงในบ่อเพาะเลี้ยงสัตว์น้ำ}
 

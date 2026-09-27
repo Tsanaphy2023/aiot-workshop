@@ -1,0 +1,363 @@
+\chapter{คู่มือเชิงปฏิบัติการระบบเกษตรอัจฉริยะ LEQs AIoT xAI สถาปัตยกรรมสมองกลฝังตัว โมบายแอปพลิเคชัน และปัญญาประดิษฐ์การเรียนรู้เชิงลึก}
+\label{chap:ch11}
+
+\section*{แผนบริหารการสอนประจำบทที่ 11}
+\addcontentsline{toc}{section}{แผนบริหารการสอนประจำบทที่ 11}
+
+\begin{planbox}{หัวข้อเนื้อหาประจำบท}
+\begin{enumerate}[topsep=2pt, itemsep=1pt, partopsep=0pt, parsep=0pt, leftmargin=1.5em]
+    \item สถาปัตยกรรมระบบไฮบริดอัจฉริยะ 3 ระดับ (3-Tier Hybrid AIoT Architecture)
+    \item วิศวกรรมฮาร์ดแวร์บอร์ด GoGo-IoT และ LEQs-IoT พร้อมวงจรเชื่อมต่อเซนเซอร์
+    \item โครงสร้างเฟิร์มแวร์ ESP32 ระบบค้นหาอัตโนมัติผ่าน UDP Broadcast และ RESTful API
+    \item ฟิสิกส์เกษตรและการประมวลผล Edge TinyML เพื่อคำนวณค่าแรงดึงระเหยน้ำและตรวจจับความผิดปกติ
+    \item สถาปัตยกรรมแอปพลิเคชันมือถือ Flutter LEQs\_AIoT การจัดการสถานะและการออกแบบส่วนต่อประสาน
+    \item โมเดลการเรียนรู้เชิงลึกวินิจฉัยโรคพืชบนอุปกรณ์เคลื่อนที่ (Leaf Doctor Vision AI)
+    \item แบบจำลองพยากรณ์ความชื้นดินอนุกรมเวลาล่วงหน้า 6 ชั่วโมงและการประเมินจุดเหี่ยวถาวร
+    \item ระบบปัญญาประดิษฐ์อธิบายได้ (Explainable AI หรือ xAI) สำหรับการตัดสินใจให้น้ำแม่นยำสูง
+    \item ขั้นตอนการติดตั้ง ทดสอบ และประยุกต์ใช้งานจริงในแปลงเกษตรกรรมอัจฉริยะ
+\end{enumerate}
+\end{planbox}
+
+\begin{planbox}{วัตถุประสงค์เชิงพฤติกรรม}
+\begin{enumerate}[topsep=2pt, itemsep=1pt, partopsep=0pt, parsep=0pt, leftmargin=1.5em]
+    \item อธิบายหลักการทำงานของสถาปัตยกรรม AIoT 3 ระดับและการถ่ายโอนข้อมูลผ่านเครือข่ายไร้สายได้อย่างถูกต้อง
+    \item ประกอบวงจรฮาร์ดแวร์และต่อสายสัญญาณเซนเซอร์เข้ากับบอร์ด ESP32 ได้ตามมาตรฐานวิศวกรรม
+    \item พัฒนาและแก้ไขเฟิร์มแวร์ Arduino C++ เพื่อคำนวณค่า VPD และตอบสนองต่อคำขอ API ได้อย่างถูกต้อง
+    \item ใช้งานแอปพลิเคชัน Flutter LEQs\_AIoT เพื่อสแกนหาบอร์ดและควบคุมระบบชลประทานอัตโนมัติได้อย่างชำนาญ
+    \item วิเคราะห์ผลการวินิจฉัยโรคพืชจากโมเดล Deep Learning และกำหนดแนวทางการรักษาทางชีวภาพได้อย่างเหมาะสม
+    \item ประเมินผลการตัดสินใจของระบบ Explainable AI เพื่อปรับปรุงประสิทธิภาพการใช้น้ำในแปลงปลูกได้อย่างมีประสิทธิภาพ
+\end{enumerate}
+\end{planbox}
+
+\newpage
+
+\begin{planbox}{วิธีสอนและกิจกรรมการเรียนการสอน}
+\begin{enumerate}[topsep=2pt, itemsep=1pt, partopsep=0pt, parsep=0pt, leftmargin=1.5em]
+    \item บรรยายเชิงทฤษฎีควบคู่การสาธิตโครงสร้างระบบ AIoT แบบถ่ายทอดสด
+    \item ปฏิบัติการต่อวงจรบอร์ดควบคุมและทดสอบการสื่อสารแบบ Peer-to-Peer
+    \item ปฏิบัติการติดตั้งแอปพลิเคชันลงบนสมาร์ทโฟนและทดสอบฟังก์ชันสแกนอัตโนมัติ
+    \item กิจกรรมจำลองสถานการณ์ความผิดปกติของระบบ (Failure Lab) เพื่อทดสอบกลไกความปลอดภัย
+    \item ปฏิบัติการสแกนใบพืชตัวอย่างในแปลงเพื่อทดสอบความแม่นยำของโมเดลการเรียนรู้เชิงลึก
+\end{enumerate}
+\end{planbox}
+
+\begin{planbox}{สื่อการเรียนการสอน}
+\begin{enumerate}[topsep=2pt, itemsep=1pt, partopsep=0pt, parsep=0pt, leftmargin=1.5em]
+    \item บอร์ดพัฒนา GoGo-IoT หรือ LEQs-IoT ESP32 พร้อมชุดทดลองสมาร์ทฟาร์ม
+    \item เซนเซอร์วัดอุณหภูมิและความชื้น SHT30 เซนเซอร์วัดแสง BH1750 และโพรบวัดความชื้นดิน
+    \item สวิตช์ลูกลอยตรวจวัดระดับน้ำและโมดูลรีเลย์ควบคุมปั๊มน้ำ
+    \item สมาร์ทโฟนระบบปฏิบัติการ Android หรือ iOS ที่ติดตั้งแอปพลิเคชัน LEQs\_AIoT
+    \item ซอร์สโค้ดเฟิร์มแวร์และชุดข้อมูลโรคพืชสำหรับทดสอบ
+\end{enumerate}
+\end{planbox}
+
+\begin{planbox}{การวัดและประเมินผล}
+\begin{enumerate}[topsep=2pt, itemsep=1pt, partopsep=0pt, parsep=0pt, leftmargin=1.5em]
+    \item การประเมินผลสัมฤทธิ์จากการต่อวงจรและแฟลชเฟิร์มแวร์ลงบนบอร์ดฮาร์ดแวร์
+    \item การทดสอบการเชื่อมต่อระหว่างสมาร์ทโฟนกับบอร์ดผ่านสัญญาณ Wi-Fi LAN
+    \item ความถูกต้องในการแปลผลข้อมูลวิทยาศาสตร์การเกษตรและการวินิจฉัยโรคพืช
+    \item การส่งรายงานสรุปผลการทดลองและการทำงานร่วมกันเป็นทีมในแปลงทดสอบ
+\end{enumerate}
+\end{planbox}
+
+\clearpage
+
+\section{สถาปัตยกรรมระบบไฮบริดอัจฉริยะ 3 ระดับ}
+
+การพัฒนาระบบเกษตรกรรมอัจฉริยะในยุคดิจิทัลจำเป็นต้องผสมผสานระหว่างฮาร์ดแวร์สมองกลฝังตัว เครือข่ายไร้สายระยะสั้นและระยะไกล ตลอดจนการประมวลผลด้วยปัญญาประดิษฐ์ โครงสร้างของระบบ \textbf{LEQs AIoT xAI}\index{LEQs AIoT}\index{ปัญญาประดิษฐ์ฝังตัว (Embedded AI)} ได้รับการออกแบบตามแนวคิดการประมวลผลแบบกระจายศูนย์ 3 ระดับ (3-Tier Hybrid Architecture) ซึ่งช่วยให้ระบบสามารถทำงานได้ต่อเนื่องแม้ขาดการเชื่อมต่ออินเทอร์เน็ตภายนอก (Offline-First Capability)
+
+\begin{figure}[H]
+\centering
+\resizebox{0.85\textwidth}{!}{
+\begin{tikzpicture}[
+    node distance=1.5cm,
+    tierbox/.style={rectangle, rounded corners=8pt, draw=rbruNavy, line width=1.5pt, fill=softMist, inner sep=10pt, text width=12cm, align=left},
+    headertext/.style={font=\bfseries\color{rbruNavy}},
+    bodytext/.style={font=\small\color{charcoal}},
+    arrowline/.style={draw=agriEmerald, line width=2pt, ->, >=stealth}
+]
+    % Tier 1
+    \node[tierbox] (tier1) {
+        \textbf{\textcolor{agriForest}{ระดับที่ 1  Edge TinyML \& Agriphysics Engine (บอร์ด ESP32)}}\\[3pt]
+        {\small $\bullet$ ประมวลผลสัญญาณเซนเซอร์แบบเรียลไทม์ ความหน่วงเวลาต่ำกว่า 5 มิลลิวินาที\\
+        $\bullet$ คำนวณสมการฟิสิกส์เกษตร Tetens Equation หาค่าแรงดึงระเหยน้ำบรรยากาศ (VPD)\\
+        $\bullet$ ตรวจจับความผิดปกติของหัววัด (Sensor Anomaly Detection) และระบบตัดการทำงานฉุกเฉิน}
+    };
+
+    % Tier 2
+    \node[tierbox, below of=tier1, yshift=-1.8cm] (tier2) {
+        \textbf{\textcolor{aquaNavy}{ระดับที่ 2  On-Device Deep Learning \& xAI (สมาร์ทโฟน Flutter)}}\\[3pt]
+        {\small $\bullet$ โมเดลการเรียนรู้เชิงลึกวินิจฉัยโรคพืชจากภาพถ่ายใบ (Leaf Doctor Vision AI)\\
+        $\bullet$ แบบจำลองการถดถอยพยากรณ์ความชื้นดินอนุกรมเวลาล่วงหน้า 6 ชั่วโมง\\
+        $\bullet$ ระบบอธิบายเหตุผลการตัดสินใจ (Explainable AI หรือ xAI) แจกแจงค่าน้ำหนักปัจจัย}
+    };
+
+    % Tier 3
+    \node[tierbox, below of=tier2, yshift=-1.8cm] (tier3) {
+        \textbf{\textcolor{durianGold}{ระดับที่ 3  Cloud Analytics \& Home Assistant Hub (ส่วนควบคุมส่วนกลาง)}}\\[3pt]
+        {\small $\bullet$ บันทึกฐานข้อมูลอนุกรมเวลาระยะยาวและประมวลผลบิ๊กดาต้าการเกษตร\\
+        $\bullet$ ฝึกฝนโมเดลใหม่ผ่านกระบวนการ MLOps และแจกจ่ายน้ำหนักโครงข่ายประสาทเทียม}
+    };
+
+    % Arrows
+    \draw[arrowline] (tier1.south) -- node[right, font=\footnotesize\color{agriEmerald}] {Wi-Fi REST / UDP Broadcast / ESP-NOW} (tier2.north);
+    \draw[arrowline] (tier2.south) -- node[right, font=\footnotesize\color{agriEmerald}] {MQTT over TLS / WebSocket / HTTPS} (tier3.north);
+\end{tikzpicture}
+}
+\caption{สถาปัตยกรรมโครงสร้างระบบไฮบริดอัจฉริยะ 3 ระดับสำหรับการเกษตรแม่นยำ}
+\label{fig:aiot_3tier_architecture}
+\end{figure}
+
+การแบ่งภาระงานในลักษณะนี้ช่วยลดปริมาณการส่งผ่านข้อมูลในอากาศ ประหยัดพลังงานแบตเตอรี่ และป้องกันความเสียหายของพืชผลจากปัญหาโครงข่ายสัญญาณอินเทอร์เน็ตล่ม โดยบอร์ดฮาร์ดแวร์ที่ติดตั้งในแปลงจะทำหน้าที่เป็นหน่วยเฝ้าระวังด่านหน้า (Frontline Guardian) ตัดสินใจหยุดปั๊มน้ำทันทีเมื่อน้ำแห้ง ส่วนสมาร์ทโฟนทำหน้าที่เป็นศูนย์กลางการวิเคราะห์ระดับสูงร่วมกับผู้ใช้งาน
+
+\section{วิศวกรรมฮาร์ดแวร์บอร์ด GoGo-IoT และ LEQs-IoT}
+
+ระบบฮาร์ดแวร์ในโครงการใช้ไมโครคอนโทรลเลอร์ประสิทธิภาพสูงตระกูล ESP32 หรือ ESP32-C3 ทำงานร่วมกับชุดเซนเซอร์วัดตัวแปรชีวกายภาพของแปลงปลูก\index{ไมโครคอนโทรลเลอร์ ESP32} การกำหนดขาเชื่อมต่อสัญญาณ (Pin Assignment) ได้รับการออกแบบให้สอดคล้องกับมาตรฐานทางไฟฟ้าเพื่อป้องกันสัญญาณรบกวนแม่เหล็กไฟฟ้า (Electromagnetic Interference หรือ EMI) จากการตัดต่อหน้าสัมผัสรีเลย์
+
+\begin{table}[H]
+\centering
+\caption{ตารางกำหนดขาสัญญาณและอุปกรณ์ฮาร์ดแวร์ของบอร์ดควบคุมแปลงเกษตร}
+\label{tab:hardware_pinout_mapping}
+\begin{tabularx}{\textwidth}{p{2.8cm}p{3.2cm}p{2.5cm}Y}
+\toprule
+\textbf{ชื่ออุปกรณ์} & \textbf{พินไมโครคอนโทรลเลอร์} & \textbf{โปรโตคอล} & \textbf{หน้าที่การทำงานและคุณลักษณะเด่น} \\
+\midrule
+SHT30 & GPIO21 (SDA), GPIO22 (SCL) & I2C ($0\text{x}44$) & วัดอุณหภูมิ ($\pm 0.3^\circ\text{C}$) และความชื้นสัมพัทธ์ในอากาศ ($\pm 2\%$) \\
+BH1750 & GPIO21 (SDA), GPIO22 (SCL) & I2C ($0\text{x}23$) & วัดความเข้มแสงแวดล้อม ($1 - 65,535\text{ Lux}$) เพื่อคำนวณการสังเคราะห์แสง \\
+Soil Moisture & GPIO34 (ADC1\_CH6) & Analog ADC & วัดปริมาณน้ำในดินเชิงความจุไฟฟ้า ช่วงแรงดัน $0 - 3.3\text{ V}$ \\
+Float Switch & GPIO35 (Active LOW) & Digital Input & ตรวจวัดระดับน้ำแห้งถัง ป้องกันปั๊มไหม้ (Dry-Run Protection) \\
+Relay Ch 1 & GPIO26 (Active HIGH) & Digital Output & ขับโซลินอยด์วาล์วหรือปั๊มน้ำขนาด 12VDC/220VAC \\
+Relay Ch 2 & GPIO27 (Active HIGH) & Digital Output & ขับหลอดไฟปลูกพืชเสริมการสังเคราะห์แสง (Grow Light) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{noticebox}[ข้อควรระวังทางวิศวกรรมในการติดตั้งฮาร์ดแวร์]
+    สายสัญญาณแอนะล็อกของเซนเซอร์วัดความชื้นในดินไม่ควรเดินขนานชิดกับสายไฟกำลัง 220VAC ที่จ่ายให้กับปั๊มน้ำในระยะเกิน 30 เซนติเมตร เนื่องจากสนามแม่เหล็กเหนี่ยวนำอาจทำให้เกิดสัญญาณรบกวนความถี่ 50 Hz ซึ่งส่งผลให้ค่าการอ่านความชื้นแกว่งผิดปกติ แนะนำให้ใช้สายสัญญาณชนิดมีชีลด์ถัก (Shielded Twisted Pair) และต่อลงกราวด์ของวงจรที่จุดเดียว (Single-Point Grounding)
+\end{noticebox}
+
+\section{โครงสร้างเฟิร์มแวร์ ESP32 และระบบค้นหาอัตโนมัติ}
+
+เฟิร์มแวร์ได้รับการพัฒนาด้วยภาษา C++ บนแพลตฟอร์ม Arduino ESP32 โดยรวมระบบเครือข่ายสื่อสารสองทิศทางเข้าด้วยกัน\index{UDP Broadcast}\index{mDNS Discovery} ประกอบด้วย:
+
+\subsection{ระบบค้นหาอุปกรณ์อัตโนมัติผ่าน UDP Broadcast}
+เมื่อสมาร์ทโฟนเปิดแอปพลิเคชัน ตัวแอปจะยิงแพ็กเก็ตข้อมูลระบุข้อความคำขอ \texttt{"DISCOVER\_LEQS\_DEVICE"} ไปยังที่อยู่บรอดแคสต์ \texttt{255.255.255.255} ผ่านพอร์ตหมายเลข \textbf{8266} บอร์ดฮาร์ดแวร์ทุกตัวที่เชื่อมต่ออยู่ในเครือข่าย Wi-Fi วงเดียวกันจะดักรับแพ็กเก็ตและตอบกลับข้อมูลระบุตัวตนในรูปแบบ JSON ทันที ทำให้ผู้ใช้งานไม่ต้องจดจำหรือพิมพ์หมายเลข IP Address ด้วยตนเอง
+
+\begin{pythonbox}[โค้ดตัวอย่างการตอบสนอง UDP Discovery ในภาษา C++]
+void handleUdpDiscovery() {
+  int packetSize = udpDiscovery.parsePacket();
+  if (packetSize) {
+    char packetBuffer[64];
+    int len = udpDiscovery.read(packetBuffer, 63);
+    packetBuffer[len] = '\0';
+
+    if (String(packetBuffer).indexOf("DISCOVER_LEQS_DEVICE") >= 0) {
+      StaticJsonDocument<256> doc;
+      doc["device"]   = DEVICE_MODEL;
+      doc["team"]     = TEAM_NUMBER;
+      doc["ip"]       = WiFi.localIP().toString();
+      doc["mac"]      = WiFi.macAddress();
+      doc["rssi"]     = WiFi.RSSI();
+      doc["firmware"] = FIRMWARE_VERSION;
+
+      String reply;
+      serializeJson(doc, reply);
+      udpDiscovery.beginPacket(udpDiscovery.remoteIP(), udpDiscovery.remotePort());
+      udpDiscovery.print(reply);
+      udpDiscovery.endPacket();
+    }
+  }
+}
+\end{pythonbox}
+
+\subsection{บริการ RESTful API ฝังตัวบนพอร์ต 80}
+บอร์ดเปิดบริการเว็บเซิร์ฟเวอร์แบบอะซิงโครนัสเพื่อรองรับคำสั่งควบคุมจากโมบายแอปพลิเคชัน พร้อมกำหนดส่วนหัว \texttt{Access-Control-Allow-Origin: *} เพื่อป้องกันปัญหา Cross-Origin Resource Sharing (CORS) ตามข้อกำหนดดังนี้:
+\begin{enumerate}
+    \item \textbf{GET /api/info}  ส่งคืนข้อมูลเวอร์ชันเฟิร์มแวร์ หมายเลขกลุ่ม สัญญาณ Wi-Fi และระยะเวลาการทำงาน (Uptime)
+    \item \textbf{GET /api/sensors}  ส่งคืนค่าการวัดของเซนเซอร์ทุกตัว ค่า VPD ดัชนีความเครียดพืช และสถานะการตรวจจับสิ่งผิดปกติ
+    \item \textbf{GET /api/relay?ch=X\&state=Y}  สั่งเปิด (1) หรือปิด (0) รีเลย์ช่องที่ระบุ พร้อมระบบจับเวลานับถอยหลังป้องกันเปิดค้าง
+    \item \textbf{GET /api/estop?state=1}  ระบบหยุดฉุกเฉินระดับฮาร์ดแวร์ ตัดกระแสไฟฟ้ารีเลย์ทุกช่องทันที
+\end{enumerate}
+
+\section{ฟิสิกส์เกษตรและการประมวลผล Edge TinyML}
+
+หัวใจสำคัญที่ยกระดับระบบให้เหนือกว่าการควบคุมตามเกณฑ์คงที่ทั่วไป คือการประมวลผลเชิงฟิสิกส์เกษตร (Agriphysics) แบบเรียลไทม์\index{Vapor Pressure Deficit (VPD)}\index{สมการเทเทนส์ (Tetens Equation)} บนชิปไมโครคอนโทรลเลอร์
+
+\subsection{การคำนวณแรงดึงระเหยน้ำของบรรยากาศ}
+การสูญเสียน้ำของพืชผ่านทางปากใบ (Stomatal Conductance) ไม่ได้ขึ้นอยู่กับอุณหภูมิหรือความชื้นสัมพัทธ์เพียงอย่างใดอย่างหนึ่ง แต่แปรผันตรงกับ \textbf{Vapor Pressure Deficit (VPD)} ซึ่งคือผลต่างระหว่างความดันไออิ่มตัวของน้ำในเซลล์ใบ ($e_s$) กับความดันไอจริงของอากาศแวดล้อม ($e_a$) ในหน่วยกิโลปาสกาล (kPa)
+
+\begin{equation}
+e_s(T) = 0.61078 \exp\left( \frac{17.27 T}{T + 237.3} \right) \quad [\text{kPa}]
+\end{equation}
+
+\begin{equation}
+e_a(T, \text{RH}) = e_s(T) \times \left( \frac{\text{RH}}{100} \right) \quad [\text{kPa}]
+\end{equation}
+
+\begin{equation}
+\text{VPD} = e_s(T) - e_a(T, \text{RH}) = 0.61078 \exp\left( \frac{17.27 T}{T + 237.3} \right) \left( 1 - \frac{\text{RH}}{100} \right)
+\end{equation}
+
+เมื่อ $T$ คืออุณหภูมิอากาศในหน่วยองศาเซลเซียส และ $\text{RH}$ คือความชื้นสัมพัทธ์ในหน่วยเปอร์เซ็นต์
+
+\begin{table}[H]
+\centering
+\caption{เกณฑ์การประเมินสภาวะปากใบและความเครียดพืชจากค่า VPD}
+\label{tab:vpd_plant_stress_criteria}
+\begin{tabularx}{\textwidth}{p{3.0cm}p{3.5cm}Y}
+\toprule
+\textbf{ช่วงค่า VPD (kPa)} & \textbf{สถานะทางสรีรวิทยาของพืช} & \textbf{แนวทางการควบคุมทางวิศวกรรมการเกษตร} \\
+\midrule
+$\text{VPD} < 0.4$ & ปากใบเปิดแคบ การคายน้ำต่ำ เสี่ยงเกิดเชื้อรา & ห้ามพ่นน้ำฝอย เปิดพัดลมระบายอากาศเพื่อลดความชื้นสะสม \\
+$0.4 \le \text{VPD} \le 1.2$ & ปากใบเปิดสมบูรณ์ การดูดซึมธาตุอาหารสูงสุด & สภาวะเหมาะสมที่สุด รักษาระดับความชื้นตามรอบปกติ \\
+$1.2 < \text{VPD} \le 1.6$ & อากาศเริ่มแห้ง เกิดความเครียดน้ำปานกลาง & เตรียมระบบให้น้ำและเฝ้าระวังอัตราการลดลงของน้ำในดิน \\
+$\text{VPD} > 1.6$ & อากาศแห้งจัด พืชคายน้ำรุนแรงวิกฤต & ฉีดพ่นหมอกปรับอุณหภูมิและให้น้ำเขตรากทันที \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{การตรวจจับความผิดปกติของเซนเซอร์ (Edge Anomaly Detection)}
+อัลกอริทึม TinyML บนบอร์ดจะตรวจสอบความสัมพันธ์เชิงเวลาของข้อมูล หากพบว่าปั๊มน้ำทำงานเป็นเวลาเกิน 15 วินาที แต่อัตราการเปลี่ยนแปลงความชื้นในดิน $d(\text{Moisture})/dt$ ต่ำกว่า $0.5\%$ ต่อนาที หรือค่าสัญญาณแอนะล็อกของดินตกไปอยู่ที่ศูนย์ ระบบจะประเมินทันทีว่าเซนเซอร์เกิดการชำรุด หลุดจากแปลง หรือท่อส่งน้ำเกิดการอุดตัน พร้อมส่งสัญญาณเตือนภัยไปยังผู้ใช้งาน
+
+\section{สถาปัตยกรรมแอปพลิเคชันมือถือ Flutter LEQs\_AIoT}
+
+แอปพลิเคชันสมาร์ทโฟนได้รับการพัฒนาด้วยเฟรมเวิร์ก Flutter โดยใช้ภาษา Dart โครงสร้างสถาปัตยกรรมเป็นแบบแยกส่วน (Clean Layered Architecture) ประกอบด้วย 3 ชั้นหลัก\index{Flutter Framework}\index{การจัดการสถานะ Provider}
+
+\begin{figure}[H]
+\centering
+\resizebox{0.85\textwidth}{!}{
+\begin{tikzpicture}[
+    node distance=1.2cm,
+    layerbox/.style={rectangle, rounded corners=6pt, draw=agriForest, line width=1.2pt, fill=leafSoft, inner sep=8pt, text width=11cm, align=left},
+    flowarrow/.style={draw=rbruNavy, line width=1.5pt, <->, >=stealth}
+]
+    \node[layerbox] (ui) {
+        \textbf{\textcolor{agriForest}{1. Presentation Layer (ส่วนติดต่อผู้ใช้และวิดเจ็ต)}}\\[2pt]
+        {\footnotesize DashboardTab, LeafDoctorTab, ControlTab, AutomationTab, ConnectionSettingsDialog}
+    };
+    \node[layerbox, below of=ui, yshift=-1.0cm] (vm) {
+        \textbf{\textcolor{aquaNavy}{2. Business Logic \& ViewModel Layer (การจัดการสถานะ)}}\\[2pt]
+        {\footnotesize FarmViewModel (ChangeNotifier) บริหารข้อมูลเซนเซอร์ การแจ้งเตือน และการอนุมาน AI}
+    };
+    \node[layerbox, below of=vm, yshift=-1.0cm] (data) {
+        \textbf{\textcolor{durianGold}{3. Data \& Service Layer (การสื่อสารและคลังข้อมูล)}}\\[2pt]
+        {\footnotesize FarmRepository, DirectBoardService, BoardDiscoveryService, LeafDiseaseService}
+    };
+
+    \draw[flowarrow] (ui.south) -- node[right, font=\scriptsize] {Observe State / User Actions} (vm.north);
+    \draw[flowarrow] (vm.south) -- node[right, font=\scriptsize] {Fetch Telemetry / Execute Commands} (data.north);
+\end{tikzpicture}
+}
+\caption{ผังสถาปัตยกรรมแยกส่วนของแอปพลิเคชันมือถือ Flutter LEQs\_AIoT}
+\label{fig:flutter_clean_architecture}
+\end{figure}
+
+การออกแบบส่วนต่อประสานกับผู้ใช้ (UI/UX) คำนึงถึงการใช้งานจริงในแปลงเกษตร จึงเลือกใช้พาเลตต์สี Dark Farm Theme ซึ่งใช้พื้นหลังสีน้ำเงินเข้มหม่น \texttt{\#0F172A} ตัดกับสีเขียวมรกตเรืองแสง \texttt{\#20C997} เพื่อช่วยให้อ่านค่าได้ชัดเจนกลางแจ้ง ไม่สะท้อนแสงแดด และประหยัดพลังงานหน้าจอชนิด AMOLED
+
+\section{โมเดลการเรียนรู้เชิงลึกวินิจฉัยโรคพืช Leaf Doctor Vision AI}
+
+เพื่อแก้ปัญหาโรคพืชระบาดในแปลงปลูก แอปพลิเคชันได้บรรจุโมเดลโครงข่ายประสาทเทียมแบบคอนโวลูชัน (Convolutional Neural Network หรือ CNN) สถาปัตยกรรม \textbf{MobileNetV3-Small}\index{MobileNetV3}\index{การเรียนรู้เชิงลึกวินิจฉัยโรคพืช} ซึ่งผ่านการควอนไทเซชัน (Post-Training Quantization หรือ INT8) จนมีขนาดไฟล์เพียง 3.8 MB สามารถประมวลผลบนหน่วยประมวลผลประสาท (NPU) ของสมาร์ทโฟนได้โดยไม่ต้องพึ่งพาเซิร์ฟเวอร์ภายนอก
+
+\begin{figure}[H]
+\centering
+\resizebox{0.85\textwidth}{!}{
+\begin{tikzpicture}[
+    box/.style={rectangle, draw=rbruNavy, rounded corners=5pt, fill=softMist, line width=1pt, text width=2.6cm, align=center, font=\footnotesize},
+    arrow/.style={->, >=stealth, line width=1.5pt, draw=agriEmerald}
+]
+    \node[box] (input) {ภาพถ่ายใบพืช\\($224 \times 224 \times 3$)};
+    \node[box, right of=input, xshift=2.0cm] (backbone) {MobileNetV3\\Depthwise Conv\\Hard-Swish};
+    \node[box, right of=backbone, xshift=2.0cm] (pool) {Global Average\\Pooling\\\& Dense Layer};
+    \node[box, right of=pool, xshift=2.0cm] (output) {Softmax\\Probability\\(5 คลาสโรคพืช)};
+
+    \draw[arrow] (input) -- (backbone);
+    \draw[arrow] (backbone) -- (pool);
+    \draw[arrow] (pool) -- (output);
+\end{tikzpicture}
+}
+\caption{โครงสร้างการอนุมานภาพใบพืชด้วยโครงข่ายประสาทเทียม MobileNetV3}
+\label{fig:mobilenet_inference_pipeline}
+\end{figure}
+
+โมเดลได้รับการฝึกฝนให้จำแนกความผิดปกติของใบพืชออกเป็น 5 รูปแบบหลัก พร้อมระบบคำแนะนำการจัดการทางการเกษตร:
+\begin{enumerate}
+    \item \textbf{โรคราแป้ง (Powdery Mildew)}  อาการพบคราบผงสีขาวคล้ายแป้งบนผิวใบ แนะนำพ่นเชื้อราปฏิปักษ์ไตรโคเดอร์มา (\textit{Trichoderma harzianum}) ในช่วงแดดร่ม หรือใช้กำมะถันผงชนิดละลายน้ำ
+    \item \textbf{โรคใบไหม้หรือใบจุดวงแหวน (Early Blight)}  เกิดจากเชื้อรา \textit{Alternaria solani} แผลมีลักษณะวงซ้อนคล้ายเป้ายิงปืน แนะนำตัดแต่งใบเผาทำลายและฉีดพ่นเชื้อแบคทีเรียบาซิลลัส ซับทิลิส (BS)
+    \item \textbf{โรคราสนิม (Rust Disease)}  เกิดตุ่มนูนผงสีส้มใต้ใบ แนะนำพ่นน้ำส้มควันไม้เจือจาง $1:200$ ทุก 7 วัน และเสริมความแข็งแรงของผนังเซลล์ด้วยแคลเซียม-โบรอน
+    \item \textbf{รอยทำลายเพลี้ยไฟและไรแดง (Thrips \& Mites)}  ยอดหงิกงอผิวใบด้านล่างสีบรอนซ์ แนะนำพ่นเชื้อราบิวเวอเรีย (\textit{Beauveria bassiana}) ร่วมกับกับดักกาวเหนียว
+    \item \textbf{ใบสมบูรณ์สุขภาพดี (Healthy)}  พืชมีคลอโรฟิลล์สม่ำเสมอ แนะนำรักษาระดับการให้น้ำและธาตุอาหารตามสมดุลเดิม
+\end{enumerate}
+
+\section{แบบจำลองพยากรณ์ความชื้นดินอนุกรมเวลาล่วงหน้า 6 ชั่วโมง}
+
+การรดน้ำอย่างมีประสิทธิภาพสูงสุดต้องไม่รอให้ดินแห้งจนพืชชะงักงัน แต่ต้องคาดการณ์ล่วงหน้าได้ ระบบจึงติดตั้งโมเดลถดถอยแบบไดนามิก (Dynamic Time-Series Regression Model)\index{การพยากรณ์อนุกรมเวลา (Time-Series Forecasting)} เพื่อพยากรณ์ระดับความชื้นในดินล่วงหน้า 6 ชั่วโมง
+
+\begin{equation}
+\theta(t + \Delta t) = \theta_{\text{residual}} + \left[ \theta(t) - \theta_{\text{residual}} \right] \exp\left( -\lambda \cdot \Delta t \right)
+\end{equation}
+
+โดยที่ $\theta(t)$ คือความชื้นในดินปัจจุบัน (\%) และ $\theta_{\text{residual}}$ คือความชื้นคงเหลือต่ำสุดของชนิดดิน ($\approx 18\%$) และสัมประสิทธิ์การลดทอน $\lambda$ ขึ้นอยู่กับดัชนีทางฟิสิกส์เกษตร:
+
+\begin{equation}
+\lambda = \lambda_0 \left[ 1 + \alpha (\text{VPD} - \text{VPD}_0) + \beta \left( \frac{\text{Lux}}{1000} \right) \right]
+\end{equation}
+
+เมื่อ $\lambda_0 = 0.045$, $\alpha = 0.35$, และ $\beta = 0.20$ ส่งผลให้ในวันที่แดดจัดและอากาศแห้ง (VPD สูง) กราฟความชื้นจะดิ่งลงรวดเร็วกว่าวันที่มีเมฆครึ้ม ระบบจะส่งสัญญาณเตือนทันทีหากเส้นกราฟมีแนวโน้มลดลงแตะจุดเหี่ยวถาวร (Permanent Wilting Point หรือ PWP) ซึ่งตั้งไว้ที่ $35\%$
+
+\section{ระบบปัญญาประดิษฐ์อธิบายได้สำหรับการให้น้ำแม่นยำสูง}
+
+ปัญหาสำคัญของปัญญาประดิษฐ์ในอดีตคือภาวะกล่องดำ (Black-Box Problem) ที่ผู้ใช้งานไม่ทราบเหตุผลเบื้องหลังการตัดสินใจ โครงการนี้จึงได้ประยุกต์ใช้แนวคิด \textbf{Explainable AI (xAI)}\index{ปัญญาประดิษฐ์อธิบายได้ (Explainable AI)}\index{xAI} ผ่านกระบวนการกระจายค่าน้ำหนักปัจจัย (Feature Attribution Distribution) คล้ายคลึงกับค่าแชปลีย์ (Shapley Values)
+
+\begin{table}[H]
+\centering
+\caption{เมทริกซ์การตัดสินใจและค่าน้ำหนักปัจจัยของระบบ Explainable AI}
+\label{tab:xai_feature_attributions}
+\begin{tabularx}{\textwidth}{p{3.2cm}p{2.2cm}p{2.5cm}Y}
+\toprule
+\textbf{ปัจจัยชีวกายภาพ} & \textbf{ค่าน้ำหนัก (\%)} & \textbf{ทิศทางผลกระทบ} & \textbf{คำอธิบายเชิงกายภาพที่ระบบนำเสนอแก่เกษตรกร} \\
+\midrule
+ความชื้นในดินปัจจุบัน & $42\%$ & ผลักดันการให้น้ำ & ความชื้นต่ำกว่าเกณฑ์ควบคุม รากพืชต้องใช้พลังงานดูดน้ำสูงขึ้น \\
+แรงดึงระเหยน้ำ (VPD) & $30\%$ & ผลักดันการให้น้ำ & อากาศแห้ง ปากใบสูญเสียไอน้ำรวดเร็ว ต้องเติมน้ำชดเชยการคายระเหย \\
+ความเข้มแสงแดด (Lux) & $18\%$ & ผลักดันการให้น้ำ & รังสีอาทิตย์กระตุ้นการสังเคราะห์แสง อัตราเมแทบอลิซึมพืชเพิ่มขึ้น \\
+ระดับน้ำในถังพัก (Float) & $10\%$ & กลไกยับยั้งฉุกเฉิน & สวิตช์ลูกลอยมีอำนาจสิทธิ์ขาดในการตัดระบบ $100\%$ หากน้ำแห้ง \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+ผลลัพธ์จากระบบ xAI จะถูกนำเสนอในรูปประโยคภาษาไทยที่เข้าใจง่าย เช่น: \textit{``ระบบแนะนำให้น้ำปริมาณ 350 มิลลิลิตร (เปิดปั๊ม 45 วินาที) เนื่องจากดินมีความชื้นเพียง $38\%$ ประกอบกับอากาศมีค่า VPD สูงถึง $1.75\text{ kPa}$ ซึ่งส่งผลให้พืชคายน้ำรุนแรง การให้น้ำในปริมาณนี้จะฟื้นฟูความชุ่มชื้นในเขตรากได้พอดีโดยไม่เกิดการสูญเสียน้ำซึมลึกใต้เขตราก''}
+
+\section{คู่มือการติดตั้งและทดสอบภาคสนาม}
+
+เพื่อให้เกษตรกรและผู้เข้าร่วมอบรมสามารถติดตั้งใช้งานระบบได้ด้วยตนเอง มีขั้นตอนปฏิบัติตามลำดับดังนี้:
+
+\subsection{ขั้นตอนการแฟลชเฟิร์มแวร์ลงบอร์ด ESP32}
+\begin{enumerate}
+    \item ติดตั้งโปรแกรม Arduino IDE และแพ็กเกจเสริม \texttt{esp32 by Espressif Systems}
+    \item เปิดไฟล์โปรเจกต์ \texttt{module2/leqs\_iot\_wifi\_direct\_firmware.ino}
+    \item เลือกบอร์ดเป็น \textbf{ESP32 Dev Module} หรือ \textbf{ESP32-C3} ตามอุปกรณ์จริง
+    \item กำหนดชื่อเครือข่าย Wi-Fi และรหัสผ่านในฟังก์ชัน \texttt{setup()} หรือใช้โหมดเชื่อมต่ออัตโนมัติ
+    \item เสียบสาย USB กดปุ่ม Upload และสังเกตข้อความ \texttt{"[BOOT] Ready"} บน Serial Monitor ที่บอดเรต 115200
+\end{enumerate}
+
+\subsection{ขั้นตอนการเชื่อมต่อผ่านโมบายแอปพลิเคชัน LEQs\_AIoT}
+\begin{enumerate}
+    \item เปิดแอปพลิเคชัน \textbf{LEQs AIoT} บนสมาร์ทโฟน
+    \item ตรวจสอบว่าสมาร์ทโฟนเชื่อมต่อสัญญาณ Wi-Fi เดียวกันกับบอร์ด
+    \item แตะที่ปุ่มไอคอนสัญญาณ Wi-Fi บริเวณมุมบนขวาของหน้าจอหลัก
+    \item ในหน้าต่าง \textbf{เชื่อมต่อบอร์ดฮาร์ดแวร์ IoT} ให้เลือกแท็บ \textbf{สแกนอัตโนมัติ (Auto-Scan)}
+    \item กดปุ่ม \textbf{สแกนใหม่} ระบบจะค้นหาและแสดงรายชื่อบอร์ด หมายเลขกลุ่ม และความแรงสัญญาณ RSSI
+    \item แตะปุ่ม \textbf{เชื่อมต่อ} ป้ายสถานะจะเปลี่ยนเป็นสีเขียวมรกต และข้อมูลเซนเซอร์จริงจากแปลงจะปรากฏบนหน้าปัดทันที
+\end{enumerate}
+
+\section*{คำถามทบทวนท้ายบทที่ 11}
+\addcontentsline{toc}{section}{คำถามทบทวนท้ายบทที่ 11}
+
+\begin{enumerate}[topsep=4pt, itemsep=4pt, partopsep=0pt, parsep=0pt, leftmargin=1.8em]
+    \item จงอธิบายความแตกต่างระหว่างการควบคุมการให้น้ำด้วยเกณฑ์ความชื้นคงที่แบบดั้งเดิม กับการประยุกต์ใช้ค่า Vapor Pressure Deficit (VPD) และ Explainable AI ในการตัดสินใจให้น้ำ
+    \item สมการเทเทนส์ (Tetens Equation) มีบทบาทอย่างไรในการประเมินสภาวะปากใบของพืช และเพราะเหตุใดในวันที่อุณหภูมิ $35^\circ\text{C}$ เท่ากัน แต่วันที่มีความชื้นสัมพัทธ์ $40\%$ พืชจึงสูญเสียน้ำมากกว่าวันที่มีความชื้นสัมพัทธ์ $80\%$
+    \item ในระบบการค้นหาอุปกรณ์ผ่านเครือข่าย จงอธิบายกลไกการทำงานของแพ็กเก็ต UDP Broadcast พอร์ต 8266 และเปรียบเทียบข้อดีข้อจำกัดกับการระบุหมายเลข Static IP Address
+    \item หากในระหว่างการทำงาน เซนเซอร์วัดความชื้นดินเกิดหลุดลอยพ้นผิวดิน กลไก Edge TinyML ของบอร์ดและระบบ Safety Interlock ของแอปพลิเคชันจะมีลำดับขั้นตอนการตอบสนองอย่างไรเพื่อป้องกันน้ำท่วมแปลง
+    \item จงออกแบบขั้นตอนการบำรุงรักษาเชิงป้องกัน (Preventive Maintenance) สำหรับระบบ Leaf Doctor Vision AI ในกรณีที่มีการเปลี่ยนชนิดพืชปลูกใหม่ในโรงเรือน
+\end{enumerate}
+
+\clearpage

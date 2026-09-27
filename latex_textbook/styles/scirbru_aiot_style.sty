@@ -11,7 +11,7 @@
     bottom=1.0in,
     left=1.5in,
     right=1.0in,
-    headheight=38pt,
+    headheight=45pt,
     headsep=14pt,
     footskip=0.5in
 }
@@ -220,6 +220,23 @@
         showstringspaces=false,
         tabsize=4
     }
+}
+
+% 5.6 Engineering Notice Box (กล่องข้อควรระวังทางวิศวกรรม)
+\newtcolorbox{noticebox}[1][ข้อควรระวังทางวิศวกรรม]{
+    enhanced,
+    breakable,
+    colback=durianGold!8!white,
+    colframe=durianGold!90!black,
+    coltitle=white,
+    fonttitle=\bfseries\normalsize\color{white},
+    title={#1},
+    arc=2mm,
+    boxrule=0.8pt,
+    leftrule=4mm,
+    top=8pt, bottom=8pt, left=10pt, right=10pt,
+    before skip=8pt, after skip=8pt,
+    drop shadow=black!10
 }
 
 % ============================================================
