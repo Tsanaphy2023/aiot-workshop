@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <rect width="512" height="512" rx="112" fill="#0B132B"/>
+  <path d="M256 80 C160 160 140 280 180 380 C210 420 256 440 256 440 C256 440 302 420 332 380 C372 280 352 160 256 80 Z" stroke="#10B981" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M256 440 L256 160" stroke="#20C997" stroke-width="12" stroke-linecap="round"/>
+  <path d="M256 260 L210 220" stroke="#20C997" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="210" cy="220" r="9" fill="#10B981"/>
+  <path d="M256 310 L302 270" stroke="#20C997" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="302" cy="270" r="9" fill="#10B981"/>
+  <path d="M256 360 L200 320" stroke="#20C997" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="200" cy="320" r="9" fill="#10B981"/>
+  <path d="M256 390 L310 350" stroke="#20C997" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="310" cy="350" r="9" fill="#10B981"/>
+  <!-- Radio Waves -->
+  <path d="M120 180 A160 160 0 0 1 150 110" stroke="#34D399" stroke-width="12" stroke-linecap="round"/>
+  <path d="M392 180 A160 160 0 0 0 362 110" stroke="#34D399" stroke-width="12" stroke-linecap="round"/>
+  <path d="M90 200 A200 200 0 0 1 130 90" stroke="#059669" stroke-width="10" stroke-linecap="round" stroke-dasharray="8 8"/>
+  <path d="M422 200 A200 200 0 0 0 382 90" stroke="#059669" stroke-width="10" stroke-linecap="round" stroke-dasharray="8 8"/>
+</svg>

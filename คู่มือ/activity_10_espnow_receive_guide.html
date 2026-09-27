@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>คู่มือการจัดกิจกรรม: กิจกรรมที่ 10 — เพิ่มบอร์ดตัวรับที่ตัวเรือน (Receive) | Smart Farm AIoT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+  <style>
+    :root {
+      --primary: #7c3aed;
+      --primary-dark: #6d28d9;
+      --primary-light: #f3e8ff;
+      --success: #16a34a;
+      --success-light: #dcfce7;
+      --warning: #d97706;
+      --warning-light: #fef3c7;
+      --danger: #dc2626;
+      --danger-light: #fee2e2;
+      --purple: #7c3aed;
+      --purple-light: #f3e8ff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --border: #e2e8f0;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.7;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 30px 20px 80px 20px;
+    }
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, var(--primary-dark) 100%);
+      color: white;
+      padding: 44px 32px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    header::after {
+      content: '📥';
+      position: absolute;
+      right: 24px;
+      bottom: -15px;
+      font-size: 130px;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .badge-header {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+      padding: 4px 14px;
+      border-radius: 9999px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+    header p {
+      font-size: 16px;
+      opacity: 0.9;
+      max-width: 760px;
+    }
+    .nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+      padding: 12px 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-bar a {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .nav-bar a:hover {
+      background: var(--primary-light);
+    }
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 30px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    h2.section-title {
+      font-size: 21px;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #f1f5f9;
+    }
+    h3.sub-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1e293b;
+      margin: 22px 0 12px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .callout {
+      padding: 16px 20px;
+      border-radius: 10px;
+      margin: 18px 0;
+      font-size: 15px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .callout-icon { font-size: 22px; line-height: 1.4; flex-shrink: 0; }
+    .callout.important { background-color: var(--primary-light); border-left: 4px solid var(--primary); color: var(--primary-dark); }
+    .callout.warning { background-color: var(--warning-light); border-left: 4px solid var(--warning); color: #92400e; }
+    .callout.success { background-color: var(--success-light); border-left: 4px solid var(--success); color: #166534; }
+    .callout.danger { background-color: var(--danger-light); border-left: 4px solid var(--danger); color: #991b1b; }
+    table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14.5px; }
+    th, td { border: 1px solid var(--border); padding: 12px 14px; text-align: left; vertical-align: top; }
+    th { background: #f8fafc; font-weight: 600; color: #334155; }
+    tr:nth-child(even) td { background-color: #fafbfd; }
+    pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 18px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin: 16px 0;
+      position: relative;
+    }
+    code { font-family: 'JetBrains Mono', monospace; font-size: 13.5px; }
+    .code-inline { background: #f1f5f9; color: #0369a1; padding: 2px 6px; border-radius: 4px; font-weight: 500; }
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      font-family: 'Sarabun', sans-serif;
+    }
+    .copy-btn:hover { background: rgba(255, 255, 255, 0.3); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14.5px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-outline { background: white; color: var(--primary); border: 1.5px solid var(--primary); }
+    .btn-outline:hover { background: var(--primary-light); }
+    .footer-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    @media print {
+      body { background: white; color: black; font-size: 13px; }
+      .container { max-width: 100%; padding: 0; }
+      .card { border: 1px solid #ccc; box-shadow: none; page-break-inside: avoid; margin-bottom: 16px; padding: 16px; }
+      header { background: #1e293b !important; color: white !important; padding: 20px; page-break-after: avoid; }
+      .nav-bar, .copy-btn, .footer-nav { display: none !important; }
+      pre { background: #f8fafc !important; color: #0f172a !important; border: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <div class="badge-header">คู่มือมาตรฐานสำหรับวิทยากร ผู้ช่วยสอน (TA) และผู้เรียน</div>
+    <h1>📥 กิจกรรมที่ 10 — เพิ่มบอร์ดตัวรับที่ตัวเรือน (Receive)</h1>
+    <p>คู่มือปฏิบัติการติดตั้งโหนดตัวรับ (Gateway Node) ในตัวเรือน, การจับคู่ด้วย MAC Address (MAC Filtering), การทดสอบระยะทางและสิ่งกีดขวาง (Range & RSSI Testing), และการจำลองแปลงเงียบเพื่อความปลอดภัย</p>
+  </header>
+
+  <div class="nav-bar">
+    <a href="index.html">🏠 ศูนย์รวมคู่มือ (Master Hub)</a>
+    <a href="#intro">1. บทนำและแนวคิด</a>
+    <a href="#time-matrix">2. แผนการจัดเวลา</a>
+    <a href="#hardware">3. อุปกรณ์และการเชื่อมต่อ</a>
+    <a href="#steps">4. ขั้นตอนการทดลอง</a>
+    <a href="#code">5. โค้ด/การตั้งค่า</a>
+    <a href="#answers">6. เฉลยใบงาน</a>
+    <a href="#troubleshooting">7. การแก้ปัญหา</a>
+    <a href="#rubric">8. เกณฑ์การประเมิน</a>
+  </div>
+
+  <div class="card" id="intro">
+    <h2 class="section-title"><span>📌</span> 1. บทนำและแนวคิดวิศวกรรม (Receive Principles)</h2>
+<p style="margin-bottom:12px;">ในเมื่อบอร์ดที่แปลงเกษตรส่งข้อมูลออกมาทางอากาศด้วย ESP-NOW บอร์ดในตัวเรือนที่มีสัญญาณ Wi-Fi จึงต้องทำหน้าที่เป็น <strong>"เกตเวย์ตัวรับ" (Gateway Receiver)</strong> เพื่อดักฟังข้อมูล ตรวจสอบความถูกต้อง และเตรียมส่งต่อเข้าสู่ระบบส่วนกลาง</p>
+<p style="margin-bottom:12px;"><strong>แนวคิดสำคัญในกิจกรรมที่ 10:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>Edge Gateway Pattern:</strong> โครงสร้างที่แบ่งหน้าที่ชัดเจน: โหนดแปลงทำหน้าที่ส่งอย่างเดียว (ลดภาระ กินไฟน้อย) ส่วนโหนดตัวรับในบ้านเสียบไฟถาวรทำหน้าที่รับและต่ออินเทอร์เน็ต</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>MAC Address Filtering & Pairing:</strong> ในบรรยากาศมีคลื่นวิทยุจากหลายกลุ่ม บอร์ดตัวรับต้องกรองรับเฉพาะแพ็กเก็ตที่มี MAC Address ตรงกับบอร์ดแปลงของตนเองเท่านั้น เพื่อไม่ให้ข้อมูลปะปนกัน</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>RSSI & Radio Propagation (การแพร่กระจายคลื่นวิทยุ):</strong> ค่าความแรงของสัญญาณ (Received Signal Strength Indicator: RSSI) มีหน่วยเป็น dBm (ติดลบ ยิ่งใกล้ 0 ยิ่งแรง เช่น -40 dBm ดีมาก, -85 dBm ใกล้หลุด) คลื่น 2.4 GHz จะถูกลดทอนอย่างรุนแรงเมื่อเดินทางผ่านผนังคอนกรีต ใบไม้ หรือผลไม้ที่มีน้ำ</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>4.</strong> <strong>Silent Node Detection (Fail-to-Unknown):</strong> หากตัวรับไม่ได้รับข้อมูลจากแปลงเกินเวลาที่กำหนด (Timeout) ต้องลบค่าเดิมทิ้งและแสดงเป็น <code class="code-inline">unknown</code> ทันที เพื่อไม่ให้ระบบเข้าใจผิดว่าสถานะยังปกติดี</p>
+  </div>
+
+  <div class="card" id="time-matrix">
+    <h2 class="section-title"><span>⏱️</span> 2. แผนการจัดการเรียนรู้และเวลา (Facilitator Time Matrix)</h2>
+    <p style="margin-bottom: 14px;"><strong>เวลารวม:</strong> 45 นาที | <strong>รูปแบบการจัด:</strong> ปฏิบัติการจับคู่โหนดและเดินทดสอบระยะสัญญาณจริงข้ามห้อง/กลางแจ้ง</p>
+    <div class="mermaid">
+gantt
+    title ลำดับขั้นตอนกิจกรรมที่ 10: ESP-NOW Receive (45 นาที)
+    dateFormat  m
+    axisFormat %M นาที
+    section แฟลชตัวรับ
+    ติดตั้งเฟิร์มแวร์ Receiver บน ESP32-C3  :a1, 0, 10m
+    section จับคู่ MAC
+    กรอก MAC ของบอร์ดแปลงในหน้าเว็บตัวรับ :a2, after a1, 10m
+    section ทดสอบระยะทาง
+    เดินถือบอร์ดแปลงถอยห่าง & ดูค่า RSSI   :a3, after a2, 15m
+    section แปลงเงียบ & สรุป
+    ปิดบอร์ดแปลง สังเกต unknown & 10-Q   :a4, after a3, 10m
+    </div>
+<table><thead><tr><th>ช่วงเวลา</th><th>กิจกรรมย่อย</th><th>บทบาทวิทยากร / TA</th><th>ผลลัพธ์ที่ต้องได้</th></tr></thead><tbody><tr><td><strong>00:00 - 10:00</strong></td><td>10.1 & 10.2 ติดตั้งเฟิร์มแวร์ตัวรับ</td><td>แจกบอร์ด ESP32-C3 ตัวที่สอง แนะนำการแฟลชไฟล์ <code class="code-inline">receiver.bin</code></td><td>บอร์ดตัวรับบูตขึ้นมาและต่อ Wi-Fi สำเร็จ</td></tr><tr><td><strong>10:00 - 20:00</strong></td><td>10.3 & 10.4 เปิดเว็บตัวรับ & ผูก MAC</td><td>ให้เปิดหน้าเว็บ IP ของตัวรับ กรอก MAC ของบอร์ดแปลงที่จดไว้</td><td>หน้าเว็บตัวรับเริ่มแสดงอุณหภูมิ/ความชื้นตรงกัน</td></tr><tr><td><strong>20:00 - 35:00</strong></td><td>10.5 ทดสอบระยะทางและสิ่งกีดขวาง</td><td>ให้ผู้เรียนถือบอร์ดแปลงเดินออกไปนอกห้อง สังเกตค่า RSSI และการสูญหายของแพ็กเก็ต</td><td>บันทึกระยะทางที่รับได้ และจุดที่สัญญาณเริ่มขาด</td></tr><tr><td><strong>35:00 - 45:00</strong></td><td>10.6 จำลองแปลงเงียบ & สรุป 10-Q</td><td>ให้ปิดสวิตช์บอร์ดแปลง สังเกตว่าตัวรับเปลี่ยนค่าเป็น <code class="code-inline">unknown</code> ใน 15 วินาที</td><td>เข้าใจหลักการ Fail-safe ของ Gateway และตอบ 10-Q</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="hardware">
+    <h2 class="section-title"><span>🔌</span> 3. รายการอุปกรณ์และการเชื่อมต่อ (Hardware BOM & Interfacing)</h2>
+    <div class="mermaid">
+flowchart LR
+    subgraph FIELD["แปลงปลูก (ระยะ 50-100 ม.)"]
+        SENDER["บอร์ด GoGo-IoT (ส่ง ESP-NOW)"]
+    end
+
+    subgraph HOUSE["ตัวเรือน / อาคารควบคุม"]
+        RCV["บอร์ดตัวรับ ESP32-C3 (Receiver Gateway)"]
+        WIFI_ROUTER["Wi-Fi Router ประจำโซน"]
+        LAPTOP["แล็ปท็อปผู้เรียน"]
+    end
+
+    SENDER -->|ESP-NOW Broadcast (กรองด้วย MAC)| RCV
+    RCV -->|Wi-Fi HTTP Web Server| WIFI_ROUTER --> LAPTOP
+    </div>
+<table><thead><tr><th>ลำดับ</th><th>รายการอุปกรณ์</th><th>สเปก / คุณสมบัติ</th><th>หน้าที่ในระบบ</th></tr></thead><tbody><tr><td>1</td><td><strong>บอร์ด ESP32-C3 ตัวรับ (Receiver)</strong></td><td>บอร์ดไมโครคอนโทรลเลอร์ ESP32-C3 ทั่วไป (ไม่มีเซนเซอร์)</td><td>ทำหน้าที่เป็นเกตเวย์รับ ESP-NOW ในบ้าน</td></tr><tr><td>2</td><td><strong>แหล่งจ่ายไฟพกพา (Power Bank)</strong></td><td>แบตเตอรี่สำรอง 5V พร้อมสาย USB</td><td>จ่ายไฟให้บอร์ดแปลงขณะเดินทดสอบระยะทางนอกห้อง</td></tr><tr><td>3</td><td><strong>บอร์ด GoGo-IoT จากกิจกรรมที่ 9</strong></td><td>ติดตั้งเฟิร์มแวร์ส่งสัญญาณ ESP-NOW</td><td>เป็นโหนดส่งข้อมูลจากแปลง</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="steps">
+    <h2 class="section-title"><span>🧪</span> 4. ขั้นตอนการทดลองอย่างละเอียดทีละขั้น (Step-by-Step Lab Protocol)</h2>
+<h3 class="sub-title">ขั้นตอนที่ 10.1: ติดตั้งเฟิร์มแวร์บอร์ดตัวรับ</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> เสียบบอร์ด ESP32-C3 ตัวใหม่เข้ากับพอร์ต USB ของแล็ปท็อป</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> เปิด Google Chrome ไปที่หน้าติดตั้งเฟิร์มแวร์ เลือกไฟล์ <code class="code-inline">receiver_zone_xx.bin</code></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> ติดตั้งจนเสร็จ 100% อ่านหมายเลข IP ของตัวรับจากหน้า Logs</p>
+<h3 class="sub-title">ขั้นตอนที่ 10.2: เปิดหน้าเว็บตัวรับและระบุ MAC Address ของบอร์ดแปลง</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> เปิดเบราว์เซอร์ เข้าไปที่ IP ของบอร์ดตัวรับ (เช่น <code class="code-inline">http://192.168.1.118</code>)</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> ในช่อง <strong>Target Sender MAC Address</strong> ให้กรอกหมายเลข MAC ของบอร์ดแปลงที่จดไว้จากกิจกรรมที่ 9</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> กดปุ่ม <strong>Save & Pair</strong></p>
+<h3 class="sub-title">ขั้นตอนที่ 10.3: ตรวจสอบความถูกต้องของข้อมูล</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> รอประมาณ 3-5 วินาที สังเกตหน้าจอของตัวรับ:</p>
+<p style="margin-left:20px; text-indent:-15px;">• ค่าอุณหภูมิ ความชื้น และสถานะสวิตช์ลูกลอยจะปรากฏขึ้นตรงกับที่บอร์ดแปลงอ่านได้</p>
+<p style="margin-left:20px; text-indent:-15px;">• มีค่า <strong>RSSI</strong> แสดงความแรงสัญญาณ (เช่น <code class="code-inline">-55 dBm</code>)</p>
+<p style="margin-left:20px; text-indent:-15px;">• มีตัวนับเวลาระบุว่า "ได้รับข้อมูลล่าสุดเมื่อกี่วินาทีที่แล้ว"</p>
+<h3 class="sub-title">ขั้นตอนที่ 10.4 & 10.5: ทดสอบระยะทางและสิ่งกีดขวาง</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> นำบอร์ดแปลง GoGo-IoT เสียบกับ Power Bank พกพา</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> สมาชิกคนหนึ่งอยู่ที่โต๊ะคอยดูหน้าจอตัวรับ อีกคนหนึ่งถือบอร์ดแปลงเดินถอยห่างออกไปนอกห้องเรียน</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> สังเกตค่า RSSI:</p>
+<p style="margin-left:20px; text-indent:-15px;">• ในห้องระยะ 5 เมตร: RSSI ประมาณ <code class="code-inline">-45 dBm</code> (สัญญาณดีเยี่ยม)</p>
+<p style="margin-left:20px; text-indent:-15px;">• นอกห้องมีประตูกั้น: RSSI ตกไปที่ <code class="code-inline">-70 dBm</code> (สัญญาณปานกลาง)</p>
+<p style="margin-left:20px; text-indent:-15px;">• เดินทะลุกำแพงคอนกรีต 2 ชั้น: สัญญาณเริ่มขาดหาย แพ็กเก็ตหลุด</p>
+<h3 class="sub-title">ขั้นตอนที่ 10.6: จำลองสถานการณ์ "แปลงเงียบ" (Silent Node Simulation)</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> นำบอร์ดแปลงกลับมาที่โต๊ะ แล้ว <strong>ปิดสวิตช์ไฟเลี้ยงบอร์ดแปลงทันที</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> จ้องมองหน้าจอเว็บของบอร์ดตัวรับ:</p>
+<p style="margin-left:20px; text-indent:-15px;">• ในช่วง 1-10 วินาทีแรก: ตัวเลขยังคงค้างอยู่ พร้อมเวลานับถอยหลัง</p>
+<p style="margin-left:20px; text-indent:-15px;">• เมื่อครบ <strong>15 วินาที:</strong> ตัวรับจะลบตัวเลขทิ้งทั้งหมด และแสดงสถานะเป็น <strong><code class="code-inline">Unknown / Disconnected</code></strong></p>
+  </div>
+
+  <div class="card" id="code">
+    <h2 class="section-title"><span>💻</span> 5. โค้ดและการตั้งค่าสำเร็จรูป (Ready-to-use Configurations)</h2>
+    <pre><button class="copy-btn" onclick="copyCode(this)">📋 คัดลอก</button><code>// ตัวอย่างตรรกะ Fail-safe บนบอร์ดตัวรับ (Timeout Watchdog)
+unsigned long lastPacketTime = 0;
+const unsigned long TIMEOUT_MS = 15000; // ตัดการเชื่อมต่อใน 15 วินาที
+
+void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {
+    if (memcmp(mac, targetSenderMac, 6) == 0) { // กรองเฉพาะ MAC ของเรา
+        memcpy(&receivedData, incomingData, sizeof(receivedData));
+        lastPacketTime = millis();
+        isOnline = true;
+    }
+}
+
+void loop() {
+    // ถ้าไม่ได้รับข้อมูลเกิน 15 วินาที ให้ล้างค่าเป็น unknown ทันที
+    if (millis() - lastPacketTime > TIMEOUT_MS) {
+        isOnline = false;
+        receivedData.temp = NAN;
+        receivedData.hum = NAN;
+    }
+}</code></pre>
+  </div>
+
+  <div class="card" id="answers">
+    <h2 class="section-title"><span>📝</span> 6. แนวทางการตรวจคำตอบและเฉลยใบงาน (Answer Key & Discussion)</h2>
+<h3 class="sub-title">เฉลยคำตอบและแนวทางการตรวจใบงาน (Activity 10 Worksheet)</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>ข้อ 10.3 ผลการจับคู่ตัวรับกับบอร์ดแปลง:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• ตัวรับสามารถรับและแสดงค่าอุณหภูมิ/ความชื้นตรงกับบอร์ดแปลง</p>
+<p style="margin-left:20px; text-indent:-15px;">• ความแรงสัญญาณ RSSI เริ่มต้น: ประมาณ -45 ถึง -58 dBm</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>ข้อ 10.5 ผลการทดสอบระยะทาง:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• สัญญาณทะลุประตูกระจกได้ดี แต่ลดทอนอย่างชัดเจนเมื่อเจอกำแพงคอนกรีตหรือชั้นปูน</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>ข้อ 10.6 ผลการจำลองแปลงเงียบ:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• เมื่อปิดบอร์ดแปลงเกิน 15 วินาที ค่าบนตัวรับจะเปลี่ยนเป็น <code class="code-inline">Unknown / Disconnected</code></p>
+<hr style="border:0; border-top:1px solid var(--border); margin:20px 0;">
+<h3 class="sub-title">💡 การอภิปรายเชิงวิศวกรรม (คำถาม 10-Q)</h3>
+<p style="margin-bottom:12px;"><strong>คำถาม:</strong> <em>ทำไมบอร์ดตัวรับ (Gateway) ต้องถูกออกแบบให้ลบค่าทิ้งและแสดงสถานะเป็น Unknown ทันทีเมื่อขาดการติดต่อเกินกำหนด แทนที่จะค้างตัวเลขเดิมไว้บนหน้าจอ?</em></p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>เฉลยเชิงวิศวกรรม:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>หลักการความปลอดภัย Fail-to-Unknown:</strong> ในระบบควบคุมอัตโนมัติ <strong>"การรู้ว่าไม่รู้ ย่อมปลอดภัยกว่าการยึดถือข้อมูลที่ไม่ตรงกับความจริง"</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>ป้องกันการตัดสินใจผิดพลาดของระบบ:</strong> หากบอร์ดส่งที่แปลงเกิดแบตเตอรี่หมดขณะที่ดินแห้งจัด (ความชื้น 30%) แต่ระบบตัวรับค้างค่า 70% ไว้ คอนโทรลเลอร์ส่วนกลางจะไม่สั่งรดน้ำเลย จนต้นไม้ในแปลงแห้งเหี่ยวตายในที่สุด</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>กระตุ้นระบบแจ้งเตือน (Deadman Switch):</strong> สถานะ <code class="code-inline">Unknown</code> หรือ <code class="code-inline">Unavailable</code> จะเป็นเงื่อนไข Trigger ให้ระบบส่งข้อความแจ้งเตือนเข้าสมาร์ตโฟนของเกษตรกรทันทีว่า "แปลงเกษตรขาดการติดต่อ โปรดเข้าตรวจสอบแบตเตอรี่หรือระบบไฟฟ้า" ทำให้แก้ปัญหาได้ทันเวลา</p>
+  </div>
+
+  <div class="card" id="troubleshooting">
+    <h2 class="section-title"><span>🛠️</span> 7. การแก้ไขปัญหาหน้างานที่พบบ่อย (Troubleshooting FAQ)</h2>
+<table><thead><tr><th>ปัญหาที่พบ</th><th>สาเหตุที่เป็นไปได้</th><th>วิธีการแก้ไข</th></tr></thead><tbody><tr><td><strong>ตัวรับไม่ยอมแสดงค่าใด ๆ เลย</strong></td><td>กรอก MAC Address ผิด หรือพิมพ์ตัวอักษรพิมพ์เล็ก/ใหญ่ไม่ตรงกัน</td><td>ตรวจสอบตัวอักษร MAC ให้ตรงกับที่บันทึกไว้ในกิจกรรมที่ 9 ทุกหลัก</td></tr><tr><td><strong>รับค่าได้เป็นครั้งคราว ติด ๆ ดับ ๆ</strong></td><td>ระยะห่างไกลเกินไป หรือถูกสัญญาณ Wi-Fi ความถี่เดียวกันรบกวน</td><td>ย้ายบอร์ดตัวรับให้พ้นสิ่งกีดขวาง หรือเปลี่ยนทิศทางเสาอากาศ</td></tr><tr><td><strong>หน้าเว็บตัวรับไม่โหลด</strong></td><td>แล็ปท็อปหลุดจาก Wi-Fi หรือบอร์ดตัวรับได้ IP ใหม่</td><td>ตรวจสอบในหน้าจอผู้สอนว่าบอร์ดตัวรับถือครอง IP อะไร แล้วพิมพ์เข้าใหม่</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="rubric">
+    <h2 class="section-title"><span>📊</span> 8. เกณฑ์การประเมินผลการเรียนรู้ (Assessment Rubric)</h2>
+<table><thead><tr><th>เกณฑ์การประเมิน</th><th>ดีเยี่ยม (4-5 คะแนน)</th><th>พอใช้ (2-3 คะแนน)</th><th>ต้องปรับปรุง (0-1 คะแนน)</th></tr></thead><tbody><tr><td><strong>การแฟลชและตั้งค่าตัวรับ (5 คะแนน)</strong></td><td>แฟลชบอร์ดตัวรับและกรอก MAC Address จับคู่สำเร็จในเวลารวดเร็ว</td><td>แฟลชได้แต่กรอก MAC ผิดในรอบแรก</td><td>ไม่สามารถตั้งค่าตัวรับได้</td></tr><tr><td><strong>การทดสอบระยะทางและ RSSI (5 คะแนน)</strong></td><td>เดินทดสอบจริง บันทึกระยะทางและค่า RSSI ได้อย่างละเอียด</td><td>ทดสอบเฉพาะในห้อง ไม่ได้เดินออกไปดูสิ่งกีดขวาง</td><td>ไม่ได้ทำการทดสอบระยะ</td></tr><tr><td><strong>การจำลองแปลงเงียบ (5 คะแนน)</strong></td><td>สังเกตและบันทึกเวลาที่ตัวรับตัดเข้าสู่ Unknown ได้ถูกต้อง</td><td>สังเกตเห็นสถานะดับแต่ไม่เข้าใจเวลา Timeout</td><td>ไม่ได้ทำการทดสอบ</td></tr><tr><td><strong>การตอบคำถามคิดวิเคราะห์ 10-Q (5 คะแนน)</strong></td><td>อธิบายหลัก Fail-to-Unknown และผลกระทบต่อระบบควบคุมได้อย่างยอดเยี่ยม</td><td>ตอบได้เรื่องข้อมูลเก่าค้าง แต่ไม่เห็นภาพความเสียหาย</td><td>ตอบไม่ตรงประเด็น</td></tr></tbody></table>
+  </div>
+
+  <div class="card footer-nav">
+    <a href="activity_9_espnow_send_guide.html" class="btn btn-outline">⬅️ กิจกรรมที่ 9 (Send)</a>
+    <a href="index.html" class="btn btn-outline">🏠 กลับสู่ศูนย์รวมคู่มือ</a>
+    <a href="activity_11_bridge_guide.html" class="btn btn-primary">กิจกรรมที่ 11 (Bridge) ➡️</a>
+  </div>
+
+</div>
+
+<script>
+function copyCode(btn) {
+  const pre = btn.parentElement;
+  const code = pre.querySelector('code').innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    const originalText = btn.innerText;
+    btn.innerText = '✓ คัดลอกแล้ว';
+    setTimeout(() => { btn.innerText = originalText; }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>

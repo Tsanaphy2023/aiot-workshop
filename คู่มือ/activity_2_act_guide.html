@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>คู่มือการจัดกิจกรรม: กิจกรรมที่ 2 — ต่อวงจรและสั่งงานหลอดไฟ (Act) | Smart Farm AIoT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+  <style>
+    :root {
+      --primary: #059669;
+      --primary-dark: #047857;
+      --primary-light: #d1fae5;
+      --success: #16a34a;
+      --success-light: #dcfce7;
+      --warning: #d97706;
+      --warning-light: #fef3c7;
+      --danger: #dc2626;
+      --danger-light: #fee2e2;
+      --purple: #7c3aed;
+      --purple-light: #f3e8ff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --border: #e2e8f0;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.7;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 30px 20px 80px 20px;
+    }
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, var(--primary-dark) 100%);
+      color: white;
+      padding: 44px 32px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    header::after {
+      content: '💡';
+      position: absolute;
+      right: 24px;
+      bottom: -15px;
+      font-size: 130px;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .badge-header {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+      padding: 4px 14px;
+      border-radius: 9999px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+    header p {
+      font-size: 16px;
+      opacity: 0.9;
+      max-width: 760px;
+    }
+    .nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+      padding: 12px 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-bar a {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .nav-bar a:hover {
+      background: var(--primary-light);
+    }
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 30px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    h2.section-title {
+      font-size: 21px;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #f1f5f9;
+    }
+    h3.sub-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1e293b;
+      margin: 22px 0 12px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .callout {
+      padding: 16px 20px;
+      border-radius: 10px;
+      margin: 18px 0;
+      font-size: 15px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .callout-icon { font-size: 22px; line-height: 1.4; flex-shrink: 0; }
+    .callout.important { background-color: var(--primary-light); border-left: 4px solid var(--primary); color: var(--primary-dark); }
+    .callout.warning { background-color: var(--warning-light); border-left: 4px solid var(--warning); color: #92400e; }
+    .callout.success { background-color: var(--success-light); border-left: 4px solid var(--success); color: #166534; }
+    .callout.danger { background-color: var(--danger-light); border-left: 4px solid var(--danger); color: #991b1b; }
+    table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14.5px; }
+    th, td { border: 1px solid var(--border); padding: 12px 14px; text-align: left; vertical-align: top; }
+    th { background: #f8fafc; font-weight: 600; color: #334155; }
+    tr:nth-child(even) td { background-color: #fafbfd; }
+    pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 18px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin: 16px 0;
+      position: relative;
+    }
+    code { font-family: 'JetBrains Mono', monospace; font-size: 13.5px; }
+    .code-inline { background: #f1f5f9; color: #0369a1; padding: 2px 6px; border-radius: 4px; font-weight: 500; }
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      font-family: 'Sarabun', sans-serif;
+    }
+    .copy-btn:hover { background: rgba(255, 255, 255, 0.3); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14.5px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-outline { background: white; color: var(--primary); border: 1.5px solid var(--primary); }
+    .btn-outline:hover { background: var(--primary-light); }
+    .footer-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    @media print {
+      body { background: white; color: black; font-size: 13px; }
+      .container { max-width: 100%; padding: 0; }
+      .card { border: 1px solid #ccc; box-shadow: none; page-break-inside: avoid; margin-bottom: 16px; padding: 16px; }
+      header { background: #1e293b !important; color: white !important; padding: 20px; page-break-after: avoid; }
+      .nav-bar, .copy-btn, .footer-nav { display: none !important; }
+      pre { background: #f8fafc !important; color: #0f172a !important; border: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <div class="badge-header">คู่มือมาตรฐานสำหรับวิทยากร ผู้ช่วยสอน (TA) และผู้เรียน</div>
+    <h1>💡 กิจกรรมที่ 2 — ต่อวงจรและสั่งงานหลอดไฟ (Act)</h1>
+    <p>คู่มือปฏิบัติการเรียนรู้บอร์ดขับโหลดกำลังสูง GoGo-Relay, การทำงานของรีเลย์กลไก (Electromechanical Relay), การเลือกขั้ว COM/NO/NC, วงจรไฟฟ้ากระแสตรง 12V DC, และการสั่งงานผ่าน Web UI</p>
+  </header>
+
+  <div class="nav-bar">
+    <a href="index.html">🏠 ศูนย์รวมคู่มือ (Master Hub)</a>
+    <a href="#intro">1. บทนำและแนวคิด</a>
+    <a href="#time-matrix">2. แผนการจัดเวลา</a>
+    <a href="#hardware">3. อุปกรณ์และการเชื่อมต่อ</a>
+    <a href="#steps">4. ขั้นตอนการทดลอง</a>
+    <a href="#code">5. โค้ด/การตั้งค่า</a>
+    <a href="#answers">6. เฉลยใบงาน</a>
+    <a href="#troubleshooting">7. การแก้ปัญหา</a>
+    <a href="#rubric">8. เกณฑ์การประเมิน</a>
+  </div>
+
+  <div class="card" id="intro">
+    <h2 class="section-title"><span>📌</span> 1. บทนำและแนวคิดวิศวกรรม (Act Principles)</h2>
+<p style="margin-bottom:12px;">ไมโครคอนโทรลเลอร์ทำงานที่แรงดันต่ำมาก (3.3V หรือ 5V) และสามารถจ่ายกระแสไฟฟ้าได้เพียงไม่กี่มิลลิแอมป์ ไม่สามารถนำไปขับอุปกรณ์กำลังสูง เช่น หลอดไฟส่องสว่าง วาล์วน้ำไฟฟ้า หรือปั๊มน้ำการเกษตรได้โดยตรง</p>
+<p style="margin-bottom:12px;"><strong>แนวคิดสำคัญในกิจกรรมที่ 2:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>Actuation Layer (ชั้นการกระทำ):</strong> การเปลี่ยนคำสั่งลอจิกเป็นพลังงานกลหรือไฟฟ้าที่ขับเคลื่อนอุปกรณ์จริง</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>Galvanic Isolation (การแยกกักทางไฟฟ้า):</strong> การแยกวงจรควบคุมแรงดันต่ำออกจากวงจรโหลดกำลังสูง เพื่อป้องกันสัญญาณรบกวนและไฟกระชากย้อนกลับไปทำลายไมโครคอนโทรลเลอร์</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>Electromechanical Relay:</strong> สวิตช์แม่เหล็กไฟฟ้าที่มี 3 ขั้วหลัก:</p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>COM (Common):</strong> ขั้วร่วมที่เป็นจุดจ่ายไฟเข้า</p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>NO (Normally Open):</strong> ปกติเปิด (วงจรขาด) จะต่อเมื่อจ่ายไฟให้คอยล์รีเลย์ทำงาน</p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>NC (Normally Closed):</strong> ปกติติด (วงจรต่อ) จะตัดเมื่อจ่ายไฟให้คอยล์</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>4.</strong> <strong>Fail-safe Terminal Selection:</strong> การเลือกขั้ว NO เป็นค่าเริ่มต้น เพื่อให้เมื่อระบบควบคุมดับ โหลดจะหยุดทำงานทันที</p>
+  </div>
+
+  <div class="card" id="time-matrix">
+    <h2 class="section-title"><span>⏱️</span> 2. แผนการจัดการเรียนรู้และเวลา (Facilitator Time Matrix)</h2>
+    <p style="margin-bottom: 14px;"><strong>เวลารวม:</strong> 45 นาที | <strong>รูปแบบการจัด:</strong> ปฏิบัติการรายคู่ เน้นความปลอดภัยทางไฟฟ้า ปิดไฟก่อนต่อสายทุกครั้ง</p>
+    <div class="mermaid">
+gantt
+    title ลำดับขั้นตอนกิจกรรมที่ 2: Act (45 นาที)
+    dateFormat  m
+    axisFormat %M นาที
+    section รู้จักรีเลย์
+    โครงสร้างรีเลย์ & ทดสอบคลิก     :a1, 0, 10m
+    section สำรวจแหล่งจ่ายไฟ
+    กล่องจ่ายไฟ 12V & วงจรหลอดไฟ   :a2, after a1, 10m
+    section ต่อวงจรไฟฟ้า
+    ต่อสายไฟขั้ว COM และ NO (ปิดไฟ) :a3, after a2, 15m
+    section ทดสอบ & สรุป
+    สั่งงานผ่านเว็บ & อภิปราย 2-Q    :a4, after a3, 10m
+    </div>
+<table><thead><tr><th>ช่วงเวลา</th><th>กิจกรรมย่อย</th><th>บทบาทวิทยากร / TA</th><th>ผลลัพธ์ที่ต้องได้</th></tr></thead><tbody><tr><td><strong>00:00 - 10:00</strong></td><td>2.1 & 2.2 รู้จักรีเลย์และทดสอบสั่งงาน</td><td>อธิบายหลักการเหนี่ยวนำแม่เหล็กไฟฟ้าของคอยล์ ให้เปิดเว็บสั่ง On/Off เพื่อฟังเสียงคลิก</td><td>ได้ยินเสียงคลิก และไฟ LED บนบอร์ดรีเลย์ติด</td></tr><tr><td><strong>10:00 - 20:00</strong></td><td>2.3 รู้จักกล่องจ่ายไฟและหลอด 12V</td><td>เตือนเรื่องความปลอดภัย คำนวณ P = V x I และชี้ขั้วบวก/ลบของอะแดปเตอร์</td><td>เข้าใจทิศทางการไหลของกระแสไฟฟ้า 12V DC</td></tr><tr><td><strong>20:00 - 35:00</strong></td><td>2.4 ต่อสายวงจรหลอดไฟ</td><td><strong>ตรวจสอบว่าปิดสวิตช์ไฟก่อนลงมือต่อ</strong> ตรวจสอบการขันสายเข้า COM และ NO</td><td>ต่อวงจรเสร็จสมบูรณ์ถูกต้อง ไม่มีสายเปลือยช็อต</td></tr><tr><td><strong>35:00 - 45:00</strong></td><td>2.5 จ่ายไฟ ทดสอบ และสรุป 2-Q</td><td>ให้เปิดสวิตช์ไฟหลัก สั่ง On/Off ผ่านหน้าเว็บ สังเกตหลอดไฟติด/ดับ</td><td>หลอดไฟสว่างตามสั่ง และบันทึกคำตอบลงใบงาน</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="hardware">
+    <h2 class="section-title"><span>🔌</span> 3. รายการอุปกรณ์และการเชื่อมต่อ (Hardware BOM & Interfacing)</h2>
+    <div class="mermaid">
+flowchart LR
+    subgraph POWER_BOX["กล่องจ่ายไฟ 12V DC"]
+        DC12_POS["+12V (สายสีแดง)"]
+        DC12_NEG["GND (สายสีดำ)"]
+    end
+
+    subgraph RELAY_BOARD["บอร์ด GoGo-Relay"]
+        MCU2["ESP32-C3"]
+        RELAY["Relay 10A 250VAC"]
+        COM["ขั้ว COM (Common)"]
+        NO["ขั้ว NO (Normally Open)"]
+        NC["ขั้ว NC (Normally Closed)"]
+        MCU2 -->|Optocoupler Isolation| RELAY
+        RELAY --- COM
+        RELAY --- NO
+        RELAY --- NC
+    end
+
+    subgraph LOAD["โหลดไฟฟ้ากำลัง"]
+        LAMP["หลอดไฟ LED 12V / ปั๊มน้ำ"]
+    end
+
+    DC12_POS -->|จ่ายไฟเข้าสวิตช์| COM
+    NO -->|ไฟออกเมื่อสั่ง ON| LAMP
+    LAMP -->|สายไฟกลับลงกราวด์| DC12_NEG
+    NC -.->|เว้นว่างไว้ (ไม่ต่อ)| X[" "]
+    </div>
+<table><thead><tr><th>ลำดับ</th><th>รายการอุปกรณ์</th><th>สเปก / คุณสมบัติ</th><th>หน้าที่ในระบบ</th></tr></thead><tbody><tr><td>1</td><td><strong>บอร์ด GoGo-Relay (Actuator Node)</strong></td><td>ชิป ESP32-C3, Relay 1-Channel (10A 250VAC/30VDC)</td><td>บอร์ดรับคำสั่งเครือข่ายและสับสวิตช์ไฟฟ้า</td></tr><tr><td>2</td><td><strong>แหล่งจ่ายไฟ 12V DC Power Box</strong></td><td>Switching Power Supply 12V 2A-5A พร้อมสวิตช์ตัดไฟ</td><td>จ่ายไฟกระแสตรงแรงดัน 12V ให้หลอดไฟ/ปั๊ม</td></tr><tr><td>3</td><td><strong>หลอดไฟ LED 12V DC</strong></td><td>กำลังไฟฟ้า 5W-10W พร้อมขั้วต่อสายไฟ</td><td>ใช้จำลองโหลดกำลังสูงในแปลงเกษตร</td></tr><tr><td>4</td><td><strong>สายไฟเชื่อมต่อพร้อมหางปลา/สายคู่</strong></td><td>สายทองแดงหุ้มฉนวน แดง (+) / ดำ (-)</td><td>เดินวงจรไฟฟ้าระหว่างกล่องไฟ รีเลย์ และโหลด</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="steps">
+    <h2 class="section-title"><span>🧪</span> 4. ขั้นตอนการทดลองอย่างละเอียดทีละขั้น (Step-by-Step Lab Protocol)</h2>
+<h3 class="sub-title">ขั้นตอนที่ 2.1: รู้จักโครงสร้างบอร์ดรีเลย์</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> สังเกตตัวกล่องสี่เหลี่ยมสีน้ำเงินบนบอร์ด: นี่คือรีเลย์กลไก ด้านในมีขดลวดแม่เหล็กและสปริงดึงหน้าสัมผัส</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> ตรวจสอบขั้ว Terminal 3 ช่อง:</p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>COM:</strong> จุดเชื่อมต่อหลัก</p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>NO:</strong> สวิตช์จะปิดวงจร (เชื่อมหากัน) เฉพาะเมื่อสั่ง ON</p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>NC:</strong> สวิตช์จะปิดวงจรค้างไว้เมื่อไม่มีไฟเลี้ยง</p>
+<h3 class="sub-title">ขั้นตอนที่ 2.2: อ่านชื่อ IP และทดสอบสั่งงานรีเลย์เบื้องต้น</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> เสียบสาย USB-C ให้บอร์ด GoGo-Relay</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> เปิดเบราว์เซอร์ เข้า URL: <code class="code-inline">http://gogo-relay-xxxxxx.local</code> หรือ IP ของบอร์ด</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> กดปุ่มสวิตช์บนหน้าเว็บ สังเกต:</p>
+<p style="margin-left:20px; text-indent:-15px;">• จะได้ยินเสียง <strong>"คลิก"</strong> เบาๆ (เสียงหน้าสัมผัสกระทบกัน)</p>
+<p style="margin-left:20px; text-indent:-15px;">• ไฟ LED สีแดง/เขียวข้างตัวรีเลย์จะติดสว่างตามสถานะ</p>
+<h3 class="sub-title">ขั้นตอนที่ 2.3: สำรวจกล่องจ่ายไฟและคำนวณกำลังไฟ</h3>
+<p style="margin-left:20px; text-indent:-15px;">• แรงดันไฟฟ้าในระบบขับโหลดคือ <strong>12V DC</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• กำลังไฟฟ้าคำนวณตามสูตร $P = V 	imes I$ หากหลอดไฟขนาด 6W จะกินกระแส $I = 6 / 12 = 0.5	ext{ A}$</p>
+<h3 class="sub-title">ขั้นตอนที่ 2.4: ต่อสายวงจรหลอดไฟ (คำเตือนความปลอดภัย)</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>ปิดสวิตช์ของกล่องจ่ายไฟ 12V ทุกครั้งก่อนต่อสาย</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> ต่อสายไฟขั้วบวก (+12V สีแดง) จากกล่องไฟ เข้าที่ช่อง <strong>COM</strong> ของรีเลย์</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> ต่อสายไฟสีแดงจากขั้ว <strong>NO</strong> ของรีเลย์ ไปเข้าที่ขั้วบวกของหลอดไฟ</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>4.</strong> ต่อสายไฟขั้วลบ (สีดำ) จากหลอดไฟ กลับไปเข้าที่ขั้ว <strong>GND</strong> ของกล่องไฟโดยตรง</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>5.</strong> ตรวจสอบความแน่นหนาของสกรูยึดสายไฟ</p>
+<h3 class="sub-title">ขั้นตอนที่ 2.5: จ่ายไฟและทดสอบสั่งเปิด-ปิดหลอดไฟ</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> เปิดสวิตช์กล่องจ่ายไฟ 12V</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> สั่ง ON จากหน้าเว็บของบอร์ดรีเลย์ -> หลอดไฟต้องสว่างทันที</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> สั่ง OFF -> หลอดไฟต้องดับสนิททันที</p>
+  </div>
+
+  <div class="card" id="code">
+    <h2 class="section-title"><span>💻</span> 5. โค้ดและการตั้งค่าสำเร็จรูป (Ready-to-use Configurations)</h2>
+    <pre><button class="copy-btn" onclick="copyCode(this)">📋 คัดลอก</button><code># ตัวอย่างโครงสร้างการตั้งค่ารีเลย์ใน ESPHome (เบื้องหลังบอร์ด GoGo-Relay)
+switch:
+  - platform: gpio
+    pin: GPIO3
+    name: "Relay Switch"
+    id: relay_ch1
+    restore_mode: ALWAYS_OFF  # เมื่อบอร์ดบูต ให้รีเลย์อยู่ในสถานะปิดเสมอเพื่อความปลอดภัย</code></pre>
+  </div>
+
+  <div class="card" id="answers">
+    <h2 class="section-title"><span>📝</span> 6. แนวทางการตรวจคำตอบและเฉลยใบงาน (Answer Key & Discussion)</h2>
+<h3 class="sub-title">เฉลยคำตอบและแนวทางการตรวจใบงาน (Activity 2 Worksheet)</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>ข้อ 2.1 โครงสร้างของรีเลย์:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• สั่งเปิดรีเลย์ จะเกิดการเชื่อมต่อระหว่างขา <strong>COM กับ NO</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>ข้อ 2.2 การสั่งงานผ่านหน้าเว็บ:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• สั่ง ON: หลอดไฟติด / มีเสียงคลิก / ไฟ LED แสดงสถานะรีเลย์ติด</p>
+<p style="margin-left:20px; text-indent:-15px;">• สั่ง OFF: หลอดไฟดับ / มีเสียงคลิก / ไฟ LED ดับ</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>ข้อ 2.4 วงจรไฟฟ้า:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• รีเลย์ทำหน้าที่เป็น <strong>สวิตช์อนุกรมคั่นที่สายไฟขั้วบวก (+12V)</strong></p>
+<hr style="border:0; border-top:1px solid var(--border); margin:20px 0;">
+<h3 class="sub-title">💡 การอภิปรายเชิงวิศวกรรม (คำถาม 2-Q)</h3>
+<p style="margin-bottom:12px;"><strong>คำถาม:</strong> <em>ทำไมในงานฟาร์มอัจฉริยะจึงต้องต่อโหลดเข้ากับขั้ว Normally Open (NO) เสมอ และหากใช้ขั้ว Normally Closed (NC) จะเกิดผลเสียร้ายแรงอย่างไรเมื่อเกิดไฟดับหรือบอร์ดเสีย?</em></p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>เฉลยเชิงวิศวกรรม:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>ขั้ว NO (Normally Open):</strong> เป็นการออกแบบตามหลัก <strong>Fail-Safe</strong> เมื่อบอร์ดคอนโทรลเลอร์ไฟดับ สปริงจะดึงหน้าสัมผัสให้ตัดวงจร (Open) โหลด เช่น ปั๊มน้ำ จะหยุดทำงานทันที ป้องกันปั๊มสูบน้ำท่วมแปลง</p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>หากต่อที่ขั้ว NC (Normally Closed):</strong> ขณะที่บอร์ดดับหรือแฮงก์ หน้าสัมผัสจะปิดวงจรค้างไว้ตลอดเวลา ส่งผลให้ปั๊มน้ำเปิดทำงานเองโดยไม่มีระบบควบคุม น้ำจะท่วมขังแปลงพืช ปั๊มจะเดินแห้งจนไหม้ และทำให้สูญเสียพลังงานไฟฟ้าอย่างมหาศาล</p>
+  </div>
+
+  <div class="card" id="troubleshooting">
+    <h2 class="section-title"><span>🛠️</span> 7. การแก้ไขปัญหาหน้างานที่พบบ่อย (Troubleshooting FAQ)</h2>
+<table><thead><tr><th>ปัญหาที่พบ</th><th>สาเหตุที่เป็นไปได้</th><th>วิธีการแก้ไข</th></tr></thead><tbody><tr><td><strong>รีเลย์คลิกแต่หลอดไฟไม่ติด</strong></td><td>ไม่ได้เปิดสวิตช์กล่องไฟ 12V หรือต่อผิดขั้ว</td><td>ตรวจสอบสวิตช์กล่องไฟ 12V และตรวจว่าต่อสายไฟเข้า COM และ NO ครบวงจรหรือไม่</td></tr><tr><td><strong>หลอดไฟติดค้างตลอดเวลาสั่งดับไม่ได้</strong></td><td>ขันสายเข้าช่อง NC แทนที่จะเป็น NO</td><td>ย้ายสายจากช่อง NC มาเข้าช่อง NO</td></tr><tr><td><strong>บอร์ดรีเซ็ตตัวเองทันทีที่สั่งเปิดรีเลย์</strong></td><td>ไฟกระชาก (Inrush Current) หรือใช้แหล่งจ่ายไฟ USB ไม่พอ</td><td>แยกแหล่งจ่ายไฟ USB ของบอร์ดรีเลย์ออกจากพอร์ตคอมพิวเตอร์ หรือใช้อะแดปเตอร์ 5V 2A</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="rubric">
+    <h2 class="section-title"><span>📊</span> 8. เกณฑ์การประเมินผลการเรียนรู้ (Assessment Rubric)</h2>
+<table><thead><tr><th>เกณฑ์การประเมิน</th><th>ดีเยี่ยม (4-5 คะแนน)</th><th>พอใช้ (2-3 คะแนน)</th><th>ต้องปรับปรุง (0-1 คะแนน)</th></tr></thead><tbody><tr><td><strong>ความปลอดภัยในการต่อวงจร (5 คะแนน)</strong></td><td>ปิดสวิตช์ไฟก่อนต่อสายทุกครั้ง ขันสายแน่นหนา ไม่มีสายทองแดงโผล่ช็อต</td><td>มีการเตือนจึงปิดไฟ ขันสายเรียบร้อย</td><td>ต่อสายขณะเปิดไฟ หรือขันสายไม่แน่น</td></tr><tr><td><strong>การเลือกขั้วรีเลย์ถูกต้อง (5 คะแนน)</strong></td><td>ต่อเข้า COM และ NO ถูกต้องตรงตามวงจร</td><td>สับสนขั้วในตอนแรก แต่แก้ไขได้เอง</td><td>ต่อเข้าช่อง NC ทำให้ไฟติดค้าง</td></tr><tr><td><strong>การทดสอบสั่งงานผ่าน Web UI (5 คะแนน)</strong></td><td>ควบคุมเปิด-ปิดหลอดไฟได้อย่างคล่องแคล่วและสังเกตสถานะ</td><td>ควบคุมได้แต่ยังมีข้อติดขัดเรื่องเน็ตเวิร์ก</td><td>ไม่สามารถสั่งงานรีเลย์ได้</td></tr><tr><td><strong>การตอบคำถามคิดวิเคราะห์ 2-Q (5 คะแนน)</strong></td><td>อธิบายความเสี่ยงของการใช้ขั้ว NC และหลัก Fail-safe ได้ชัดเจน</td><td>ตอบข้อแตกต่างของ NO/NC ได้แต่ไม่เห็นภาพความเสียหาย</td><td>ไม่เข้าใจความแตกต่างของ NO และ NC</td></tr></tbody></table>
+  </div>
+
+  <div class="card footer-nav">
+    <a href="activity_1_sense_guide.html" class="btn btn-outline">⬅️ กิจกรรมที่ 1 (Sense)</a>
+    <a href="index.html" class="btn btn-outline">🏠 กลับสู่ศูนย์รวมคู่มือ</a>
+    <a href="activity_3_logic_guide.html" class="btn btn-primary">กิจกรรมที่ 3 (Logic) ➡️</a>
+  </div>
+
+</div>
+
+<script>
+function copyCode(btn) {
+  const pre = btn.parentElement;
+  const code = pre.querySelector('code').innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    const originalText = btn.innerText;
+    btn.innerText = '✓ คัดลอกแล้ว';
+    setTimeout(() => { btn.innerText = originalText; }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>

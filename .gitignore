@@ -9,6 +9,9 @@ Thumbs.db
 *.mkv
 *.zip
 *.tar.gz
+*.ova
+*.iso
+
 
 # Python & Environment
 __pycache__/
@@ -38,6 +41,16 @@ env/
 *.db-shm
 
 # IDE
+.idea/
+*.iml
+.vscode/
+
+# Flutter & Dart build artifacts
+.dart_tool/
+.flutter-plugins*
+**/build/
+**/.pub-cache/
+**/.dart_tool/
 .idea/
 .vscode/
 scirbru_aiot207

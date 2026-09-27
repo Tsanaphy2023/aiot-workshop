@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>คู่มือการจัดกิจกรรม: กิจกรรมที่ 3 — สร้างกฎควบคุมระบบ (Logic) | Smart Farm AIoT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-dark: #4338ca;
+      --primary-light: #e0e7ff;
+      --success: #16a34a;
+      --success-light: #dcfce7;
+      --warning: #d97706;
+      --warning-light: #fef3c7;
+      --danger: #dc2626;
+      --danger-light: #fee2e2;
+      --purple: #7c3aed;
+      --purple-light: #f3e8ff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --border: #e2e8f0;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.7;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 30px 20px 80px 20px;
+    }
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, var(--primary-dark) 100%);
+      color: white;
+      padding: 44px 32px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    header::after {
+      content: '⚙️';
+      position: absolute;
+      right: 24px;
+      bottom: -15px;
+      font-size: 130px;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .badge-header {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+      padding: 4px 14px;
+      border-radius: 9999px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+    header p {
+      font-size: 16px;
+      opacity: 0.9;
+      max-width: 760px;
+    }
+    .nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+      padding: 12px 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-bar a {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .nav-bar a:hover {
+      background: var(--primary-light);
+    }
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 30px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    h2.section-title {
+      font-size: 21px;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #f1f5f9;
+    }
+    h3.sub-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1e293b;
+      margin: 22px 0 12px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .callout {
+      padding: 16px 20px;
+      border-radius: 10px;
+      margin: 18px 0;
+      font-size: 15px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .callout-icon { font-size: 22px; line-height: 1.4; flex-shrink: 0; }
+    .callout.important { background-color: var(--primary-light); border-left: 4px solid var(--primary); color: var(--primary-dark); }
+    .callout.warning { background-color: var(--warning-light); border-left: 4px solid var(--warning); color: #92400e; }
+    .callout.success { background-color: var(--success-light); border-left: 4px solid var(--success); color: #166534; }
+    .callout.danger { background-color: var(--danger-light); border-left: 4px solid var(--danger); color: #991b1b; }
+    table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14.5px; }
+    th, td { border: 1px solid var(--border); padding: 12px 14px; text-align: left; vertical-align: top; }
+    th { background: #f8fafc; font-weight: 600; color: #334155; }
+    tr:nth-child(even) td { background-color: #fafbfd; }
+    pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 18px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin: 16px 0;
+      position: relative;
+    }
+    code { font-family: 'JetBrains Mono', monospace; font-size: 13.5px; }
+    .code-inline { background: #f1f5f9; color: #0369a1; padding: 2px 6px; border-radius: 4px; font-weight: 500; }
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      font-family: 'Sarabun', sans-serif;
+    }
+    .copy-btn:hover { background: rgba(255, 255, 255, 0.3); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14.5px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-outline { background: white; color: var(--primary); border: 1.5px solid var(--primary); }
+    .btn-outline:hover { background: var(--primary-light); }
+    .footer-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    @media print {
+      body { background: white; color: black; font-size: 13px; }
+      .container { max-width: 100%; padding: 0; }
+      .card { border: 1px solid #ccc; box-shadow: none; page-break-inside: avoid; margin-bottom: 16px; padding: 16px; }
+      header { background: #1e293b !important; color: white !important; padding: 20px; page-break-after: avoid; }
+      .nav-bar, .copy-btn, .footer-nav { display: none !important; }
+      pre { background: #f8fafc !important; color: #0f172a !important; border: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <div class="badge-header">คู่มือมาตรฐานสำหรับวิทยากร ผู้ช่วยสอน (TA) และผู้เรียน</div>
+    <h1>⚙️ กิจกรรมที่ 3 — สร้างกฎควบคุมระบบ (Logic)</h1>
+    <p>คู่มือปฏิบัติการเชื่อมโยง Sense และ Act ผ่าน Home Assistant Automation Engine, การจัดการ Entity ID, การกำหนดเกณฑ์ตัดสินใจ (Threshold), และการสร้างกฎควบคุมเปิด-ปิดไฟ/ปั๊มอัตโนมัติ</p>
+  </header>
+
+  <div class="nav-bar">
+    <a href="index.html">🏠 ศูนย์รวมคู่มือ (Master Hub)</a>
+    <a href="#intro">1. บทนำและแนวคิด</a>
+    <a href="#time-matrix">2. แผนการจัดเวลา</a>
+    <a href="#hardware">3. อุปกรณ์และการเชื่อมต่อ</a>
+    <a href="#steps">4. ขั้นตอนการทดลอง</a>
+    <a href="#code">5. โค้ด/การตั้งค่า</a>
+    <a href="#answers">6. เฉลยใบงาน</a>
+    <a href="#troubleshooting">7. การแก้ปัญหา</a>
+    <a href="#rubric">8. เกณฑ์การประเมิน</a>
+  </div>
+
+  <div class="card" id="intro">
+    <h2 class="section-title"><span>📌</span> 1. บทนำและแนวคิดวิศวกรรม (Logic Principles)</h2>
+<p style="margin-bottom:12px;">เมื่อเรามีเซนเซอร์ที่สามารถตรวจวัดค่าได้ (Sense) และมีอุปกรณ์สวิตช์ที่สามารถควบคุมได้ (Act) ขั้นตอนสำคัญถัดมาคือการสร้าง <strong>"สมองกลและตรรกะการตัดสินใจ" (Logic Layer)</strong> เพื่อให้ระบบทำงานสัมพันธ์กันอย่างชาญฉลาด</p>
+<p style="margin-bottom:12px;"><strong>แนวคิดสำคัญในกิจกรรมที่ 3:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>Centralized Automation Engine:</strong> การรวมศูนย์การควบคุมไว้ที่ Home Assistant ทำให้เราสามารถนำข้อมูลจากโหนดหนึ่งไปสั่งการอีกโหนดหนึ่งได้อย่างไร้รอยต่อ</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>ESPHome Native API:</strong> โพรโทคอลสื่อสารประสิทธิภาพสูงบน TCP Socket ที่มีความเร็วและความเสถียรกว่าการสื่อสารผ่านเว็บเซิร์ฟเวอร์แบบเดิม</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>โครงสร้างของระบบอัตโนมัติ (Automation Paradigm):</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>Trigger (ตัวกระตุ้น):</strong> "เมื่อเกิดอะไรขึ้น?" (เช่น ความสว่างต่ำกว่าเกณฑ์, สถานะลูกลอยเปลี่ยน)</p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>Condition (เงื่อนไขเสริม):</strong> "ในสถานการณ์ใด?" (เช่น ตรวจสอบว่าโหมดทำงานเปิดอยู่หรือไม่)</p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>Action (การกระทำ):</strong> "ให้ทำอะไร?" (เช่น สั่งเปิดรีเลย์, ส่งการแจ้งเตือน)</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>4.</strong> <strong>Execution Traces:</strong> เครื่องมือตรวจสอบลำดับการทำงานย้อนหลังของ Home Assistant ช่วยให้เห็นว่ากฎถูกเรียกทำงานหรือไม่ และผ่านเงื่อนไขใดบ้าง</p>
+  </div>
+
+  <div class="card" id="time-matrix">
+    <h2 class="section-title"><span>⏱️</span> 2. แผนการจัดการเรียนรู้และเวลา (Facilitator Time Matrix)</h2>
+    <p style="margin-bottom: 14px;"><strong>เวลารวม:</strong> 50 นาที | <strong>รูปแบบการจัด:</strong> ปฏิบัติการเชื่อมต่อระบบเข้า Home Assistant และทดสอบด้วยเครื่องมือ Traces</p>
+    <div class="mermaid">
+gantt
+    title ลำดับขั้นตอนกิจกรรมที่ 3: Logic (50 นาที)
+    dateFormat  m
+    axisFormat %M นาที
+    section รวมอุปกรณ์
+    เพิ่มบอร์ด GoGo-IoT & Relay เข้า HA :a1, 0, 15m
+    section สำรวจ Entity
+    ทดสอบกดสวิตช์ & อ่านค่าใน HA       :a2, after a1, 10m
+    section เขียนกฎอัตโนมัติ
+    กำหนดเกณฑ์ & สร้าง Automation เปิดไฟ :a3, after a2, 15m
+    section ทดสอบ & อภิปราย
+    ทดสอบด้วยของจริง & อภิปราย 3-Q     :a4, after a3, 10m
+    </div>
+<table><thead><tr><th>ช่วงเวลา</th><th>กิจกรรมย่อย</th><th>บทบาทวิทยากร / TA</th><th>ผลลัพธ์ที่ต้องได้</th></tr></thead><tbody><tr><td><strong>00:00 - 15:00</strong></td><td>3.1 เพิ่มบอร์ดทั้งสองเข้า Home Assistant</td><td>แนะนำเมนู Settings -> Devices -> Integrations -> ESPHome</td><td>บอร์ดทั้งสองออนไลน์ใน Home Assistant</td></tr><tr><td><strong>15:00 - 25:00</strong></td><td>3.2 ทดสอบ Entity ใน Home Assistant</td><td>ให้ผู้เรียนเพิ่มการ์ดบนแดชบอร์ด ลองเปิด-ปิดรีเลย์ผ่าน HA</td><td>รีเลย์และเซนเซอร์ตอบสนองตรงกับหน้าจอ HA</td></tr><tr><td><strong>25:00 - 40:00</strong></td><td>3.3 & 3.4 กำหนดเกณฑ์และสร้าง Automation</td><td>สอนโครงสร้าง Trigger, Condition, Action สร้างกฎเปิดเมื่อมืด/ชื้นต่ำ</td><td>กฎ Automation ถูกบันทึกและเปิดใช้งาน</td></tr><tr><td><strong>40:00 - 50:00</strong></td><td>3.5 & สรุป 3-Q</td><td>ให้ผู้เรียนทดลองเอามือบังเซนเซอร์ ตรวจดู Traces และอภิปรายข้อ 3-Q</td><td>ไฟเปิด-ปิดตามกฎอัตโนมัติ และเข้าใจสถาปัตยกรรม</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="hardware">
+    <h2 class="section-title"><span>🔌</span> 3. รายการอุปกรณ์และการเชื่อมต่อ (Hardware BOM & Interfacing)</h2>
+    <div class="mermaid">
+flowchart TD
+    subgraph SENSOR_NODE["โหนดเซนเซอร์ (GoGo-IoT)"]
+        SHT["SHT30: ความชื้น/อุณหภูมิ"]
+        FLOAT["สวิตช์ลูกลอยระดับน้ำ"]
+    end
+
+    subgraph ACTUATOR_NODE["โหนดควบคุม (GoGo-Relay)"]
+        RELAY["รีเลย์ 1-Channel"]
+        LAMP["หลอดไฟ / ปั๊มน้ำ 12V"]
+        RELAY --> LAMP
+    end
+
+    subgraph HA_SERVER["Home Assistant Core Engine"]
+        API["ESPHome Native API Integration"]
+        AUTO["Automation Engine (Triggers & Actions)"]
+        TRACE["Visual Automation Traces"]
+        API --> AUTO
+        AUTO --> TRACE
+    end
+
+    SENSOR_NODE -->|TCP Native API (Encrypted)| API
+    AUTO -->|Service Call: switch.turn_on| API
+    API -->|TCP Native API| ACTUATOR_NODE
+    </div>
+<table><thead><tr><th>ลำดับ</th><th>รายการอุปกรณ์</th><th>สเปก / คุณสมบัติ</th><th>หน้าที่ในระบบ</th></tr></thead><tbody><tr><td>1</td><td><strong>Home Assistant Server</strong></td><td>ติดตั้งบน VirtualBox หรือ Mini PC ในวงแลน</td><td>เซิร์ฟเวอร์ประมวลผลกฎอัตโนมัติและเก็บข้อมูล</td></tr><tr><td>2</td><td><strong>บอร์ด GoGo-IoT</strong></td><td>ESPHome Native API Enabled</td><td>ส่งค่าเซนเซอร์เข้า Home Assistant แบบ Real-time</td></tr><tr><td>3</td><td><strong>บอร์ด GoGo-Relay</strong></td><td>ESPHome Native API Enabled</td><td>รับคำสั่งเปิด/ปิดสวิตช์จาก Home Assistant</td></tr><tr><td>4</td><td><strong>หลอดไฟจำลอง 12V</strong></td><td>ต่อผ่านขั้ว COM/NO ของรีเลย์</td><td>โหลดทางกายภาพที่ถูกควบคุมตามกฎ</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="steps">
+    <h2 class="section-title"><span>🧪</span> 4. ขั้นตอนการทดลองอย่างละเอียดทีละขั้น (Step-by-Step Lab Protocol)</h2>
+<h3 class="sub-title">ขั้นตอนที่ 3.1: เพิ่มบอร์ดทั้งสองเข้า Home Assistant</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> เปิดหน้าเว็บ Home Assistant (<code class="code-inline">http://localhost:8123</code> หรือ IP ของ VirtualBox)</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> ไปที่ <strong>Settings</strong> -> <strong>Devices & Services</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> ระบบจะค้นพบบอร์ด ESPHome อัตโนมัติ (Discovered) กด <strong>Configure</strong> -> <strong>Submit</strong> ทั้งบอร์ด GoGo-IoT และ GoGo-Relay</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>4.</strong> กำหนด Area ให้เรียบร้อย (เช่น "แปลงปลูก" และ "โรงเรือน")</p>
+<h3 class="sub-title">ขั้นตอนที่ 3.2: สำรวจและทดสอบ Entity</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> ไปที่แท็บ <strong>Entities</strong> ค้นหาชื่ออุปกรณ์ของกลุ่ม</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> ทดสอบกด Toggle ที่สวิตช์รีเลย์ (<code class="code-inline">switch.gogo_relay_xxxxxx_relay</code>) -> หลอดไฟต้องติด/ดับตามคลิกเมาส์</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> สังเกตค่าเซนเซอร์ความชื้น (<code class="code-inline">sensor.gogo_iot_xxxxxx_humidity</code>) และสวิตช์ลูกลอย</p>
+<h3 class="sub-title">ขั้นตอนที่ 3.3: เลือกเกณฑ์ตัดสินใจ (Threshold)</h3>
+<p style="margin-left:20px; text-indent:-15px;">• ตรวจสอบค่าความชื้นหรือความสว่างปกติในห้อง</p>
+<p style="margin-left:20px; text-indent:-15px;">• กำหนดเกณฑ์: ตัวอย่างเช่น หากใช้ความชื้น ให้ตั้งเกณฑ์ที่ <strong>60%</strong> (หากต่ำกว่า 60% ถือว่าแห้ง ต้องเปิดรดน้ำ)</p>
+<h3 class="sub-title">ขั้นตอนที่ 3.4: สร้างกฎเปิด-ปิดอัตโนมัติ</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> ไปที่ <strong>Settings</strong> -> <strong>Automations & Scenes</strong> -> <strong>Create Automation</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>Trigger:</strong> Numeric State -> Entity: เซนเซอร์ความชื้น -> Below: <code class="code-inline">60</code></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>Action:</strong> Call Service / Device -> เลือกสวิตช์รีเลย์ -> Turn on</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>4.</strong> บันทึกชื่อกฎ: <code class="code-inline">Auto - เปิดไฟเมื่อความชื้นต่ำ</code></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>5.</strong> สร้างกฎตัวที่สองสำหรับปิดเมื่อความชื้นกลับมาปกติ (Numeric State Above <code class="code-inline">70</code> -> Turn off)</p>
+<h3 class="sub-title">ขั้นตอนที่ 3.5: ทดสอบการทำงานและตรวจดู Traces</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> จำลองสถานการณ์: เป่าลมแห้งหรือปล่อยให้เซนเซอร์อ่านค่าต่ำกว่าเกณฑ์</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> หลอดไฟต้องเปิดทำงานโดยอัตโนมัติ</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> กดปุ่ม <strong>Traces</strong> ที่มุมขวาบนของหน้ารายการ Automation เพื่อดูเส้นทางการประเมินตรรกะว่ากฎทำงานเวลาใดและใช้เวลากี่มิลลิวินาที</p>
+  </div>
+
+  <div class="card" id="code">
+    <h2 class="section-title"><span>💻</span> 5. โค้ดและการตั้งค่าสำเร็จรูป (Ready-to-use Configurations)</h2>
+    <pre><button class="copy-btn" onclick="copyCode(this)">📋 คัดลอก</button><code># โค้ด Automation YAML ตัวอย่างใน Home Assistant
+alias: "Auto - เปิดไฟเมื่อความชื้นต่ำ"
+description: "สั่งเปิดรีเลย์เมื่อความชื้นต่ำกว่าเกณฑ์ 60%"
+trigger:
+  - platform: numeric_state
+    entity_id: sensor.gogo_iot_red_242dcc_khwamchun_humidity
+    below: 60
+condition: []
+action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.gogo_relay_red_b97df0_riley_relay
+mode: single</code></pre>
+  </div>
+
+  <div class="card" id="answers">
+    <h2 class="section-title"><span>📝</span> 6. แนวทางการตรวจคำตอบและเฉลยใบงาน (Answer Key & Discussion)</h2>
+<h3 class="sub-title">เฉลยคำตอบและแนวทางการตรวจใบงาน (Activity 3 Worksheet)</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>ข้อ 3.1 รายชื่ออุปกรณ์ที่ตรวจพบ:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• บอร์ดเซนเซอร์: <code class="code-inline">gogo-iot-[zone]-[mac]</code></p>
+<p style="margin-left:20px; text-indent:-15px;">• บอร์ดรีเลย์: <code class="code-inline">gogo-relay-[zone]-[mac]</code></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>ข้อ 3.3 เกณฑ์ตัดสินใจ:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• เกณฑ์เปิด: ความชื้น < 60% หรือ ความสว่าง < 200 lx</p>
+<p style="margin-left:20px; text-indent:-15px;">• เกณฑ์ปิด: ความชื้น > 70% หรือ ความสว่าง > 400 lx</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>ข้อ 3.5 ผลการทดสอบ Automation Traces:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• Trigger ทำงานเมื่อข้ามเส้น Threshold จากบนลงล่าง</p>
+<p style="margin-left:20px; text-indent:-15px;">• Action สั่ง Call Service <code class="code-inline">switch.turn_on</code> สำเร็จ</p>
+<hr style="border:0; border-top:1px solid var(--border); margin:20px 0;">
+<h3 class="sub-title">💡 การอภิปรายเชิงวิศวกรรม (คำถาม 3-Q)</h3>
+<p style="margin-bottom:12px;"><strong>คำถาม:</strong> <em>หากไม่มี Home Assistant เซิร์ฟเวอร์ บอร์ดเซนเซอร์และบอร์ดรีเลย์จะสามารถควบคุมกันเองได้หรือไม่ และมีข้อดี-ข้อจำกัดอย่างไรเมื่อเทียบกับการมีเซิร์ฟเวอร์ส่วนกลาง?</em></p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>เฉลยเชิงวิศวกรรม:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>ควบคุมกันเองได้ (Peer-to-Peer):</strong> สามารถเขียนโปรแกรมในเฟิร์มแวร์ ESPHome หรือ MicroPython ให้บอร์ดเซนเซอร์ส่งคำสั่งผ่าน HTTP Request หรือโพรโทคอล ESP-NOW ไปยังบอร์ดรีเลย์โดยตรง</p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>ข้อดีของการไม่มีเซิร์ฟเวอร์:</strong> ประหยัดค่าใช้จ่าย ไม่มี Single Point of Failure ที่ตัวเซิร์ฟเวอร์ ทำงานได้รวดเร็วระดับมิลลิวินาที</p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>ข้อจำกัดของการไม่มีเซิร์ฟเวอร์:</strong> ขาดระบบเก็บบันทึกประวัติข้อมูลย้อนหลัง (History), ไม่มีหน้าจอ Dashboard มอนิเตอร์แบบรวมศูนย์, ขาดการประสานงานกับเงื่อนไขซับซ้อน (เช่น พยากรณ์อากาศ, เวลาพระอาทิตย์ขึ้น-ตก), และปรับเปลี่ยนค่าเกณฑ์ได้ยากต้องแฟลชโค้ดใหม่</p>
+  </div>
+
+  <div class="card" id="troubleshooting">
+    <h2 class="section-title"><span>🛠️</span> 7. การแก้ไขปัญหาหน้างานที่พบบ่อย (Troubleshooting FAQ)</h2>
+<table><thead><tr><th>ปัญหาที่พบ</th><th>สาเหตุที่เป็นไปได้</th><th>วิธีการแก้ไข</th></tr></thead><tbody><tr><td><strong>Home Assistant ไม่ค้นพบบอร์ดอัตโนมัติ</strong></td><td>Multicast DNS (mDNS) ถูกบล็อกใน VirtualBox Network</td><td>ไปที่ Settings -> Devices -> Add Integration -> พิมพ์ "ESPHome" แล้วกรอก IP ของบอร์ดตรงๆ</td></tr><tr><td><strong>ความชื้นต่ำกว่าเกณฑ์แล้วแต่ไฟไม่เปิด</strong></td><td>ค่าความชื้น "ต่ำกว่าเกณฑ์อยู่ก่อนแล้ว" ตอนบันทึกกฎ</td><td><strong>Numeric State Trigger</strong> จะทำงานเฉพาะเมื่อค่า <strong>"ก้าวข้ามเส้นเกณฑ์"</strong> (Crossing Threshold) ให้เป่าลมให้ค่าสูงขึ้นก่อน แล้วรอให้ค่าตกลงมาตัดเส้นอีกครั้ง</td></tr><tr><td><strong>กดปุ่ม Traces ไม่ขึ้นข้อมูลการทำงาน</strong></td><td>กฎยังไม่เคยถูก Trigger เลยแม้แต่ครั้งเดียว</td><td>ตรวจสอบ Entity ID ในช่อง Trigger ว่าสะกดตรงกับชื่อของบอร์ดหรือไม่</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="rubric">
+    <h2 class="section-title"><span>📊</span> 8. เกณฑ์การประเมินผลการเรียนรู้ (Assessment Rubric)</h2>
+<table><thead><tr><th>เกณฑ์การประเมิน</th><th>ดีเยี่ยม (4-5 คะแนน)</th><th>พอใช้ (2-3 คะแนน)</th><th>ต้องปรับปรุง (0-1 คะแนน)</th></tr></thead><tbody><tr><td><strong>การเชื่อมต่อบอร์ดเข้า HA (5 คะแนน)</strong></td><td>เพิ่มบอร์ดทั้งสองเข้า Home Assistant ได้ถูกต้องและระบุ Entity ได้</td><td>เพิ่มบอร์ดได้แต่ต้องขอความช่วยเหลือเรื่อง IP</td><td>ไม่สามารถเชื่อมต่ออุปกรณ์เข้า HA ได้</td></tr><tr><td><strong>การสร้าง Automation (5 คะแนน)</strong></td><td>ตั้ง Trigger และ Action ได้ถูกต้องตามโครงสร้าง Home Assistant</td><td>ตั้งกฎได้แต่ระบุ Service หรือ Entity ผิด</td><td>ไม่สามารถเขียนกฎอัตโนมัติได้</td></tr><tr><td><strong>การทดสอบและใช้ Traces (5 คะแนน)</strong></td><td>ทดสอบจำลองค่าและใช้เครื่องมือ Traces วิเคราะห์ข้อผิดพลาดได้</td><td>ทดสอบได้แต่ดูข้อมูล Traces ไม่เป็น</td><td>ไม่ได้ทำการทดสอบ</td></tr><tr><td><strong>การตอบคำถามคิดวิเคราะห์ 3-Q (5 คะแนน)</strong></td><td>เปรียบเทียบสถาปัตยกรรม Peer-to-Peer กับ Client-Server ได้ลึกซึ้ง</td><td>บอกข้อดีข้อเสียได้บางส่วน</td><td>ตอบไม่ตรงประเด็นวิศวกรรม</td></tr></tbody></table>
+  </div>
+
+  <div class="card footer-nav">
+    <a href="activity_2_act_guide.html" class="btn btn-outline">⬅️ กิจกรรมที่ 2 (Act)</a>
+    <a href="index.html" class="btn btn-outline">🏠 กลับสู่ศูนย์รวมคู่มือ</a>
+    <a href="activity_4_think_guide.html" class="btn btn-primary">กิจกรรมที่ 4 (Think) ➡️</a>
+  </div>
+
+</div>
+
+<script>
+function copyCode(btn) {
+  const pre = btn.parentElement;
+  const code = pre.querySelector('code').innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    const originalText = btn.innerText;
+    btn.innerText = '✓ คัดลอกแล้ว';
+    setTimeout(() => { btn.innerText = originalText; }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>

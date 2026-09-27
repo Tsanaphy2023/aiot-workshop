@@ -1,0 +1,2831 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>กิจกรรมที่ 6 — การอ่านข้อมูลที่บันทึกไว้ย้อนหลัง (History)</title>
+<meta name="description" content="ใบงานผู้เข้าร่วม IoT ในฟาร์มอัจฉริยะ">
+<style>
+
+:root { color-scheme: light; }
+[hidden] { display: none !important; }
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 1rem; }
+body {
+  margin: 0;
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  font: 400 16px/1.6 "Prompt", "Segoe UI", Tahoma, sans-serif;
+}
+
+/* ---- top band ---- */
+.ws-top {
+  background: linear-gradient(90deg, var(--md-primary-fg-color--dark), var(--md-primary-fg-color));
+  color: #ffffff;
+  padding-block: 0.75rem;
+  padding-inline: 16px;
+}
+.ws-top__inner {
+  max-width: 76rem;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem 1rem;
+}
+.ws-brand { font-weight: 600; font-size: 1.05rem; letter-spacing: 0.01em; }
+/* no underline on hover: the band is a flat surface, and an underlined title reads as a 1998 nav bar */
+a.ws-brand { color: inherit; text-decoration: none; opacity: 1; transition: opacity 0.12s ease; }
+a.ws-brand:hover { opacity: 0.82; }
+/* the way back to the front door: every page carries it, so browser-back is never the only route */
+.ws-home {
+  flex: none;
+  padding: 0.15rem 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 999px;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.ws-home:hover { background: rgba(255, 255, 255, 0.16); border-color: #ffffff; }
+
+/* ---- shell: page switcher + reading column ---- */
+.ws-shell {
+  max-width: 76rem;
+  margin: 0 auto;
+  padding-inline: 16px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: 2.75rem;
+}
+.ws-side { padding-block: 1rem 0; font-size: 0.86rem; line-height: 1.5; }
+.ws-pages { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.ws-pages > li > a {
+  display: inline-block;
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--ag-chip-border);
+  color: var(--md-default-fg-color--light);
+  text-decoration: none;
+  font-weight: 500;
+}
+.ws-pages > li > a:hover { border-color: var(--ag-green); color: var(--md-typeset-a-color); }
+.ws-pages > li.is-current > a {
+  background: var(--ag-green);
+  border-color: var(--ag-green);
+  color: #ffffff;
+}
+.ws-g::after, .ws-n::after { content: " · "; }
+.ws-pages > li > a::before { display: none; }   /* the number badge is a sidebar thing */
+.ws-pages > li.is-current .ws-n, .ws-pages > li.is-current .ws-g { opacity: 0.85; }
+.ws-toc { display: none; }
+/* phones: the current group's pages as chips, every other group as one chip (its first page) */
+.ws-pages > li[data-page]:not(.in-group) { display: none; }
+.ws-pages > li.ws-group.in-group { display: none; }
+.ws-pages > li.in-group .ws-g { display: none; }
+/* previous / next: two buttons, the next one filled so it reads as the way forward */
+.ws-pager { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 3.5rem 0 0; font-size: 0.92rem; }
+.ws-pager a {
+  flex: 1 1 14rem;
+  display: block;
+  padding: 0.7rem 1rem;
+  border: 2px solid var(--ag-green);
+  border-radius: 0.6rem;
+  color: var(--ag-green-deep);
+  text-decoration: none;
+  line-height: 1.4;
+}
+.ws-pager .ws-next { margin-left: auto; text-align: right; background: var(--ag-green); color: #ffffff; }
+.ws-pager__k { display: block; font-size: 0.74rem; font-weight: 500; opacity: 0.85; }
+.ws-pager__t { display: block; font-weight: 700; }
+.ws-pager a:hover, .ws-pager a:focus-visible { border-color: var(--ag-green-deep); box-shadow: 0 2px 8px var(--ag-shadow); }
+.ws-pager .ws-next:hover, .ws-pager .ws-next:focus-visible { background: var(--ag-green-deep); }
+.ws-disclosure { margin: 4rem 0 0; padding-top: 0.8rem; border-top: 1px solid var(--ag-rule); font-size: 0.74rem; line-height: 1.5; color: var(--md-default-fg-color--lighter); }
+.ws-side a:focus-visible, .ws-top a:focus-visible { outline: 2px solid var(--ag-marigold); outline-offset: 2px; }
+
+@media (min-width: 64rem) {
+  .ws-shell { grid-template-columns: 15rem minmax(0, 47rem); }
+  .ws-side {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    min-height: 100vh;
+    max-height: 100vh;
+    overflow-y: auto;
+    padding: 2rem 1rem 2rem 0.5rem;
+    background: var(--ag-nav-bg);   /* its own surface, apart from the page */
+  }
+  .ws-pages { display: block; }
+  /* sidebar: a session is a heading with a rule above; under it each activity with its number
+     as a badge, the unnumbered pages with a hollow one; only the open page's sub-activity
+     list gets a tree line */
+  .ws-g, .ws-n { display: none; }
+  .ws-pages > li[data-page]:not(.in-group), .ws-pages > li.ws-group.in-group { display: block; }
+  .ws-pages > li.ws-group > a, .ws-pages > li.ws-group > a:hover {
+    display: block;
+    margin: 1.5rem 0 0.4rem 0;
+    padding: 0.6rem 0.2rem 0;
+    border: 0;
+    border-top: 2px solid var(--ag-rule);
+    border-radius: 0;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--ag-green-deep);
+  }
+  .ws-pages > li.ws-group:first-child > a { margin-top: 0; padding-top: 0; border-top: 0; }
+  .ws-pages > li[data-page] { margin: 0 0 0.15rem 0.2rem; }
+  .ws-pages > li[data-page] > a {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    border: 0;
+    border-radius: 0.4rem;
+    padding: 0.3rem 0.5rem;
+    font-weight: 500;
+  }
+  .ws-pages > li[data-page] > a::before {
+    content: attr(data-n);
+    display: block;
+    flex: none;
+    width: 1.45rem;
+    height: 1.45rem;
+    border-radius: 50%;
+    background: var(--ag-badge-bg);
+    color: var(--ag-badge-fg);
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 1.45rem;
+    text-align: center;
+    align-self: center;
+  }
+  .ws-pages > li[data-page] > a:not([data-n])::before {
+    content: "";
+    width: 1.05rem;
+    height: 1.05rem;
+    margin: 0 0.2rem;
+    background: transparent;
+    border: 2px solid var(--ag-rule);
+  }
+  .ws-pages > li.is-current > a { background: var(--md-default-bg-color); color: var(--md-typeset-a-color); font-weight: 700; }
+  .ws-t { display: block; }
+  .ws-pages > li.is-current .ws-toc {
+    display: block;
+    list-style: none;
+    margin: 0.3rem 0 0.8rem 0.9rem;
+    padding: 0 0 0 0.75rem;
+    border-left: 2px solid var(--ag-rule);
+  }
+  .ws-toc a {
+    display: block;
+    padding: 0.22rem 0;
+    color: var(--md-default-fg-color--light);
+    text-decoration: none;
+    font-size: 0.8rem;
+  }
+  .ws-toc a:hover { color: var(--md-typeset-a-color); }
+}
+
+/* ---- the worksheet itself ---- */
+.md-typeset { padding-block: 1rem 5rem; overflow-wrap: break-word; min-width: 0; }
+.md-typeset > section > h1:first-child, .md-typeset > h1:first-child { margin-top: 0.6em; }
+.md-typeset p, .md-typeset ul, .md-typeset ol, .md-typeset blockquote { margin: 0 0 1em; }
+.md-typeset ul { padding-left: 1.4em; }
+.md-typeset li > ul, .md-typeset li > ol { margin: 0.4em 0 0.4em; }
+.md-typeset a { color: var(--md-typeset-a-color); text-underline-offset: 0.18em; }
+.md-typeset code {
+  font-family: "IBM Plex Mono", Consolas, monospace;
+  background: var(--md-code-bg-color);
+  color: var(--md-code-fg-color);
+}
+.md-typeset pre {
+  background: var(--md-code-bg-color);
+  padding: 0.8em 1em;
+  border-radius: 0.6em;
+  overflow-x: auto;
+  margin: 0.4em 0 1em;
+}
+.md-typeset pre code { padding: 0; background: none; font-size: 0.88em; }
+.md-typeset hr { border: 0; }
+.md-typeset blockquote > :last-child { margin-bottom: 0; }
+.md-typeset img { max-width: 100%; height: auto; display: inline-block; }
+.md-typeset .table-wrap { overflow-x: auto; margin: 0 0 1.3em; }
+.md-typeset .video { margin: 0.4em 0 1.2em; max-width: 42rem; }
+.md-typeset .video-frame { position: relative; aspect-ratio: 16 / 9; border-radius: 0.6em; overflow: hidden; background: #000; }
+.md-typeset .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.md-typeset .video-link { font-size: 0.85em; margin: 0.35em 0 0; }
+.md-typeset table { border-collapse: separate; border-spacing: 0; width: 100%; }
+.md-typeset th, .md-typeset td { padding: 0.55em 0.9em; text-align: left; }
+.md-typeset td { font-variant-numeric: tabular-nums; }
+.md-typeset .admonition {
+  margin: 1.2em 0;
+  padding: 0.6em 1em;
+  border-left: 4px solid var(--ag-sky);
+  background: var(--ag-panel);
+}
+.md-typeset .admonition-title { font-weight: 600; margin-bottom: 0.3em; }
+/* IoT ในฟาร์มอัจฉริยะ — worksheet site design tokens and components.
+   Loaded after Material's own stylesheet via mkdocs.yml extra_css.
+   Type: Prompt (headings and body) + IBM Plex Mono (names/code).
+   Palette: field green / leaf / marigold / sky / soil / tomato on a green-tinted white ground. */
+
+/* Self-hosted Prompt + IBM Plex Mono, thai+latin subsets (SIL OFL).
+   Was an @import from fonts.googleapis.com. The workshop runs on venue WiFi and
+   a webfont that fails to load takes the Thai text with it, so the files ship in
+   docs/fonts/. mkdocs.yml sets theme.font: false, so these are the ONLY source of
+   Prompt on the site: keep every weight 300-700 here.
+   ../fonts/ resolves from docs/stylesheets/extra.css AND from the inlined copy in
+   docs/renders/*.html. Both land on docs/fonts/. */
+@font-face {
+  font-family: 'Prompt';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(../fonts/prompt-300-thai.woff2) format('woff2');
+  unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+}
+
+@font-face {
+  font-family: 'Prompt';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(../fonts/prompt-300-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Prompt';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/prompt-400-thai.woff2) format('woff2');
+  unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+}
+
+@font-face {
+  font-family: 'Prompt';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/prompt-400-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Prompt';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(../fonts/prompt-500-thai.woff2) format('woff2');
+  unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+}
+
+@font-face {
+  font-family: 'Prompt';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(../fonts/prompt-500-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Prompt';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(../fonts/prompt-600-thai.woff2) format('woff2');
+  unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+}
+
+@font-face {
+  font-family: 'Prompt';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(../fonts/prompt-600-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Prompt';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(../fonts/prompt-700-thai.woff2) format('woff2');
+  unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+}
+
+@font-face {
+  font-family: 'Prompt';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(../fonts/prompt-700-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/ibm-plex-mono-400-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(../fonts/ibm-plex-mono-600-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  --md-text-font: "Prompt";
+  --md-code-font: "IBM Plex Mono";
+  --ag-green: #2e7d32;
+  --ag-green-deep: #1b5e20;
+  --ag-leaf: #7cb342;
+  --ag-marigold: #f5a524;
+  --ag-marigold-deep: #c77e00;
+  --ag-sky: #3b8bc9;
+  --ag-soil: #6d4c2f;
+  --ag-tomato: #d84a2b;
+  --ag-ink: #1e2a1f;
+}
+
+/* ---------- light scheme ---------- */
+:root {
+  --md-primary-fg-color: var(--ag-green);
+  --md-primary-fg-color--light: var(--ag-leaf);
+  --md-primary-fg-color--dark: var(--ag-green-deep);
+  --md-accent-fg-color: var(--ag-marigold-deep);
+  --md-accent-fg-color--transparent: rgba(245, 165, 36, 0.12);
+  --md-default-bg-color: #fafcf7;
+  --md-default-fg-color: var(--ag-ink);
+  --md-default-fg-color--light: #4b5a4d;
+  --md-default-fg-color--lighter: #8a968b;
+  --md-typeset-color: var(--ag-ink);
+  --md-typeset-a-color: var(--ag-green-deep);
+  --md-code-bg-color: #eef4e8;
+  --md-code-fg-color: #24402a;
+  --md-typeset-table-color: rgba(30, 42, 31, 0.1);
+  --ag-panel: #f0f6ea;
+  --ag-panel-record: #fff6e3;
+  --ag-chip-bg: #fff1d6;
+  --ag-chip-fg: #7a4a00;
+  --ag-chip-border: #f2cf86;
+  --ag-badge-bg: var(--ag-green);
+  --ag-badge-fg: #ffffff;
+  --ag-step-bg: #e6e9e3;             /* steps: neutral, they are sequence not structure */
+  --ag-step-fg: #3f4d41;
+  --ag-nav-bg: #f3f7ef;
+  --ag-panel-note: #eaf3fb;          /* explanation: sky */
+  --ag-panel-caution: #fdeeea;       /* caution: tomato */
+  --ag-th-fg: var(--ag-green-deep);
+  --ag-phase-fg: var(--ag-green-deep);
+  --ag-rule: var(--ag-leaf);
+  --ag-shadow: rgba(30, 42, 31, 0.14);
+}
+
+/* ---------- dark scheme ---------- */
+
+
+/* ---------- shell ---------- */
+.md-grid {
+  max-width: 76rem;
+}
+
+.md-header,
+.md-tabs,
+.md-sidebar,
+.md-nav,
+.md-search,
+.md-footer {
+  font-family: "Prompt", "Segoe UI", sans-serif;
+}
+
+.md-header {
+  background: linear-gradient(90deg, var(--md-primary-fg-color--dark), var(--md-primary-fg-color));
+}
+
+.md-header__title,
+.md-nav__title,
+.md-tabs__link {
+  font-family: "Prompt", "Segoe UI", sans-serif;
+  font-weight: 600;
+}
+
+.md-header__title {
+  font-size: 1rem;
+}
+
+.md-nav {
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+.md-nav__link--active,
+.md-nav__item--active > .md-nav__link {
+  color: var(--md-typeset-a-color);
+  font-weight: 600;
+}
+
+/* the nav is its own surface: a tint sets it apart from the page */
+.md-sidebar--primary .md-sidebar__scrollwrap {
+  background: var(--ag-nav-bg);
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.2rem;
+}
+
+/* course structure: a session is a heading with a rule above its pages */
+.md-nav--primary .md-nav__item--section {
+  margin-top: 1.3rem;
+  padding-top: 0.55rem;
+  border-top: 2px solid var(--ag-rule);
+}
+
+.md-nav--primary .md-nav__item--section > .md-nav__link {
+  margin-bottom: 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--ag-green-deep);
+}
+
+[data-md-color-scheme="slate"] .md-nav--primary .md-nav__item--section > .md-nav__link {
+  color: var(--md-typeset-a-color);
+}
+
+/* ---------- type ---------- */
+.md-typeset {
+  font-family: "Prompt", "Segoe UI", sans-serif;
+  font-size: 1rem;
+  line-height: 1.85;
+}
+
+.md-typeset strong {
+  font-weight: 600;
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4 {
+  font-family: "Prompt", "Segoe UI", sans-serif;
+  font-weight: 600;
+  line-height: 1.3;
+  text-wrap: balance;
+  color: var(--md-default-fg-color);
+}
+
+.md-typeset h1 {
+  font-size: 2.1em;
+  color: var(--md-typeset-a-color);
+  margin-bottom: 0.6em;
+}
+
+.md-typeset h2 {
+  font-size: 1.55em;
+  margin-top: 2.2em;
+  padding-top: 0.7em;
+  border-top: 3px solid var(--ag-rule);
+}
+
+/* sub-activities (4.4, 4.5 ...) are the units a group works through, so each H3 starts a
+   visibly new section: a rule above, room, and its number as a badge (hooks/headings.py) */
+.md-typeset h3 {
+  font-size: 1.3em;
+  margin-top: 3em;
+  padding-top: 1.1em;
+  border-top: 2px solid var(--ag-rule);
+}
+
+.md-typeset h3 .sub-num {
+  display: inline-block;
+  min-width: 2.2em;
+  margin-right: 0.55em;
+  padding: 0.05em 0.5em;
+  border-radius: 0.4rem;
+  background: var(--ag-badge-bg);
+  color: var(--ag-badge-fg);
+  font-size: 1.05em;
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  vertical-align: 0.05em;
+}
+
+.md-typeset h4 {
+  font-size: 1.05em;
+  margin-top: 1.5em;
+}
+
+.md-typeset code {
+  font-size: 0.85em;
+  padding: 0.1em 0.45em;
+  border-radius: 0.35em;
+}
+
+.md-typeset hr {
+  border-bottom: 2px dashed var(--ag-rule);
+  margin: 2.5em 0;
+}
+
+/* ---------- numbered steps ---------- */
+/* The badge comes from a CSS counter, which ignores <ol start="N">. hooks/steps.py adds
+   style="counter-reset: step N-1" to those lists so a procedure keeps counting past its
+   action-group headings. */
+.md-typeset ol {
+  counter-reset: step;
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.md-typeset ol > li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 2.9rem;
+  margin: 0.55em 0;
+}
+
+.md-typeset ol > li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0.2em;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--ag-step-bg);
+  color: var(--ag-step-fg);
+  font: 600 0.85rem/2rem "Prompt", sans-serif;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.md-typeset ol > li:has(.fld)::before {   /* a step that records something: the input colour */
+  background: var(--ag-chip-bg);
+  color: var(--ag-chip-fg);
+}
+
+.md-typeset ol ol > li::before {
+  background: transparent;
+  color: var(--md-typeset-a-color);
+  border: 2px solid var(--ag-rule);
+  line-height: calc(2rem - 4px);
+}
+
+/* ---------- a task-list row that ticked itself (extra.js autoTick): a brief green wash ---------- */
+@keyframes ws-autotick {
+  from { background: rgba(46, 125, 50, 0.22); }
+  to { background: transparent; }
+}
+
+.md-typeset .ws-tasks li.ws-autoticked { animation: ws-autotick 1.6s ease-out; border-radius: 0.4em; }
+
+@media (prefers-reduced-motion: reduce) {
+  .md-typeset .ws-tasks li.ws-autoticked { animation: none; }
+}
+
+/* ---------- screenshot chip (glightbox link after a step) ---------- */
+.md-typeset a.glightbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  margin-left: 0.3em;
+  padding: 0.02em 0.6em 0.02em 0.45em;
+  border-radius: 999px;
+  background: var(--ag-chip-bg);
+  color: var(--ag-chip-fg);
+  border: 1px solid var(--ag-chip-border);
+  font-size: 0.78em;
+  line-height: 1.7;
+  text-decoration: none;
+  vertical-align: 0.12em;
+  white-space: nowrap;
+  transition: background 0.15s, transform 0.15s;
+}
+
+.md-typeset a.glightbox::after {
+  content: "ดูภาพ";
+  font-family: "Prompt", "Segoe UI", sans-serif;
+  font-weight: 500;
+}
+
+.md-typeset a.glightbox:hover,
+.md-typeset a.glightbox:focus-visible {
+  background: var(--ag-marigold);
+  color: var(--ag-ink);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .md-typeset a.glightbox {
+    transition: none;
+  }
+}
+
+/* ---------- lesson photos open full size on click (extra.js bindZoom) ---------- */
+.md-typeset img.ws-zoom {
+  cursor: zoom-in;
+}
+
+.md-typeset img.ws-zoom:focus-visible {
+  outline: 2px solid var(--ag-marigold);
+  outline-offset: 3px;
+}
+
+/* ---------- role chips (extra.js tags <strong>Hardware</strong> etc.) ---------- */
+.md-typeset strong.role {
+  display: inline-block;
+  padding: 0 0.55em;
+  border-radius: 0.4em;
+  font-family: "Prompt", "Segoe UI", sans-serif;
+  font-weight: 600;
+  font-size: 0.78em;
+  line-height: 1.75;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  vertical-align: 0.1em;
+}
+
+.md-typeset strong.role-hardware { background: var(--ag-soil); }
+.md-typeset strong.role-driver   { background: var(--ag-sky); }
+.md-typeset strong.role-recorder { background: var(--ag-marigold-deep); }
+.md-typeset strong.role-tester   { background: var(--ag-tomato); }
+
+/* ---------- callouts (blockquotes) ---------- */
+/* callouts: explanation = sky, caution = tomato (hooks/callouts.py), record note = marigold */
+.md-typeset blockquote {
+  margin: 1.4em 0;
+  padding: 0.8em 1.2em;
+  border-left: 5px solid var(--ag-sky);
+  border-radius: 0 0.7em 0.7em 0;
+  background: var(--ag-panel-note);
+  color: var(--md-typeset-color);
+}
+
+.md-typeset blockquote.ws-caution {
+  border-left-color: var(--ag-tomato);
+  background: var(--ag-panel-caution);
+}
+
+/* phase labels: the action groups of a procedure. Each starts a segment, so the label sits in
+   a pill with a rule running to the right edge -- a divider, not a panel (panels are callouts),
+   and lighter than the H3 rule + number badge a sub-activity starts with. */
+.md-typeset p.ws-phase {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 2.4em 0 0.8em;
+  font-size: 1em;
+  color: var(--ag-phase-fg);
+}
+
+.md-typeset p.ws-phase strong {
+  flex: none;
+  padding: 0.2em 0.95em;
+  border: 1.5px solid var(--ag-rule);
+  border-radius: 999px;
+  background: var(--ag-panel);
+  font-weight: 600;
+}
+
+.md-typeset p.ws-phase::after {
+  content: "";
+  flex: 1;
+  border-top: 2px solid var(--ag-rule);
+  opacity: 0.55;
+}
+
+.md-typeset blockquote.note-record {
+  border-left-color: var(--ag-marigold);
+  background: var(--ag-panel-record);
+}
+
+.md-typeset blockquote.note-record > p:first-child::before {
+  content: "✎ ";
+  color: var(--ag-marigold-deep);
+}
+
+/* ---------- checklists ---------- */
+.md-typeset .task-list-item {
+  margin-left: 0;
+  padding-left: 2.2em;
+  list-style: none;
+}
+
+.md-typeset .task-list-control .task-list-indicator {
+  top: 0.35em;
+  left: -2em;
+  width: 1.3em;
+  height: 1.3em;
+  border: 2px solid var(--ag-rule);
+  border-radius: 0.3em;
+  background: var(--md-default-bg-color);
+  opacity: 1;
+}
+
+.md-typeset .task-list-control [type="checkbox"]:checked + .task-list-indicator {
+  background: var(--ag-green);
+  border-color: var(--ag-green);
+}
+
+/* ---------- activity task list: <div class="ws-tasks" markdown> at the top of an activity ---------- */
+/* one item per sub-section: linked title on its own line, then the question and its boxes */
+.md-typeset .ws-tasks {
+  margin: 1em 0 2em;
+  padding: 0.8em 1.2em 0.3em;
+  border: 1px solid var(--ag-chip-border);
+  border-top: 4px solid var(--ag-marigold);
+  border-radius: 0.7em;
+  background: var(--ag-panel-record);
+}
+
+.md-typeset .ws-tasks > p:first-child {
+  font-size: 0.88em;
+  color: var(--md-default-fg-color--light);
+}
+
+.md-typeset .ws-tasks ul {
+  margin-left: 0;
+}
+
+.md-typeset .ws-tasks .task-list-item {
+  margin: 0;
+  padding-block: 0.55em;
+  border-top: 1px dashed var(--ag-chip-border);
+}
+
+.md-typeset .ws-tasks .task-list-item:first-child {
+  border-top: 0;
+}
+
+.md-typeset .ws-tasks .task-list-item > strong:first-of-type {
+  display: block;
+}
+
+/* the panel shares the record tint, so its boxes take the page ground to stay visible */
+.md-typeset .ws-tasks input.fld,
+.md-typeset .ws-tasks .fld-radio,
+.md-typeset .ws-tasks textarea.fld-ta {
+  background: var(--md-default-bg-color);
+}
+
+/* "back to the list" link closing each sub-section */
+/* the back link closes a sub-activity: a right-aligned footer line */
+.md-typeset p:has(> a.ws-back:only-child) {
+  margin: 1.4em 0 0;
+  text-align: right;
+}
+
+/* the footer once extra.js has added the "ทำข้อนี้เสร็จแล้ว" box: the box is the team's input
+   (marigold), the back link stays quiet beside it; a ticked box turns the structure green */
+.md-typeset p.ws-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.6em 1.4em;
+  margin: 1.4em 0 0;
+}
+
+.md-typeset label.ws-done {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.4em 1em 0.4em 0.8em;
+  border: 1px solid var(--ag-chip-border);
+  border-radius: 2em;
+  background: var(--ag-chip-bg);
+  color: var(--ag-chip-fg);
+  font-weight: 500;
+  line-height: 1.3;
+  cursor: pointer;
+  user-select: none;
+}
+
+.md-typeset label.ws-done:hover {
+  border-color: var(--ag-marigold);
+}
+
+.md-typeset label.ws-done:has(input:checked) {
+  background: var(--ag-green);
+  border-color: var(--ag-green);
+  color: #fff;
+}
+
+.md-typeset label.ws-done input.ws-mirror {
+  width: 1.15em;
+  height: 1.15em;
+  margin: 0;
+  accent-color: var(--ag-green);
+  cursor: pointer;
+}
+
+.md-typeset label.ws-done:has(input:checked) input.ws-mirror {
+  accent-color: #fff;
+}
+
+.md-typeset a.ws-back {
+  font-size: 0.8em;
+  color: var(--md-default-fg-color--light);
+  text-decoration: none;
+}
+
+.md-typeset a.ws-back:hover,
+.md-typeset a.ws-back:focus-visible {
+  color: var(--md-typeset-a-color);
+  text-decoration: underline;
+}
+
+/* ---------- tables ---------- */
+.md-typeset table:not([class]) {
+  font-size: 0.9em;
+  line-height: 1.6;
+  border: 0;
+  border-radius: 0.6em;
+  overflow: hidden;
+  box-shadow: 0 1px 0 var(--md-typeset-table-color);
+}
+
+.md-typeset table:not([class]) th {
+  background: var(--ag-panel);
+  color: var(--ag-th-fg);
+  font-family: "Prompt", "Segoe UI", sans-serif;
+  font-weight: 600;
+  border: 0;
+  border-bottom: 2px solid var(--ag-rule);
+}
+
+.md-typeset table:not([class]) tr:nth-child(even) td {
+  background: var(--ag-panel);
+}
+
+.md-typeset table:not([class]) td {
+  border-top: 1px solid var(--md-typeset-table-color);
+  vertical-align: top;
+}
+
+/* ---------- images ---------- */
+.md-typeset img:not(.twemoji):not(.emojione) {
+  border-radius: 0.7em;
+  box-shadow: 0 3px 14px var(--ag-shadow);
+}
+
+/* Walkthrough clips (hooks/videos.py): framed like the screenshots, never wider than the column. */
+.md-typeset video.walkthrough {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.7em;
+  box-shadow: 0 3px 14px var(--ag-shadow);
+  background: #1e2a1f;
+}
+
+/* Shallow activity illustrations separate sections without extending the reading flow. */
+.md-typeset img.activity-banner:not(.twemoji):not(.emojione) {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 6 / 1;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0.5rem;
+  box-shadow: none;
+  background: #fff6e3;
+  break-inside: avoid;
+}
+
+.md-typeset p:has(> img.activity-banner) {
+  margin: 0.65rem 0 1rem;
+  break-before: avoid;
+  break-after: avoid;
+}
+
+/* Transparent farm strips replace the rule at each activity-page H3. */
+.md-typeset img.activity-divider:not(.twemoji):not(.emojione) {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
+/* The strip stands in for the H3 rule, so it keeps that rule's rhythm: the 3em margin
+   above (~62px at the H3's size) is what makes a sub-activity read as a new section, and
+   4rem holds that gap. Below it needs more than the rule's 1.1em -- the artwork sits flush
+   on the bottom edge, so a tight gap leaves the number badge sitting in the soil. */
+.md-typeset p:has(> img.activity-divider) {
+  margin: 4rem 0 2.75rem;
+  padding: 0;
+  line-height: 0;
+  break-inside: avoid;
+  break-after: avoid;
+}
+
+.md-typeset p:has(> img.activity-divider) + h3 {
+  margin-top: 0;        /* the strip's own margin-bottom sets the gap */
+  padding-top: 0;
+  border-top: 0;
+}
+
+/* ---------- admonitions on the palette ---------- */
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: 0.7em;
+  font-size: 0.9em;
+}
+
+.md-typeset .admonition.note,
+.md-typeset .admonition.info,
+.md-typeset .admonition.tip {
+  border-color: var(--ag-sky);
+}
+
+.md-typeset .admonition.warning,
+.md-typeset .admonition.danger {
+  border-color: var(--ag-tomato);
+}
+
+/* ---------- hover preview panel (extra.js) ---------- */
+#shot-hover {
+  position: fixed;
+  z-index: 60;
+  padding: 0.5rem;
+  border: 1px solid var(--ag-chip-border);
+  border-radius: 0.8em;
+  background: var(--md-default-bg-color);
+  box-shadow: 0 14px 44px var(--ag-shadow);
+  pointer-events: none;
+}
+
+#shot-hover img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 74vh;
+  object-fit: contain;
+  border-radius: 0.5em;
+  box-shadow: none;
+}
+
+#shot-hover .shot-hover__cap {
+  padding: 0.4rem 0.2rem 0;
+  font: 500 0.8rem/1.5 "Prompt", "Segoe UI", sans-serif;
+  color: var(--md-default-fg-color--light);
+}
+
+/* ---------- sidebar table of contents: one indent per heading level ---------- */
+/* h2 entries: the page's sections */
+.md-nav--secondary > .md-nav__list > .md-nav__item > .md-nav__link {
+  font-weight: 600;
+  margin-top: 0.4em;
+}
+
+/* h3 entries: indented under their section, hung on a leaf-green rule */
+.md-nav--secondary .md-nav .md-nav__list {
+  margin-left: 0.55rem;
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--ag-rule);
+}
+
+.md-nav--secondary .md-nav .md-nav__link {
+  font-size: 0.72rem;
+  font-weight: 400;
+}
+
+/* h4 entries: one more indent, lighter, dashed rule */
+.md-nav--secondary .md-nav .md-nav .md-nav__list {
+  border-left-style: dashed;
+}
+
+.md-nav--secondary .md-nav .md-nav .md-nav__link {
+  font-size: 0.68rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.md-nav--secondary .md-nav__link--active,
+.md-nav--secondary .md-nav .md-nav__link--active {
+  color: var(--md-typeset-a-color);
+  font-weight: 600;
+}
+
+/* ---------- fillable worksheet (hooks/fields.py generates, extra.js saves) ---------- */
+/* one-line box: sits in the prose like a blank on a paper form */
+.md-typeset input.fld {
+  font: inherit;
+  font-size: 0.92em;
+  line-height: 1.5;
+  padding: 0 0.45em;
+  margin: 0 0.15em;
+  border: 0;
+  border-bottom: 2px solid var(--ag-marigold);
+  border-radius: 0.35em 0.35em 0 0;
+  background: var(--ag-panel-record);
+  color: var(--md-typeset-color);
+  min-width: 2.5em;
+  max-width: 100%;
+  vertical-align: baseline;
+  box-sizing: content-box;
+}
+
+.md-typeset input.fld:focus {
+  outline: none;
+  border-bottom-color: var(--ag-green);
+  background: var(--md-default-bg-color);
+  box-shadow: 0 2px 0 var(--ag-green);
+}
+
+/* a team number outside 1..100 (extra.js sets the class; the tooltip says why) */
+.md-typeset input.fld.fld--bad,
+.md-typeset input.fld.fld--bad:focus {
+  border-bottom-color: var(--ag-tomato);
+  box-shadow: 0 2px 0 var(--ag-tomato);
+}
+
+#ws-bar .ws-bad { color: var(--ag-tomato); font-weight: 600; }
+#ws-bar .ws-hint { color: var(--ag-marigold-deep); font-weight: 500; }
+#ws-bar .ws-note { color: var(--md-typeset-color); font-weight: 500; }
+
+/* messages to the instructor: a round button fixed in the bottom-right corner (it lives in the
+   toolbar's markup, so extra.js finds it there); pressed, it opens a card above it holding the
+   chat composer -- 🙋 button, then [ 😊 | type here… | ➤ ], the emoji strip under it */
+#ws-bar .ws-dock {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 6;
+}
+
+.ws-fab {
+  position: relative;
+  width: 3.4rem;
+  height: 3.4rem;
+  padding: 0;
+  border: 1px solid var(--ag-chip-border);
+  border-radius: 50%;
+  background: var(--md-default-bg-color);
+  line-height: 0;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(20, 40, 25, 0.28);
+  transition: transform 0.15s;
+}
+
+/* two chat bubbles, blue with text and yellow with a smile (drawn in extra.js); they tilt a little on hover */
+.ws-fab-ico { width: 2.3rem; height: 2.3rem; transition: transform 0.2s; }
+.ws-fab:hover, .ws-fab:focus-visible { transform: translateY(-2px); outline: none; }
+.ws-fab:hover .ws-fab-ico, .ws-dock.is-open .ws-fab-ico { transform: rotate(-8deg) scale(1.06); }
+.ws-fab:focus-visible { box-shadow: 0 0 0 3px var(--ag-marigold), 0 6px 18px rgba(20, 40, 25, 0.28); }
+.ws-dock.is-open .ws-fab { border-color: var(--ag-green); }
+
+/* an open call for help shows on the folded button: amber ring and a 🙋 badge */
+.ws-fab-badge {
+  display: none;
+  position: absolute;
+  top: -0.35rem;
+  right: -0.35rem;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: var(--ag-marigold);
+  font-size: 0.95rem;
+  line-height: 1.6rem;
+  box-shadow: 0 0 0 2px var(--md-default-bg-color);
+}
+
+.ws-dock.has-help .ws-fab-badge { display: block; }
+.ws-dock.has-help .ws-fab { box-shadow: 0 0 0 3px var(--ag-marigold), 0 6px 18px rgba(20, 40, 25, 0.28); }
+
+#ws-bar .ws-msg {
+  display: none;
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 0.7rem);
+  width: min(24rem, calc(100vw - 2rem));
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem 0.6rem;
+  margin: 0;
+  padding: 0.8rem 0.9rem 0.9rem;
+  border: 1px solid var(--ag-chip-border);
+  border-radius: 1rem;
+  background: var(--ag-panel-record);
+  box-shadow: 0 12px 32px rgba(20, 40, 25, 0.22);
+}
+
+#ws-bar .ws-dock.is-open .ws-msg { display: flex; }
+#ws-bar .ws-dock-h { flex: 1 1 100%; font-weight: 600; color: var(--md-typeset-color); }
+#ws-bar .ws-dock .ws-help { flex: 1 1 100%; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ws-fab, .ws-fab-ico { transition: none; }
+  .ws-fab:hover, .ws-fab:focus-visible, .ws-fab:hover .ws-fab-ico, .ws-dock.is-open .ws-fab-ico { transform: none; }
+}
+
+.ws-help {
+  font: 600 0.8rem/2.1 "Prompt", "Segoe UI", sans-serif;
+  padding: 0 0.9em;
+  border-radius: 999px;
+  border: 1.5px solid var(--ag-tomato);
+  background: var(--md-default-bg-color);
+  color: var(--ag-tomato);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.ws-help:hover, .ws-help:focus-visible { background: var(--ag-tomato); color: #fff; outline: none; }
+
+/* while this team's own call is open the same button withdraws it: muted, so it never reads
+   as a second way to ask (extra.js swaps the label) */
+.ws-help.is-open { border-color: var(--ag-marigold-deep); color: var(--ag-marigold-deep); }
+.ws-help.is-open:hover, .ws-help.is-open:focus-visible { background: var(--ag-marigold-deep); color: #fff; }
+
+#ws-bar .ws-composer {
+  position: relative;
+  flex: 1 1 14rem;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.15rem 0.2rem 0.15rem 0.3rem;
+  border: 1px solid var(--ag-chip-border);
+  border-radius: 999px;
+  background: var(--md-default-bg-color);
+}
+
+#ws-bar .ws-composer:focus-within { border-color: var(--ag-green); box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.15); }
+
+#ws-bar .ws-composer input[type=text] {
+  flex: 1 1 auto;
+  min-width: 0;
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 0.25rem 0.3rem;
+  border: 0;
+  background: transparent;
+  color: var(--md-typeset-color);
+}
+
+#ws-bar .ws-composer input[type=text]:focus { outline: none; }
+
+/* the note ("ส่งแล้ว ✓") appears over the box for a moment */
+#ws-bar .ws-composer[data-note]::after {
+  content: attr(data-note);
+  position: absolute;
+  inset: 0 3rem 0 2.6rem;
+  display: flex;
+  align-items: center;
+  padding-left: 0.3rem;
+  border-radius: 999px;
+  background: var(--md-default-bg-color);
+  color: var(--ag-green);
+  font-size: 0.85rem;
+  font-weight: 500;
+  pointer-events: none;
+}
+
+#ws-bar .ws-composer.is-bad[data-note]::after { color: var(--ag-tomato); }
+
+.ws-emoji-toggle, .ws-send {
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.ws-emoji-toggle { font-size: 1.15rem; }
+.ws-emoji-toggle:hover, .ws-emoji-toggle:focus-visible, .ws-emoji-toggle[aria-expanded="true"] { background: var(--ag-panel-record); outline: none; }
+
+.ws-send { background: var(--ag-green); color: #fff; }
+.ws-send svg { width: 1rem; height: 1rem; margin-left: 0.1rem; }
+.ws-send:hover, .ws-send:focus-visible { background: var(--ag-green-deep); outline: none; }
+
+#ws-bar .ws-emojis {
+  flex: 1 1 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem;
+  padding: 0.1rem 0 0 0.2rem;
+}
+
+.ws-emo {
+  width: 2.3rem;
+  height: 2.3rem;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: transparent;
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.ws-emo:hover, .ws-emo:focus-visible { background: var(--md-default-bg-color); border-color: var(--ag-chip-border); outline: none; }
+
+/* progress-tracker dot in the status line: green once the instructor's board has heard from us */
+#ws-bar .ws-live { font-size: 0.9em; }
+#ws-bar .ws-live--ok { color: var(--ag-green); }
+#ws-bar .ws-live--off { color: var(--md-default-fg-color--lighter); }
+
+/* multi-line box: full width, grows with the text (extra.js), no scrollbar ever */
+.md-typeset textarea.fld-ta {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0.5em 0 1em;
+  padding: 0.5em 0.7em;
+  font: inherit;
+  font-size: 0.95em;
+  line-height: 1.7;
+  min-height: 3.2em;
+  border: 1px solid var(--ag-chip-border);
+  border-left: 5px solid var(--ag-marigold);
+  border-radius: 0.5em;
+  background: var(--ag-panel-record);
+  color: var(--md-typeset-color);
+  resize: none;
+  overflow: hidden;
+}
+
+.md-typeset textarea.fld-ta:focus {
+  outline: none;
+  border-color: var(--ag-green);
+}
+
+.md-typeset blockquote textarea.fld-ta,
+.md-typeset li textarea.fld-ta {
+  margin: 0.4em 0 0.2em;
+}
+
+/* radio group: "circle one" on paper */
+.md-typeset .fld-radio {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.2em 0.9em;
+  vertical-align: baseline;
+  padding: 0 0.4em;
+  border-bottom: 2px solid var(--ag-marigold);
+  border-radius: 0.35em 0.35em 0 0;
+  background: var(--ag-panel-record);
+}
+
+.md-typeset .fld-radio label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.md-typeset .fld-radio input {
+  margin: 0;
+  width: 1em;
+  height: 1em;
+  accent-color: var(--ag-green);
+}
+
+.md-typeset table:not([class]) td input.fld {
+  font-size: 0.95em;
+}
+
+/* toolbar under the page title */
+#ws-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.6rem;
+  margin: 0 0 1.6rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--ag-chip-border);
+  border-radius: 0.7em;
+  background: var(--ag-panel-record);
+  font-family: "Prompt", "Segoe UI", sans-serif;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+#ws-bar .ws-team {
+  font-weight: 600;
+  color: var(--ag-marigold-deep);
+  white-space: nowrap;
+}
+
+#ws-bar .ws-team input.fld {
+  font-size: 0.95rem;
+  text-align: center;
+  background: var(--md-default-bg-color);
+}
+
+#ws-bar .ws-status {
+  flex: 1 1 16rem;
+  color: var(--md-default-fg-color--light);
+}
+
+#ws-bar .ws-status strong {
+  color: var(--ag-marigold-deep);
+  font-weight: 600;
+}
+
+.ws-btn {
+  font: 600 0.76rem/1.9 "Prompt", "Segoe UI", sans-serif;
+  padding: 0 0.9em;
+  border-radius: 999px;
+  border: 1px solid var(--ag-green);
+  background: var(--ag-green);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.ws-btn:hover,
+.ws-btn:focus-visible {
+  background: var(--ag-green-deep);
+  border-color: var(--ag-green-deep);
+  outline: none;
+}
+
+.ws-btn--quiet {
+  background: transparent;
+  color: var(--md-default-fg-color--light);
+  border-color: var(--ag-chip-border);
+}
+
+.ws-btn--quiet:hover,
+.ws-btn--quiet:focus-visible {
+  background: var(--ag-panel);
+  color: var(--ag-tomato);
+  border-color: var(--ag-tomato);
+}
+
+/* the ⋯ เครื่องมือ menu: download / import / print / clear, out of sight until needed */
+#ws-bar .ws-tools { position: relative; margin-left: auto; }
+#ws-bar .ws-tools summary { list-style: none; display: inline-block; user-select: none; }
+#ws-bar .ws-tools summary::-webkit-details-marker { display: none; }
+#ws-bar .ws-tools[open] summary { background: var(--ag-panel); color: var(--md-typeset-color); border-color: var(--ag-chip-border); }
+
+#ws-bar .ws-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.35rem);
+  z-index: 5;
+  min-width: 15rem;
+  display: flex;
+  flex-direction: column;
+  padding: 0.35rem;
+  border: 1px solid var(--ag-chip-border);
+  border-radius: 0.7em;
+  background: var(--md-default-bg-color);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.16);
+}
+
+#ws-bar .ws-menu .ws-btn {
+  text-align: left;
+  border-radius: 0.45em;
+  border-color: transparent;
+  background: transparent;
+  color: var(--md-typeset-color);
+  font-weight: 500;
+  line-height: 2.2;
+}
+
+#ws-bar .ws-menu .ws-btn:hover,
+#ws-bar .ws-menu .ws-btn:focus-visible { background: var(--ag-panel-record); color: var(--md-typeset-color); }
+#ws-bar .ws-menu .ws-btn--danger { color: var(--ag-tomato); }
+#ws-bar .ws-menu .ws-btn--danger:hover,
+#ws-bar .ws-menu .ws-btn--danger:focus-visible { background: rgba(216, 74, 42, 0.1); color: var(--ag-tomato); }
+
+/* ---------- print: a filled page reads like a completed paper form ---------- */
+@media print {
+  #ws-bar,
+  #shot-hover,
+  .md-typeset a.glightbox,
+  .md-typeset a.ws-back,
+  .md-typeset label.ws-done {
+    display: none !important;
+  }
+
+  .md-typeset input.fld {
+    border-bottom: 1px solid #333333;
+    background: transparent;
+    color: #000000;
+  }
+
+  .md-typeset textarea.fld-ta {
+    border: 1px solid #888888;
+    border-left-width: 1px;
+    background: transparent;
+    color: #000000;
+    overflow: visible;
+  }
+
+  .md-typeset .fld-radio {
+    border: 0;
+    background: transparent;
+  }
+
+  .md-typeset blockquote,
+  .md-typeset table,
+  .md-typeset textarea.fld-ta,
+  .md-typeset li {
+    break-inside: avoid;
+  }
+}
+
+/* dark: follows the OS unless the viewer picked light; an explicit dark pick always wins */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+  --md-primary-fg-color: #1f5a24;
+  --md-primary-fg-color--light: var(--ag-leaf);
+  --md-primary-fg-color--dark: #143d18;
+  --md-accent-fg-color: #f5b84a;
+  --md-accent-fg-color--transparent: rgba(245, 184, 74, 0.14);
+  --md-default-bg-color: #14201a;
+  --md-default-fg-color: #e6efe3;
+  --md-default-fg-color--light: #b7c6b6;
+  --md-default-fg-color--lighter: #7f9182;
+  --md-typeset-color: #e6efe3;
+  --md-typeset-a-color: #9cd07a;
+  --md-code-bg-color: #1d2c23;
+  --md-code-fg-color: #cfe3c8;
+  --md-typeset-table-color: rgba(230, 239, 227, 0.12);
+  --ag-panel: #1b2a21;
+  --ag-panel-record: #2e2510;
+  --ag-chip-bg: #3a2e14;
+  --ag-chip-fg: #f5c971;
+  --ag-chip-border: #5a4620;
+  --ag-badge-bg: var(--ag-leaf);
+  --ag-badge-fg: #14201a;
+  --ag-step-bg: #2a332c;
+  --ag-step-fg: #c9d3c8;
+  --ag-nav-bg: #172219;
+  --ag-panel-note: #17252f;
+  --ag-panel-caution: #33201b;
+  --ag-th-fg: var(--md-typeset-a-color);
+  --ag-phase-fg: var(--md-typeset-a-color);
+  --ag-rule: #4e7d2c;
+  --ag-shadow: rgba(0, 0, 0, 0.45);
+  color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --md-primary-fg-color: #1f5a24;
+  --md-primary-fg-color--light: var(--ag-leaf);
+  --md-primary-fg-color--dark: #143d18;
+  --md-accent-fg-color: #f5b84a;
+  --md-accent-fg-color--transparent: rgba(245, 184, 74, 0.14);
+  --md-default-bg-color: #14201a;
+  --md-default-fg-color: #e6efe3;
+  --md-default-fg-color--light: #b7c6b6;
+  --md-default-fg-color--lighter: #7f9182;
+  --md-typeset-color: #e6efe3;
+  --md-typeset-a-color: #9cd07a;
+  --md-code-bg-color: #1d2c23;
+  --md-code-fg-color: #cfe3c8;
+  --md-typeset-table-color: rgba(230, 239, 227, 0.12);
+  --ag-panel: #1b2a21;
+  --ag-panel-record: #2e2510;
+  --ag-chip-bg: #3a2e14;
+  --ag-chip-fg: #f5c971;
+  --ag-chip-border: #5a4620;
+  --ag-badge-bg: var(--ag-leaf);
+  --ag-badge-fg: #14201a;
+  --ag-step-bg: #2a332c;
+  --ag-step-fg: #c9d3c8;
+  --ag-nav-bg: #172219;
+  --ag-panel-note: #17252f;
+  --ag-panel-caution: #33201b;
+  --ag-th-fg: var(--md-typeset-a-color);
+  --ag-phase-fg: var(--md-typeset-a-color);
+  --ag-rule: #4e7d2c;
+  --ag-shadow: rgba(0, 0, 0, 0.45);
+  color-scheme: dark;
+}
+
+.md-typeset ul.task-list { padding-left: 0; }
+.md-typeset .task-list-item { position: relative; }
+.md-typeset .task-list-control .task-list-indicator { position: absolute; display: block; left: 0; top: 0.3em; }
+.md-typeset .task-list-control .task-list-indicator::after {
+  content: "";
+  position: absolute;
+  left: 0.36em;
+  top: 0.1em;
+  width: 0.34em;
+  height: 0.68em;
+  border: solid #ffffff;
+  border-width: 0 0.16em 0.16em 0;
+  transform: rotate(45deg);
+  opacity: 0;
+}
+.md-typeset .task-list-control [type="checkbox"] {
+  position: absolute;
+  left: 0;
+  top: 0.3em;
+  width: 1.3em;
+  height: 1.3em;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+.md-typeset .task-list-control [type="checkbox"]:checked + .task-list-indicator::after { opacity: 1; }
+.md-typeset .task-list-control [type="checkbox"]:focus-visible + .task-list-indicator {
+  outline: 2px solid var(--ag-marigold);
+  outline-offset: 2px;
+}
+.md-typeset input.fld:focus-visible, .md-typeset textarea.fld-ta:focus-visible { outline: 2px solid var(--ag-green); }
+
+/* lightbox for the ดูภาพ chips and for lesson photos (the site uses glightbox) */
+#shot-box {
+  border: 0;
+  padding: 0.6rem;
+  max-width: min(98vw, 1800px);
+  border-radius: 0.8rem;
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  box-shadow: 0 20px 60px var(--ag-shadow);
+}
+#shot-box::backdrop { background: rgba(10, 20, 12, 0.72); }
+#shot-box img { display: block; max-width: 100%; max-height: 86vh; margin: 0 auto; border-radius: 0.5rem; }
+#shot-box p { margin: 0.5rem 0.2rem 0; font-size: 0.85rem; color: var(--md-default-fg-color--light); }
+
+@media print {
+  .ws-top, .ws-side, .ws-pager, #shot-box { display: none !important; }
+  .ws-shell { display: block; max-width: none; padding: 0; }
+}
+
+</style>
+<header class="ws-top">
+  <div class="ws-top__inner">
+    <a class="ws-brand" href="../index.html">IoT ในฟาร์มอัจฉริยะ</a><a class="ws-home" href="../index.html">หน้าแรก</a>
+  </div>
+</header>
+<div class="ws-shell">
+<nav class="ws-side" aria-label="หน้าในชุดใบงาน"><ul class="ws-pages"><li class="ws-group" data-group="ก่อนการอบรม"><a href="install.html">ก่อนการอบรม</a></li><li data-page="install" data-group="ก่อนการอบรม"><a href="install.html"><span class="ws-g">ก่อนการอบรม</span><span class="ws-t">เตรียมแล็ปท็อป</span></a></li><li class="ws-group" data-group="ช่วงที่ 1"><a href="session-1-start.html">ช่วงที่ 1</a></li><li data-page="session-1-start" data-group="ช่วงที่ 1"><a href="session-1-start.html"><span class="ws-g">ช่วง 1</span><span class="ws-t">เตรียมพร้อมก่อนเริ่ม</span></a></li><li data-page="activity-1" data-group="ช่วงที่ 1"><a href="activity-1.html" data-n="1"><span class="ws-g">ช่วง 1</span><span class="ws-n">กิจกรรม 1</span><span class="ws-t">อ่านค่าเซนเซอร์ (Sense)</span></a></li><li data-page="activity-2" data-group="ช่วงที่ 1"><a href="activity-2.html" data-n="2"><span class="ws-g">ช่วง 1</span><span class="ws-n">กิจกรรม 2</span><span class="ws-t">ต่อวงจรและสั่งงานหลอดไฟ (Act)</span></a></li><li data-page="activity-3" data-group="ช่วงที่ 1"><a href="activity-3.html" data-n="3"><span class="ws-g">ช่วง 1</span><span class="ws-n">กิจกรรม 3</span><span class="ws-t">สร้างกฎควบคุมระบบ (Logic)</span></a></li><li class="ws-group" data-group="ช่วงที่ 2"><a href="activity-4.html">ช่วงที่ 2</a></li><li data-page="activity-4" data-group="ช่วงที่ 2"><a href="activity-4.html" data-n="4"><span class="ws-g">ช่วง 2</span><span class="ws-n">กิจกรรม 4</span><span class="ws-t">ตั้งกฎอัตโนมัติ (Think)</span></a></li><li data-page="activity-5" data-group="ช่วงที่ 2"><a href="activity-5.html" data-n="5"><span class="ws-g">ช่วง 2</span><span class="ws-n">กิจกรรม 5</span><span class="ws-t">จำลองปัญหาและป้องกัน (Failure lab)</span></a></li><li class="ws-group in-group" data-group="ช่วงที่ 3"><a href="activity-6.html">ช่วงที่ 3</a></li><li data-page="activity-6" data-group="ช่วงที่ 3" class="is-current in-group"><a href="activity-6.html" aria-current="page" data-n="6"><span class="ws-g">ช่วง 3</span><span class="ws-n">กิจกรรม 6</span><span class="ws-t">อ่านข้อมูลย้อนหลัง (History)</span></a><ul class="ws-toc"><li><a href="#กอนเรมชวงท-3">ก่อนเริ่มช่วงที่ 3</a></li></ul></li><li data-page="activity-7" data-group="ช่วงที่ 3" class="in-group"><a href="activity-7.html" data-n="7"><span class="ws-g">ช่วง 3</span><span class="ws-n">กิจกรรม 7</span><span class="ws-t">สร้างแดชบอร์ด (Dashboard)</span></a></li><li data-page="activity-8" data-group="ช่วงที่ 3" class="in-group"><a href="activity-8.html" data-n="8"><span class="ws-g">ช่วง 3</span><span class="ws-n">กิจกรรม 8</span><span class="ws-t">ออกแบบระบบฟาร์ม (Design)</span></a></li><li class="ws-group" data-group="ช่วงที่ 4"><a href="activity-9.html">ช่วงที่ 4</a></li><li data-page="activity-9" data-group="ช่วงที่ 4"><a href="activity-9.html" data-n="9"><span class="ws-g">ช่วง 4</span><span class="ws-n">กิจกรรม 9</span><span class="ws-t">ส่งข้อมูลด้วย ESP-NOW (Send)</span></a></li><li data-page="activity-10" data-group="ช่วงที่ 4"><a href="activity-10.html" data-n="10"><span class="ws-g">ช่วง 4</span><span class="ws-n">กิจกรรม 10</span><span class="ws-t">เพิ่มบอร์ดตัวรับ (Receive)</span></a></li><li data-page="activity-11" data-group="ช่วงที่ 4"><a href="activity-11.html" data-n="11"><span class="ws-g">ช่วง 4</span><span class="ws-n">กิจกรรม 11</span><span class="ws-t">แดชบอร์ดแปลงไกล (Bridge)</span></a></li><li class="ws-group" data-group="อ้างอิง"><a href="resources.html">อ้างอิง</a></li><li data-page="resources" data-group="อ้างอิง"><a href="resources.html"><span class="ws-g">อ้างอิง</span><span class="ws-t">รวมไฟล์และลิงก์</span></a></li><li data-page="reference" data-group="อ้างอิง"><a href="reference.html"><span class="ws-g">อ้างอิง</span><span class="ws-t">เมนูและวิธีแก้ปัญหา</span></a></li><li data-page="record-sheet" data-group="อ้างอิง"><a href="record-sheet.html"><span class="ws-g">อ้างอิง</span><span class="ws-t">ใบบันทึกของกลุ่ม</span></a></li></ul></nav>
+<main class="md-content__inner md-typeset" id="ws-main">
+<h1 id="กจกรรมท-6--การอานขอมลทบนทกไวยอนหลง-history">กิจกรรมที่ 6 — การอ่านข้อมูลที่บันทึกไว้ย้อนหลัง (History)</h1>
+<p><img alt="เกษตรกรร่วมกันอ่านกราฟข้อมูลย้อนหลังบนแท็บเล็ตข้างแปลงผัก" class="activity-banner" decoding="async" height="267" loading="lazy" src="../images/activity-banners/activity-06-history.webp" width="1600" /></p>
+<p><strong>20 นาที</strong></p>
+<p><strong>อุปกรณ์ที่ใช้</strong> แล็ปท็อป</p>
+<p>เปิดข้อมูลที่เริ่มบันทึกไว้ตั้งแต่ช่วงที่ 2 ที่ผ่านมา หาว่าการเปลี่ยนแปลงบนกราฟตรงกับการทดลองใด แล้วคิดว่าถ้าเกิดในฟาร์มจริงควรตรวจอะไร</p>
+<h2 id="กอนเรมชวงท-3">ก่อนเริ่มช่วงที่ 3</h2>
+<p>ตรวจว่าระบบของกลุ่มกลับมาครบเหมือนตอนจบช่วงที่ 2 ก่อนเริ่มกิจกรรม</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" checked="checked"/><span class="task-list-indicator"></span></label> Home Assistant ยังเปิดอยู่และเข้าใช้งานได้จากแล็ปท็อปของกลุ่ม หากเปิดไม่ได้ ให้อ่านหมายเลข IP จากหน้าจอเครื่อง VM อีกครั้ง</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" checked="checked"/><span class="task-list-indicator"></span></label> บอร์ดทั้งสองออนไลน์ ค่าความชื้นอากาศและความสว่างอัปเดต และสั่งสวิตช์ของบอร์ดรีเลย์ได้</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" checked="checked"/><span class="task-list-indicator"></span></label> <strong>เปิดกฎ <code>รดน้ำ - เปิดปั๊ม</code> กลับเหมือนเดิม</strong> เราปิดไว้ตอนพักเที่ยงเพื่อไม่ให้ปั๊มเดินแห้งโดยไม่มีคนดูแล และตรวจว่ากฎ fail-safe ทุกข้อเปิดอยู่</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" checked="checked"/><span class="task-list-indicator"></span></label> ให้ <code>Pump Auto Mode</code> <strong>ปิดไว้</strong> ระหว่างทำกิจกรรมในช่วงนี้ เพื่อไม่ให้ปั๊มเริ่มเอง ส่วนกฎไฟสวนสองข้อกับกฎตั้งเวลาปิดไว้เหมือนเดิม</li>
+</ul>
+<h3 id="a6">ใบงาน</h3>
+<p>ช่องเวลาให้กรอกเวลาที่อ่านจากกราฟแบบ 24 ชั่วโมง เช่น 10:35 โดยใช้ช่วงตั้งแต่เริ่มช่วงที่ 2 ถึงปัจจุบัน หากใช้กราฟตัวอย่าง ให้บันทึกค่าจากกราฟนั้น</p>
+<div class="ws-tasks">
+<p>คลิกที่หัวข้อเพื่อดูวิธีทำ เมื่อทำเสร็จแล้วขอให้ทำเครื่องหมายและตอบคำถามด้วย</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" checked="checked"/><span class="task-list-indicator"></span></label> <strong><a href="#a6-1">6.1 เปิดกราฟย้อนหลัง</a></strong> เปิดหน้า History ให้แสดงความชื้นอากาศ แสง และสวิตช์ของบอร์ดรีเลย์ ตั้งแต่เริ่มช่วงที่ 2 ถึงปัจจุบัน</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" checked="checked"/><span class="task-list-indicator"></span></label> <strong><a href="#a6-2">6.2 เชื่อมกราฟกับการทดลอง</a></strong> ลองดูกราฟแล้วทบทวนว่า การเปลี่ยนแปลงแต่ละช่วงตรงกับการทดลองใดที่เราทำไปแล้ว จากนั้นเลือกมาอธิบาย 3 จุด<ul>
+<li>เหตุการณ์ที่ 1 ค่าหรือสถานะใดเปลี่ยน และเปลี่ยนอย่างไร <input class="fld" type="text" data-k="s3.hist.ev1.what" data-size="12" size="12" value="ความชื้นพุ่งสูงแตะ 92%" autocomplete="off" spellcheck="false"> เวลาในกราฟ <input class="fld" type="text" data-k="s3.hist.ev1.t" data-size="5" size="5" value="10:35" autocomplete="off" spellcheck="false"> น. · น่าจะตรงกับการทดลองใด <input class="fld" type="text" data-k="s3.hist.ev1.cause" data-size="16" size="16" value="เป่าลมร้อนชื้นใส่เซนเซอร์" autocomplete="off" spellcheck="false"></li>
+<li>เหตุการณ์ที่ 2 ค่าหรือสถานะใดเปลี่ยน และเปลี่ยนอย่างไร <input class="fld" type="text" data-k="s3.hist.ev2.what" data-size="12" size="12" value="ปั๊มเปิด On นาน 30 วินาที" autocomplete="off" spellcheck="false"> เวลาในกราฟ <input class="fld" type="text" data-k="s3.hist.ev2.t" data-size="5" size="5" value="11:15" autocomplete="off" spellcheck="false"> น. · น่าจะตรงกับการทดลองใด <input class="fld" type="text" data-k="s3.hist.ev2.cause" data-size="16" size="16" value="ทดสอบกฎรดน้ำอัตโนมัติ" autocomplete="off" spellcheck="false"></li>
+<li>เหตุการณ์ที่ 3 ค่าหรือสถานะใดเปลี่ยน และเปลี่ยนอย่างไร <input class="fld" type="text" data-k="s3.hist.ev3.what" data-size="12" size="12" value="กราฟแหว่ง Unavailable" autocomplete="off" spellcheck="false"> เวลาในกราฟ <input class="fld" type="text" data-k="s3.hist.ev3.t" data-size="5" size="5" value="11:42" autocomplete="off" spellcheck="false"> น. · น่าจะตรงกับการทดลองใด <input class="fld" type="text" data-k="s3.hist.ev3.cause" data-size="16" size="16" value="ปิดสวิตช์บอร์ดเซนเซอร์ดับ" autocomplete="off" spellcheck="false"></li>
+</ul>
+</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" checked="checked"/><span class="task-list-indicator"></span></label> <strong><a href="#a6-3">6.3 อ่านค่าต่ำสุด–สูงสุด</a></strong> ความชื้นอากาศตั้งแต่ช่วงที่ 2 ต่ำสุด <input class="fld" type="text" data-k="s3.hist.hum_min" data-size="4" size="4" value="38.5" inputmode="decimal" autocomplete="off" spellcheck="false"> % ตอน <input class="fld" type="text" data-k="s3.hist.hum_min_t" data-size="5" size="5" value="11:14" autocomplete="off" spellcheck="false"> น. สูงสุด <input class="fld" type="text" data-k="s3.hist.hum_max" data-size="4" size="4" value="94.2" inputmode="decimal" autocomplete="off" spellcheck="false"> % ตอน <input class="fld" type="text" data-k="s3.hist.hum_max_t" data-size="5" size="5" value="10:36" autocomplete="off" spellcheck="false"> น.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" checked="checked"/><span class="task-list-indicator"></span></label> <strong><a href="#a6-4">6.4 หาสาเหตุของข้อมูลที่ขาดหาย</a></strong> ลองสมมติว่าช่วงพักหลังช่วงที่ 1 บอร์ดยังมีไฟ แต่ Home Assistant ถูกปิด เหตุใดจึงไม่มีข้อมูลช่วงนั้น <input class="fld" type="text" data-k="s3.hist.why_gap" data-size="30" size="30" value="เซิร์ฟเวอร์ Home Assistant ถูกปิด จึงไม่มีตัวรับและบันทึกข้อมูลลงฐานข้อมูล" autocomplete="off" spellcheck="false"> หากต้องการเก็บข้อมูลในฟาร์มให้ต่อเนื่อง ควรเปลี่ยนอะไรบ้าง <input class="fld" type="text" data-k="s3.hist.farm_change" data-size="30" size="30" value="ติดตั้ง UPS สำรองไฟให้เซิร์ฟเวอร์ และใช้ระบบเก็บบันทึกบน SD Card ของบอร์ด (Edge Logging)" autocomplete="off" spellcheck="false"></li>
+</ul>
+</div>
+<h3 id="a6-1"><span class="sub-num">6.1</span>การเปิดกราฟดูข้อมูลย้อนหลัง</h3>
+<p class="ws-phase"><strong>เลือกข้อมูลและช่วงเวลา</strong></p>
+<ol>
+<li>เปิด <strong>History</strong> จากเมนูด้านซ้าย</li>
+<li>กด <strong>Add target</strong> แล้วเลือกความชื้นอากาศ แสง และ <strong>สวิตช์ของบอร์ดรีเลย์</strong></li>
+<li>เลือกช่วงเวลาตั้งแต่เริ่มช่วงที่ 2 จนถึงปัจจุบัน กราฟแสดงได้เฉพาะช่วงที่มีข้อมูลบันทึกไว้</li>
+</ol>
+<blockquote>
+<p>หากข้อมูลของกลุ่มมีน้อยจนเลือกเหตุการณ์มาอธิบายไม่ได้ ให้แจ้งผู้สอน แล้วใช้กราฟตัวอย่างที่ผู้สอนเปิดให้ดู หรือขอดูกราฟจากกลุ่มข้าง ๆ เมื่อบันทึกผล ให้ระบุในช่อง “ค่าหรือสถานะใดเปลี่ยน และเปลี่ยนอย่างไร” ว่าใช้กราฟของผู้สอนหรือของกลุ่มใด และสอบถามเจ้าของกราฟว่าตอนนั้นทดลองอะไร</p>
+</blockquote>
+<p><video class="walkthrough" src="../images/walkthroughs/hist-1-history-graph.mp4" poster="../images/walkthroughs/hist-1-history-graph.png" aria-label="ขั้นตอนเปิดหน้า History เพิ่มความชื้นอากาศ ความสว่าง และรีเลย์ด้วย Add target แล้วเลือกช่วงเวลา" style="width:85%" controls muted loop playsinline preload="none">ขั้นตอนเปิดหน้า History เพิ่มความชื้นอากาศ ความสว่าง และรีเลย์ด้วย Add target แล้วเลือกช่วงเวลา</video></p>
+<!-- Recorder persists history in the database: https://www.home-assistant.io/integrations/recorder/ -->
+
+<p><a class="ws-back" href="#a6">↑ กลับไปที่ใบงาน</a></p>
+<h3 id="a6-2"><span class="sub-num">6.2</span>เชื่อมกราฟกับการทดลอง</h3>
+<p class="ws-phase"><strong>จับคู่กราฟกับเหตุการณ์</strong></p>
+<ol>
+<li>เลือกสามเหตุการณ์ในกราฟที่เชื่อมโยงกับการทดลองได้ เช่น แสงลดตอนครอบบอร์ด ความชื้นเพิ่มตอนเป่าลม หรือข้อมูลขาดตอนปิดบอร์ด บันทึกเหตุการณ์ เวลา การทดลองที่น่าจะเกี่ยวข้อง และสิ่งที่ควรตรวจหากพบในฟาร์มจริง หากยังไม่แน่ใจสาเหตุ ให้เขียนข้อสันนิษฐานและระบุว่า “ยังไม่แน่ใจ”</li>
+</ol>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ค่าหรือสถานะใดเปลี่ยน และเปลี่ยนอย่างไร</th>
+<th>เวลาในกราฟ (เช่น 10:35)</th>
+<th>การทดลองที่น่าจะทำให้เกิดการเปลี่ยนแปลงนี้</th>
+<th>ถ้าเกิดในฟาร์มจริง จะตรวจสาเหตุหรือปรับระบบอย่างไร</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><input class="fld" type="text" data-k="s3.hist.ev1.what" data-size="12" size="12" value="ความชื้นพุ่งสูงแตะ 92%" autocomplete="off" spellcheck="false"></td>
+<td><input class="fld" type="text" data-k="s3.hist.ev1.t" data-size="5" size="5" value="10:35" autocomplete="off" spellcheck="false"> น.</td>
+<td><input class="fld" type="text" data-k="s3.hist.ev1.cause" data-size="16" size="16" value="เป่าลมร้อนชื้นใส่เซนเซอร์" autocomplete="off" spellcheck="false"></td>
+<td><input class="fld" type="text" data-k="s3.hist.ev1.action" data-size="22" size="22" value="ตรวจพัดลมระบายอากาศ และระวังละอองน้ำเกาะตัวเซนเซอร์" autocomplete="off" spellcheck="false"></td>
+</tr>
+<tr>
+<td><input class="fld" type="text" data-k="s3.hist.ev2.what" data-size="12" size="12" value="ปั๊มเปิด On นาน 30 วินาที" autocomplete="off" spellcheck="false"></td>
+<td><input class="fld" type="text" data-k="s3.hist.ev2.t" data-size="5" size="5" value="11:15" autocomplete="off" spellcheck="false"> น.</td>
+<td><input class="fld" type="text" data-k="s3.hist.ev2.cause" data-size="16" size="16" value="ทดสอบกฎรดน้ำอัตโนมัติ" autocomplete="off" spellcheck="false"></td>
+<td><input class="fld" type="text" data-k="s3.hist.ev2.action" data-size="22" size="22" value="ตรวจสอบอัตราการไหลของน้ำ และสอบเทียบเกณฑ์ความชื้นกับชนิดพืช" autocomplete="off" spellcheck="false"></td>
+</tr>
+<tr>
+<td><input class="fld" type="text" data-k="s3.hist.ev3.what" data-size="12" size="12" value="กราฟแหว่ง Unavailable" autocomplete="off" spellcheck="false"></td>
+<td><input class="fld" type="text" data-k="s3.hist.ev3.t" data-size="5" size="5" value="11:42" autocomplete="off" spellcheck="false"> น.</td>
+<td><input class="fld" type="text" data-k="s3.hist.ev3.cause" data-size="16" size="16" value="ปิดสวิตช์บอร์ดเซนเซอร์ดับ" autocomplete="off" spellcheck="false"></td>
+<td><input class="fld" type="text" data-k="s3.hist.ev3.action" data-size="22" size="22" value="ตรวจสอบแหล่งจ่ายไฟ สายไฟหลวม และระดับแบตเตอรี่หน้างาน" autocomplete="off" spellcheck="false"></td>
+</tr>
+</tbody>
+</table></div>
+<p><a class="ws-back" href="#a6">↑ กลับไปที่ใบงาน</a></p>
+<h3 id="a6-3"><span class="sub-num">6.3</span>อ่านค่าต่ำสุด–สูงสุด</h3>
+<p class="ws-phase"><strong>อ่านและบันทึกค่าต่ำสุด–สูงสุด</strong></p>
+<ol>
+<li>อ่านและกรอกค่าความชื้นอากาศในช่วงที่เลือก: ต่ำสุด <input class="fld" type="text" data-k="s3.hist.hum_min" data-size="4" size="4" value="38.5" inputmode="decimal" autocomplete="off" spellcheck="false"> % เวลา <input class="fld" type="text" data-k="s3.hist.hum_min_t" data-size="5" size="5" value="11:14" autocomplete="off" spellcheck="false"> น. สูงสุด <input class="fld" type="text" data-k="s3.hist.hum_max" data-size="4" size="4" value="94.2" inputmode="decimal" autocomplete="off" spellcheck="false"> % เวลา <input class="fld" type="text" data-k="s3.hist.hum_max_t" data-size="5" size="5" value="10:36" autocomplete="off" spellcheck="false"> น. ถ้ากราฟอ่านได้ไม่ละเอียด ให้ใช้ค่าโดยประมาณ</li>
+</ol>
+<p><a class="ws-back" href="#a6">↑ กลับไปที่ใบงาน</a></p>
+<h3 id="a6-4"><span class="sub-num">6.4</span>หาสาเหตุของข้อมูลที่ขาดหาย</h3>
+<p class="ws-phase"><strong>วิเคราะห์ช่องว่างของข้อมูล</strong></p>
+<ol>
+<li>ลองสมมติว่าช่วงพักหลังช่วงที่ 1 บอร์ดยังมีไฟ แต่ Home Assistant ถูกปิดหรือนำออกจากห้อง เหตุใดจึงไม่มีข้อมูลช่วงนั้น <input class="fld" type="text" data-k="s3.hist.why_gap" data-size="30" size="30" value="เซิร์ฟเวอร์ Home Assistant ถูกปิด จึงไม่มีตัวรับและบันทึกข้อมูลลงฐานข้อมูล" autocomplete="off" spellcheck="false"> หากนำระบบนี้ไปใช้ที่ฟาร์ม แล้วต้องการเก็บข้อมูลต่อเนื่อง เราต้องเปลี่ยนอะไรบ้าง <input class="fld" type="text" data-k="s3.hist.farm_change" data-size="30" size="30" value="ติดตั้ง UPS สำรองไฟให้เซิร์ฟเวอร์ และใช้ระบบเก็บบันทึกบน SD Card ของบอร์ด (Edge Logging)" autocomplete="off" spellcheck="false"></li>
+</ol>
+<blockquote>
+<p>ข้อนี้เป็นคำถามให้คิดจากการทำงานของระบบ ไม่ต้องหาช่วงพักดังกล่าวในกราฟที่เปิดอยู่ เพราะเราเลือกดูข้อมูลตั้งแต่เริ่มช่วงที่ 2</p>
+</blockquote>
+<p><a class="ws-back" href="#a6">↑ กลับไปที่ใบงาน</a></p><nav class="ws-pager" aria-label="หน้าก่อนหน้าและถัดไป"><a class="ws-prev" href="activity-5.html"><span class="ws-pager__k">← ก่อนหน้า</span><span class="ws-pager__t">กิจกรรม 5 · จำลองปัญหาและป้องกัน (Failure lab)</span></a><a class="ws-next" href="activity-7.html"><span class="ws-pager__k">ถัดไป →</span><span class="ws-pager__t">กิจกรรม 7 · สร้างแดชบอร์ด (Dashboard)</span></a></nav>
+<footer class="ws-disclosure">เอกสารนี้เรียบเรียงขึ้นด้วย AI (Fable 5.1 และ GPT-6 Astra) ภายใต้การกำกับอย่างใกล้ชิดของผู้จัดทำ และรับรองว่าเนื้อหาเป็นไปตามเจตนาของผู้จัดทำทุกประการ</footer>
+</main>
+</div>
+<dialog id="shot-box" aria-label="ภาพหน้าจอ"><img alt=""><p></p></dialog>
+<script>
+(function () {
+  var downloads = null;
+  if (window.claude && typeof window.claude.use === "function") {
+    window.claude.use("downloads").then(function (d) { downloads = d; }, function () {});
+  }
+  function anchorSave(name, text) {
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([text], { type: "application/json" }));
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+  }
+  window.wsSaveFile = function (name, text) {
+    if (!downloads) { anchorSave(name, text); return; }
+    downloads.save({ filename: name, data: text }).catch(function (e) {
+      if (e && e.code === "declined") return;
+      window.alert("ดาวน์โหลดไม่สำเร็จ (" + ((e && (e.message || e.code)) || "unknown") + ")");
+    });
+  };
+})();
+</script>
+<script>/* Worksheet page behaviour, loaded after Material's bundle via mkdocs.yml extra_javascript.
+   1. Tag recurring elements so extra.css can style them:
+        <strong>Hardware</strong> / Driver / Recorder / Tester   -> role chips
+        blockquotes that start with "บันทึกผล" or "จดลงใบบันทึก"  -> record note panel
+   2. Hover preview for step screenshots: resting the pointer on a "ดูภาพ" chip (a.glightbox)
+      shows the screenshot in a floating panel beside it; leaving hides it. Click still opens
+      the glightbox lightbox, which is also the only path on touch screens (no hover there).
+   3. Fillable worksheet: every <input class="fld"> / <textarea class="fld"> / radio group that
+      hooks/fields.py generated, plus the task-list checkboxes, is saved to localStorage as the
+      team types and restored on every page load. A toolbar under the page title offers
+      download (JSON), import (merge), print, and clear. Design notes: webapp/FILLABLE-WORKSHEET.md.
+   4. Each sub-activity ends with a "ทำข้อนี้เสร็จแล้ว" box: a second view of its item in the
+      task list at the top, so a team that has just finished need not scroll back to tick.
+   5. Lesson photos and diagrams open full size when clicked (bindZoom); banners and
+      dividers do not.
+   6. A row of the task list whose answer boxes are all filled ticks itself (autoTick), once the
+      last answer is committed: the box loses focus, or a radio option is chosen.
+   Runs on every page load, including Material's instant navigation. */
+(function () {
+  var ROLES = { Hardware: "hardware", Driver: "driver", Recorder: "recorder", Tester: "tester" };
+
+  function decorate(root) {
+    root.querySelectorAll(".md-typeset strong").forEach(function (el) {
+      var key = el.textContent.trim();
+      if (ROLES[key]) {
+        el.classList.add("role", "role-" + ROLES[key]);
+      }
+    });
+    root.querySelectorAll(".md-typeset blockquote").forEach(function (el) {
+      var t = el.textContent.trim();
+      if (t.indexOf("บันทึกผล") === 0 || t.indexOf("จดลงใบบันทึก") === 0) {
+        el.classList.add("note-record");
+      }
+    });
+    externalLinks(root);
+  }
+
+  /* Links off the worksheet open in a new tab, so a half-filled page is never
+     navigated away from -- answers live in this tab's localStorage. Links to
+     other worksheet pages, and in-page anchors, stay in the same tab. */
+  function externalLinks(root) {
+    root.querySelectorAll(".md-typeset a[href]").forEach(function (a) {
+      var href = a.getAttribute("href") || "";
+      if (!/^https?:/i.test(href)) return;
+      var url;
+      try { url = new URL(href, location.href); } catch (e) { return; }
+      if (location.protocol.indexOf("http") === 0 && url.hostname === location.hostname) return;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+    });
+  }
+
+  /* ---- hover preview ---- */
+  var canHover = window.matchMedia && window.matchMedia("(hover: hover)").matches;
+  var panel, img, cap, timer, current;
+
+  function ensurePanel() {
+    if (panel) return;
+    panel = document.createElement("div");
+    panel.id = "shot-hover";
+    panel.hidden = true;
+    img = document.createElement("img");
+    img.alt = "";
+    cap = document.createElement("div");
+    cap.className = "shot-hover__cap";
+    panel.appendChild(img);
+    panel.appendChild(cap);
+    document.body.appendChild(panel);
+    img.addEventListener("load", function () { if (current) place(current); });
+  }
+
+  function place(a) {
+    var r = a.getBoundingClientRect();
+    var vw = window.innerWidth, vh = window.innerHeight, pad = 16;
+    var w = Math.min(760, Math.floor(vw * 0.6));
+    panel.style.width = w + "px";
+    var ph = panel.offsetHeight;
+    var x = r.right + pad;                       // prefer to the right of the chip
+    if (x + w > vw - pad) x = r.left - w - pad;  // else to the left
+    if (x < pad) x = pad;                        // else clamp
+    var y = r.top - 24;
+    if (y + ph > vh - pad) y = vh - pad - ph;
+    if (y < pad) y = pad;
+    panel.style.left = x + "px";
+    panel.style.top = y + "px";
+  }
+
+  function show(a) {
+    ensurePanel();
+    current = a;
+    img.src = a.getAttribute("href");
+    cap.textContent = a.getAttribute("data-title") || "";
+    panel.hidden = false;
+    place(a);
+  }
+
+  function hide() {
+    current = null;
+    if (panel) panel.hidden = true;
+  }
+
+  function bindHover(root) {
+    if (!canHover) return;
+    root.querySelectorAll("a.glightbox").forEach(function (a) {
+      if (a.dataset.hoverBound) return;
+      a.dataset.hoverBound = "1";
+      a.addEventListener("mouseenter", function () {
+        clearTimeout(timer);
+        timer = setTimeout(function () { show(a); }, 120);
+      });
+      a.addEventListener("mouseleave", function () { clearTimeout(timer); hide(); });
+      a.addEventListener("focus", function () { show(a); });
+      a.addEventListener("blur", hide);
+      a.addEventListener("click", hide);
+    });
+  }
+
+  /* ---- fillable worksheet ---- */
+  var STORE = "farm-worksheet.v1";   // bump the suffix if the stored shape ever changes
+  var ZONE_SLUG = { "แดง": "red", "เขียว": "green", "น้ำเงิน": "blue" };
+  var TEAM_MAX = 100;                // team numbers are 1..TEAM_MAX, stored as plain digits
+  var TEAM_RULE = "หมายเลขกลุ่มต้องเป็นตัวเลข 1–" + TEAM_MAX;
+  var store = emptyStore();
+  var saveTimer;
+
+  /* ---- team number: "๑๗", " 17 ", "กลุ่ม 17", "017" all mean team 17 ---- */
+  var THAI_DIGITS = "๐๑๒๓๔๕๖๗๘๙";
+
+  /* what the box may hold while typing: ASCII digits only, at most 3 of them */
+  function teamDigits(raw) {
+    return String(raw || "").replace(/[๐-๙]/g, function (c) { return THAI_DIGITS.indexOf(c); })
+      .replace(/\D+/g, "").slice(0, 3);
+  }
+
+  /* the canonical value, or "" if the text is not a team number */
+  function teamClean(raw) {
+    var d = teamDigits(raw).replace(/^0+/, "");
+    var n = parseInt(d, 10);
+    return (n >= 1 && n <= TEAM_MAX) ? String(n) : "";
+  }
+
+  function teamValid() {
+    var t = store.fields["team.no"];
+    return !t || String(t).trim() === "" || teamClean(t) !== "";
+  }
+
+  /* red underline + tooltip on every team.no box while the value is not a team number */
+  function markTeamBoxes() {
+    var bad = !teamValid();
+    document.querySelectorAll('.fld[data-k="team.no"]').forEach(function (el) {
+      el.classList.toggle("fld--bad", bad);
+      el.setAttribute("aria-invalid", bad ? "true" : "false");
+      el.title = bad ? TEAM_RULE : "";
+      if (typeof el.setCustomValidity === "function") el.setCustomValidity(bad ? TEAM_RULE : "");
+    });
+  }
+
+  function emptyStore() { return { v: 1, fields: {}, checks: {} }; }
+
+  function loadStore() {
+    try {
+      var d = JSON.parse(localStorage.getItem(STORE));
+      if (d && typeof d.fields === "object") {
+        d.checks = d.checks || {};
+        return d;
+      }
+    } catch (e) { /* no storage, or corrupt: start clean */ }
+    return emptyStore();
+  }
+
+  function writeStore() {
+    store.v = 1;
+    store.updated = new Date().toISOString();
+    try {
+      localStorage.setItem(STORE, JSON.stringify(store));
+      setStatus();
+    } catch (e) {
+      setStatus("เบราว์เซอร์นี้ไม่อนุญาตให้เก็บข้อมูล คำตอบจะหายเมื่อปิดหน้า ให้ดาวน์โหลดคำตอบไว้ก่อน");
+    }
+  }
+
+  function saveSoon() { clearTimeout(saveTimer); saveTimer = setTimeout(saveNow, 300); }
+  function saveNow() { clearTimeout(saveTimer); saveTimer = 0; writeStore(); }
+
+  function pageId() { return location.pathname.replace(/index\.html$/, ""); }   // pre-2026-09 check keys
+
+  /* Which page a box belongs to. The file name, not the path: the same worksheet keeps its ticks
+     whether it is opened from renders/, from the MkDocs preview, or from a copy on disk. In the
+     combined file every page is a <section data-page>, and that wins. */
+  function pageSlug(el) {
+    var sec = el && el.closest && el.closest(".ws-page[data-page]");
+    if (sec) return sec.dataset.page;
+    var p = location.pathname.replace(/\/+$/, "");
+    return p.slice(p.lastIndexOf("/") + 1).replace(/\.html$/, "") || "index";
+  }
+
+  /* A tick is keyed by what the step says, not by its position in the list: inserting a step into
+     a worksheet then no longer shifts every tick after it onto the wrong line. Steps that read the
+     same within one page are told apart by the order they appear in. */
+  function stepHash(cb) {
+    var li = cb.closest("li");
+    var text = (li ? li.textContent : "").replace(/\s+/g, " ").trim().slice(0, 300);
+    var h = 2166136261;
+    for (var i = 0; i < text.length; i++) {
+      h ^= text.charCodeAt(i);
+      h = (h + ((h << 1) + (h << 4) + (h << 7) + (h << 8) + (h << 24))) >>> 0;
+    }
+    return h.toString(36);
+  }
+
+  /* keys for every box on the page, in document order: [{ cb, key }] */
+  function checkKeys(root) {
+    var seen = {};
+    return taskBoxes(root).map(function (cb) {
+      var base = pageSlug(cb) + "#" + stepHash(cb);
+      seen[base] = (seen[base] || 0) + 1;
+      return { cb: cb, key: seen[base] > 1 ? base + "." + seen[base] : base };
+    });
+  }
+
+  function checkKey(cb) {
+    var hit = checkKeys(document).filter(function (r) { return r.cb === cb; })[0];
+    return hit ? hit.key : null;
+  }
+
+  /* ticks saved before the keys were content-derived: carry them over once, by position */
+  function migrateChecks() {
+    var pid = pageId(), moved = false;
+    checkKeys(document).forEach(function (r, i) {
+      var old = pid + "#" + i;
+      if (store.checks[old]) { store.checks[r.key] = true; moved = true; }
+      if (old in store.checks) { delete store.checks[old]; moved = true; }
+    });
+    if (moved) saveNow();
+  }
+
+  function taskBoxes(root) {
+    return Array.prototype.slice.call(
+      (root || document).querySelectorAll(".md-typeset .task-list-item input[type=checkbox]")
+    );
+  }
+
+  /* boxes inside <div class="ws-untracked" markdown> are remembered like any other but never
+     reported: acknowledgement lists ("we understood these three points") are not progress */
+  function tracked(cb) { return !(cb.closest && cb.closest(".ws-untracked")); }
+
+  /* ---- "ทำข้อนี้เสร็จแล้ว": the foot of each sub-activity mirrors its box in the task list ----
+     The list at the top is where a team plans; the foot of a sub-activity is where it has just
+     finished, so the tick is offered there too. One state, two boxes: the mirror sets the list
+     box and fires its change event, so saving and the dashboard report run as for any tick.
+     A row's target is the element its bold link points at (a heading, or the paragraph of the
+     end question); the section runs to the next heading, the next row's target, or the pager.
+     The box joins the section's "back to the list" line where there is one (a discussion prompt
+     may follow it), and closes the section on a line of its own otherwise. */
+  var DONE_LABEL = "ทำข้อนี้เสร็จแล้ว";
+  var mirrors = [];                                // [{ cb: list box, m: mirror box }] for the page on screen
+
+  function isBackLine(el) {
+    return el.tagName === "P" && el.children.length === 1 && el.children[0].classList.contains("ws-back");
+  }
+
+  /* { back: the section's back-link line or null, last: its last element } */
+  function sectionEnd(target, targets) {
+    var out = { back: null, last: target };
+    for (var el = target.nextElementSibling; el; el = el.nextElementSibling) {
+      if (/^(H2|H3|NAV|FOOTER)$/.test(el.tagName) || targets.indexOf(el) >= 0) break;
+      if (isBackLine(el)) out.back = el;
+      out.last = el;
+    }
+    return out;
+  }
+
+  function addMirrors() {
+    mirrors = [];
+    var rows = [];
+    taskBoxes().forEach(function (cb) {
+      var li = cb.closest("li");
+      if (!li || !li.closest(".ws-tasks") || !tracked(cb)) return;
+      var a = li.querySelector("strong a[href^='#']");
+      var target = a && document.getElementById(decodeURIComponent(a.getAttribute("href").slice(1)));
+      if (target) rows.push({ cb: cb, target: target });
+    });
+    var targets = rows.map(function (r) { return r.target; });
+    rows.forEach(function (r) {
+      if (r.target.closest(".ws-tasks")) return;    // a row pointing into the list itself
+      var end = sectionEnd(r.target, targets);
+      var label = document.createElement("label");
+      label.className = "ws-done";
+      var m = document.createElement("input");
+      m.type = "checkbox";
+      m.className = "ws-mirror";
+      label.appendChild(m);
+      label.appendChild(document.createTextNode(" " + DONE_LABEL));
+      var foot = end.back;
+      if (foot) {
+        foot.insertBefore(label, foot.firstChild);
+      } else {
+        foot = document.createElement("p");
+        foot.appendChild(label);
+        end.last.parentNode.insertBefore(foot, end.last.nextSibling);
+      }
+      foot.classList.add("ws-foot");
+      mirrors.push({ cb: r.cb, m: m });
+    });
+  }
+
+  function syncMirrors() {
+    mirrors.forEach(function (pair) { pair.m.checked = pair.cb.checked; });
+  }
+
+  /* ---- a task-list row ticks itself once every answer box in it is filled ----
+     Checked when an answer is committed (the change event: a text box losing focus or Enter, a
+     radio option chosen), never while typing, so a half-typed IP does not tick 1.2. The same key
+     can sit in the row and in the section below it; either copy counts. It only ever ticks: a
+     box the team unticks, or an answer rubbed out later, is left as the team has it. The tick
+     goes through the box's change event, so it is saved, mirrored and reported like a click. */
+  function rowFields(li) {
+    return Array.prototype.slice.call(li.querySelectorAll(".fld")).filter(function (f) {
+      return f.closest(".task-list-item") === li;                   // not the fields of a nested row
+    });
+  }
+
+  function answered(f) {
+    var v = store.fields[f.dataset.k];
+    return v !== undefined && v !== null && String(v).trim() !== "";
+  }
+
+  function autoTick(key) {
+    document.querySelectorAll(".ws-tasks .task-list-item").forEach(function (li) {
+      var cb = li.querySelector("input[type=checkbox]");
+      if (!cb || cb.checked || cb.closest(".task-list-item") !== li) return;
+      var fields = rowFields(li);
+      if (!fields.length || !fields.some(function (f) { return f.dataset.k === key; })) return;
+      if (!fields.every(answered)) return;
+      cb.checked = true;
+      cb.dispatchEvent(new Event("change", { bubbles: true }));
+      li.classList.remove("ws-autoticked");
+      void li.offsetWidth;                                          // restart the flash if it ticks twice in a row
+      li.classList.add("ws-autoticked");
+    });
+  }
+
+  /* a box grows to fit what is typed, so nothing is clipped on screen or in print */
+  function grow(el) {
+    if (el.tagName === "TEXTAREA") {
+      el.style.height = "auto";
+      el.style.height = (el.scrollHeight + 2) + "px";
+    } else if (el.type === "text") {
+      var base = parseInt(el.dataset.size, 10) || 10;
+      el.size = Math.max(base, el.value.length + 1);
+    }
+  }
+
+  /* ---- progress tracker: each tick is sent to the instructor's dashboard (docs/progress.html) ----
+     Only counts travel: per activity, task boxes ticked / total and answer boxes filled / total,
+     plus the last tick. Answers themselves stay in this browser. The path is dated, so a
+     rehearsal or a later reader at home never lands on the workshop's board. Rules that accept
+     the write: webapp/database.rules.json. Nothing is sent until the team number is valid. */
+  var PROGRESS_DB = "https://iot-farm-workshop-default-rtdb.asia-southeast1.firebasedatabase.app";
+  var pushTimer, pushState = "", pushWhen;   // "" never tried · "ok" · "fail"
+
+  function pad2(n) { return ("0" + n).slice(-2); }
+  function today() { var d = new Date(); return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate()); }
+
+  /* one id per browser, so a phone and a laptop of the same team are two rows the dashboard merges */
+  function devId() {
+    if (!store.dev) store.dev = Math.random().toString(36).slice(2, 8);
+    return store.dev;
+  }
+
+  /* "activity-2" on MkDocs (/activity-2/), on a render (/renders/activity-2.html), on the combined render (visible tab) */
+  function pageKey() {
+    var shown = document.querySelector(".ws-page:not([hidden])");
+    if (shown && shown.dataset.page) return shown.dataset.page;
+    var seg = location.pathname.replace(/\/(index\.html)?$/, "").split("/").pop() || "index";
+    return seg.replace(/\.html$/, "").replace(/[.#$\/\[\]]/g, "_");
+  }
+
+  /* The worksheet is one page per activity, but the dashboard (docs/progress.html) keeps one
+     tab per session, so every report is filed under the session. This browser caches a summary
+     of each page it has visited, and each session's record is rebuilt from those, in course
+     order, on every push; activity 2's page therefore adds to session 1 instead of replacing
+     activity 1's counts. Pages not listed here (record sheet, reference) report under their own name. */
+  var PAGE_SESSION = {
+    "session-1-start": "session-1", "activity-1": "session-1", "activity-2": "session-1", "activity-3": "session-1",
+    "activity-4": "session-2", "activity-5": "session-2",
+    "activity-6": "session-3", "activity-7": "session-3", "activity-8": "session-3",
+    "activity-9": "session-4", "activity-10": "session-4", "activity-11": "session-4"
+  };
+  var PAGE_ORDER = Object.keys(PAGE_SESSION);
+  function sessionKey() { return PAGE_SESSION[pageKey()] || pageKey(); }
+
+  function sessionRecords() {
+    var out = {}, slugs = Object.keys(store.progPages || {});
+    function idx(s) { var i = PAGE_ORDER.indexOf(s); return i < 0 ? PAGE_ORDER.length : i; }
+    slugs.sort(function (a, b) { return idx(a) - idx(b); });
+    slugs.forEach(function (slug) {
+      var p = store.progPages[slug], key = PAGE_SESSION[slug] || slug;
+      var r = out[key] || (out[key] = { acts: {}, order: [], names: {}, steps: {}, ts: 0 });
+      (p.order || []).forEach(function (id) {
+        if (r.order.indexOf(id) < 0) r.order.push(id);
+        r.acts[id] = p.acts[id];
+        if (p.names && p.names[id]) r.names[id] = p.names[id];
+        if (p.steps && p.steps[id]) r.steps[id] = p.steps[id];
+      });
+      if (p.ts > r.ts) r.ts = p.ts;
+    });
+    return out;
+  }
+
+  /* the activity an element belongs to: the nearest heading above it. id "a5" (sub-section ids
+     a5-3, a2-1b fold in) and, for headings that are not numbered activities, the heading text --
+     slugs drop Thai vowels ("ก่อนเริ่ม" becomes "กอนเรม"), so the dashboard needs the words */
+  function actOf(el) {
+    var node = el.closest(".ws-tasks") || el.closest("li") || el;
+    while (node && !node.classList.contains("md-content__inner")) {
+      for (var p = node.previousElementSibling; p; p = p.previousElementSibling) {
+        if (/^H[234]$/.test(p.tagName) && p.id) {
+          var id = p.id.replace(/^[a-z0-9-]+--/, "")   // combined render prefixes ids with the page slug
+                       .replace(/^(a\d+)-.*$/, "$1")
+                       .replace(/[.#$\/\[\]]/g, "_");
+          var name = /^a\d+$/.test(id) ? "" : (p.textContent || "").replace(/[¶#]\s*$/, "").trim().slice(0, 40);
+          return { id: id, name: name };
+        }
+      }
+      node = node.parentElement;
+    }
+    return { id: "page", name: "" };
+  }
+  function actId(el) { return actOf(el).id; }
+
+  /* what a task box is about: "1.1 ต่อสวิตช์ลูกลอย" from the bold link in a task list; the first words otherwise */
+  function stepLabel(cb) {
+    var li = cb.closest("li");
+    if (!li) return "";
+    var s = li.closest(".ws-tasks") ? li.querySelector("strong") : null;
+    return (s || li).textContent.trim().replace(/\s+/g, " ").slice(0, 48);
+  }
+
+  /* counts per activity, the activities in page order (the database sorts keys, so order must
+     travel), the heading words for the unnumbered ones, and each task box's label and state */
+  function summarize() {
+    var acts = {}, order = [], names = {}, steps = {}, seen = {};
+    function act(el) {
+      var a = actOf(el);
+      if (!acts[a.id]) { acts[a.id] = { done: 0, total: 0, filled: 0, nf: 0 }; order.push(a.id); }
+      if (a.name && !names[a.id]) names[a.id] = a.name;
+      return a.id;
+    }
+    taskBoxes().filter(tracked).forEach(function (cb) {
+      var id = act(cb);
+      acts[id].total++;
+      if (cb.checked) acts[id].done++;
+      (steps[id] = steps[id] || []).push({ l: stepLabel(cb), on: cb.checked ? 1 : 0 });
+    });
+    document.querySelectorAll(".md-typeset .fld").forEach(function (el) {
+      var k = el.dataset.k;
+      if (k === "team.no" || k === "team.zone") return;
+      var id = act(el);
+      if (seen[id + "|" + k]) return;                 // one key counts once per activity
+      seen[id + "|" + k] = 1;
+      acts[id].nf++;
+      if (String(store.fields[k] || "").trim() !== "") acts[id].filled++;
+    });
+    return { acts: acts, order: order, names: names, steps: steps };
+  }
+
+  /* Before the first report under a number, and before any change of number, make sure it is
+     ours: a wrong number paints another team's cell. store.sentAs is the number this browser
+     has reported as; a different valid number is verified (and confirmed) before anything is sent. */
+  var verifying = null;
+
+  function setTeamEverywhere(t) {
+    if (t) store.fields["team.no"] = t; else delete store.fields["team.no"];
+    fillFields(document);
+    saveNow();
+  }
+
+  /* the one question to ask before reporting as `team`, or null if there is nothing to ask */
+  function teamQuestion(team, old, othersExist) {
+    var changing = old && old !== team;
+    if (changing && othersExist) {
+      return "เปลี่ยนหมายเลขกลุ่มจาก กลุ่ม " + old + " เป็น กลุ่ม " + team + " ใช่ไหม?\n\n" +
+             "เบราว์เซอร์นี้เคยส่งความคืบหน้าในชื่อ กลุ่ม " + old + " และ กลุ่ม " + team +
+             " มีอุปกรณ์อีกเครื่องส่งความคืบหน้าอยู่แล้ววันนี้\n\n" +
+             "กด OK ถ้าเราคือกลุ่ม " + team + " จริง ๆ (อีกเครื่องเป็นโทรศัพท์หรือแล็ปท็อปของกลุ่มเรา)\n" +
+             "กด Cancel เพื่อกลับไปใช้ กลุ่ม " + old;
+    }
+    if (changing) {
+      return "เปลี่ยนหมายเลขกลุ่มจาก กลุ่ม " + old + " เป็น กลุ่ม " + team + " ใช่ไหม?\n\n" +
+             "เบราว์เซอร์นี้เคยส่งความคืบหน้าในชื่อ กลุ่ม " + old + " แล้ว\n\n" +
+             "กด OK ถ้าเราคือกลุ่ม " + team + " จริง ๆ (ความคืบหน้าจากเครื่องนี้จะย้ายไปอยู่กับกลุ่ม " + team + ")\n" +
+             "กด Cancel เพื่อกลับไปใช้ กลุ่ม " + old;
+    }
+    if (othersExist) {
+      return "กลุ่ม " + team + " มีอุปกรณ์อีกเครื่องส่งความคืบหน้าอยู่แล้ววันนี้\n\n" +
+             "ถ้าเป็นโทรศัพท์หรือแล็ปท็อปอีกเครื่องของกลุ่มเรา กด OK\n" +
+             "ถ้าไม่ใช่กลุ่มของเรา กด Cancel แล้วดูหมายเลขกลุ่มบนบัตรประจำกลุ่มอีกครั้ง";
+    }
+    return null;
+  }
+
+  /* look the number up first, then ask at most once */
+  function verifyTeam(team) {
+    if (verifying === team || document.hidden) return;        // one dialog at a time, and only in a visible tab
+    verifying = team;
+    var old = store.sentAs;
+    var done = function (othersExist) {
+      verifying = null;
+      if (team !== teamClean(store.fields["team.no"])) return;    // the box changed meanwhile: that value gets its own check
+      var question = teamQuestion(team, old, othersExist);
+      if (question && !window.confirm(question)) {
+        if (old && old !== team) { setTeamEverywhere(old); return; }
+        setTeamEverywhere("");
+        var box = document.querySelector('#ws-bar .fld[data-k="team.no"]');
+        if (box) box.focus();
+        return;
+      }
+      store.sentAs = team;
+      saveNow();
+      if (old && old !== team) {                                  // this device's row moves to the new number
+        fetch(PROGRESS_DB + "/progress/" + today() + "/" + old + "/" + devId() + ".json?print=silent", { method: "DELETE", keepalive: true })
+          .catch(function () {});
+      }
+      pushNow();
+    };
+    fetch(PROGRESS_DB + "/progress/" + today() + "/" + team + ".json?shallow=true")
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        var others = d ? Object.keys(d).filter(function (k) { return k !== devId(); }) : [];
+        done(others.length > 0);
+      }, function () { done(false); });                           // offline: nothing to compare with, carry on
+  }
+
+  function pushNow(last) {
+    var team = teamClean(store.fields["team.no"]);
+    if (!team || !PROGRESS_DB || !hasFields(document)) return;
+    if (team !== store.sentAs) { verifyTeam(team); return; }      // nothing leaves until the number is confirmed
+    var now = Date.now();
+    store.progPages = store.progPages || {};
+    var sum = summarize();
+    store.progPages[pageKey()] = { acts: sum.acts, order: sum.order, names: sum.names, steps: sum.steps, ts: now };
+    if (last) store.last = last;
+    saveSoon();                                   // the cache of other pages' counts rides along in the store
+    var doc = {
+      team: team, dev: devId(), ts: now, page: sessionKey(),
+      srv: { ".sv": "timestamp" },                 // the database stamps its own clock; phones' clocks drift
+      zone: ZONE_SLUG[store.fields["team.zone"]] || "",
+      pages: sessionRecords(), last: store.last || null
+    };
+    fetch(PROGRESS_DB + "/progress/" + today() + "/" + team + "/" + devId() + ".json?print=silent",   // no echo: download quota is the free tier's limit
+          { method: "PUT", body: JSON.stringify(doc), keepalive: true })
+      .then(function (r) { pushState = r.ok ? "ok" : "fail-" + r.status; if (r.ok) pushWhen = new Date(); setStatus(); },
+            function () { pushState = "fail"; setStatus(); });
+  }
+
+  function pushSoon() { clearTimeout(pushTimer); pushTimer = setTimeout(function () { pushTimer = 0; pushNow(); }, 1500); }
+
+  /* ---- messages to the instructor: "ขอความช่วยเหลือ", "เสร็จแล้ว", or a short line of text ---- */
+  var MSG_MAX = 120, MSG_GAP = 5000, lastMsgAt = 0;
+  var MSG_EMOJIS = ["👍", "🎉", "🤔", "😅", "🙏", "🔥", "🌱", "💧"];   // useful and fun, in that order
+  var HELP_LABEL = "🙋 ขอความช่วยเหลือ", HELP_CANCEL = "✖ ยกเลิกคำขอ";
+
+  /* A call for help can be withdrawn -- teams sort it out themselves as often as not. While this
+     team's own call is open the 🙋 button becomes "ยกเลิกคำขอ", and pressing it writes
+     `cancelled: <timestamp>` onto that message: the dashboard stops counting it and shows it
+     struck through, so a TA already on the way sees what happened instead of the row vanishing.
+     The id of the open message lives in the store, so the button still offers cancel after
+     moving to the next worksheet page. It goes back to 🙋 once a TA marks the call handled
+     (polled), on a new day, or after HELP_TTL -- a team is never left unable to call again. */
+  var HELP_TTL = 20 * 60 * 1000, HELP_POLL = 20000, helpTimer;
+
+  function sendMessage(kind, text) {
+    text = String(text || "").replace(/\s+/g, " ").trim().slice(0, MSG_MAX);
+    if (!text || !PROGRESS_DB) return;
+    var team = teamNo();
+    if (!team) return;
+    if (Date.now() - lastMsgAt < MSG_GAP) { composerNote("รอสักครู่แล้วส่งใหม่", true); return; }
+    lastMsgAt = Date.now();
+    var doc = {
+      team: team, dev: devId(), kind: kind, text: text, page: sessionKey(),
+      zone: ZONE_SLUG[store.fields["team.zone"]] || "", ts: Date.now(), srv: { ".sv": "timestamp" }
+    };
+    composerNote("กำลังส่ง…");
+    fetch(PROGRESS_DB + "/messages/" + today() + ".json",                       // POST: the database picks a time-ordered id and
+          { method: "POST", body: JSON.stringify(doc), keepalive: true })       // hands it back -- one tiny reply, and cancel needs it
+      .then(function (r) {
+        if (!r.ok) throw new Error(r.status);
+        return r.json().then(null, function () { return null; });               // an id we cannot read costs only the cancel button
+      })
+      .then(function (d) {
+        var f = document.querySelector("#ws-bar .ws-msg input[type=text]");
+        if (f) f.value = "";
+        if (kind === "help" && d && d.name) { store.help = { id: d.name, day: today(), ts: Date.now() }; saveSoon(); helpSync(); }
+        composerNote(kind === "help" ? "ส่งคำขอความช่วยเหลือแล้ว กรุณารอผู้สอน 🙋" : "ส่งแล้ว ✓");
+      }, function () { composerNote("ส่งไม่สำเร็จ ลองอีกครั้ง", true); });
+  }
+
+  /* this team's open call for help, or null; an expired one, or one from another day, is forgotten here */
+  function helpOpen() {
+    var h = store.help;
+    if (!h || !h.id) return null;
+    if (h.day !== today() || Date.now() - (h.ts || 0) > HELP_TTL) { delete store.help; saveSoon(); return null; }
+    return h;
+  }
+
+  function helpForget() { if (store.help) { delete store.help; saveSoon(); } helpSync(); }
+
+  /* the button says what pressing it does next */
+  function helpSync() {
+    var b = document.querySelector("#ws-bar .ws-help");
+    if (!b) return;
+    var open = !!helpOpen();
+    b.textContent = open ? HELP_CANCEL : HELP_LABEL;
+    b.classList.toggle("is-open", open);
+    b.title = open ? "ยกเลิกคำขอความช่วยเหลือที่ส่งไปแล้ว" : "";
+    var d = document.querySelector("#ws-bar .ws-dock");
+    if (d) {                                          // folded, the corner button still shows the call is open
+      d.classList.toggle("has-help", open);
+      d.querySelector(".ws-fab").setAttribute("aria-label", open ? "ข้อความถึงผู้สอน (ขอความช่วยเหลืออยู่)" : "ข้อความถึงผู้สอน");
+    }
+    helpWatch();
+  }
+
+  /* while a call is open, ask now and then whether a TA has marked it handled: once one has,
+     there is nothing left to withdraw, so the button offers 🙋 again. One small read per poll. */
+  function helpWatch() {
+    clearTimeout(helpTimer);
+    if (!helpOpen() || !PROGRESS_DB) return;
+    helpTimer = setTimeout(function () {
+      var h = helpOpen();
+      if (!h) { helpSync(); return; }
+      fetch(PROGRESS_DB + "/messages/" + h.day + "/" + h.id + "/handled.json")
+        .then(function (r) { return r.ok ? r.json() : null; }, function () { return null; })
+        .then(function (v) { if (v) helpForget(); else helpWatch(); });         // offline: keep watching, the call is still ours
+    }, HELP_POLL);
+  }
+
+  /* withdraw the open call: `cancelled` is the one other field of a message that may change
+     after it is written (webapp/database.rules.json), and the dashboard reads it. */
+  function cancelHelp() {
+    var h = helpOpen();
+    if (!h) { helpSync(); return; }
+    composerNote("กำลังยกเลิก…");
+    fetch(PROGRESS_DB + "/messages/" + h.day + "/" + h.id + "/cancelled.json?print=silent",
+          { method: "PUT", body: String(Date.now()), keepalive: true })
+      .then(function (r) {
+        if (r.ok) { helpForget(); composerNote("ยกเลิกคำขอแล้ว ✓"); }
+        else composerNote("ยกเลิกไม่สำเร็จ ลองอีกครั้ง", true);
+      }, function () { composerNote("ยกเลิกไม่สำเร็จ ลองอีกครั้ง", true); });
+  }
+
+  function fillFields(root) {
+    // Each visible copy needs its own radio group; data-k remains the shared answer key.
+    root.querySelectorAll('.fld-radio').forEach(function (group, i) {
+      group.querySelectorAll('input[type=radio]').forEach(function (el) {
+        el.name = el.dataset.k + '--copy-' + i;
+      });
+    });
+    root.querySelectorAll(".fld").forEach(function (el) {
+      var v = store.fields[el.dataset.k];
+      if (el.type === "radio") {
+        if (v !== undefined) {
+          el.checked = (el.value === v);
+        } else if (el.checked) {
+          store.fields[el.dataset.k] = el.value;
+        }
+        return;
+      }
+      if (el.dataset.k === "team.no") {          // phones open the number keypad
+        el.inputMode = "numeric";
+        el.maxLength = 3;
+        el.autocomplete = "off";
+      }
+      if (v !== undefined && v !== null && v !== "") {
+        el.value = v;
+      } else if (el.value) {
+        store.fields[el.dataset.k] = el.value;
+      }
+      grow(el);
+    });
+    markTeamBoxes();
+    checkKeys(root).forEach(function (r) {
+      r.cb.disabled = false;
+      if (store.checks[r.key] !== undefined) {
+        r.cb.checked = !!store.checks[r.key];
+      } else if (r.cb.checked) {
+        store.checks[r.key] = true;
+      }
+    });
+    syncMirrors();
+  }
+
+  function hasFields(root) {
+    return !!(root.querySelector(".fld") || root.querySelector(".task-list-item input[type=checkbox]"));
+  }
+
+  /* ---- toolbar ---- */
+  function buildBar() {
+    var inner = document.querySelector(".md-content__inner");
+    if (!inner || inner.querySelector("#ws-bar") || !hasFields(inner)) return;
+    var bar = document.createElement("div");
+    bar.id = "ws-bar";
+    bar.innerHTML =
+      '<label class="ws-team">กลุ่มที่ <input class="fld" type="text" data-k="team.no" data-size="3" size="3" ' +
+        'inputmode="numeric" maxlength="3" autocomplete="off" spellcheck="false"></label>' +
+      '<span class="ws-status"></span>' +
+      /* the file actions live in a menu: needed twice a day, not every minute */
+      '<details class="ws-tools"><summary class="ws-btn ws-btn--quiet" aria-label="เครื่องมือ">⋯ เครื่องมือ</summary>' +
+        '<div class="ws-menu" role="menu">' +
+          '<button type="button" class="ws-btn" data-act="export" role="menuitem">⬇ ดาวน์โหลดคำตอบ (ไฟล์ JSON)</button>' +
+          '<button type="button" class="ws-btn" data-act="import" role="menuitem">⬆ นำเข้าจากไฟล์</button>' +
+          '<button type="button" class="ws-btn" data-act="print" role="menuitem">🖨 พิมพ์ / บันทึก PDF</button>' +
+          '<button type="button" class="ws-btn ws-btn--danger" data-act="clear" role="menuitem">🗑 ล้างคำตอบทั้งหมด</button>' +
+        '</div></details>' +
+      '<input type="file" accept=".json,application/json" hidden>' +
+      (PROGRESS_DB ?
+        /* messages to the instructor: a round button in the bottom corner that opens the composer
+           above it, and folds back when the team clicks, taps or tabs anywhere else */
+        '<div class="ws-dock">' +
+        '<button type="button" class="ws-fab" aria-expanded="false" aria-label="ข้อความถึงผู้สอน" title="ส่งข้อความหรือขอความช่วยเหลือจากผู้สอน">' +
+          '<svg class="ws-fab-ico" viewBox="0 0 64 64" aria-hidden="true">' +
+            '<path d="M10 5h24a6 6 0 0 1 6 6v15a6 6 0 0 1-6 6H21l-9 8v-8h-2a6 6 0 0 1-6-6V11a6 6 0 0 1 6-6z" fill="#9cc5f8"/>' +
+            '<rect x="10" y="11" width="20" height="3" rx="1.5" fill="#fff"/><rect x="10" y="17.5" width="20" height="3" rx="1.5" fill="#fff"/>' +
+            '<rect x="10" y="24" width="9" height="3" rx="1.5" fill="#fff"/>' +
+            '<path d="M28 22h26a6 6 0 0 1 6 6v17a6 6 0 0 1-6 6h-1v9l-10-9H28a6 6 0 0 1-6-6V28a6 6 0 0 1 6-6z" fill="#ffc04d"/>' +
+            '<ellipse cx="34.5" cy="33.5" rx="2.2" ry="3" fill="#433f47"/><ellipse cx="47.5" cy="33.5" rx="2.2" ry="3" fill="#433f47"/>' +
+            '<path d="M33.5 41q7.5 6.5 15 0" fill="none" stroke="#433f47" stroke-width="2.6" stroke-linecap="round"/></svg>' +
+            '<span class="ws-fab-badge" aria-hidden="true">🙋</span></button>' +
+        '<form class="ws-msg" autocomplete="off">' +
+          '<div class="ws-dock-h">ข้อความถึงผู้สอน</div>' +
+          '<button type="button" class="ws-help" data-msg="help">' + HELP_LABEL + '</button>' +
+          '<div class="ws-composer">' +
+            '<button type="button" class="ws-emoji-toggle" aria-expanded="false" aria-label="อีโมจิ">😊</button>' +
+            '<input type="text" maxlength="' + MSG_MAX + '" placeholder="พิมพ์ข้อความถึงผู้สอน…" aria-label="ข้อความถึงผู้สอน">' +
+            '<button type="submit" class="ws-send" aria-label="ส่ง"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 21 3l-8.5 18-2.3-7.2z" fill="currentColor"/></svg></button>' +
+          '</div>' +
+          '<div class="ws-emojis" role="group" aria-label="ใส่อีโมจิ" hidden>' +
+            MSG_EMOJIS.map(function (e) { return '<button type="button" class="ws-emo" data-emoji="' + e + '" aria-label="' + e + '">' + e + '</button>'; }).join("") +
+          '</div>' +
+        '</form></div>' : "");
+    var h1 = inner.querySelector("h1");
+    if (h1) h1.insertAdjacentElement("afterend", bar); else inner.insertBefore(bar, inner.firstChild);
+    bar.querySelector("input[type=file]").addEventListener("change", function (e) {
+      if (e.target.files && e.target.files[0]) doImport(e.target.files[0]);
+      e.target.value = "";
+    });
+    var tools = bar.querySelector(".ws-tools");
+    document.addEventListener("click", function (e) {         // the menu closes on any click outside it
+      if (tools.open && !tools.contains(e.target)) tools.removeAttribute("open");
+    });
+    var form = bar.querySelector(".ws-msg");
+    if (form) {
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        sendMessage("note", form.querySelector("input[type=text]").value);
+      });
+      form.addEventListener("click", function (e) {
+        var box = form.querySelector("input[type=text]");
+        var t = e.target.closest && e.target.closest(".ws-emoji-toggle");
+        if (t) {
+          var strip = form.querySelector(".ws-emojis");
+          strip.hidden = !strip.hidden;
+          t.setAttribute("aria-expanded", String(!strip.hidden));
+          return;
+        }
+        var emo = e.target.closest && e.target.closest(".ws-emo");
+        if (emo) {                                   // emoji go into the box; the team still presses send
+          if (box.value.length < MSG_MAX - 2) box.value = (box.value + " " + emo.dataset.emoji).trim();
+          box.focus();
+          return;
+        }
+        var help = e.target.closest && e.target.closest(".ws-help");
+        if (help) { if (helpOpen()) cancelHelp(); else sendMessage("help", "ขอความช่วยเหลือ"); }
+      });
+      bar.querySelector(".ws-fab").addEventListener("click", function () { dockOpen(!dockIsOpen()); });
+    }
+    setStatus();
+    helpSync();
+  }
+
+  /* ---- the message dock: open and fold ----
+     Folds on a click or tap outside it, on focus moving outside it (Tab), and on Escape. One set
+     of document listeners for the whole visit: Material's instant navigation rebuilds the bar. */
+  function dock() { return document.querySelector("#ws-bar .ws-dock"); }
+  function dockIsOpen() { var d = dock(); return !!(d && d.classList.contains("is-open")); }
+  function dockOpen(on) {
+    var d = dock();
+    if (!d) return;
+    d.classList.toggle("is-open", on);
+    d.querySelector(".ws-fab").setAttribute("aria-expanded", String(on));
+    if (on) {
+      var coarse = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+      if (!coarse) d.querySelector(".ws-composer input[type=text]").focus();   // a phone would open its keyboard: let the team choose
+    } else {
+      var strip = d.querySelector(".ws-emojis"), t = d.querySelector(".ws-emoji-toggle");
+      if (strip) strip.hidden = true;
+      if (t) t.setAttribute("aria-expanded", "false");
+    }
+  }
+  if (!window.__wsDockBound) {
+    window.__wsDockBound = true;
+    document.addEventListener("pointerdown", function (e) {
+      var d = dock();
+      if (d && dockIsOpen() && !d.contains(e.target)) dockOpen(false);
+    });
+    document.addEventListener("focusin", function (e) {
+      var d = dock();
+      if (d && dockIsOpen() && !d.contains(e.target)) dockOpen(false);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && dockIsOpen()) { dockOpen(false); dock().querySelector(".ws-fab").focus(); }
+    });
+  }
+
+  /* a short note inside the composer ("ส่งแล้ว ✓"), where the eye already is */
+  function composerNote(text, bad) {
+    var box = document.querySelector("#ws-bar .ws-composer");
+    if (!box) return;
+    box.dataset.note = text;
+    box.classList.toggle("is-bad", !!bad);
+    clearTimeout(box._noteTimer);
+    box._noteTimer = setTimeout(function () { delete box.dataset.note; box.classList.remove("is-bad"); }, 3500);
+  }
+
+  function setStatus(msg) {
+    var el = document.querySelector("#ws-bar .ws-status");
+    if (!el) return;
+    /* one short phrase at most: the team number box beside it says who we are */
+    if (msg) { el.innerHTML = '<span class="ws-note">' + msg + "</span>"; return; }
+    if (!teamValid()) { el.innerHTML = '<span class="ws-bad">' + TEAM_RULE + "</span>"; return; }
+    var team = teamClean(store.fields["team.no"]);
+    if (!PROGRESS_DB) { el.innerHTML = ""; return; }
+    if (!team) el.innerHTML = '<span class="ws-hint">← กรอกหมายเลขกลุ่ม</span>';
+    else if (team !== store.sentAs) el.innerHTML = '<span class="ws-live ws-live--off">● กำลังตรวจสอบหมายเลขกลุ่ม…</span>';
+    else if (pushState === "ok") el.innerHTML = '<span class="ws-live ws-live--ok" title="ความคืบหน้าของกลุ่มส่งถึงผู้สอนแล้ว">● เชื่อมต่อผู้สอนแล้ว</span>';
+    else if (pushState) el.innerHTML = '<span class="ws-live ws-live--off" title="จะลองส่งใหม่เมื่อติ๊กครั้งถัดไป">● ยังส่งไม่ถึงผู้สอน</span>';
+    else el.innerHTML = '<span class="ws-live ws-live--off">● กำลังเชื่อมต่อ…</span>';
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+
+  /* the team number, asking for one (and refusing a bad one) if the box is empty or wrong */
+  function teamNo() {
+    var t = teamClean(store.fields["team.no"]);
+    var ask = "หมายเลขกลุ่ม 1–" + TEAM_MAX + " (ใช้ตั้งชื่อไฟล์และให้ผู้สอนรู้ว่าเป็นของกลุ่มใด)";
+    while (!t) {
+      var raw = window.prompt(ask);
+      if (raw === null) return "";                 // Cancel
+      t = teamClean(raw);
+      if (t) { store.fields["team.no"] = t; fillFields(document); saveNow(); }
+      else ask = TEAM_RULE + " ลองอีกครั้ง";
+    }
+    return t;
+  }
+
+  function doExport() {
+    var t = teamNo();
+    if (!t) return;
+    var zone = store.fields["team.zone"] || "";
+    var out = {
+      kind: "iot-farm-worksheet",
+      v: 1,
+      team: t,
+      zone: zone,
+      exported: new Date().toISOString(),
+      fields: store.fields,
+      checks: store.checks
+    };
+    var name = "farm-team-" + t + (ZONE_SLUG[zone] ? "-" + ZONE_SLUG[zone] : "") + ".json";
+    window.wsSaveFile(name, JSON.stringify(out, null, 2));
+  }
+
+  /* merge rule: fill empty boxes; ask once before overwriting boxes that already differ */
+  function doImport(file) {
+    var reader = new FileReader();
+    reader.onload = function () {
+      var d;
+      try { d = JSON.parse(reader.result); } catch (e) { d = null; }
+      if (!d || typeof d.fields !== "object") {
+        window.alert("ไฟล์นี้ไม่ใช่ไฟล์คำตอบของใบงาน");
+        return;
+      }
+      var added = 0, conflicts = [];
+      if (d.fields["team.no"] !== undefined) d.fields["team.no"] = teamClean(d.fields["team.no"]);  // files from before validation
+      Object.keys(d.fields).forEach(function (k) {
+        var nv = d.fields[k], cur = store.fields[k];
+        if (nv === undefined || nv === null || String(nv).trim() === "") return;
+        if (cur === undefined || cur === null || String(cur).trim() === "") { store.fields[k] = nv; added++; }
+        else if (String(cur) !== String(nv)) conflicts.push(k);
+      });
+      var overwritten = 0;
+      if (conflicts.length &&
+          window.confirm("มี " + conflicts.length + " ช่องที่กรอกไว้แล้วในเครื่องนี้และต่างจากในไฟล์\n" +
+                         "กด OK เพื่อใช้ค่าจากไฟล์แทน หรือ Cancel เพื่อคงค่าในเครื่องนี้")) {
+        conflicts.forEach(function (k) { store.fields[k] = d.fields[k]; });
+        overwritten = conflicts.length;
+      }
+      Object.keys(d.checks || {}).forEach(function (k) { if (d.checks[k]) store.checks[k] = true; });
+      saveNow();
+      fillFields(document);
+      pushSoon();
+      window.alert("นำเข้าแล้ว เติมช่องว่าง " + added + " ช่อง" +
+        (overwritten ? " เขียนทับ " + overwritten + " ช่อง" : "") +
+        (conflicts.length && !overwritten ? " คงค่าเดิม " + conflicts.length + " ช่อง" : ""));
+    };
+    reader.readAsText(file);
+  }
+
+  function doClear() {
+    if (!window.confirm("ลบคำตอบทั้งหมดที่เก็บในเบราว์เซอร์นี้?\nถ้ายังไม่ได้ดาวน์โหลดคำตอบไว้ ให้กด Cancel แล้วดาวน์โหลดก่อน")) return;
+    store = emptyStore();
+    saveNow();
+    fillFields(document);
+    helpSync();
+  }
+
+  /* one set of listeners for the whole document: survives instant navigation */
+  document.addEventListener("input", function (e) {
+    var el = e.target;
+    if (!el.classList || !el.classList.contains("fld") || el.type === "radio") return;
+    var k = el.dataset.k;
+    if (k === "team.no") {                        // letters and Thai digits never reach the store
+      var digits = teamDigits(el.value);
+      if (digits !== el.value) el.value = digits;
+    }
+    store.fields[k] = el.value;
+    grow(el);
+    document.querySelectorAll('.fld[data-k="' + k + '"]').forEach(function (o) {
+      if (o !== el && o.type !== "radio") { o.value = el.value; grow(o); }
+    });
+    if (k === "team.no") { markTeamBoxes(); saveSoon(); return; }   // a half-typed number is not a team: checked on leaving the box
+    saveSoon();
+    pushSoon();
+  });
+
+  document.addEventListener("change", function (e) {
+    var el = e.target;
+    if (el.classList && el.classList.contains("fld") && el.type === "radio") {
+      store.fields[el.dataset.k] = el.value;
+      document.querySelectorAll('input.fld[type=radio]').forEach(function (other) {
+        if (other.dataset.k === el.dataset.k) other.checked = other.value === el.value;
+      });
+      saveNow();
+      pushSoon();
+      autoTick(el.dataset.k);
+      return;
+    }
+    if (el.classList && el.classList.contains("fld") && el.dataset.k === "team.no") {
+      var t = teamClean(el.value);                 // leaving the box: "017" becomes "17"
+      if (t && t !== el.value) { store.fields["team.no"] = t; fillFields(document); }
+      markTeamBoxes();
+      saveNow();
+      pushNow();                                   // verifies the number first; the dot appears once it is confirmed
+      return;
+    }
+    if (el.classList && el.classList.contains("fld")) {           // a text answer, committed: the box was left, or Enter
+      store.fields[el.dataset.k] = el.value;
+      saveNow();
+      autoTick(el.dataset.k);
+      return;
+    }
+    if (el.classList && el.classList.contains("ws-mirror")) {
+      var pair = mirrors.filter(function (p) { return p.m === el; })[0];
+      if (!pair) return;
+      pair.cb.checked = el.checked;                // the list box is the one that is saved and reported
+      pair.cb.dispatchEvent(new Event("change", { bubbles: true }));
+      return;
+    }
+    if (el.type === "checkbox" && el.closest && el.closest(".task-list-item")) {
+      var key = checkKey(el);
+      if (!key) return;
+      if (el.checked) store.checks[key] = true; else delete store.checks[key];
+      saveNow();
+      syncMirrors();
+      if (!tracked(el)) return;                    // remembered, not reported
+      pushNow({                                    // every tick reaches the dashboard at once
+        page: sessionKey(), act: actId(el), on: !!el.checked, ts: Date.now(), label: stepLabel(el)
+      });
+    }
+  });
+
+  /* Answers are written 300 ms after the last keystroke and reported 1.5 s later. Leaving the page
+     must not outrun either timer: a tapped link, the back button, a closed tab or a sleeping phone
+     ends the script, and an unwritten answer is gone without a word. Both requests already carry
+     keepalive, so the report survives the page it was sent from. */
+  function flushNow() {
+    if (saveTimer) saveNow();
+    if (pushTimer && store.sentAs && teamClean(store.fields["team.no"]) === store.sentAs) {
+      clearTimeout(pushTimer);
+      pushTimer = 0;
+      pushNow();                                   // never from here if the number is still unverified: no dialog on the way out
+    }
+  }
+
+  window.addEventListener("pagehide", flushNow);
+  document.addEventListener("blur", function (e) {
+    if (e.target && e.target.classList && e.target.classList.contains("fld")) flushNow();
+  }, true);
+  /* a phone that slept, or a laptop that lost WiFi, reports again as soon as it can */
+  document.addEventListener("visibilitychange", function () { if (document.hidden) flushNow(); else pushSoon(); });
+  window.addEventListener("online", pushSoon);
+
+  document.addEventListener("click", function (e) {
+    var btn = e.target.closest && e.target.closest("#ws-bar .ws-btn[data-act]");
+    if (!btn) return;
+    var menu = btn.closest(".ws-tools");
+    if (menu) menu.removeAttribute("open");
+    var act = btn.dataset.act;
+    if (act === "export") doExport();
+    else if (act === "import") document.querySelector("#ws-bar input[type=file]").click();
+    else if (act === "print") window.print();
+    else if (act === "clear") doClear();
+  });
+
+  /* another tab (record sheet open beside a session page) saved: show its values here */
+  window.addEventListener("storage", function (e) {
+    if (e.key !== STORE) return;
+    store = loadStore();
+    fillFields(document);
+    setStatus();
+  });
+
+  /* walkthrough videos (hooks/videos.py): play while at least half is on screen, pause when
+     scrolled away, so a page with eight clips downloads only the one being watched.
+     Readers who ask for reduced motion start them with the play button instead. */
+  function playInView(root) {
+    var vids = root.querySelectorAll("video.walkthrough");
+    if (!vids.length || !("IntersectionObserver" in window)) return;
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { var p = e.target.play(); if (p && p.catch) p.catch(function () {}); }
+        else e.target.pause();
+      });
+    }, { threshold: 0.5 });
+    vids.forEach(function (v) { io.observe(v); });
+  }
+
+  /* ---- click a lesson photo or diagram to see it full size ----
+     Banners, dividers, images inside links (the ดูภาพ chips) and images with empty alt text
+     (decorative) are left alone. The site opens the photo in glightbox; the standalone renders
+     have no glightbox and open it in their own #shot-box dialog instead. */
+  function zoomable(img) {
+    if (img.closest("a")) return false;
+    if (img.matches(".activity-banner, .activity-divider, .twemoji, .emojione, .off-glb")) return false;
+    return (img.getAttribute("alt") || "").trim() !== "";
+  }
+
+  function openZoom(img) {
+    var src = img.currentSrc || img.src, alt = img.getAttribute("alt") || "";
+    var box = document.getElementById("shot-box");
+    if (box && typeof box.showModal === "function") {
+      box.querySelector("img").src = src;
+      box.querySelector("p").textContent = alt;
+      box.showModal();
+      return;
+    }
+    if (typeof window.GLightbox === "function") {
+      window.GLightbox({ elements: [{ href: src, type: "image", description: alt }],
+                         touchNavigation: true, zoomable: true, openEffect: "zoom", closeEffect: "zoom" }).open();
+      return;
+    }
+    window.open(src, "_blank", "noopener");
+  }
+
+  function bindZoom(root) {
+    root.querySelectorAll(".md-typeset img").forEach(function (img) {
+      if (img.dataset.zoomBound || !zoomable(img)) return;
+      img.dataset.zoomBound = "1";
+      img.classList.add("ws-zoom");
+      img.tabIndex = 0;
+      img.setAttribute("role", "button");
+      img.title = "กดเพื่อดูภาพขนาดเต็ม";
+      img.addEventListener("click", function () { openZoom(img); });
+      img.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openZoom(img); }
+      });
+    });
+  }
+
+  function init() {
+    decorate(document);
+    playInView(document);
+    bindHover(document);
+    bindZoom(document);
+    addMirrors();
+    store = loadStore();
+    migrateChecks();                              // positional tick keys from before the content keys
+    buildBar();                                   // first, so the toolbar's team box is filled with the rest
+    fillFields(document);
+    pushSoon();                                   // opening a page reports where the team stands
+  }
+
+  if (window.document$ && typeof window.document$.subscribe === "function") {
+    window.document$.subscribe(init);
+  } else if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>
+<script>
+(function () {
+  var box = document.getElementById("shot-box");
+  if (!box || typeof box.showModal !== "function") return;
+  var img = box.querySelector("img"), cap = box.querySelector("p");
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("a.glightbox");
+    if (!a) return;
+    e.preventDefault();
+    img.src = a.getAttribute("href");
+    cap.textContent = a.getAttribute("data-title") || "";
+    box.showModal();
+  });
+  box.addEventListener("click", function () { box.close(); });
+})();
+</script>
+
+</body>
+</html>

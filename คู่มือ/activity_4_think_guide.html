@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>คู่มือการจัดกิจกรรม: กิจกรรมที่ 4 — ตั้งกฎให้ระบบทำงานอัตโนมัติ (Think) | Smart Farm AIoT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+  <style>
+    :root {
+      --primary: #d97706;
+      --primary-dark: #b45309;
+      --primary-light: #fef3c7;
+      --success: #16a34a;
+      --success-light: #dcfce7;
+      --warning: #d97706;
+      --warning-light: #fef3c7;
+      --danger: #dc2626;
+      --danger-light: #fee2e2;
+      --purple: #7c3aed;
+      --purple-light: #f3e8ff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --border: #e2e8f0;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.7;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 30px 20px 80px 20px;
+    }
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, var(--primary-dark) 100%);
+      color: white;
+      padding: 44px 32px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    header::after {
+      content: '🧠';
+      position: absolute;
+      right: 24px;
+      bottom: -15px;
+      font-size: 130px;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .badge-header {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+      padding: 4px 14px;
+      border-radius: 9999px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+    header p {
+      font-size: 16px;
+      opacity: 0.9;
+      max-width: 760px;
+    }
+    .nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+      padding: 12px 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-bar a {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .nav-bar a:hover {
+      background: var(--primary-light);
+    }
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 30px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    h2.section-title {
+      font-size: 21px;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #f1f5f9;
+    }
+    h3.sub-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1e293b;
+      margin: 22px 0 12px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .callout {
+      padding: 16px 20px;
+      border-radius: 10px;
+      margin: 18px 0;
+      font-size: 15px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .callout-icon { font-size: 22px; line-height: 1.4; flex-shrink: 0; }
+    .callout.important { background-color: var(--primary-light); border-left: 4px solid var(--primary); color: var(--primary-dark); }
+    .callout.warning { background-color: var(--warning-light); border-left: 4px solid var(--warning); color: #92400e; }
+    .callout.success { background-color: var(--success-light); border-left: 4px solid var(--success); color: #166534; }
+    .callout.danger { background-color: var(--danger-light); border-left: 4px solid var(--danger); color: #991b1b; }
+    table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14.5px; }
+    th, td { border: 1px solid var(--border); padding: 12px 14px; text-align: left; vertical-align: top; }
+    th { background: #f8fafc; font-weight: 600; color: #334155; }
+    tr:nth-child(even) td { background-color: #fafbfd; }
+    pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 18px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin: 16px 0;
+      position: relative;
+    }
+    code { font-family: 'JetBrains Mono', monospace; font-size: 13.5px; }
+    .code-inline { background: #f1f5f9; color: #0369a1; padding: 2px 6px; border-radius: 4px; font-weight: 500; }
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      font-family: 'Sarabun', sans-serif;
+    }
+    .copy-btn:hover { background: rgba(255, 255, 255, 0.3); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14.5px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-outline { background: white; color: var(--primary); border: 1.5px solid var(--primary); }
+    .btn-outline:hover { background: var(--primary-light); }
+    .footer-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    @media print {
+      body { background: white; color: black; font-size: 13px; }
+      .container { max-width: 100%; padding: 0; }
+      .card { border: 1px solid #ccc; box-shadow: none; page-break-inside: avoid; margin-bottom: 16px; padding: 16px; }
+      header { background: #1e293b !important; color: white !important; padding: 20px; page-break-after: avoid; }
+      .nav-bar, .copy-btn, .footer-nav { display: none !important; }
+      pre { background: #f8fafc !important; color: #0f172a !important; border: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <div class="badge-header">คู่มือมาตรฐานสำหรับวิทยากร ผู้ช่วยสอน (TA) และผู้เรียน</div>
+    <h1>🧠 กิจกรรมที่ 4 — ตั้งกฎให้ระบบทำงานอัตโนมัติ (Think)</h1>
+    <p>คู่มือปฏิบัติการแก้ปัญหาการตัดต่อถี่ (Chattering) ด้วยแถบความคลาดเคลื่อน (Hysteresis), การจำกัดช่วงเวลาทำงาน (Time Condition), การสลับโหลดเป็นปั๊มน้ำ 12V, การสร้างโหมด Auto/Manual ด้วย Input Boolean, และระบบแจ้งเตือน</p>
+  </header>
+
+  <div class="nav-bar">
+    <a href="index.html">🏠 ศูนย์รวมคู่มือ (Master Hub)</a>
+    <a href="#intro">1. บทนำและแนวคิด</a>
+    <a href="#time-matrix">2. แผนการจัดเวลา</a>
+    <a href="#hardware">3. อุปกรณ์และการเชื่อมต่อ</a>
+    <a href="#steps">4. ขั้นตอนการทดลอง</a>
+    <a href="#code">5. โค้ด/การตั้งค่า</a>
+    <a href="#answers">6. เฉลยใบงาน</a>
+    <a href="#troubleshooting">7. การแก้ปัญหา</a>
+    <a href="#rubric">8. เกณฑ์การประเมิน</a>
+  </div>
+
+  <div class="card" id="intro">
+    <h2 class="section-title"><span>📌</span> 1. บทนำและแนวคิดวิศวกรรม (Think Principles)</h2>
+<p style="margin-bottom:12px;">ในระบบควบคุมจริง การตั้งกฎอัตโนมัติแบบชั้นเดียว (Single Threshold) มักนำไปสู่อันตรายร้ายแรงต่อเครื่องจักรทางกล เช่น การที่ปั๊มน้ำตัดต่อรัว ๆ เมื่อค่าเซนเซอร์แกว่งตัวรอบจุดตัด (Chattering Phenomenon)</p>
+<p style="margin-bottom:12px;"><strong>แนวคิดสำคัญในกิจกรรมที่ 4:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>Chattering & Hunting Problem:</strong> ปรากฏการณ์ที่สัญญาณรบกวน (Noise) ขนาดเล็ก ทำให้ค่าเซนเซอร์กระเพื่อมข้ามไปมาเหนือเส้นเกณฑ์ ส่งผลให้สวิตช์หรือรีเลย์สับต่อถี่ ๆ สร้างความเสียหายต่อหน้าสัมผัสและมอเตอร์</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>Hysteresis Band (แถบความคลาดเคลื่อน):</strong> การแยกเกณฑ์สั่งเปิด (Turn-on threshold) ให้อยู่ต่ำกว่าเกณฑ์สั่งปิด (Turn-off threshold) เพื่อสร้างระยะปลอดภัย</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>Time-Window Conditions:</strong> การจำกัดให้ระบบทำงานเฉพาะในช่วงเวลาที่เหมาะสม (เช่น รดน้ำเฉพาะช่วงเช้าตรู่ 06:00-08:00 หรือเปิดไฟช่วง 18:00-22:00)</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>4.</strong> <strong>Manual Override (Input Boolean Helper):</strong> สวิตช์ซอฟต์แวร์จำลองที่อนุญาตให้ผู้ใช้งานเลือกว่าจะให้ระบบทำงานอัตโนมัติ (Auto Mode) หรือควบคุมด้วยมือ (Manual Mode)</p>
+  </div>
+
+  <div class="card" id="time-matrix">
+    <h2 class="section-title"><span>⏱️</span> 2. แผนการจัดการเรียนรู้และเวลา (Facilitator Time Matrix)</h2>
+    <p style="margin-bottom: 14px;"><strong>เวลารวม:</strong> 50 นาที | <strong>รูปแบบการจัด:</strong> ปฏิบัติการเชิงลึกด้านตรรกะระบบควบคุมอัตโนมัติและการป้องกันเครื่องจักรชำรุด</p>
+    <div class="mermaid">
+gantt
+    title ลำดับขั้นตอนกิจกรรมที่ 4: Think (50 นาที)
+    dateFormat  m
+    axisFormat %M นาที
+    section ปัญหา Chattering
+    จำลองไฟกะพริบถี่ & สังเกตผล       :a1, 0, 10m
+    section Hysteresis
+    แยกเกณฑ์เปิด-ปิด (Hysteresis Band) :a2, after a1, 10m
+    section เงื่อนไขเวลา & ปั๊ม
+    เพิ่ม Time Condition & ต่อปั๊มน้ำ :a3, after a2, 15m
+    section Auto/Manual & สรุป
+    สร้าง Input Boolean & อภิปราย 4-Q  :a4, after a3, 15m
+    </div>
+<table><thead><tr><th>ช่วงเวลา</th><th>กิจกรรมย่อย</th><th>บทบาทวิทยากร / TA</th><th>ผลลัพธ์ที่ต้องได้</th></tr></thead><tbody><tr><td><strong>00:00 - 10:00</strong></td><td>4.1 สังเกตปัญหาไฟกะพริบ</td><td>ให้ตั้งเกณฑ์เปิดปิดที่ค่าเดียวกัน แล้วขยับเซนเซอร์ใกล้จุดเกณฑ์ให้เห็นการกะพริบ</td><td>ผู้เรียนเห็นปัญหา Chattering ด้วยตาตนเอง</td></tr><tr><td><strong>10:00 - 20:00</strong></td><td>4.2 แก้ไขด้วย Hysteresis</td><td>สอนหลักการแยกเกณฑ์ เช่น เปิดเมื่อ < 40% ปิดเมื่อ > 60%</td><td>ระบบนิ่ง หลอดไฟไม่กะพริบแม้สัญญาณรบกวน</td></tr><tr><td><strong>20:00 - 35:00</strong></td><td>4.3 & 4.6 เพิ่ม Time & สลับโหลดเป็นปั๊มน้ำ</td><td>เพิ่มเงื่อนไขเวลา และนำปั๊มน้ำ 12V มาต่อแทนหลอดไฟ</td><td>ปั๊มน้ำทำงานเฉพาะช่วงเวลาที่อนุญาต</td></tr><tr><td><strong>35:00 - 50:00</strong></td><td>4.7 & 4.8 สร้างโหมด Auto/Manual & สรุป 4-Q</td><td>สร้าง Helper <code class="code-inline">input_boolean.farm_auto_mode</code> ใช้เป็น Condition</td><td>มีสวิตช์หน้าแดชบอร์ดสลับโหมด และบันทึกคำตอบ</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="hardware">
+    <h2 class="section-title"><span>🔌</span> 3. รายการอุปกรณ์และการเชื่อมต่อ (Hardware BOM & Interfacing)</h2>
+    <div class="mermaid">
+flowchart TD
+    subgraph SENSOR["การตรวจวัด (SHT30)"]
+        VAL["ค่าความชื้นในดิน / อากาศ"]
+    end
+
+    subgraph LOGIC["ตรรกะแบบ Hysteresis"]
+        TH_LOW["เกณฑ์เปิด (Lower Threshold): 40%"]
+        TH_HIGH["เกณฑ์ปิด (Upper Threshold): 60%"]
+        DEADBAND["Deadband Zone (รักษาสถานะเดิม)"]
+    end
+
+    subgraph OVERRIDE["โหมดควบคุม (Helper)"]
+        AUTO_SW["สวิตช์ Auto Mode (input_boolean)"]
+    end
+
+    subgraph ACTUATOR["อุปกรณ์ปลายทาง"]
+        PUMP["ปั๊มน้ำ 12V DC (ต่อขั้ว NO)"]
+    end
+
+    VAL -->|< 40% และ Auto=ON| TH_LOW -->|สั่งเปิดปั๊ม| PUMP
+    VAL -->|> 60%| TH_HIGH -->|สั่งปิดปั๊ม| PUMP
+    AUTO_SW -.->|ถ้าเป็น OFF จะบล็อกคำสั่งอัตโนมัติ| PUMP
+    </div>
+<table><thead><tr><th>ลำดับ</th><th>รายการอุปกรณ์</th><th>สเปก / คุณสมบัติ</th><th>หน้าที่ในระบบ</th></tr></thead><tbody><tr><td>1</td><td><strong>ปั๊มน้ำแรงดันต่ำ 12V DC</strong></td><td>ปั๊มจุ่มหรือไดอะแฟรม 12V 1A-2A</td><td>จำลองระบบชลประทานในฟาร์มจริง</td></tr><tr><td>2</td><td><strong>หลอดไฟ LED 12V</strong></td><td>ใช้ในการทดลองสังเกตปัญหา Chattering ก่อนเปลี่ยนเป็นปั๊ม</td><td>โหลดทดสอบที่ไม่เสี่ยงต่อการชำรุดจากการสับถี่</td></tr><tr><td>3</td><td><strong>Input Boolean Helper</strong></td><td>ฟีเจอร์ตัวแปรสวิตช์จำลองใน Home Assistant</td><td>เก็บสถานะสลับโหมด Manual / Automatic</td></tr><tr><td>4</td><td><strong>สายยางและภาชนะรองน้ำ</strong></td><td>สายยาง 8mm และแก้วน้ำ</td><td>ทดสอบการสูบน้ำจริง</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="steps">
+    <h2 class="section-title"><span>🧪</span> 4. ขั้นตอนการทดลองอย่างละเอียดทีละขั้น (Step-by-Step Lab Protocol)</h2>
+<h3 class="sub-title">ขั้นตอนที่ 4.1: จำลองและสังเกตปัญหาไฟกะพริบ (Chattering)</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> ตั้งเกณฑ์เปิดเมื่อแสง < 300 lx และปิดเมื่อแสง > 300 lx</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> ปรับระยะห่างวัตถุบังแสงให้อยู่ปริ่ม ๆ 300 lx</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> สังเกต: สัญญาณแอนะล็อกมี Noise รบกวนเล็กน้อย ทำให้ค่าแกว่ง 299 -> 301 -> 299 ส่งผลให้รีเลย์สับต่อรัว ๆ (เสียงคลิกถี่ หลอดไฟกะพริบ)</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>4.</strong> <em>อันตราย:</em> หากโหลดเป็นปั๊มน้ำ มอเตอร์จะไหม้ภายในเวลาไม่กี่นาที และหน้าสัมผัสรีเลย์จะเกิดประกายไฟอาร์กจนละลาย</p>
+<h3 class="sub-title">ขั้นตอนที่ 4.2: แก้ไขปัญหาด้วย Hysteresis (แยกเกณฑ์เปิด-ปิด)</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> สร้างแถบความต่าง (Deadband):</p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>เกณฑ์สั่งเปิด:</strong> ความชื้นต่ำกว่า <strong>40%</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>เกณฑ์สั่งปิด:</strong> ความชื้นสูงกว่า <strong>60%</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> ระหว่างช่วง 40% ถึง 60% ระบบจะไม่เปลี่ยนสถานะใด ๆ (รักษาสถานะเดิมไว้)</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> ทดสอบเป่าลมและปล่อยให้แห้ง: สังเกตว่ารีเลย์จะเปิดครั้งเดียวจนน้ำชื้นถึง 60% แล้วจึงดับสนิท ไม่มีการกะพริบรัวอีกต่อไป</p>
+<h3 class="sub-title">ขั้นตอนที่ 4.3 & 4.4: เพิ่มเงื่อนไขจำกัดเวลาทำงาน (Time Condition)</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> ใน Automation เพิ่มส่วน <strong>Condition</strong>:</p>
+<p style="margin-left:20px; text-indent:-15px;">• Condition Type: <strong>Time</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• After: <code class="code-inline">06:00:00</code></p>
+<p style="margin-left:20px; text-indent:-15px;">• Before: <code class="code-inline">18:00:00</code></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> ทดสอบ: แม้ความชื้นจะต่ำกว่า 40% ในเวลากลางคืน ระบบก็จะไม่เปิดรดน้ำ</p>
+<h3 class="sub-title">ขั้นตอนที่ 4.6 & 4.7: สลับโหลดเป็นปั๊มน้ำและสร้างระบบรดน้ำ</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> ปิดสวิตช์กล่องไฟ 12V ปลดสายหลอดไฟออก แล้วต่อสายปั๊มน้ำ 12V เข้าขั้ว COM และ NO แทน</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> จุ่มท่อดูดน้ำลงในแก้วน้ำ เปิดกล่องไฟ และทดสอบรดน้ำตามเกณฑ์ความชื้น</p>
+<h3 class="sub-title">ขั้นตอนที่ 4.8: สร้างระบบสลับโหมด Auto และ Manual</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> ไปที่ <strong>Settings</strong> -> <strong>Devices & Services</strong> -> <strong>Helpers</strong> -> <strong>Create Helper</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> เลือก <strong>Toggle</strong> ตั้งชื่อว่า <code class="code-inline">farm_auto_mode</code> (ระบบรดน้ำอัตโนมัติ)</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> นำ Entity นี้ไปใส่ใน Condition ของกฎรดน้ำ: "State of <code class="code-inline">input_boolean.farm_auto_mode</code> is <code class="code-inline">on</code>"</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>4.</strong> หากเกษตรกรปิดสวิตช์นี้ กฎอัตโนมัติจะไม่ทำงาน เกษตรกรสามารถกดเปิดปิดปั๊มเองได้อิสระ</p>
+  </div>
+
+  <div class="card" id="code">
+    <h2 class="section-title"><span>💻</span> 5. โค้ดและการตั้งค่าสำเร็จรูป (Ready-to-use Configurations)</h2>
+    <pre><button class="copy-btn" onclick="copyCode(this)">📋 คัดลอก</button><code># Automation ที่สมบูรณ์แบบพร้อม Hysteresis, Time Condition และ Auto/Manual Mode
+alias: "Smart Farm - ระบบรดน้ำอัจฉริยะแบบ Robust"
+description: "เปิดปั๊มเมื่อชื้นต่ำกว่า 40% เฉพาะเวลากลางวัน และเมื่อโหมด Auto เปิดอยู่"
+trigger:
+  - platform: numeric_state
+    entity_id: sensor.gogo_iot_red_242dcc_khwamchun_humidity
+    below: 40
+condition:
+  - condition: state
+    entity_id: input_boolean.farm_auto_mode
+    state: "on"
+  - condition: time
+    after: "06:00:00"
+    before: "18:00:00"
+action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.gogo_relay_red_b97df0_riley_relay
+  - service: persistent_notification.create
+    data:
+      title: "ระบบรดน้ำอัตโนมัติ"
+      message: "ความชื้นต่ำกว่า 40% เริ่มเปิดปั๊มน้ำรดแปลงเรียบร้อยแล้ว"
+mode: single</code></pre>
+  </div>
+
+  <div class="card" id="answers">
+    <h2 class="section-title"><span>📝</span> 6. แนวทางการตรวจคำตอบและเฉลยใบงาน (Answer Key & Discussion)</h2>
+<h3 class="sub-title">เฉลยคำตอบและแนวทางการตรวจใบงาน (Activity 4 Worksheet)</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>ข้อ 4.1 สังเกตปัญหาไฟกะพริบ:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• อาการที่พบ: หลอดไฟเปิด-ปิดถี่ สลับไปมา รีเลย์ส่งเสียงคลิกรัว</p>
+<p style="margin-left:20px; text-indent:-15px;">• ผลเสียต่ออุปกรณ์จริง: หน้าสัมผัสรีเลย์อาร์กไหม้ มอเตอร์ปั๊มน้ำรับแรงกระชากจนขดลวดไหม้</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>ข้อ 4.2 การตั้งค่า Hysteresis:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• เกณฑ์เปิด (Turn ON): 40%</p>
+<p style="margin-left:20px; text-indent:-15px;">• เกณฑ์ปิด (Turn OFF): 60%</p>
+<p style="margin-left:20px; text-indent:-15px;">• ระยะ Deadband: 20% (60% - 40%)</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>ข้อ 4.8 การสร้างโหมดควบคุม:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• Entity Helper: <code class="code-inline">input_boolean.farm_auto_mode</code></p>
+<p style="margin-left:20px; text-indent:-15px;">• เมื่อสลับเป็น OFF: ระบบอัตโนมัติหยุดทำงานทั้งหมด ผู้ใช้กดปุ่ม Manual ได้อย่างปลอดภัย</p>
+<hr style="border:0; border-top:1px solid var(--border); margin:20px 0;">
+<h3 class="sub-title">💡 การอภิปรายเชิงวิศวกรรม (คำถาม 4-Q)</h3>
+<p style="margin-bottom:12px;"><strong>คำถาม:</strong> <em>ทำไมในระบบเกษตรอัจฉริยะเชิงพาณิชย์ จึงจำเป็นต้องมีสวิตช์ Manual Override ควบคู่กับระบบอัตโนมัติเสมอ?</em></p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>เฉลยเชิงวิศวกรรม:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>งานบำรุงรักษาและซ่อมบำรุง (Maintenance):</strong> ช่างหรือเกษตรกรจำเป็นต้องทดสอบท่อ ไล่ลมในปั๊ม หรือซ่อมแซมสปริงเกลอร์โดยไม่ต้องการให้ระบบอัตโนมัติติดขึ้นมาเองกะทันหัน ซึ่งอาจทำให้เกิดอุบัติเหตุ</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>การให้ปุ๋ยและยาเฉพาะกิจ (Fertigation / Spraying):</strong> มีหลายสถานการณ์ที่ต้องเปิดน้ำผสมปุ๋ยตามรอบเวลาพิเศษที่อยู่นอกเหนือกฎความชื้น</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>กรณีฉุกเฉิน (Emergency Fallback):</strong> หากเซนเซอร์ชำรุดส่งค่าเพี้ยน เกษตรกรสามารถตัดเข้าระบบควบคุมด้วยมือทันทีเพื่อรักษาชีวิตของพืชในแปลงไว้ได้ทันท่วงที</p>
+  </div>
+
+  <div class="card" id="troubleshooting">
+    <h2 class="section-title"><span>🛠️</span> 7. การแก้ไขปัญหาหน้างานที่พบบ่อย (Troubleshooting FAQ)</h2>
+<table><thead><tr><th>ปัญหาที่พบ</th><th>สาเหตุที่เป็นไปได้</th><th>วิธีการแก้ไข</th></tr></thead><tbody><tr><td><strong>ตั้ง Time Condition แล้วปั๊มไม่ยอมติด</strong></td><td>เวลาของ VirtualBox ไม่ตรงกับเวลาจริงในห้องเรียน</td><td>ตรวจสอบ Time Zone ใน Home Assistant (Settings -> System -> General -> Timezone ต้องเป็น <code class="code-inline">Asia/Bangkok</code>)</td></tr><tr><td><strong>ปิดโหมด Auto แล้วปั๊มยังเปิดอยู่</strong></td><td>กฎรดน้ำถูกกระตุ้นไปก่อนหน้าที่จะปิดสวิตช์ Auto</td><td>การปิดโหมด Auto เป็นเพียงการ "บล็อกกฎรอบถัดไป" หากต้องการให้ปั๊มดับทันทีที่ปิด Auto ต้องสร้าง Automation สั่ง Turn Off เมื่อ Helper เปลี่ยนเป็น off</td></tr><tr><td><strong>ปั๊มน้ำส่งเสียงร้องครางแต่น้ำไม่ไหล</strong></td><td>ปั๊มจุ่มมีฟองอากาศขังอยู่ด้านใน (Air Lock) หรือขั้วไฟกลับด้าน</td><td>เขย่าปั๊มในน้ำเพื่อไล่อากาศ และตรวจขั้วสายไฟว่าต่อถูกต้องตามลูกศรทางเดินน้ำหรือไม่</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="rubric">
+    <h2 class="section-title"><span>📊</span> 8. เกณฑ์การประเมินผลการเรียนรู้ (Assessment Rubric)</h2>
+<table><thead><tr><th>เกณฑ์การประเมิน</th><th>ดีเยี่ยม (4-5 คะแนน)</th><th>พอใช้ (2-3 คะแนน)</th><th>ต้องปรับปรุง (0-1 คะแนน)</th></tr></thead><tbody><tr><td><strong>ความเข้าใจปัญหา Chattering (5 คะแนน)</strong></td><td>อธิบายกลไกการเกิด Chattering และผลกระทบต่อมอเตอร์ได้อย่างถูกต้อง</td><td>เห็นอาการไฟกะพริบแต่อธิบายสาเหตุเชิงลึกไม่ได้</td><td>ไม่เข้าใจปัญหา</td></tr><tr><td><strong>การสร้าง Hysteresis Band (5 คะแนน)</strong></td><td>แยกเกณฑ์เปิดและปิดได้อย่างเหมาะสม และทดสอบระบบได้นิ่งสนิท</td><td>ตั้งเกณฑ์แยกกันแต่ระยะแคบเกินไปจนยังมีอาการแกว่ง</td><td>ตั้งเกณฑ์เปิดปิดที่ค่าเดียวกัน</td></tr><tr><td><strong>การผสาน Time & Helper (5 คะแนน)</strong></td><td>สร้าง Helper และใส่ Condition เวลาและ Auto Mode ได้อย่างสมบูรณ์</td><td>สร้าง Helper ได้แต่ลืมนำไปผูกใน Automation</td><td>ไม่สามารถสร้าง Helper ได้</td></tr><tr><td><strong>การตอบคำถามคิดวิเคราะห์ 4-Q (5 คะแนน)</strong></td><td>ชี้เหตุผลความปลอดภัยและการใช้งานจริงในแปลงเกษตรได้ครบถ้วน</td><td>ตอบได้เฉพาะเรื่องการซ่อมบำรุง</td><td>ไม่ได้ตอบคำถาม 4-Q</td></tr></tbody></table>
+  </div>
+
+  <div class="card footer-nav">
+    <a href="activity_3_logic_guide.html" class="btn btn-outline">⬅️ กิจกรรมที่ 3 (Logic)</a>
+    <a href="index.html" class="btn btn-outline">🏠 กลับสู่ศูนย์รวมคู่มือ</a>
+    <a href="activity_5_failure_lab_guide.html" class="btn btn-primary">กิจกรรมที่ 5 (Failure Lab) ➡️</a>
+  </div>
+
+</div>
+
+<script>
+function copyCode(btn) {
+  const pre = btn.parentElement;
+  const code = pre.querySelector('code').innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    const originalText = btn.innerText;
+    btn.innerText = '✓ คัดลอกแล้ว';
+    setTimeout(() => { btn.innerText = originalText; }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>

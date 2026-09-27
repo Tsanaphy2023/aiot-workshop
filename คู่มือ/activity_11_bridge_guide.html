@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>คู่มือการจัดกิจกรรม: กิจกรรมที่ 11 — นำข้อมูลจากแปลงไกลขึ้นแดชบอร์ด Home Assistant (Bridge) | Smart Farm AIoT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --primary-light: #e0f2fe;
+      --success: #16a34a;
+      --success-light: #dcfce7;
+      --warning: #d97706;
+      --warning-light: #fef3c7;
+      --danger: #dc2626;
+      --danger-light: #fee2e2;
+      --purple: #7c3aed;
+      --purple-light: #f3e8ff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --border: #e2e8f0;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.7;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 30px 20px 80px 20px;
+    }
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, var(--primary-dark) 100%);
+      color: white;
+      padding: 44px 32px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    header::after {
+      content: '🌉';
+      position: absolute;
+      right: 24px;
+      bottom: -15px;
+      font-size: 130px;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .badge-header {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+      padding: 4px 14px;
+      border-radius: 9999px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+    header p {
+      font-size: 16px;
+      opacity: 0.9;
+      max-width: 760px;
+    }
+    .nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+      padding: 12px 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-bar a {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .nav-bar a:hover {
+      background: var(--primary-light);
+    }
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 30px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    h2.section-title {
+      font-size: 21px;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #f1f5f9;
+    }
+    h3.sub-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1e293b;
+      margin: 22px 0 12px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .callout {
+      padding: 16px 20px;
+      border-radius: 10px;
+      margin: 18px 0;
+      font-size: 15px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .callout-icon { font-size: 22px; line-height: 1.4; flex-shrink: 0; }
+    .callout.important { background-color: var(--primary-light); border-left: 4px solid var(--primary); color: var(--primary-dark); }
+    .callout.warning { background-color: var(--warning-light); border-left: 4px solid var(--warning); color: #92400e; }
+    .callout.success { background-color: var(--success-light); border-left: 4px solid var(--success); color: #166534; }
+    .callout.danger { background-color: var(--danger-light); border-left: 4px solid var(--danger); color: #991b1b; }
+    table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14.5px; }
+    th, td { border: 1px solid var(--border); padding: 12px 14px; text-align: left; vertical-align: top; }
+    th { background: #f8fafc; font-weight: 600; color: #334155; }
+    tr:nth-child(even) td { background-color: #fafbfd; }
+    pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 18px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin: 16px 0;
+      position: relative;
+    }
+    code { font-family: 'JetBrains Mono', monospace; font-size: 13.5px; }
+    .code-inline { background: #f1f5f9; color: #0369a1; padding: 2px 6px; border-radius: 4px; font-weight: 500; }
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      font-family: 'Sarabun', sans-serif;
+    }
+    .copy-btn:hover { background: rgba(255, 255, 255, 0.3); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14.5px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-outline { background: white; color: var(--primary); border: 1.5px solid var(--primary); }
+    .btn-outline:hover { background: var(--primary-light); }
+    .footer-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    @media print {
+      body { background: white; color: black; font-size: 13px; }
+      .container { max-width: 100%; padding: 0; }
+      .card { border: 1px solid #ccc; box-shadow: none; page-break-inside: avoid; margin-bottom: 16px; padding: 16px; }
+      header { background: #1e293b !important; color: white !important; padding: 20px; page-break-after: avoid; }
+      .nav-bar, .copy-btn, .footer-nav { display: none !important; }
+      pre { background: #f8fafc !important; color: #0f172a !important; border: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <div class="badge-header">คู่มือมาตรฐานสำหรับวิทยากร ผู้ช่วยสอน (TA) และผู้เรียน</div>
+    <h1>🌉 กิจกรรมที่ 11 — นำข้อมูลจากแปลงไกลขึ้นแดชบอร์ด Home Assistant (Bridge)</h1>
+    <p>คู่มือปฏิบัติการเชื่อมต่อ Gateway ตัวรับเข้าสู่ Home Assistant ผ่าน ESPHome, การเปรียบเทียบข้อมูลสองเส้นทาง (Multi-Path Telemetry), การสร้างแดชบอร์ดสำหรับแปลงไกล, และการสร้างระบบแจ้งเตือนเมื่อแปลงเงียบ (Deadman Watchdog Automation)</p>
+  </header>
+
+  <div class="nav-bar">
+    <a href="index.html">🏠 ศูนย์รวมคู่มือ (Master Hub)</a>
+    <a href="#intro">1. บทนำและแนวคิด</a>
+    <a href="#time-matrix">2. แผนการจัดเวลา</a>
+    <a href="#hardware">3. อุปกรณ์และการเชื่อมต่อ</a>
+    <a href="#steps">4. ขั้นตอนการทดลอง</a>
+    <a href="#code">5. โค้ด/การตั้งค่า</a>
+    <a href="#answers">6. เฉลยใบงาน</a>
+    <a href="#troubleshooting">7. การแก้ปัญหา</a>
+    <a href="#rubric">8. เกณฑ์การประเมิน</a>
+  </div>
+
+  <div class="card" id="intro">
+    <h2 class="section-title"><span>📌</span> 1. บทนำและแนวคิดวิศวกรรม (Bridge Principles)</h2>
+<p style="margin-bottom:12px;">ในที่สุด จิ๊กซอว์ทุกชิ้นของสถาปัตยกรรมเกษตรอัจฉริยะก็ประกอบเข้าด้วยกัน ในกิจกรรมนี้เราจะเชื่อมต่อบอร์ดตัวรับ (Receiver Gateway) เข้าสู่ Home Assistant เพื่อให้ข้อมูลจากแปลงไกลที่ส่งด้วย ESP-NOW กลายมาเป็น <strong>Entity มาตรฐาน</strong> ของระบบส่วนกลาง พร้อมทั้งสร้างระบบเฝ้าระวังความเงียบ (Deadman Switch Alert)</p>
+<p style="margin-bottom:12px;"><strong>แนวคิดสำคัญในกิจกรรมที่ 11:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>Bridge Pattern (บริดจ์ข้อมูลข้ามโพรโทคอล):</strong> บอร์ดตัวรับทำหน้าที่แปลงโพรโทคอล ESP-NOW ระดับล่างให้กลายเป็น ESPHome Native API ระดับบน เพื่อให้ Home Assistant ใช้งานได้โดยไม่ต้องรับรู้ความซับซ้อนของวิทยุ</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>Multi-Path Comparison (การเทียบค่าสองเส้นทาง):</strong> ในห้องเรียน บอร์ดแปลงส่งข้อมูล 2 ทาง:</p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>เส้นทางที่ 1 (Direct Wi-Fi):</strong> <code class="code-inline">sensor.gogo_iot_xxxxxx_humidity</code></p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>เส้นทางที่ 2 (ESP-NOW Bridge):</strong> <code class="code-inline">sensor.gogo_receiver_xxxxxx_field_humidity</code></p>
+<p style="margin-left:20px; text-indent:-15px;">• ผู้เรียนจะได้เห็นว่าทั้งสองเส้นทางให้ตัวเลขเดียวกัน แต่เส้นทางที่ 2 มีความทนทานต่อสภาพพื้นที่จริงมากกว่า</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>Deadman Alert Automation (ระบบเฝ้าระวังแปลงเงียบ):</strong> กฎอัตโนมัติที่คอยดักจับสถานะ <code class="code-inline">unavailable</code> หรือ <code class="code-inline">unknown</code> ของโหนดแปลงไกล หากแปลงไม่ส่งข้อมูลเข้ามาเกินเวลาที่กำหนด ระบบจะยิงข้อความแจ้งเตือนทันที</p>
+  </div>
+
+  <div class="card" id="time-matrix">
+    <h2 class="section-title"><span>⏱️</span> 2. แผนการจัดการเรียนรู้และเวลา (Facilitator Time Matrix)</h2>
+    <p style="margin-bottom: 14px;"><strong>เวลารวม:</strong> 45 นาที | <strong>รูปแบบการจัด:</strong> ปฏิบัติการเชื่อมต่อระบบโทรมาตรสมบูรณ์แบบและการสร้างระบบเฝ้าระวังอัตโนมัติ (Watchdog Automation)</p>
+    <div class="mermaid">
+gantt
+    title ลำดับขั้นตอนกิจกรรมที่ 11: Bridge (45 นาที)
+    dateFormat  m
+    axisFormat %M นาที
+    section เชื่อมต่อ HA
+    เพิ่มบอร์ดตัวรับเข้า Home Assistant :a1, 0, 10m
+    section เทียบค่าสองทาง
+    เปรียบเทียบ Direct Wi-Fi vs Bridge :a2, after a1, 10m
+    section สร้างแดชบอร์ดแปลงไกล
+    สร้างการ์ดมอนิเตอร์แปลงห่างไกล     :a3, after a2, 10m
+    section กฎเฝ้าระวัง & สรุป
+    สร้าง Automation เตือนแปลงเงียบ & 11-Q:a4, after a3, 15m
+    </div>
+<table><thead><tr><th>ช่วงเวลา</th><th>กิจกรรมย่อย</th><th>บทบาทวิทยากร / TA</th><th>ผลลัพธ์ที่ต้องได้</th></tr></thead><tbody><tr><td><strong>00:00 - 10:00</strong></td><td>11.1 เพิ่มบอร์ดตัวรับเข้า HA</td><td>แนะนำการเพิ่ม ESPHome Integration กรอก IP ของตัวรับ</td><td>บอร์ดตัวรับออนไลน์ใน Home Assistant</td></tr><tr><td><strong>10:00 - 20:00</strong></td><td>11.2 เปรียบเทียบค่าสองเส้นทาง</td><td>ให้ผู้เรียนเปิดแท็บ History หรือ Entities วางเซนเซอร์คู่กัน สังเกตตัวเลข</td><td>ตัวเลขตรงกันทั้งทางตรงและทางบริดจ์</td></tr><tr><td><strong>20:00 - 30:00</strong></td><td>11.3 สร้างแดชบอร์ดแปลงไกล</td><td>สร้างการ์ดแสดงผลสำหรับแปลงที่ไม่มี Wi-Fi พร้อมแสดงสถานะการเชื่อมต่อ</td><td>แดชบอร์ดแปลงไกลเสร็จสมบูรณ์</td></tr><tr><td><strong>30:00 - 45:00</strong></td><td>11.4 กฎเตือนแปลงเงียบ & สรุป 11-Q</td><td>สร้าง Automation แจ้งเตือนเมื่อตัวรับเป็น <code class="code-inline">unknown</code> และทดสอบปิดบอร์ดแปลง</td><td>ได้รับ Persistent Notification เมื่อแปลงเงียบ</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="hardware">
+    <h2 class="section-title"><span>🔌</span> 3. รายการอุปกรณ์และการเชื่อมต่อ (Hardware BOM & Interfacing)</h2>
+    <div class="mermaid">
+flowchart TD
+    subgraph REMOTE_FIELD["แปลงปลูกไกล (ไม่มีสัญญาณ Wi-Fi)"]
+        SENS["เซนเซอร์ SHT30 & สวิตช์ลูกลอย"]
+        SENDER["บอร์ด GoGo-IoT (ส่ง ESP-NOW)"]
+        SENS --> SENDER
+    end
+
+    subgraph FARMHOUSE["บ้านพัก / ตัวเรือน (มี Wi-Fi)"]
+        GATEWAY["บอร์ดตัวรับ (ESP-NOW Receiver Gateway)"]
+        HA["Home Assistant Server"]
+        DASH["หน้าจอ Dashboard สำหรับเจ้าของฟาร์ม"]
+        ALERT["ระบบแจ้งเตือนเตือนภัยแปลงเงียบ"]
+
+        GATEWAY -->|ESPHome Native API| HA
+        HA --> DASH
+        HA --> ALERT
+    end
+
+    SENDER -->|ESP-NOW ไร้สาย (ทะลุสวน 100-200 ม.)| GATEWAY
+    </div>
+<table><thead><tr><th>ลำดับ</th><th>รายการอุปกรณ์</th><th>สเปก / คุณสมบัติ</th><th>หน้าที่ในระบบ</th></tr></thead><tbody><tr><td>1</td><td><strong>Home Assistant Integration</strong></td><td>ESPHome Integration ติดตั้งบนเซิร์ฟเวอร์</td><td>รับข้อมูลจากบอร์ดเกตเวย์ตัวรับ</td></tr><tr><td>2</td><td><strong>บอร์ดตัวรับ (Receiver Node)</strong></td><td>ต่อสาย USB เลี้ยงไฟถาวรในบ้าน และเกาะ Wi-Fi</td><td>รับแพ็กเก็ตวิทยุและแปลงเป็น Entity ใน HA</td></tr><tr><td>3</td><td><strong>บอร์ดแปลง GoGo-IoT</strong></td><td>เสียบไฟจาก Power Bank หรือกล่องไฟ</td><td>โหนดภาคสนามที่จำลองการส่งข้อมูลจากแปลงไกล</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="steps">
+    <h2 class="section-title"><span>🧪</span> 4. ขั้นตอนการทดลองอย่างละเอียดทีละขั้น (Step-by-Step Lab Protocol)</h2>
+<h3 class="sub-title">ขั้นตอนที่ 11.1: เพิ่มบอร์ดตัวรับเข้าสู่ Home Assistant</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> ใน Home Assistant ไปที่ <strong>Settings</strong> -> <strong>Devices & Services</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> คลิก <strong>Add Integration</strong> -> ค้นหา <strong>ESPHome</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> กรอกหมายเลข IP ของบอร์ดตัวรับ (หรือชื่อ <code class="code-inline">gogo-receiver-xxxxxx.local</code>) แล้วกด <strong>Submit</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>4.</strong> ตั้งชื่ออุปกรณ์: เช่น <code class="code-inline">Gateway ตัวรับแปลงไกล</code></p>
+<h3 class="sub-title">ขั้นตอนที่ 11.2: เปรียบเทียบข้อมูลที่เดินทางมาสองเส้นทาง</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> เปิดหน้า <strong>Developer Tools</strong> -> แท็บ <strong>States</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> ค้นหา Entity 2 ตัวของกลุ่มเรา:</p>
+<p style="margin-left:20px; text-indent:-15px;">• <code class="code-inline">sensor.gogo_iot_xxxxxx_humidity</code> (ทางตรงผ่าน Wi-Fi)</p>
+<p style="margin-left:20px; text-indent:-15px;">• <code class="code-inline">sensor.gogo_receiver_xxxxxx_remote_humidity</code> (ทางบริดจ์ผ่าน ESP-NOW)</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> สังเกต: ตัวเลขจะตรงกันอย่างแม่นยำ (อัปเดตห่างกันไม่เกิน 1-2 วินาที)</p>
+<h3 class="sub-title">ขั้นตอนที่ 11.3: สร้างหน้าจอแดชบอร์ด "แปลงไกล"</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> สร้าง View หรือการ์ดใหม่ใน Dashboard ตั้งชื่อว่า <strong>"แปลงผักห่างไกล (ESP-NOW Link)"</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> ใส่การ์ด Gauge แสดงความชื้นที่ดึงมาจากบอร์ดตัวรับ</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> ใส่การ์ดแสดงสถานะการเชื่อมต่อ (Signal Quality & Last Seen)</p>
+<h3 class="sub-title">ขั้นตอนที่ 11.4: สร้างระบบแจ้งเตือนเมื่อแปลงเงียบ (Watchdog Alert Automation)</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> ไปที่ <strong>Settings</strong> -> <strong>Automations & Scenes</strong> -> <strong>Create Automation</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>Trigger:</strong> State of <code class="code-inline">sensor.gogo_receiver_xxxxxx_remote_humidity</code></p>
+<p style="margin-left:20px; text-indent:-15px;">• To: <code class="code-inline">unknown</code> หรือ <code class="code-inline">unavailable</code></p>
+<p style="margin-left:20px; text-indent:-15px;">• For: <code class="code-inline">00:00:10</code> (คงสถานะนี้เป็นเวลา 10 วินาที)</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>Action:</strong> Call Service -> <code class="code-inline">persistent_notification.create</code></p>
+<p style="margin-left:20px; text-indent:-15px;">• Title: <code class="code-inline">🚨 สัญญาณแปลงไกลขาดหาย!</code></p>
+<p style="margin-left:20px; text-indent:-15px;">• Message: <code class="code-inline">ไม่ได้รับข้อมูลจากแปลงปลูกเกินเวลาที่กำหนด โปรดตรวจสอบแบตเตอรี่หรือสิ่งกีดขวาง</code></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>4.</strong> <strong>ทดสอบระบบ:</strong> ดึงสายไฟของบอร์ดแปลงออก -> รอ 15-20 วินาที -> ข้อความแจ้งเตือนสีส้มจะเด้งขึ้นบนหน้าจอ Home Assistant ทันที</p>
+  </div>
+
+  <div class="card" id="code">
+    <h2 class="section-title"><span>💻</span> 5. โค้ดและการตั้งค่าสำเร็จรูป (Ready-to-use Configurations)</h2>
+    <pre><button class="copy-btn" onclick="copyCode(this)">📋 คัดลอก</button><code># Automation ตรวจจับแปลงเงียบ (Deadman Switch / Keep-Alive Alert)
+alias: "Alert - แปลงไกลขาดการติดต่อ"
+description: "ส่งการแจ้งเตือนทันทีเมื่อไม่ได้รับข้อมูลจากแปลงไกลเกินกำหนด"
+trigger:
+  - platform: state
+    entity_id: sensor.gogo_receiver_red_b97df0_remote_humidity
+    to:
+      - "unknown"
+      - "unavailable"
+    for:
+      seconds: 10
+condition: []
+action:
+  - service: persistent_notification.create
+    data:
+      title: "🚨 สัญญาณแปลงเกษตรขาดหาย!"
+      message: "ระบบไม่ได้รับข้อมูลจากแปลงไกลเกิน 15 วินาทีแล้ว โปรดตรวจสอบแหล่งจ่ายไฟหรือระบบสายอากาศหน้างาน"
+mode: single</code></pre>
+  </div>
+
+  <div class="card" id="answers">
+    <h2 class="section-title"><span>📝</span> 6. แนวทางการตรวจคำตอบและเฉลยใบงาน (Answer Key & Discussion)</h2>
+<h3 class="sub-title">เฉลยคำตอบและแนวทางการตรวจใบงาน (Activity 11 Worksheet)</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>ข้อ 11.2 การเปรียบเทียบค่าสองทาง:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• ค่าอุณหภูมิและความชื้นจากสองทางเท่ากันอย่างสมบูรณ์</p>
+<p style="margin-left:20px; text-indent:-15px;">• ความแตกต่างคือ ทางตรงต้องใช้สัญญาณ Wi-Fi ครอบคลุมถึงแปลง แต่ทางบริดจ์ใช้เพียงคลื่นวิทยุ ESP-NOW ทะลุสวนเข้ามา</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>ข้อ 11.4 ผลการทดสอบแจ้งเตือนแปลงเงียบ:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• เมื่อถอดสายไฟบอร์ดแปลง ระบบ Home Assistant ส่ง Persistent Notification สำเร็จภายในเวลาประมาณ 25 วินาที (15 วินาทีจากตัวรับ + 10 วินาทีตามเงื่อนไข For)</p>
+<hr style="border:0; border-top:1px solid var(--border); margin:20px 0;">
+<h3 class="sub-title">💡 การอภิปรายเชิงวิศวกรรม (คำถาม 11-Q)</h3>
+<p style="margin-bottom:12px;"><strong>คำถาม:</strong> <em>จงสรุปข้อดีของสถาปัตยกรรมแบบ 3 ชั้น (Field Sensor Node -> Edge Gateway Node -> Automation Server) ในการนำไปประยุกต์ใช้ในฟาร์มจริงระดับพาณิชย์?</em></p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>เฉลยเชิงวิศวกรรม:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>Scalability (ความสามารถในการขยายขนาด):</strong> สามารถเพิ่มโหนดเซนเซอร์ในแปลงได้นับสิบหรือนับร้อยโหนด โดยแต่ละโหนดมีราคาประหยัด กินไฟต่ำมาก และไม่ต้องติดตั้งเราเตอร์ Wi-Fi เพิ่ม</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>Energy Independence (ความเป็นอิสระด้านพลังงาน):</strong> โหนดภาคสนามใช้เพียงแผงโซลาร์เซลล์ขนาดเล็กและแบตเตอรี่ก้อนเล็กก็ทำงานได้ตลอดปี เพราะไม่ต้องใช้พลังงานสูงในการเชื่อมต่อเครือข่าย IP</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>High Reliability & Single Security Gateway:</strong> ลดความเสี่ยงด้านความปลอดภัยของเครือข่าย เพราะโหนดในแปลงไม่ได้เชื่อมต่อเน็ตเวิร์ก IP โดยตรง มีเพียงเกตเวย์ตัวรับในบ้านตัวเดียวที่คุยกับ Home Assistant ทำให้ดูแลความปลอดภัยและไฟร์วอลล์ได้ง่าย</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>4.</strong> <strong>Proactive Diagnostics:</strong> การมีระบบเฝ้าระวังแปลงเงียบ (Deadman Switch) ช่วยให้เกษตรกรรู้ตัวทันทีเมื่อเกิดเหตุแบตเตอรี่หมด ท่อประปาแตก หรือสายไฟขาด ก่อนที่พืชในแปลงจะได้รับความเสียหายอย่างไม่อาจฟื้นฟูได้</p>
+  </div>
+
+  <div class="card" id="troubleshooting">
+    <h2 class="section-title"><span>🛠️</span> 7. การแก้ไขปัญหาหน้างานที่พบบ่อย (Troubleshooting FAQ)</h2>
+<table><thead><tr><th>ปัญหาที่พบ</th><th>สาเหตุที่เป็นไปได้</th><th>วิธีการแก้ไข</th></tr></thead><tbody><tr><td><strong>เพิ่มบอร์ดตัวรับเข้า HA ไม่ได้</strong></td><td>บอร์ดตัวรับไม่ได้อยู่ในวง Wi-Fi เดียวกับเซิร์ฟเวอร์</td><td>ตรวจสอบ IP ของตัวรับ และลอง Ping ดูก่อนเพิ่มใน ESPHome Integration</td></tr><tr><td><strong>การแจ้งเตือนไม่ยอมเด้งขึ้นเมื่อถอดสายบอร์ดแปลง</strong></td><td>ไม่ได้ใส่ช่วงเวลา <code class="code-inline">for: 10s</code> หรือเลือก Entity ID ผิดตัว</td><td>ตรวจดูใน Developer Tools -> States ว่า Entity ของตัวรับเปลี่ยนเป็น unknown จริงหรือไม่</td></tr><tr><td><strong>ค่าความชื้นจากตัวรับอัปเดตช้ากว่าทางตรง</strong></td><td>รอบการส่งข้อมูล ESP-NOW ถูกตั้งไว้ห่างกว่าปกติ</td><td>เป็นพฤติกรรมปกติของระบบประหยัดพลังงาน ซึ่งไม่มีผลเสียต่อการควบคุมแปลง</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="rubric">
+    <h2 class="section-title"><span>📊</span> 8. เกณฑ์การประเมินผลการเรียนรู้ (Assessment Rubric)</h2>
+<table><thead><tr><th>เกณฑ์การประเมิน</th><th>ดีเยี่ยม (4-5 คะแนน)</th><th>พอใช้ (2-3 คะแนน)</th><th>ต้องปรับปรุง (0-1 คะแนน)</th></tr></thead><tbody><tr><td><strong>การเชื่อมต่อ Gateway เข้า HA (5 คะแนน)</strong></td><td>เพิ่มบอร์ดตัวรับเข้า Home Assistant และดึง Entity ครบถ้วน</td><td>เพิ่มได้แต่ระบุชื่อ Entity ผิดพลาด</td><td>ไม่สามารถเชื่อมต่อเข้า HA ได้</td></tr><tr><td><strong>การสร้างแดชบอร์ดแปลงไกล (5 คะแนน)</strong></td><td>สร้างการ์ดแสดงผลแปลงไกลได้อย่างสวยงามและอ่านง่าย</td><td>สร้างการ์ดได้แต่ขาดสถานะการเชื่อมต่อ</td><td>ไม่ได้สร้างแดชบอร์ด</td></tr><tr><td><strong>การสร้างกฎ Deadman Alert (5 คะแนน)</strong></td><td>สร้าง Automation จับสถานะ unknown และยิงแจ้งเตือนได้ถูกต้อง</td><td>สร้างกฎได้แต่แจ้งเตือนไม่ทำงานตอนถอดสาย</td><td>ไม่ได้สร้าง Automation</td></tr><tr><td><strong>การตอบคำถามคิดวิเคราะห์ 11-Q (5 คะแนน)</strong></td><td>สรุปภาพรวมสถาปัตยกรรม 3 ชั้นและความคุ้มค่าในฟาร์มจริงได้ยอดเยี่ยม</td><td>สรุปได้บางข้อ เช่น เรื่องประหยัดไฟ</td><td>ตอบไม่ตรงประเด็น</td></tr></tbody></table>
+  </div>
+
+  <div class="card footer-nav">
+    <a href="activity_10_espnow_receive_guide.html" class="btn btn-outline">⬅️ กิจกรรมที่ 10 (Receive)</a>
+    <a href="index.html" class="btn btn-outline">🏠 กลับสู่ศูนย์รวมคู่มือ</a>
+    <span style="opacity:0.4;">ถัดไป ➡️</span>
+  </div>
+
+</div>
+
+<script>
+function copyCode(btn) {
+  const pre = btn.parentElement;
+  const code = pre.querySelector('code').innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    const originalText = btn.innerText;
+    btn.innerText = '✓ คัดลอกแล้ว';
+    setTimeout(() => { btn.innerText = originalText; }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>

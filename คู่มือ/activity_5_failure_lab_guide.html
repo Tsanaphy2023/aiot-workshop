@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>คู่มือการจัดกิจกรรมเชิงปฏิบัติการ: กิจกรรมที่ 5 — จำลองปัญหาและเพิ่มระบบป้องกัน (Failure Lab) | Smart Farm AIoT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --primary-light: #e0f2fe;
+      --success: #16a34a;
+      --success-light: #dcfce7;
+      --warning: #d97706;
+      --warning-light: #fef3c7;
+      --danger: #dc2626;
+      --danger-light: #fee2e2;
+      --purple: #7c3aed;
+      --purple-light: #f3e8ff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --border: #e2e8f0;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.7;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 30px 20px 80px 20px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, #0369a1 100%);
+      color: white;
+      padding: 44px 32px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::after {
+      content: '🛡️';
+      position: absolute;
+      right: 24px;
+      bottom: -15px;
+      font-size: 130px;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .badge-header {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+      padding: 4px 14px;
+      border-radius: 9999px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      font-size: 16px;
+      opacity: 0.9;
+      max-width: 760px;
+    }
+
+    .nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+      padding: 12px 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-bar a {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+
+    .nav-bar a:hover {
+      background: var(--primary-light);
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--primary-dark);
+      margin-top: 20px;
+      margin-bottom: 12px;
+    }
+
+    p {
+      margin-bottom: 12px;
+    }
+
+    .alert {
+      padding: 16px 20px;
+      border-radius: 8px;
+      margin: 16px 0;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: 15px;
+    }
+
+    .alert-info { background: var(--primary-light); border-left: 4px solid var(--primary); color: #075985; }
+    .alert-warning { background: var(--warning-light); border-left: 4px solid var(--warning); color: #92400e; }
+    .alert-danger { background: var(--danger-light); border-left: 4px solid var(--danger); color: #991b1b; }
+    .alert-success { background: var(--success-light); border-left: 4px solid var(--success); color: #166534; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 14.5px;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f1f5f9;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    tr:nth-child(even) td {
+      background-color: #f8fafc;
+    }
+
+    .code-box {
+      position: relative;
+      margin: 16px 0;
+      background: #0f172a;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .code-header {
+      background: #1e293b;
+      color: #94a3b8;
+      padding: 8px 16px;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #334155;
+    }
+
+    .copy-btn {
+      background: #334155;
+      color: #f8fafc;
+      border: none;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .copy-btn:hover {
+      background: #475569;
+    }
+
+    pre code {
+      display: block;
+      padding: 16px;
+      color: #e2e8f0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      overflow-x: auto;
+      line-height: 1.5;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .badge-danger { background: var(--danger-light); color: var(--danger); }
+    .badge-success { background: var(--success-light); color: var(--success); }
+    .badge-warning { background: var(--warning-light); color: var(--warning); }
+    .badge-primary { background: var(--primary-light); color: var(--primary-dark); }
+
+    .tag-lab {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #e2e8f0;
+      color: #334155;
+      margin-bottom: 8px;
+    }
+
+    .lab-box {
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 24px;
+      background: #ffffff;
+    }
+
+    .lab-box.l51 { border-left: 5px solid #0284c7; }
+    .lab-box.l52 { border-left: 5px solid #d97706; }
+    .lab-box.l53 { border-left: 5px solid #dc2626; }
+    .lab-box.l54 { border-left: 5px solid #7c3aed; }
+
+    .mermaid {
+      background: #ffffff;
+      padding: 16px;
+      border-radius: 8px;
+      margin: 16px 0;
+      text-align: center;
+    }
+
+    @media print {
+      body { background: white; color: black; }
+      .container { max-width: 100%; padding: 0; }
+      header { box-shadow: none; border: 1px solid #ccc; background: #333; }
+      .nav-bar, .copy-btn { display: none !important; }
+      .card, .lab-box { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <span class="badge-header">📖 คู่มือมาตรฐานวิทยากร & ผู้เข้ารับการอบรม</span>
+    <h1>กิจกรรมที่ 5 — จำลองปัญหาและเพิ่มระบบป้องกัน (Failure Lab)</h1>
+    <p>คู่มือเชิงปฏิบัติการสำหรับการจัดกิจกรรม Smart Farm Fail-Safe Architecture: การตรวจจับข้อผิดพลาด, ออกแบบกฎความปลอดภัยใน Home Assistant, การวางแผนบำรุงรักษา และสถาปัตยกรรมป้องกันหลายระดับ</p>
+  </header>
+
+  <nav class="nav-bar" aria-label="สารบัญ">
+    <a href="#section-1">1. บทนำ & Fail-safe</a>
+    <a href="#section-2">2. ตารางเวลา (55 นาที)</a>
+    <a href="#section-3">3. แผนผังระบบ & อุปกรณ์</a>
+    <a href="#lab-51">4.1 น้ำหมด (Dry Run)</a>
+    <a href="#lab-52">4.2 สั่งแล้วไม่เดิน (Vibration)</a>
+    <a href="#lab-53">4.3 เซนเซอร์ดับ (Unavailable)</a>
+    <a href="#lab-54">4.4 ปั๊มเดินนานเกิน (Timeout)</a>
+    <a href="#section-5">5. แผนบำรุงรักษา</a>
+    <a href="#section-6">6. Defense in Depth</a>
+    <a href="#section-7">7. เกณฑ์ประเมิน</a>
+    <a href="#section-8">8. วิธีแก้ปัญหา (FAQ)</a>
+    <a href="index.html" style="margin-left: auto; color: #64748b;">← กลับสู่หน้าคู่มือหลัก</a>
+  </nav>
+
+  <!-- Section 1 -->
+  <section id="section-1" class="card">
+    <h2>📌 1. บทนำและแนวคิดวิศวกรรมความปลอดภัย (Fail-safe Engineering)</h2>
+    <p>ในระบบเกษตรอัจฉริยะ ความเสียหายส่วนใหญ่มักไม่ได้เกิดจากตัวระบบทำงานปกติ แต่เกิดจาก <strong>"สภาวะผิดปกติทางกายภาพ (Physical Failures)"</strong> เช่น น้ำแห้ง, ปั๊มน้ำติดขัด, สัญญาณ Wi-Fi หลุด, หรือเซนเซอร์ชำรุด หากระบบอัตโนมัติทำงานโดยเชื่อถือข้อมูลเพียงด้านเดียว (Blind Trust) จะนำไปสู่ความสูญเสียใหญ่หลวง:</p>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 16px 0;">
+      <div style="background: var(--danger-light); padding: 16px; border-radius: 8px;">
+        <strong style="color: var(--danger);">🔥 ปั๊มน้ำไหม้ (Dry-run Burnout)</strong>
+        <p style="font-size: 14px; margin-top: 6px; color: #7f1d1d;">เมื่อน้ำในบ่อ/ถังแห้ง ปั๊มน้ำไดอะแฟรมที่เดินแห้งจะเกิดความร้อนสะสม ยางไดอะแฟรมฉีกขาด และขดลวดมอเตอร์ไหม้ในเวลาอันสั้น</p>
+      </div>
+      <div style="background: var(--warning-light); padding: 16px; border-radius: 8px;">
+        <strong style="color: var(--warning);">🌊 แปลงพืชท่วมขัง (Flooding/Root Rot)</strong>
+        <p style="font-size: 14px; margin-top: 6px; color: #78350f;">หากบอร์ดเซนเซอร์ดับ ระบบไม่ได้รับค่าความชื้น ปั๊มที่เปิดอยู่จะไม่ยอมตัด น้ำท่วมขังแปลงพืช รากเน่าเสียหาย และสูบน้ำทิ้งจนหมด</p>
+      </div>
+      <div style="background: var(--primary-light); padding: 16px; border-radius: 8px;">
+        <strong style="color: var(--primary-dark);">⚠️ รดน้ำไม่ทำงานโดยไม่มีใครรู้</strong>
+        <p style="font-size: 14px; margin-top: 6px; color: #0c4a6e;">สถานะรีเลย์บนหน้าจอขึ้น On แต่สายปั๊มหลุดหรือใบพัดติดขัด พืชไม่ได้รับน้ำเฉาตาย โดยที่เจ้าของฟาร์มเข้าใจว่าระบบรดน้ำปกติ</p>
+      </div>
+    </div>
+
+    <div class="alert alert-info">
+      <div>💡</div>
+      <div><strong>หัวใจของกิจกรรมที่ 5:</strong> มุ่งฝึกฝนทักษะ <strong>"Fault Injection → Observe → Mitigate → Verify"</strong> (จำลองปัญหาจริง → สังเกตพฤติกรรม → เขียนกฎความปลอดภัย → ตรวจสอบซ้ำด้วย Traces)</div>
+    </div>
+  </section>
+
+  <!-- Section 2 -->
+  <section id="section-2" class="card">
+    <h2>⏱️ 2. แผนการจัดกิจกรรมและเวลา (Facilitator Time Matrix)</h2>
+    <p>ระยะเวลาจัดกิจกรรมรวม: <strong>55 นาที</strong> แนะนำให้ผู้เข้ารับการอบรมจับคู่กลุ่มข้างเคียง (Peer Review) ร่วมตรวจ Traces</p>
+    
+    <div class="mermaid">
+      gantt
+        title ตารางเวลาจัดกิจกรรมที่ 5 (55 นาที)
+        dateFormat  m
+        axisFormat %M นาที
+        section ตรวจสอบความพร้อม
+        ตรวจสถานะอุปกรณ์และบอร์ดทั้งสอง   :a1, 0, 5m
+        section 5.1 น้ำหมด
+        จำลอง Dry Run & เพิ่มกฎป้องกัน :a2, after a1, 10m
+        section 5.2 สั่งแล้วไม่เดิน
+        ถอดสายปั๊ม & ตั้งกฎตรวจการสั่น  :a3, after a2, 10m
+        section 5.3 เซนเซอร์ดับ
+        ปิดสวิตช์บอร์ด & ตั้งกฎ Unavailable :a4, after a3, 10m
+        section 5.4 ปั๊มเดินนานเกิน
+        จำลองน้ำไม่ขึ้น & ตั้งกฎ Safety Timeout :a5, after a4, 10m
+        section 5.5 & สรุปผล
+        วางแผนบำรุงรักษา & สรุปอภิปราย 5-Q :a6, after a5, 10m
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ช่วงเวลา</th>
+          <th>กิจกรรมย่อย</th>
+          <th>การดำเนินการของผู้เรียน</th>
+          <th>บทบาทวิทยากร / ผู้ช่วยสอน (TA)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>00:00 - 05:00</strong></td>
+          <td>ตรวจความพร้อมก่อนเริ่ม (5.0)</td>
+          <td>ตรวจกฎรดน้ำเปิดอยู่, โหมด Auto เปิด, ลูกลอยแช่น้ำ (Wet)</td>
+          <td>เดินตรวจบอร์ดทั้ง 2 ตัวของแต่ละกลุ่มว่าเชื่อมต่อ HA ครบ</td>
+        </tr>
+        <tr>
+          <td><strong>05:00 - 15:00</strong></td>
+          <td><strong>5.1 น้ำหมดแต่ปั๊มยังเดิน</strong></td>
+          <td>ยกลูกลอยขึ้น (Dry) สั่ง On สังเกตปั๊มเดินแห้ง แล้วสร้างกฎป้องกัน</td>
+          <td>ย้ำให้เพิ่ม Condition ในกฎ <code>รดน้ำ - เปิดปั๊ม</code> ด้วย</td>
+        </tr>
+        <tr>
+          <td><strong>15:00 - 25:00</strong></td>
+          <td><strong>5.2 สั่งแล้วปั๊มไม่เดิน</strong></td>
+          <td>ถอดปลั๊ก ถอดสายขั้ว NO สั่ง On ปั๊มไม่สั่น แล้วสร้างกฎตรวจ 15 วิ</td>
+          <td>เน้นเรื่องความปลอดภัย: ต้องถอดปลั๊กก่อนขันสายทุกครั้ง</td>
+        </tr>
+        <tr>
+          <td><strong>25:00 - 35:00</strong></td>
+          <td><strong>5.3 บอร์ดเซนเซอร์ดับ</strong></td>
+          <td>ปิดสวิตช์ ON/OFF บอร์ด GoGo-IoT สังเกต unavailable และตั้งกฎตัดปั๊ม</td>
+          <td>ชี้จุดสวิตช์ ON/OFF บนตัวบอร์ด (ไม่ใช่ปุ่ม BOOT)</td>
+        </tr>
+        <tr>
+          <td><strong>35:00 - 45:00</strong></td>
+          <td><strong>5.4 ปั๊มเดินนานเกินไป</strong></td>
+          <td>จำลองความชื้นไม่ข้ามเกณฑ์ ปั๊มเดินเกินเวลา แล้วตั้ง Timeout 30 วิ</td>
+          <td>อธิบายว่าทำไมต้องตั้ง 30s ยาวกว่ากฎข้อ 5.2 ที่ตั้งไว้ 15s</td>
+        </tr>
+        <tr>
+          <td><strong>45:00 - 55:00</strong></td>
+          <td><strong>5.5 แผนบำรุงรักษา & สรุป</strong></td>
+          <td>กรอกตาราง 5 ระบบ และตอบคำถาม 5-Q เรื่อง Hardware Interlock</td>
+          <td>นำอภิปรายสรุปภาพรวม และให้กดดาวน์โหลด JSON สำรอง</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Section 3 -->
+  <section id="section-3" class="card">
+    <h2>🔌 3. แผนผังระบบและรายการอุปกรณ์ (Hardware Architecture)</h2>
+    
+    <div class="mermaid">
+      flowchart LR
+        subgraph SENSOR_UNIT["บอร์ด 1: GoGo-IoT (Sensor Node)"]
+            S1["SHT30: อุณหภูมิ & ความชื้น"]
+            S2["Float Switch: สวิตช์ลูกลอย"]
+            S3["Vibration: ตรวจแรงสั่นสะเทือน"]
+        end
+
+        subgraph RELAY_UNIT["บอร์ด 2: GoGo-Relay (Actuator Node)"]
+            R1["Relay 1-Channel (COM / NO)"]
+            P1["ปั๊มน้ำ 12V DC (เดินแห้งในแล็บ)"]
+        end
+
+        subgraph CONTROLLER["โฮสต์ควบคุมกลาง (Home Assistant)"]
+            HA["Automations & Traces Engine"]
+            LOG["Logbook & History"]
+            NOTIF["Persistent Notification"]
+        end
+
+        SENSOR_UNIT -->|ESPHome Native API / Wi-Fi| CONTROLLER
+        CONTROLLER -->|ESPHome Native API / Wi-Fi| RELAY_UNIT
+        R1 -->|ควบคุมวงจรไฟฟ้า| P1
+    </div>
+
+    <h3>รายการอุปกรณ์ประจำกลุ่ม (Hardware BOM)</h3>
+    <ul>
+      <li><strong>บอร์ด 1 (GoGo-IoT ESP32):</strong> มีเซนเซอร์ SHT30 วัดอากาศ, ตัวตรวจจับแรงสั่นสะเทือน (Vibration), ช่องต่อสวิตช์ลูกลอย (Float Switch)</li>
+      <li><strong>บอร์ด 2 (GoGo-Relay ESP32):</strong> โมดูลรีเลย์ตัดต่อไฟ 12V DC พร้อมเทอร์มินัล COM/NO</li>
+      <li><strong>ปั๊มน้ำ 12V DC:</strong> จำลองการรดน้ำ (ทดสอบเดินแห้งในห้องเรียน)</li>
+      <li><strong>แก้วน้ำทรงสูง:</strong> สำหรับจุ่มสวิตช์ลูกลอยจำลองระดับน้ำในถังพัก</li>
+    </ul>
+  </section>
+
+  <!-- Section 4: Detailed Labs -->
+  <section class="card">
+    <h2>🧪 4. รายละเอียดและโค้ดของกฎความปลอดภัยทั้ง 4 ข้อ</h2>
+
+    <!-- Lab 5.1 -->
+    <div id="lab-51" class="lab-box l51">
+      <span class="tag-lab">ฐานการทดลองที่ 5.1</span>
+      <h3>1) ปัญหาน้ำแห้งแต่ปั๊มยังเดิน (Low Water / Dry-Run Protection)</h3>
+      <p><strong>ปัญหา:</strong> สวิตช์ลูกลอยตกเป็น Dry แต่อนุญาตให้เปิดปั๊มได้ ทำให้ปั๊มเดินแห้งจนร้อนและไหม้</p>
+      <p><strong>กลไกแก้ไข:</strong> ตรวจจับ 2 เหตุการณ์: เมื่อลูกลอยเปลี่ยนเป็น Dry ขณะปั๊มเปิดอยู่ <em>หรือ</em> มีคนสั่งเปิดปั๊มขณะที่น้ำแห้งอยู่แล้ว ให้ตัดรีเลย์ทันที พร้อมแจ้งเตือน</p>
+
+      <div class="code-box">
+        <div class="code-header">
+          <span>YAML: Automation - Fail-safe น้ำหมด</span>
+          <button class="copy-btn" onclick="navigator.clipboard.writeText(this.parentElement.nextElementSibling.innerText); this.innerText='คัดลอกแล้ว!'; setTimeout(()=>this.innerText='คัดลอก', 2000);">คัดลอก</button>
+        </div>
+        <pre><code>alias: Fail-safe - น้ำหมด
+description: ตัดปั๊มทันทีถ้าน้ำในถังต่ำ (Dry) และมีคนสั่ง On หรือน้ำแห้งระหว่างทำงาน
+trigger:
+  - platform: state
+    entity_id: binary_sensor.gogo_iot_red_242dcc_switchnam_float_switch
+    to: "off" # Moisture cleared (Dry)
+  - platform: state
+    entity_id: switch.gogo_relay_red_b97df0_riley_relay
+    to: "on"
+condition:
+  - condition: state
+    entity_id: binary_sensor.gogo_iot_red_242dcc_switchnam_float_switch
+    state: "off" # Moisture is not detected
+action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.gogo_relay_red_b97df0_riley_relay
+  - service: persistent_notification.create
+    data:
+      title: "ระบบความปลอดภัย"
+      message: "น้ำในถังต่ำ หยุดปั๊มแล้ว"
+mode: single</code></pre>
+      </div>
+
+      <div class="alert alert-warning" style="font-size: 14px;">
+        <div>⚠️</div>
+        <div><strong>ต้องอัปเดตในกฎเดิมด้วย:</strong> เข้าไปที่กฎ <code>รดน้ำ - เปิดปั๊ม</code> เพิ่ม Condition ตรวจสวิตช์ลูกลอยเป็น <strong>Wet (on)</strong> เพื่อไม่ให้กฎอัตโนมัติสั่งเปิดปั๊มขณะน้ำแห้ง</div>
+      </div>
+    </div>
+
+    <!-- Lab 5.2 -->
+    <div id="lab-52" class="lab-box l52">
+      <span class="tag-lab">ฐานการทดลองที่ 5.2</span>
+      <h3>2) ปัญหาสั่งแล้วปั๊มไม่เดิน (Pump Stall / Wire Disconnected)</h3>
+      <p><strong>ปัญหา:</strong> รีเลย์ On แต่ปั๊มเงียบสนิท ไม่สั่น (สายหลุด/มอเตอร์ติด) ระบบสั่งงานเปิดทิ้งไว้โดยไม่มีน้ำไหล</p>
+      <p><strong>กลไกแก้ไข:</strong> เมื่อรีเลย์เปิดค้างครบ 15 วินาที แล้วเซนเซอร์ตรวจจับการสั่นยังเป็น Off ให้ตัดรีเลย์และแจ้งเตือน</p>
+
+      <div class="code-box">
+        <div class="code-header">
+          <span>YAML: Automation - Fail-safe สั่งแล้วไม่เดิน</span>
+          <button class="copy-btn" onclick="navigator.clipboard.writeText(this.parentElement.nextElementSibling.innerText); this.innerText='คัดลอกแล้ว!'; setTimeout(()=>this.innerText='คัดลอก', 2000);">คัดลอก</button>
+        </div>
+        <pre><code>alias: Fail-safe - สั่งแล้วไม่เดิน
+description: ตัดการทำงานเมื่อสั่งเปิดปั๊มแล้วไม่มีแรงสั่นสะเทือนภายใน 15 วินาที
+trigger:
+  - platform: state
+    entity_id: switch.gogo_relay_red_b97df0_riley_relay
+    to: "on"
+    for:
+      seconds: 15
+condition:
+  - condition: state
+    entity_id: binary_sensor.gogo_iot_red_242dcc_khwamsansatheuxn_vibration
+    state: "off"
+action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.gogo_relay_red_b97df0_riley_relay
+  - service: persistent_notification.create
+    data:
+      title: "ระบบความปลอดภัย"
+      message: "สั่งปั๊มแล้วแต่ไม่มีการสั่น ตรวจสายและระดับน้ำ"
+mode: single</code></pre>
+      </div>
+    </div>
+
+    <!-- Lab 5.3 -->
+    <div id="lab-53" class="lab-box l53">
+      <span class="tag-lab">ฐานการทดลองที่ 5.3</span>
+      <h3>3) ปัญหาบอร์ดเซนเซอร์ดับ / หลุดการเชื่อมต่อ (Sensor Offline)</h3>
+      <p><strong>ปัญหา:</strong> บอร์ดเซนเซอร์ในสวนแบตหมด สัญญาณหลุด ค่ากลายเป็น <code>unavailable</code> ปั๊มเปิดค้างไม่มีทางตัด</p>
+      <p><strong>กลไกแก้ไข:</strong> เมื่อความชื้นเปลี่ยนเป็น <code>unavailable</code> หรือ <code>unknown</code> ให้สั่งปิดรีเลย์ทันที</p>
+
+      <div class="code-box">
+        <div class="code-header">
+          <span>YAML: Automation - Fail-safe เซนเซอร์หาย</span>
+          <button class="copy-btn" onclick="navigator.clipboard.writeText(this.parentElement.nextElementSibling.innerText); this.innerText='คัดลอกแล้ว!'; setTimeout(()=>this.innerText='คัดลอก', 2000);">คัดลอก</button>
+        </div>
+        <pre><code>alias: Fail-safe - เซนเซอร์หาย
+description: สั่งหยุดปั๊มทันทีเมื่อบอร์ดเซนเซอร์ออฟไลน์หรืออ่านค่าไม่ได้
+trigger:
+  - platform: state
+    entity_id: sensor.gogo_iot_red_242dcc_khwamchun_humidity
+    to:
+      - "unavailable"
+      - "unknown"
+action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.gogo_relay_red_b97df0_riley_relay
+  - service: persistent_notification.create
+    data:
+      title: "ระบบความปลอดภัย"
+      message: "ไม่ได้รับค่าจากเซนเซอร์ หยุดปั๊มเพื่อความปลอดภัย"
+mode: single</code></pre>
+      </div>
+    </div>
+
+    <!-- Lab 5.4 -->
+    <div id="lab-54" class="lab-box l54">
+      <span class="tag-lab">ฐานการทดลองที่ 5.4</span>
+      <h3>4) ปัญหาปั๊มเดินนานเกินไป (Pump Overrun / Safety Timeout)</h3>
+      <p><strong>ปัญหา:</strong> ท่อส่งน้ำหลุด น้ำไม่ถึงแปลง หรือเซนเซอร์ดินอ่านค่าไม่ขึ้น ปั๊มเดินตลอดเวลาสูบน้ำทิ้งจนหมด</p>
+      <p><strong>กลไกแก้ไข:</strong> กำหนดเพดานเวลาสูงสุด (Safety Timeout) เมื่อปั๊มเปิดค้างครบ 30 วินาที ให้สั่งตัดการทำงาน</p>
+
+      <div class="code-box">
+        <div class="code-header">
+          <span>YAML: Automation - Fail-safe จำกัดเวลาเปิดปั๊ม</span>
+          <button class="copy-btn" onclick="navigator.clipboard.writeText(this.parentElement.nextElementSibling.innerText); this.innerText='คัดลอกแล้ว!'; setTimeout(()=>this.innerText='คัดลอก', 2000);">คัดลอก</button>
+        </div>
+        <pre><code>alias: Fail-safe - จำกัดเวลาเปิดปั๊ม
+description: ตัดปั๊มทันทีเมื่อทำงานต่อเนื่องครบ 30 วินาที ป้องกันน้ำท่วมหรือท่อแตก
+trigger:
+  - platform: state
+    entity_id: switch.gogo_relay_red_b97df0_riley_relay
+    to: "on"
+    for:
+      seconds: 30
+action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.gogo_relay_red_b97df0_riley_relay
+  - service: persistent_notification.create
+    data:
+      title: "ระบบความปลอดภัย"
+      message: "ปั๊มเดินเกินเวลา ตัดการทำงานแล้ว โปรดตรวจสอบ"
+mode: single</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: Maintenance -->
+  <section id="section-5" class="card">
+    <h2>📅 5. แผนการบำรุงรักษาเชิงป้องกัน 5 ระบบหลัก (Preventive Maintenance)</h2>
+    <p>การบำรุงรักษาเชิงป้องกันช่วยลดโอกาสเกิด Failure ได้มากกว่า 80% ตารางมาตรฐานสำหรับฟาร์มจริง:</p>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>รายการอุปกรณ์</th>
+          <th>ผู้รับผิดชอบ</th>
+          <th>ความถี่</th>
+          <th>สิ่งที่ต้องตรวจเช็กและวิธีการปฏิบัติ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. เซนเซอร์บนบอร์ด (SHT30)</strong></td>
+          <td>เจ้าของฟาร์ม</td>
+          <td>ทุกสัปดาห์</td>
+          <td>เช็ดฝุ่น/ตะไคร่ ตรวจสายและเทียบค่าอ่านกับปรอทวัดมาตรฐาน</td>
+        </tr>
+        <tr>
+          <td><strong>2. สวิตช์ลูกลอย (Float Switch)</strong></td>
+          <td>คนงาน/ผู้ดูแล</td>
+          <td>ทุก 3 วัน</td>
+          <td>ทดสอบขยับแกนลูกลอยขึ้นลง ล้างคราบเมือกและตะกรันติดขัด</td>
+        </tr>
+        <tr>
+          <td><strong>3. ปั๊มน้ำและระบบท่อส่ง</strong></td>
+          <td>ช่างประจำฟาร์ม</td>
+          <td>ทุกเดือน</td>
+          <td>ตรวจรอยรั่วข้อต่อ ตะแกรงกรอง และวัดการสั่นสะเทือน/ความร้อนมอเตอร์</td>
+        </tr>
+        <tr>
+          <td><strong>4. รีเลย์และตู้ควบคุม</strong></td>
+          <td>ช่างไฟฟ้า</td>
+          <td>ทุก 3 เดือน</td>
+          <td>ตรวจขันขั้วต่อสายไฟ รอยไหม้หน้าสัมผัส และตรวจความชื้นในตู้</td>
+        </tr>
+        <tr>
+          <td><strong>5. เครือข่าย & Home Assistant</strong></td>
+          <td>ผู้ดูแลระบบ/เจ้าของ</td>
+          <td>ทุกสัปดาห์</td>
+          <td>ตรวจสถานะ Wi-Fi, สัญญาณ RSSI และสำรองฐานข้อมูล/กฎอัตโนมัติ</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Section 6: Defense in Depth -->
+  <section id="section-6" class="card">
+    <h2>🧠 6. สถาปัตยกรรมป้องกันหลายระดับ (Defense in Depth: Software vs Hardware)</h2>
+    <p><strong>คำถามท้ายกิจกรรม (5-Q):</strong> <em>ถ้า Home Assistant เกิดดับหรือเครือข่ายล่ม กฎทั้ง 4 ข้อจะยังทำงานได้หรือไม่ และเราควรเพิ่มการป้องกันไว้ที่ใด?</em></p>
+
+    <div class="mermaid">
+      flowchart TD
+        subgraph L1["ระดับ 1: ส่วนกลาง (Central Software)"]
+            HA["Home Assistant Automation<br>• มี Traces, Notification, ตรรกะซับซ้อน<br>• มีจุดอ่อน: ถ้าคอมดับ หรือ Wi-Fi ล่ม กฎไม่ทำงาน"]
+        end
+
+        subgraph L2["ระดับ 2: ปลายทาง (Edge Firmware)"]
+            FW["ESPHome / MicroPython Firmware<br>• Safety Watchdog Timer ในชิป ESP32<br>• Keep-alive Heartbeat ตัดรีเลย์เองถ้าขาดการติดต่อ"]
+        end
+
+        subgraph L3["ระดับ 3: กายภาพ (Hardware Interlock)"]
+            HW["สวิตช์ลูกลอยต่ออนุกรมตัดไฟคอยล์รีเลย์โดยตรง (Physical Loop)<br>• ปลอดภัย 100% • ไม่ต้องพึ่งพาไมโครคอนโทรลเลอร์หรือซอฟต์แวร์ใดๆ"]
+        end
+
+        L1 -.->|ล้มเหลว| L2
+        L2 -.->|ล้มเหลว| L3
+    </div>
+
+    <div class="alert alert-success">
+      <div>🛡️</div>
+      <div>
+        <strong>แนวทางคำตอบมาตรฐาน:</strong><br>
+        ถ้า Home Assistant ดับ กฎใน HA จะหยุดทำงานทั้งหมดและไม่สามารถสั่งหยุดปั๊มได้ จึงต้องเพิ่มการป้องกันระดับฮาร์ดแวร์และเฟิร์มแวร์:
+        <ol style="margin-left: 20px; margin-top: 6px;">
+          <li><strong>Hardware Interlock:</strong> ต่อสวิตช์ลูกลอยตัดวงจรไฟเลี้ยงคอยล์รีเลย์หรือปั๊มโดยตรงทางกายภาพ (Fail-safe physical loop) น้ำแห้งวงจรจะตัดขาดทันที</li>
+          <li><strong>Firmware Safety Timeout:</strong> ตั้ง Watchdog Timer บนบอร์ดรีเลย์ ESP32 หากเปิดปั๊มนานเกินกำหนด หรือขาดสัญญาณ Heartbeat จากเซิร์ฟเวอร์ ให้สั่งตัดรีเลย์เองโดยอิสระ</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 7: Assessment -->
+  <section id="section-7" class="card">
+    <h2>🎯 7. เกณฑ์การประเมินผลการเรียนรู้ (Assessment Rubric)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>หัวข้อประเมิน</th>
+          <th>ดีเยี่ยม (3 คะแนน)</th>
+          <th>ผ่านเกณฑ์ (2 คะแนน)</th>
+          <th>ต้องปรับปรุง (1 คะแนน)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. การจำลองปัญหา</strong></td>
+          <td>จำลองได้ครบ 4 ข้อ และอธิบายอาการทางกายภาพได้ถูกต้อง</td>
+          <td>จำลองได้ 3 ข้อ สังเกตอาการได้</td>
+          <td>จำลองไม่ครบหรือไม่เข้าใจปัญหา</td>
+        </tr>
+        <tr>
+          <td><strong>2. กฎความปลอดภัย</strong></td>
+          <td>สร้างครบ 4 กฎ มี Trigger, Condition, Action และแจ้งเตือนถูกต้อง</td>
+          <td>สร้างได้ 3 กฎ และสามารถตัดปั๊มได้</td>
+          <td>กฎไม่ทำงาน หรือระบุ Entity ID ผิด</td>
+        </tr>
+        <tr>
+          <td><strong>3. การวิเคราะห์ Traces</strong></td>
+          <td>เปิด Traces ระบุชื่อกฎและเส้นทางขั้นตอนที่ทำงานได้ชัดเจน</td>
+          <td>เปิดดู Traces ได้ แต่อธิบายได้บางส่วน</td>
+          <td>ไม่สามารถเปิดดู Traces ได้</td>
+        </tr>
+        <tr>
+          <td><strong>4. แผนบำรุงรักษา & สรุป</strong></td>
+          <td>กรอกตารางครบ 5 ข้อ และอธิบายแนวคิด Hardware Interlock ได้ลึกซึ้ง</td>
+          <td>กรอกตารางครบถ้วน และตอบแนวคิดสรุปได้</td>
+          <td>กรอกไม่ครบ หรือขาดคำอธิบาย</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Section 8: FAQ -->
+  <section id="section-8" class="card">
+    <h2>❓ 8. ปัญหาที่พบบ่อยและวิธีแก้ไข (Troubleshooting FAQ)</h2>
+    <div style="margin-bottom: 16px;">
+      <p><strong>Q1: ยกลูกลอยขึ้นเป็น Dry แล้วสั่ง On แต่ทำไมปั๊มยังเดิน?</strong><br>
+      <span style="color: var(--text-muted);">A: ตรวจสอบว่าในกฎ <code>Fail-safe - น้ำหมด</code> ได้ใส่ Condition เป็น <code>Moisture is not detected (Dry)</code> หรือยัง และในกฎ <code>รดน้ำ - เปิดปั๊ม</code> ได้เพิ่ม Condition ว่าต้องเป็น <code>Wet</code> แล้วหรือยัง</span></p>
+    </div>
+    <div style="margin-bottom: 16px;">
+      <p><strong>Q2: ในข้อ 5.4 ปั๊มถูกตัดที่ประมาณ 15 วินาที ไม่ยอมรอถึง 30 วินาที?</strong><br>
+      <span style="color: var(--text-muted);">A: นั่นคือกฎ 5.2 (สั่งแล้วไม่เดิน) ชิงทำงานตัดก่อน เพราะบอร์ด GoGo-IoT ไม่ได้แนบชิดกับปั๊ม ทำให้ไม่ตรวจพบการสั่นสะเทือน ให้เลื่อนบอร์ดไปแตะตัวเรือนปั๊มให้แน่น</span></p>
+    </div>
+    <div>
+      <p><strong>Q3: ปิดสวิตช์บอร์ดเซนเซอร์แล้ว ทำไมค่าความชื้นไม่เปลี่ยนเป็น unavailable ทันที?</strong><br>
+      <span style="color: var(--text-muted);">A: Home Assistant มีช่วงเวลา Keep-alive Timeout ของการเชื่อมต่อ ESPHome ประมาณ 5–15 วินาทีก่อนจะตัดสินว่าอุปกรณ์ออฟไลน์ ให้รอประมาณ 10–15 วินาที</span></p>
+    </div>
+  </section>
+
+</div>
+
+</body>
+</html>

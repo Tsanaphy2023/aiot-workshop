@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>คู่มือการจัดกิจกรรม: กิจกรรมที่ 1 — รู้จักและทดลองอ่านค่าเซนเซอร์ (Sense) | Smart Farm AIoT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --primary-light: #e0f2fe;
+      --success: #16a34a;
+      --success-light: #dcfce7;
+      --warning: #d97706;
+      --warning-light: #fef3c7;
+      --danger: #dc2626;
+      --danger-light: #fee2e2;
+      --purple: #7c3aed;
+      --purple-light: #f3e8ff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --border: #e2e8f0;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.7;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 30px 20px 80px 20px;
+    }
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, var(--primary-dark) 100%);
+      color: white;
+      padding: 44px 32px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    header::after {
+      content: '🌡️';
+      position: absolute;
+      right: 24px;
+      bottom: -15px;
+      font-size: 130px;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .badge-header {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+      padding: 4px 14px;
+      border-radius: 9999px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+    header p {
+      font-size: 16px;
+      opacity: 0.9;
+      max-width: 760px;
+    }
+    .nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+      padding: 12px 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-bar a {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .nav-bar a:hover {
+      background: var(--primary-light);
+    }
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 30px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    h2.section-title {
+      font-size: 21px;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #f1f5f9;
+    }
+    h3.sub-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1e293b;
+      margin: 22px 0 12px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .callout {
+      padding: 16px 20px;
+      border-radius: 10px;
+      margin: 18px 0;
+      font-size: 15px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .callout-icon { font-size: 22px; line-height: 1.4; flex-shrink: 0; }
+    .callout.important { background-color: var(--primary-light); border-left: 4px solid var(--primary); color: var(--primary-dark); }
+    .callout.warning { background-color: var(--warning-light); border-left: 4px solid var(--warning); color: #92400e; }
+    .callout.success { background-color: var(--success-light); border-left: 4px solid var(--success); color: #166534; }
+    .callout.danger { background-color: var(--danger-light); border-left: 4px solid var(--danger); color: #991b1b; }
+    table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14.5px; }
+    th, td { border: 1px solid var(--border); padding: 12px 14px; text-align: left; vertical-align: top; }
+    th { background: #f8fafc; font-weight: 600; color: #334155; }
+    tr:nth-child(even) td { background-color: #fafbfd; }
+    pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 18px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin: 16px 0;
+      position: relative;
+    }
+    code { font-family: 'JetBrains Mono', monospace; font-size: 13.5px; }
+    .code-inline { background: #f1f5f9; color: #0369a1; padding: 2px 6px; border-radius: 4px; font-weight: 500; }
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      font-family: 'Sarabun', sans-serif;
+    }
+    .copy-btn:hover { background: rgba(255, 255, 255, 0.3); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14.5px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-outline { background: white; color: var(--primary); border: 1.5px solid var(--primary); }
+    .btn-outline:hover { background: var(--primary-light); }
+    .footer-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    @media print {
+      body { background: white; color: black; font-size: 13px; }
+      .container { max-width: 100%; padding: 0; }
+      .card { border: 1px solid #ccc; box-shadow: none; page-break-inside: avoid; margin-bottom: 16px; padding: 16px; }
+      header { background: #1e293b !important; color: white !important; padding: 20px; page-break-after: avoid; }
+      .nav-bar, .copy-btn, .footer-nav { display: none !important; }
+      pre { background: #f8fafc !important; color: #0f172a !important; border: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <div class="badge-header">คู่มือมาตรฐานสำหรับวิทยากร ผู้ช่วยสอน (TA) และผู้เรียน</div>
+    <h1>🌡️ กิจกรรมที่ 1 — รู้จักและทดลองอ่านค่าเซนเซอร์ (Sense)</h1>
+    <p>คู่มือปฏิบัติการเรียนรู้โหนดเซนเซอร์ GoGo-IoT (ESP32-C3), การเชื่อมต่อสวิตช์ลูกลอยระดับน้ำ (Dry Contact), เซนเซอร์วัดอุณหภูมิ/ความชื้น SHT30 ผ่าน I2C Bus, เซนเซอร์แรงสั่นสะเทือน, และการอ่านค่าผ่าน mDNS Web UI</p>
+  </header>
+
+  <div class="nav-bar">
+    <a href="index.html">🏠 ศูนย์รวมคู่มือ (Master Hub)</a>
+    <a href="#intro">1. บทนำและแนวคิด</a>
+    <a href="#time-matrix">2. แผนการจัดเวลา</a>
+    <a href="#hardware">3. อุปกรณ์และการเชื่อมต่อ</a>
+    <a href="#steps">4. ขั้นตอนการทดลอง</a>
+    <a href="#code">5. โค้ด/การตั้งค่า</a>
+    <a href="#answers">6. เฉลยใบงาน</a>
+    <a href="#troubleshooting">7. การแก้ปัญหา</a>
+    <a href="#rubric">8. เกณฑ์การประเมิน</a>
+  </div>
+
+  <div class="card" id="intro">
+    <h2 class="section-title"><span>📌</span> 1. บทนำและแนวคิดวิศวกรรม (Sense Principles)</h2>
+<p style="margin-bottom:12px;">ในระบบเกษตรแม่นยำ (Precision Agriculture) ข้อมูลสภาพแวดล้อมที่ถูกต้องและทันเวลาคือพื้นฐานของการตัดสินใจทั้งหมด หากปราศจากการตรวจวัดที่น่าเชื่อถือ ระบบควบคุมอัตโนมัติจะไม่สามารถทำงานได้อย่างถูกต้อง</p>
+<p style="margin-bottom:12px;"><strong>แนวคิดสำคัญในกิจกรรมที่ 1:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>Perception Layer (ชั้นการรับรู้):</strong> การแปลงปริมาณทางกายภาพ (อุณหภูมิ, ความชื้น, ระดับน้ำ, แรงสั่นสะเทือน) ให้อยู่ในรูปสัญญาณดิจิทัล</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>I2C Bus Protocol:</strong> โพรโทคอลสื่อสารแบบอนุกรม 2 สาย (SDA, SCL) ที่ช่วยให้ไมโครคอนโทรลเลอร์เชื่อมต่อกับเซนเซอร์หลายตัวบนบัสเดียวกันได้อย่างมีประสิทธิภาพ</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>Dry Contact Sensor:</strong> หน้าสัมผัสแบบกลไก (เช่น สวิตช์ลูกลอย) ที่ไม่มีแรงดันไฟฟ้าในตัว ต้องอาศัย Pull-up Resistor ภายในชิปเพื่ออ่านสถานะเปิด/ปิด</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>4.</strong> <strong>Local mDNS & Standalone Web Server:</strong> การเข้าถึงอุปกรณ์ IoT ผ่านชื่อโดเมนเฉพาะกิจ (เช่น <code class="code-inline">http://gogo-iot-XXXXXX.local</code>) โดยไม่ต้องอาศัยการเชื่อมต่ออินเทอร์เน็ตภายนอก</p>
+  </div>
+
+  <div class="card" id="time-matrix">
+    <h2 class="section-title"><span>⏱️</span> 2. แผนการจัดการเรียนรู้และเวลา (Facilitator Time Matrix)</h2>
+    <p style="margin-bottom: 14px;"><strong>เวลารวม:</strong> 45 นาที | <strong>รูปแบบการจัด:</strong> ปฏิบัติการรายบุคคล/รายคู่ ตรวจสอบค่าผ่านเบราว์เซอร์ประจำกลุ่ม</p>
+    <div class="mermaid">
+gantt
+    title ลำดับขั้นตอนกิจกรรมที่ 1: Sense (45 นาที)
+    dateFormat  m
+    axisFormat %M นาที
+    section สำรวจ & ต่อวงจร
+    รู้จักบอร์ด & ต่อสวิตช์ลูกลอย   :a1, 0, 10m
+    section เชื่อมต่อ & หน้าเว็บ
+    อ่าน IP & เปิดหน้าเว็บ ESPHome  :a2, after a1, 10m
+    section ทดสอบเซนเซอร์
+    เป่าลม/ยกสวิตช์/เคาะบอร์ด      :a3, after a2, 15m
+    section สังเกต & สรุป
+    วัดเวลาตอบสนอง & อภิปราย 1-Q   :a4, after a3, 10m
+    </div>
+<table><thead><tr><th>ช่วงเวลา</th><th>กิจกรรมย่อย</th><th>บทบาทวิทยากร / TA</th><th>ผลลัพธ์ที่ต้องได้</th></tr></thead><tbody><tr><td><strong>00:00 - 10:00</strong></td><td>1.1 รู้จักบอร์ดและต่อสวิตช์ลูกลอย</td><td>แจกจ่ายบอร์ด GoGo-IoT แนะนำพอร์ต I2C, ขั้วต่อ Terminal Block และให้ผู้เรียนขันสายสวิตช์ลูกลอย</td><td>ขันสายลูกลอยแน่นหนา ไม่หลุด</td></tr><tr><td><strong>10:00 - 20:00</strong></td><td>1.2 & 1.3 อ่านชื่อ IP และเปิดหน้าเว็บ</td><td>ชี้จุดอ่าน MAC Address หรือสติกเกอร์ชื่อบอร์ด แนะนำการพิมพ์ <code class="code-inline">.local</code> ในเบราว์เซอร์</td><td>เปิดหน้าเว็บ ESPHome ของบอร์ดสำเร็จ</td></tr><tr><td><strong>20:00 - 35:00</strong></td><td>1.4 ทดลองอ่านค่าเซนเซอร์</td><td>ให้ผู้เรียนทดลอง 3 สถานการณ์: (1) เป่าลมร้อน (2) ยกสวิตช์ลูกลอยพ้นน้ำ (3) เคาะโต๊ะดูแรงสั่น</td><td>เห็นตัวเลขและสถานะเปลี่ยนแบบเรียลไทม์</td></tr><tr><td><strong>35:00 - 45:00</strong></td><td>1.5 วัด Latency & สรุปผล 1-Q</td><td>อธิบายรอบการอัปเดต (Update Interval) และนำการอภิปรายคำถามเชิงวิศวกรรม 1-Q</td><td>บันทึกผลลงใบงานครบถ้วน</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="hardware">
+    <h2 class="section-title"><span>🔌</span> 3. รายการอุปกรณ์และการเชื่อมต่อ (Hardware BOM & Interfacing)</h2>
+    <div class="mermaid">
+flowchart TD
+    subgraph NODE["บอร์ด GoGo-IoT (ESP32-C3)"]
+        MCU["ESP32-C3 SoC (32-bit RISC-V)"]
+        PULLUP["Internal Pull-up (GPIO6)"]
+        I2C_CTRL["Hardware I2C Controller"]
+        WEB["ESPHome Local Web Server"]
+    end
+
+    SHT["SHT30: อุณหภูมิ & ความชื้น"] -->|SDA: GPIO4 / SCL: GPIO5| I2C_CTRL
+    FLOAT["สวิตช์ลูกลอยระดับน้ำ"] -->|Dry Contact| PULLUP
+    VIB["เซนเซอร์ตรวจจับแรงสั่นสะเทือน"] -->|Digital In: GPIO7| MCU
+
+    MCU --> WEB
+    WEB -->|HTTP / Port 80 (Wi-Fi)| LAPTOP["แล็ปท็อปผู้เรียน (เบราว์เซอร์)"]
+    </div>
+<table><thead><tr><th>ลำดับ</th><th>รายการอุปกรณ์</th><th>สเปก / คุณสมบัติ</th><th>หน้าที่ในระบบ</th></tr></thead><tbody><tr><td>1</td><td><strong>บอร์ด GoGo-IoT (Sensor Node)</strong></td><td>ชิป ESP32-C3, Wi-Fi 2.4GHz, ESPHome Firmware</td><td>บอร์ดรับสัญญาณและประมวลผลเซนเซอร์</td></tr><tr><td>2</td><td><strong>เซนเซอร์ SHT30</strong></td><td>ช่วงวัด -40 ถึง 125°C (±0.2°C), 0-100% RH (±2% RH)</td><td>ตรวจวัดอุณหภูมิและความชื้นสัมพัทธ์ในอากาศ</td></tr><tr><td>3</td><td><strong>สวิตช์ลูกลอย (Float Switch)</strong></td><td>Reed Switch สแตนเลส/พลาสติก Dry Contact</td><td>ตรวจสอบระดับน้ำในถังพัก (Wet = ปกติ, Dry = น้ำแห้ง)</td></tr><tr><td>4</td><td><strong>เซนเซอร์วัดแรงสั่นสะเทือน</strong></td><td>SW-420 หรือ Piezo Vibration Switch</td><td>ตรวจจับการทำงานของปั๊มน้ำหรือเครื่องกล</td></tr><tr><td>5</td><td><strong>แก้วน้ำทดลอง & สาย USB-C</strong></td><td>แก้วพลาสติกใส, สายชาร์จ Data USB-C 5V</td><td>ใช้ทดสอบการลอยตัวและจ่ายไฟเข้าบอร์ด</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="steps">
+    <h2 class="section-title"><span>🧪</span> 4. ขั้นตอนการทดลองอย่างละเอียดทีละขั้น (Step-by-Step Lab Protocol)</h2>
+<h3 class="sub-title">ขั้นตอนที่ 1.1: รู้จักบอร์ด GoGo-IoT และต่อสวิตช์ลูกลอย</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> ตรวจสอบชิ้นส่วนบนบอร์ด: สังเกตเซนเซอร์ตัวเล็กสีขาว (SHT30) และช่องขันสายสกรู (Terminal Block)</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> นำสายสวิตช์ลูกลอย 2 เส้น เสียบเข้าช่อง Terminal Block แล้วใช้ไขควงขันให้แน่น</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <em>ข้อสังเกต:</em> สวิตช์ลูกลอยเป็นสวิตช์หน้าสัมผัสแบบกลไก (Dry Contact) จึงไม่มีขั้วบวกหรือขั้วลบ สามารถสลับสายกันได้</p>
+<h3 class="sub-title">ขั้นตอนที่ 1.2: อ่านชื่อและหมายเลข IP ของบอร์ด</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> เสียบสาย USB-C จ่ายไฟเข้าบอร์ด ไฟ LED สีน้ำเงิน/เขียวบนบอร์ดจะติดสว่าง</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> ดูสติกเกอร์ที่ติดบนบอร์ด จะระบุชื่อประจำตัว เช่น <code class="code-inline">gogo-iot-red-242dcc</code> (คำว่า <code class="code-inline">red</code> คือชื่อโซนสี, <code class="code-inline">242dcc</code> คือ MAC Address 6 ตัวท้าย)</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> หากเปิดหน้าสแกนเครือข่าย หรือดูจากหน้าจอ Dashboard ของผู้สอน จะเห็นหมายเลข IP Address เช่น <code class="code-inline">192.168.1.105</code></p>
+<h3 class="sub-title">ขั้นตอนที่ 1.3: เปิดหน้าเว็บ Web UI ของบอร์ด</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> เปิดเว็บเบราว์เซอร์ (Google Chrome แนะนำ) บนแล็ปท็อปที่ต่อ Wi-Fi เดียวกัน</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> พิมพ์ URL: <code class="code-inline">http://gogo-iot-xxxxxx.local</code> (แทน xxxxxx ด้วยรหัสประจำบอร์ด) หรือพิมพ์หมายเลข IP ตรงๆ</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> หน้าจอจะแสดงรายการเซนเซอร์ทั้งหมดของบอร์ด พร้อมค่าอัปเดตแบบเรียลไทม์</p>
+<h3 class="sub-title">ขั้นตอนที่ 1.4: ทดลองอ่านค่าเซนเซอร์ 3 รูปแบบ</h3>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>ทดสอบที่ 1 (SHT30):</strong> ใช้ปากเป่าลมร้อนชื้นเบาๆ ไปที่ตัวเซนเซอร์ สังเกตค่า Relative Humidity (%) จะพุ่งสูงขึ้นเกิน 85-90% และค่อยๆ ลดลงเมื่อแห้ง</p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>ทดสอบที่ 2 (Float Switch):</strong> นำลูกลอยจุ่มลงในแก้วน้ำ สังเกตสถานะเป็น <code class="code-inline">Wet</code> (หรือ Off ตาม Logic) พอยกลูกลอยพ้นน้ำ สถานะจะกลายเป็น <code class="code-inline">Dry</code> (On)</p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>ทดสอบที่ 3 (Vibration):</strong> เคาะที่โต๊ะหรือขอบบอร์ดเบาๆ สังเกตสถานะของเซนเซอร์ตรวจจับแรงสั่นสะเทือนจะเปลี่ยนเป็นกระพริบ On/Off</p>
+<h3 class="sub-title">ขั้นตอนที่ 1.5: สังเกตเวลาตอบสนอง (Latency & Sampling Rate)</h3>
+<p style="margin-left:20px; text-indent:-15px;">• สังเกตช่วงเวลาตั้งแต่เรายกสวิตช์ลูกลอย จนกระทั่งตัวอักษรบนหน้าเว็บเปลี่ยน ใช้เวลาประมาณ 1 ถึง 2 วินาที</p>
+<p style="margin-left:20px; text-indent:-15px;">• สาเหตุเกิดจากรอบการอ่านค่า (Update Interval) ที่ถูกโปรแกรมไว้ใน ESPHome เพื่อไม่ให้เปลืองพลังงานและทราฟฟิกเครือข่ายเกินความจำเป็น</p>
+  </div>
+
+  <div class="card" id="code">
+    <h2 class="section-title"><span>💻</span> 5. โค้ดและการตั้งค่าสำเร็จรูป (Ready-to-use Configurations)</h2>
+    <pre><button class="copy-btn" onclick="copyCode(this)">📋 คัดลอก</button><code># ตัวอย่างโครงสร้างการตั้งค่าเซนเซอร์ใน ESPHome (เบื้องหลังการทำงานของบอร์ด GoGo-IoT)
+i2c:
+  sda: GPIO4
+  scl: GPIO5
+  scan: true
+
+sensor:
+  - platform: sht3xd
+    temperature:
+      name: "Temperature"
+      id: room_temp
+    humidity:
+      name: "Humidity"
+      id: room_humidity
+    address: 0x44
+    update_interval: 2s
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO6
+      mode: INPUT_PULLUP
+      inverted: true
+    name: "Float Switch"
+    id: water_float_switch
+
+  - platform: gpio
+    pin:
+      number: GPIO7
+      mode: INPUT_PULLDOWN
+    name: "Vibration Sensor"
+    id: pump_vibration</code></pre>
+  </div>
+
+  <div class="card" id="answers">
+    <h2 class="section-title"><span>📝</span> 6. แนวทางการตรวจคำตอบและเฉลยใบงาน (Answer Key & Discussion)</h2>
+<h3 class="sub-title">เฉลยคำตอบและแนวทางการตรวจใบงาน (Activity 1 Worksheet)</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>ข้อ 1.1 การต่อสายสวิตช์ลูกลอย:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• <em>คำถาม:</em> สลับสายไฟขั้วซ้าย-ขวาได้หรือไม่ เพราะเหตุใด?</p>
+<p style="margin-left:20px; text-indent:-15px;">• <em>เฉลย:</em> <strong>สลับได้</strong> เนื่องจากสวิตช์ลูกลอยเป็น Dry Contact ทำงานด้วยแม่เหล็กผลักหน้าสัมผัส Reed Switch ในท่อ จึงไม่มีขั้วทางไฟฟ้า (Non-polarized)</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>ข้อ 1.2 ชื่อบอร์ดและ IP:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• บันทึกชื่อบอร์ดให้ตรงตามสติกเกอร์ (เช่น <code class="code-inline">gogo-iot-red-242dcc</code>) และ IP เช่น <code class="code-inline">192.168.1.105</code></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>ข้อ 1.4 ผลการทดลองอ่านค่าเซนเซอร์:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• อุณหภูมิห้องปกติ: ~28.0 - 32.5 °C</p>
+<p style="margin-left:20px; text-indent:-15px;">• ความชื้นห้องปกติ: ~55 - 75 % (เมื่อเป่าลมชื้นจะพุ่งขึ้นเกิน 85-95 %)</p>
+<p style="margin-left:20px; text-indent:-15px;">• สวิตช์ลูกลอย: อยู่ในน้ำ = <code class="code-inline">Wet</code> (ปิดวงจร) / พ้นน้ำ = <code class="code-inline">Dry</code> (เปิดวงจร)</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>4.</strong> <strong>ข้อ 1.5 เวลาตอบสนอง:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• ประมาณ <strong>1 - 2 วินาที</strong> (เป็นค่ามาตรฐานเพื่อการประหยัดพลังงานและการกรองสัญญาณรบกวน)</p>
+<hr style="border:0; border-top:1px solid var(--border); margin:20px 0;">
+<h3 class="sub-title">💡 การอภิปรายเชิงวิศวกรรม (คำถาม 1-Q)</h3>
+<p style="margin-bottom:12px;"><strong>คำถาม:</strong> <em>หากเซนเซอร์อ่านค่าไม่ได้ หรือบอร์ดเซนเซอร์หลุดจากเครือข่าย จะส่งผลต่อระบบควบคุมอย่างไร และควรเตรียมการอย่างไร?</em></p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>ผลกระทบ:</strong> หากคอนโทรลเลอร์สั่งงานโดยยึดค่าสุดท้ายที่อ่านได้ (Stale Data) เช่น ค้างอยู่ที่ค่าความชื้นต่ำ 40% ทั้งที่รดน้ำจนชื้นแล้ว ระบบจะสั่งปั๊มน้ำทำงานค้างไม่ยอมหยุด จนทำให้แปลงปลูกน้ำท่วมและปั๊มไหม้</p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>แนวทางแก้ไขเชิงวิศวกรรม:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> ระบบควบคุมส่วนกลางต้องตรวจจับสถานะ <code class="code-inline">unavailable</code> หรือ <code class="code-inline">unknown</code> ของเซนเซอร์</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> หากขาดการส่งข้อมูลเกินเวลาที่กำหนด (Timeout) ต้องสั่งหยุดการทำงานของโหลดกำลังสูง (Fail-to-Off) ทันที</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> ตั้งระบบแจ้งเตือนไปยังผู้ดูแลระบบให้เข้าตรวจสอบฮาร์ดแวร์หน้างาน</p>
+  </div>
+
+  <div class="card" id="troubleshooting">
+    <h2 class="section-title"><span>🛠️</span> 7. การแก้ไขปัญหาหน้างานที่พบบ่อย (Troubleshooting FAQ)</h2>
+<table><thead><tr><th>ปัญหาที่พบ</th><th>สาเหตุที่เป็นไปได้</th><th>วิธีการแก้ไข</th></tr></thead><tbody><tr><td><strong>เปิดหน้าเว็บ <code class="code-inline">.local</code> ไม่ขึ้น</strong></td><td>แล็ปท็อปไม่ได้ต่อ Wi-Fi วงเดียวกับบอร์ด หรือ OS ไม่รองรับ mDNS</td><td>1. ตรวจสอบว่าต่อ Wi-Fi โซนสีเดียวกัน<br>2. พิมพ์เป็นหมายเลข IP โดยตรง (เช่น <code class="code-inline">http://192.168.1.105</code>)</td></tr><tr><td><strong>ค่าอุณหภูมิ/ความชื้นขึ้น 0 หรือ NaN</strong></td><td>สาย I2C หลวม หรือแอดเดรส I2C ชนกัน</td><td>ตรวจสอบรอยบัดกรีของชิป SHT30 หรือปิด-เปิดไฟเลี้ยงบอร์ดใหม่</td></tr><tr><td><strong>สวิตช์ลูกลอยไม่ยอมเปลี่ยนสถานะ</strong></td><td>แม่เหล็กในวงแหวนลูกลอยติดขัด หรือสายหลุดจาก Terminal</td><td>ตรวจสอบการขันน็อต Terminal และลองขยับวงแหวนลูกลอยขึ้น-ลงด้วยมือ</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="rubric">
+    <h2 class="section-title"><span>📊</span> 8. เกณฑ์การประเมินผลการเรียนรู้ (Assessment Rubric)</h2>
+<table><thead><tr><th>เกณฑ์การประเมิน</th><th>ดีเยี่ยม (4-5 คะแนน)</th><th>พอใช้ (2-3 คะแนน)</th><th>ต้องปรับปรุง (0-1 คะแนน)</th></tr></thead><tbody><tr><td><strong>การต่อวงจรและเปิดหน้าเว็บ (5 คะแนน)</strong></td><td>ขันสายลูกลอยถูกต้อง และเปิดหน้าเว็บ ESPHome ของบอร์ดได้รวดเร็ว</td><td>เปิดหน้าเว็บได้แต่ต้องให้ TA ช่วยตรวจสอบ IP</td><td>ไม่สามารถเปิดหน้าเว็บของบอร์ดได้</td></tr><tr><td><strong>การทดสอบเซนเซอร์ครบ 3 ชนิด (5 คะแนน)</strong></td><td>ทดสอบเป่าลม ยกสวิตช์ และเคาะแรงสั่น ครบถ้วนพร้อมบันทึกผล</td><td>ทดสอบได้ 1-2 ชนิด บันทึกผลไม่ครบ</td><td>ไม่ได้ทำการทดสอบเซนเซอร์</td></tr><tr><td><strong>การสังเกตและวัด Latency (5 คะแนน)</strong></td><td>อธิบายรอบเวลาตอบสนอง 1-2 วินาทีได้ถูกต้องตรงตามทฤษฎี</td><td>ระบุเวลาได้แต่ไม่เข้าใจเหตุผลทางเทคนิค</td><td>ไม่ได้ระบุเวลาตอบสนอง</td></tr><tr><td><strong>การตอบคำถามคิดวิเคราะห์ 1-Q (5 คะแนน)</strong></td><td>ชี้ประเด็น Stale Data และเสนอหลักการ Fail-safe ได้อย่างลึกซึ้ง</td><td>ตอบผลกระทบได้บางส่วน แต่ขาดแนวทางแก้ไข</td><td>ไม่ได้ตอบคำถาม 1-Q</td></tr></tbody></table>
+  </div>
+
+  <div class="card footer-nav">
+    <span style="opacity:0.4;">⬅️ ก่อนหน้า</span>
+    <a href="index.html" class="btn btn-outline">🏠 กลับสู่ศูนย์รวมคู่มือ</a>
+    <a href="activity_2_act_guide.html" class="btn btn-primary">กิจกรรมที่ 2 (Act) ➡️</a>
+  </div>
+
+</div>
+
+<script>
+function copyCode(btn) {
+  const pre = btn.parentElement;
+  const code = pre.querySelector('code').innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    const originalText = btn.innerText;
+    btn.innerText = '✓ คัดลอกแล้ว';
+    setTimeout(() => { btn.innerText = originalText; }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>

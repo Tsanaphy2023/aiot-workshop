@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>คู่มือการจัดกิจกรรม: กิจกรรมที่ 8 — ออกแบบระบบสำหรับฟาร์ม (Design) | Smart Farm AIoT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+  <style>
+    :root {
+      --primary: #334155;
+      --primary-dark: #1e293b;
+      --primary-light: #f1f5f9;
+      --success: #16a34a;
+      --success-light: #dcfce7;
+      --warning: #d97706;
+      --warning-light: #fef3c7;
+      --danger: #dc2626;
+      --danger-light: #fee2e2;
+      --purple: #7c3aed;
+      --purple-light: #f3e8ff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --border: #e2e8f0;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.7;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 30px 20px 80px 20px;
+    }
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, var(--primary-dark) 100%);
+      color: white;
+      padding: 44px 32px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    header::after {
+      content: '📐';
+      position: absolute;
+      right: 24px;
+      bottom: -15px;
+      font-size: 130px;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .badge-header {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+      padding: 4px 14px;
+      border-radius: 9999px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+    header p {
+      font-size: 16px;
+      opacity: 0.9;
+      max-width: 760px;
+    }
+    .nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+      padding: 12px 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-bar a {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .nav-bar a:hover {
+      background: var(--primary-light);
+    }
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 30px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    h2.section-title {
+      font-size: 21px;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #f1f5f9;
+    }
+    h3.sub-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1e293b;
+      margin: 22px 0 12px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .callout {
+      padding: 16px 20px;
+      border-radius: 10px;
+      margin: 18px 0;
+      font-size: 15px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .callout-icon { font-size: 22px; line-height: 1.4; flex-shrink: 0; }
+    .callout.important { background-color: var(--primary-light); border-left: 4px solid var(--primary); color: var(--primary-dark); }
+    .callout.warning { background-color: var(--warning-light); border-left: 4px solid var(--warning); color: #92400e; }
+    .callout.success { background-color: var(--success-light); border-left: 4px solid var(--success); color: #166534; }
+    .callout.danger { background-color: var(--danger-light); border-left: 4px solid var(--danger); color: #991b1b; }
+    table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14.5px; }
+    th, td { border: 1px solid var(--border); padding: 12px 14px; text-align: left; vertical-align: top; }
+    th { background: #f8fafc; font-weight: 600; color: #334155; }
+    tr:nth-child(even) td { background-color: #fafbfd; }
+    pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 18px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin: 16px 0;
+      position: relative;
+    }
+    code { font-family: 'JetBrains Mono', monospace; font-size: 13.5px; }
+    .code-inline { background: #f1f5f9; color: #0369a1; padding: 2px 6px; border-radius: 4px; font-weight: 500; }
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      font-family: 'Sarabun', sans-serif;
+    }
+    .copy-btn:hover { background: rgba(255, 255, 255, 0.3); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14.5px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-outline { background: white; color: var(--primary); border: 1.5px solid var(--primary); }
+    .btn-outline:hover { background: var(--primary-light); }
+    .footer-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    @media print {
+      body { background: white; color: black; font-size: 13px; }
+      .container { max-width: 100%; padding: 0; }
+      .card { border: 1px solid #ccc; box-shadow: none; page-break-inside: avoid; margin-bottom: 16px; padding: 16px; }
+      header { background: #1e293b !important; color: white !important; padding: 20px; page-break-after: avoid; }
+      .nav-bar, .copy-btn, .footer-nav { display: none !important; }
+      pre { background: #f8fafc !important; color: #0f172a !important; border: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <div class="badge-header">คู่มือมาตรฐานสำหรับวิทยากร ผู้ช่วยสอน (TA) และผู้เรียน</div>
+    <h1>📐 กิจกรรมที่ 8 — ออกแบบระบบสำหรับฟาร์ม (Design)</h1>
+    <p>คู่มือปฏิบัติการออกแบบสถาปัตยกรรมระบบสำหรับฟาร์มจริง, การเลือกเทคโนโลยีเครือข่าย (Wi-Fi, ESP-NOW, LoRa, 4G), สถาปัตยกรรมการเข้าถึงระยะไกล (Cloud/VPN), และการคำนวณงบประมาณพลังงานโซลาร์เซลล์และแบตเตอรี่ (Power Budgeting)</p>
+  </header>
+
+  <div class="nav-bar">
+    <a href="index.html">🏠 ศูนย์รวมคู่มือ (Master Hub)</a>
+    <a href="#intro">1. บทนำและแนวคิด</a>
+    <a href="#time-matrix">2. แผนการจัดเวลา</a>
+    <a href="#hardware">3. อุปกรณ์และการเชื่อมต่อ</a>
+    <a href="#steps">4. ขั้นตอนการทดลอง</a>
+    <a href="#code">5. โค้ด/การตั้งค่า</a>
+    <a href="#answers">6. เฉลยใบงาน</a>
+    <a href="#troubleshooting">7. การแก้ปัญหา</a>
+    <a href="#rubric">8. เกณฑ์การประเมิน</a>
+  </div>
+
+  <div class="card" id="intro">
+    <h2 class="section-title"><span>📌</span> 1. บทนำและแนวคิดวิศวกรรม (Design Principles)</h2>
+<p style="margin-bottom:12px;">การทดลองในห้องปฏิบัติการใช้อุปกรณ์ที่เสียบไฟบ้านและต่อ Wi-Fi ที่มีสัญญาณเต็ม แต่ใน <strong>"ฟาร์มจริง"</strong> แปลงเกษตรอาจอยู่ห่างไกลเป็นร้อยเมตร ไม่มีไฟฟ้า ไม่มีสัญญาณอินเทอร์เน็ต และต้องตากแดดตากฝนตลอด 24 ชั่วโมง</p>
+<p style="margin-bottom:12px;"><strong>แนวคิดสำคัญในกิจกรรมที่ 8:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>Farm Network Topology Selection:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>Wi-Fi:</strong> แบนด์วิดท์สูง แต่กินไฟมาก ระยะทางจำกัด (30-50 เมตร)</p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>ESP-NOW:</strong> ระยะกลาง (100-200 เมตร) กินไฟต่ำมาก สื่อสารระหว่างชิปโดยตรง</p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>LoRa / LoRaWAN:</strong> ระยะไกลมาก (2-10 กิโลเมตร) แบนด์วิดท์ต่ำมาก กินไฟต่ำมาก เหมาะกับแปลงห่างไกล</p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>Cellular (4G LTE / NB-IoT):</strong> ส่งตรงขึ้นคลาวด์ได้ทุกที่ที่มีสัญญาณมือถือ มีค่าบริการซิมการ์ดรายเดือน</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>Cloud & Remote Access Architecture:</strong> การเลือกใช้วิธีเข้าถึงระบบจากนอกฟาร์ม เช่น Cloudflare Tunnel, Tailscale VPN หรือ Nabu Casa Cloud โดยไม่ต้องเปิดพอร์ตเราเตอร์ให้เสี่ยงต่อการถูกแฮก</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>Power Budgeting & Solar Sizing:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• คำนวณพลังงานที่อุปกรณ์ใช้ต่อวัน ($E = P 	imes t$ เป็น Watt-hour/day)</p>
+<p style="margin-left:20px; text-indent:-15px;">• คำนวณขนาดแผงโซลาร์เซลล์รองรับวันแดดน้อย ($W_p$)</p>
+<p style="margin-left:20px; text-indent:-15px;">• คำนวณขนาดความจุแบตเตอรี่สำรอง (Ah) พร้อมพิจารณา Depth of Discharge (DOD) ของแบตเตอรี่ชนิดต่าง ๆ (LiFePO4 vs Lead-Acid)</p>
+  </div>
+
+  <div class="card" id="time-matrix">
+    <h2 class="section-title"><span>⏱️</span> 2. แผนการจัดการเรียนรู้และเวลา (Facilitator Time Matrix)</h2>
+    <p style="margin-bottom: 14px;"><strong>เวลารวม:</strong> 50 นาที | <strong>รูปแบบการจัด:</strong> กิจกรรมการวางแผนวิศวกรรมและการคำนวณสเปกฮาร์ดแวร์เพื่อการใช้งานจริงในฟาร์ม</p>
+    <div class="mermaid">
+gantt
+    title ลำดับขั้นตอนกิจกรรมที่ 8: Design (50 นาที)
+    dateFormat  m
+    axisFormat %M นาที
+    section กำหนดโจทย์
+    เลือกแปลงปลูก & วิเคราะห์ข้อจำกัด :a1, 0, 10m
+    section เลือกเครือข่าย & คลาวด์
+    เปรียบเทียบ Network & Remote Access :a2, after a1, 15m
+    section คำนวณพลังงาน
+    คำนวณ Watt-hour, แผงโซลาร์, แบตเตอรี่ :a3, after a2, 15m
+    section สรุปพิมพ์เขียว
+    ร่างสถาปัตยกรรม & อภิปราย 8-Q   :a4, after a3, 10m
+    </div>
+<table><thead><tr><th>ช่วงเวลา</th><th>กิจกรรมย่อย</th><th>บทบาทวิทยากร / TA</th><th>ผลลัพธ์ที่ต้องได้</th></tr></thead><tbody><tr><td><strong>00:00 - 10:00</strong></td><td>8.1 เลือกโจทย์ฟาร์ม</td><td>แนะนำบริบท 3 แบบ (สวนทุเรียน 10 ไร่, โรงเรือนเมลอน, ผักไฮโดรโปนิกส์)</td><td>กลุ่มเลือกโจทย์และระบุขนาดพื้นที่</td></tr><tr><td><strong>10:00 - 25:00</strong></td><td>8.2 & 8.3 เลือกเครือข่ายและคลาวด์</td><td>อธิบายตารางเปรียบเทียบ Wi-Fi, ESP-NOW, LoRa, 4G และแนวทาง VPN</td><td>สรุปโพรโทคอลเครือข่ายที่เหมาะสมกับโจทย์</td></tr><tr><td><strong>25:00 - 40:00</strong></td><td>8.4 & 8.5 คำนวณพลังงานโซลาร์และแบตเตอรี่</td><td>สอนสูตรคำนวณ $Wh/day$, แผงวัตต์, และความจุแอมป์-ชั่วโมง ($Ah$)</td><td>ตัวเลขขนาดแผงโซลาร์และขนาดแบตเตอรี่ที่ถูกต้อง</td></tr><tr><td><strong>40:00 - 50:00</strong></td><td>8.6 พิมพ์เขียวระบบ & สรุป 8-Q</td><td>ให้ผู้เรียนวาดผังระบบรวม และร่วมอภิปรายคำถามสภาพแวดล้อมจริง</td><td>พิมพ์เขียวระบบฟาร์ม 1 จุดที่สมบูรณ์</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="hardware">
+    <h2 class="section-title"><span>🔌</span> 3. รายการอุปกรณ์และการเชื่อมต่อ (Hardware BOM & Interfacing)</h2>
+    <div class="mermaid">
+flowchart TD
+    subgraph SOLAR_SYSTEM["ระบบพลังงานแสงอาทิตย์ (Off-Grid Solar)"]
+        PANEL["แผงโซลาร์เซลล์ (Mono/Poly 30W-50W)"]
+        CHARGER["Solar Charge Controller (MPPT / PWM)"]
+        BATT["แบตเตอรี่สำรอง LiFePO4 12V 12Ah-20Ah"]
+        PANEL --> CHARGER
+        CHARGER <--> BATT
+    end
+
+    subgraph FIELD_BOX["ตู้คอนโทรลกันน้ำกลางแปลง (IP65)"]
+        BUCK["DC-DC Step-Down (12V -> 5V/3.3V)"]
+        NODE["ESP32 Microcontroller Node"]
+        SENS["เซนเซอร์วัดดิน / สวิตช์ลูกลอย"]
+        VALVE["โซลินอยด์วาล์ว 12V DC"]
+        CHARGER --> BUCK --> NODE
+        CHARGER --> VALVE
+        SENS --> NODE
+        NODE -->|ควบคุม| VALVE
+    end
+
+    subgraph TELEMETRY["ระบบสื่อสารไปยังตัวเรือน"]
+        NODE -->|ESP-NOW / LoRa| GW["Gateway ในตัวเรือน (ต่อ Wi-Fi/HA)"]
+    end
+    </div>
+<table><thead><tr><th>ลำดับ</th><th>รายการอุปกรณ์ในฟาร์มจริง</th><th>สเปกแนะนำ</th><th>หน้าที่ในระบบ</th></tr></thead><tbody><tr><td>1</td><td><strong>ตู้พักอุปกรณ์กันน้ำ</strong></td><td>ตู้พลาสติก ABS เกรดกันน้ำ IP65 พร้อม Cable Gland</td><td>ป้องกันฝน ฝุ่น และความชื้นสะสม</td></tr><tr><td>2</td><td><strong>แผงโซลาร์เซลล์ (Solar Panel)</strong></td><td>Monocrystalline 30W - 50W 18V</td><td>เปลี่ยนพลังงานแสงอาทิตย์เป็นไฟฟ้ากระแสตรง</td></tr><tr><td>3</td><td><strong>ตัวควบคุมการชาร์จ (Charge Controller)</strong></td><td>MPPT หรือ PWM 10A 12V พร้อมระบบตัดไฟต่ำ/สูง</td><td>ควบคุมการประจุไฟลงแบตเตอรี่อย่างปลอดภัย</td></tr><tr><td>4</td><td><strong>แบตเตอรี่สำรอง (Battery Storage)</strong></td><td>Lithium Iron Phosphate (LiFePO4) 12.8V 12Ah - 20Ah</td><td>เก็บสำรองพลังงานสำหรับใช้งานกลางคืนและวันฝนตก</td></tr><tr><td>5</td><td><strong>ตัวแปลงไฟ (DC-DC Step-Down)</strong></td><td>Buck Converter 12V เป็น 5V 3A (ประสิทธิภาพ > 90%)</td><td>แปลงแรงดันให้เหมาะกับบอร์ดควบคุม ESP32</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="steps">
+    <h2 class="section-title"><span>🧪</span> 4. ขั้นตอนการทดลองอย่างละเอียดทีละขั้น (Step-by-Step Lab Protocol)</h2>
+<h3 class="sub-title">ขั้นตอนที่ 8.1: เลือกโจทย์และระบุข้อจำกัดของพื้นที่</h3>
+<p style="margin-left:20px; text-indent:-15px;">• เลือกโจทย์ฟาร์มของกลุ่ม เช่น:</p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>โจทย์ ก: โรงเรือนเพาะปลูกเมลอน (Greenhouse):</strong> ระยะทาง 40 เมตร มีโครงสร้างเหล็กและพลาสติกคลุม</p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>โจทย์ ข: สวนทุเรียนกลางแจ้ง (Open Orchard):</strong> แปลงปลูกห่างจากบ้าน 200-500 เมตร มีร่มเงาต้นไม้บัง ไม่มีเสาไฟ</p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>โจทย์ ค: ระบบสูบน้ำบ่อบาดาลพลังงานแสงอาทิตย์:</strong> อยู่ห่างจากตัวเรือน 1 กิโลเมตร</p>
+<h3 class="sub-title">ขั้นตอนที่ 8.2: เลือกเทคโนโลยีเครือข่ายสื่อสาร</h3>
+<table><thead><tr><th>เทคโนโลยี</th><th>ระยะทาง</th><th>การกินพลังงาน</th><th>แบนด์วิดท์</th><th>ความเหมาะสม</th></tr></thead><tbody><tr><td><strong>Wi-Fi</strong></td><td>30 - 50 ม.</td><td>สูงมาก</td><td>สูงมาก</td><td>เหมาะเฉพาะในตัวเรือนหรือโรงเรือนใกล้บ้าน</td></tr><tr><td><strong>ESP-NOW</strong></td><td>100 - 200 ม.</td><td>ต่ำมาก</td><td>ปานกลาง</td><td><strong>คุ้มค่าที่สุด</strong> สำหรับแปลงห่าง 100-200 เมตร</td></tr><tr><td><strong>LoRa</strong></td><td>1 - 5 กม.</td><td>ต่ำมาก</td><td>ต่ำมาก</td><td>ดีที่สุดสำหรับฟาร์มขนาดใหญ่แปลงห่างไกล</td></tr><tr><td><strong>4G Cellular</strong></td><td>ทั่วประเทศ</td><td>สูง</td><td>สูง</td><td>ดีที่สุดหากไม่มีตัวเรือนใกล้เคียง (มีค่าเน็ตรายเดือน)</td></tr></tbody></table>
+<h3 class="sub-title">ขั้นตอนที่ 8.3: การเข้าถึงระบบจากนอกฟาร์ม (Remote Cloud Access)</h3>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>วิธีแนะนำ:</strong> ใช้ <strong>Cloudflare Tunnel</strong> หรือ <strong>Home Assistant Cloud (Nabu Casa)</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• ข้อดี: ไม่ต้องขอ Public IP ไม่ต้องเปิด Port Forwarding ที่เราเตอร์ ปลอดภัยจากการถูกสแกนเจาะระบบ</p>
+<h3 class="sub-title">ขั้นตอนที่ 8.4 & 8.5: คำนวณขนาดโซลาร์เซลล์และแบตเตอรี่ (Power Budget)</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>คำนวณการใช้พลังงานรวมต่อวัน ($E$):</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• โหนด ESP32 (Deep Sleep ส่วนใหญ่): กินไฟเฉลี่ย $0.5	ext{ W} 	imes 24	ext{ ชม.} = 12	ext{ Wh}$</p>
+<p style="margin-left:20px; text-indent:-15px;">• วาล์วน้ำ 12V 1A (เปิดวันละ 2 ครั้ง ครั้งละ 15 นาที = 0.5 ชม.): $12	ext{V} 	imes 1	ext{A} 	imes 0.5	ext{ ชม.} = 6	ext{ Wh}$</p>
+<p style="margin-left:20px; text-indent:-15px;">• พลังงานรวมต่อวัน $= 12 + 6 = 18	ext{ Wh/day}$</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>คำนวณขนาดแบตเตอรี่ (สำรองไฟ 2 วันที่แดดไม่ออก):</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• ความจุที่ต้องการ $= 18	ext{ Wh} 	imes 2	ext{ วัน} = 36	ext{ Wh}$</p>
+<p style="margin-left:20px; text-indent:-15px;">• แบตเตอรี่ LiFePO4 (DOD ปลอดภัย 80%): ความจุขั้นต่ำ $= 36 / (12.8	ext{V} 	imes 0.8) pprox 3.5	ext{ Ah}$</p>
+<p style="margin-left:20px; text-indent:-15px;">• <em>สเปกแนะนำเผื่อความปลอดภัย:</em> เลือกแบตเตอรี่ <strong>LiFePO4 12V 6Ah ถึง 12Ah</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>คำนวณขนาดแผงโซลาร์เซลล์ (แดดเฉลี่ยวันละ 4.5 ชั่วโมง):</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• กำลังผลิตที่ต้องการ $= 18	ext{ Wh} / (4.5	ext{ ชม.} 	imes 0.7	ext{ ประสิทธิภาพระบบ}) pprox 5.7	ext{ W}$</p>
+<p style="margin-left:20px; text-indent:-15px;">• <em>สเปกแนะนำเผื่อวันฟ้าหลัว:</em> เลือกแผงโซลาร์ <strong>20W ถึง 30W 18V</strong></p>
+  </div>
+
+  <div class="card" id="code">
+    <h2 class="section-title"><span>💻</span> 5. โค้ดและการตั้งค่าสำเร็จรูป (Ready-to-use Configurations)</h2>
+    <pre><button class="copy-btn" onclick="copyCode(this)">📋 คัดลอก</button><code>========================================================================
+สูตรการคำนวณระบบพลังงานโซลาร์เซลล์สำหรับสถานีตรวจวัดในฟาร์ม (Power Budgeting)
+========================================================================
+
+1. คำนวณพลังงานที่ใช้ต่อวัน (Daily Energy Consumption: E):
+   E = (P_mcu * t_mcu) + (P_sensor * t_sensor) + (P_actuator * t_actuator)  [Wh/day]
+
+2. คำนวณขนาดความจุแบตเตอรี่ (Battery Capacity: Ah):
+   Ah = (E * Days_of_Autonomy) / (V_system * DoD)
+   - Days_of_Autonomy: จำนวนวันที่ระบบต้องอยู่ได้แม้ไม่มีแดด (ปกติ 2 - 3 วัน)
+   - V_system: แรงดันระบบแบตเตอรี่ (เช่น 12.8 V)
+   - DoD (Depth of Discharge):
+     * แบตเตอรี่ตะกั่ว-กรด (Lead-Acid / Deep Cycle): 50% (0.50)
+     * แบตเตอรี่ลิเธียมฟอสเฟต (LiFePO4): 80% - 90% (0.80 - 0.90)
+
+3. คำนวณขนาดแผงโซลาร์เซลล์ (Solar Panel Watt-Peak: Wp):
+   Wp = E / (Peak_Sun_Hours * System_Efficiency)
+   - Peak_Sun_Hours: ชั่วโมงแดดเฉลี่ยประเทศไทย (ประมาณ 4.0 - 4.8 ชม./วัน)
+   - System_Efficiency: ประสิทธิภาพรวมของแผงและชาร์จเจอร์ (ประมาณ 0.65 - 0.75)
+========================================================================</code></pre>
+  </div>
+
+  <div class="card" id="answers">
+    <h2 class="section-title"><span>📝</span> 6. แนวทางการตรวจคำตอบและเฉลยใบงาน (Answer Key & Discussion)</h2>
+<h3 class="sub-title">เฉลยคำตอบและแนวทางการตรวจใบงาน (Activity 8 Worksheet)</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>ข้อ 8.1 - 8.2 การเลือกเครือข่าย:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• สวนระยะ 100-200 ม.: เลือก <strong>ESP-NOW</strong> คุ้มค่าที่สุด ไม่ต้องลากสาย ไม่ต้องตั้งเสา Wi-Fi</p>
+<p style="margin-left:20px; text-indent:-15px;">• สวนระยะ > 1 กม.: เลือก <strong>LoRaWAN</strong> หรือ <strong>4G Cellular</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>ข้อ 8.4 ชนิดแบตเตอรี่:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• ทำไม <strong>LiFePO4</strong> จึงดีกว่าแบตเตอรี่รถยนต์ทั่วไป (Lead-Acid)?</p>
+<p style="margin-left:20px; text-indent:-15px;">• รอบการใช้งาน (Cycle Life): LiFePO4 ทนทานกว่า 2,000-4,000 รอบ เทียบกับตะกั่วกรดที่ได้เพียง 300-500 รอบ</p>
+<p style="margin-left:20px; text-indent:-15px;">• น้ำหนักเบา ขนาดกะทัดรัดกว่าเกือบ 3 เท่า</p>
+<p style="margin-left:20px; text-indent:-15px;">• สามารถดึงประจุ (DOD) ได้ลึกถึง 80-90% โดยแบตเตอรี่ไม่เสื่อมสภาพเร็ว</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>ข้อ 8.5 ผลการคำนวณพลังงาน:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• ขนาดแผงโซลาร์เซลล์ที่เหมาะสม: 20W - 30W</p>
+<p style="margin-left:20px; text-indent:-15px;">• ขนาดแบตเตอรี่สำรองที่เหมาะสม: 12V 6Ah - 12Ah</p>
+<hr style="border:0; border-top:1px solid var(--border); margin:20px 0;">
+<h3 class="sub-title">💡 การอภิปรายเชิงวิศวกรรม (คำถาม 8-Q)</h3>
+<p style="margin-bottom:12px;"><strong>คำถาม:</strong> <em>สภาพแวดล้อมจริงในแปลงเกษตร (ความร้อนใต้แสงแดด, ความชื้นไอฝน, สัตว์ แมลง และฟ้าผ่า) ส่งผลต่อการออกแบบกล่องควบคุมอย่างไร และต้องป้องกันอย่างไร?</em></p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>เฉลยเชิงวิศวกรรม:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>ความร้อนสะสมในตู้คอนโทรล (Thermal Accumulation):</strong> ตู้ที่ตากแดดตรง ๆ ภายในอาจร้อนเกิน 60-70°C จนบอร์ดแฮงก์ ต้องติดตั้ง <strong>หลังคากันแดดสองชั้น (Sunshade Double Roof)</strong> เพื่อให้มีช่องระบายอากาศ และเลือกตู้สีขาวสะท้อนความร้อน</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>มด แมลง และจิ้งจก (Insects Intrusion):</strong> แมลงมักเข้าไปทำรังในตู้ที่มีไออุ่น ขาแมลงอาจทำให้ลายวงจรช็อต ต้องอุดช่องเดินสายไฟด้วย <strong>Cable Gland และซิลิโคน/ดินน้ำมันกันแมลง (Duct Seal)</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>หยดน้ำและไอชื้นสะสม (Condensation):</strong> ในช่วงกลางคืนที่อากาศเย็น ความชื้นภายในตู้จะกลั่นตัวเป็นหยดน้ำบนแผงวงจร ต้องฉีดพ่นสเปรย์เคลือบแผงวงจร <strong>(Conformal Coating)</strong> เพื่อป้องกันสนิมและการลัดวงจร</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>4.</strong> <strong>ฟ้าผ่าและแรงดันเหนี่ยวนำ (Surge & Lightning):</strong> สายไฟเซนเซอร์ที่ฝังดินหรือขึงยาวทำหน้าที่เป็นเสารับคลื่นเหนี่ยวนำจากฟ้าผ่า ต้องติดตั้งอุปกรณ์ป้องกันไฟกระชาก <strong>(Surge Protection Device: SPD / TVS Diode)</strong> และต่อสายดิน (Ground Rod) ให้ถูกต้อง</p>
+  </div>
+
+  <div class="card" id="troubleshooting">
+    <h2 class="section-title"><span>🛠️</span> 7. การแก้ไขปัญหาหน้างานที่พบบ่อย (Troubleshooting FAQ)</h2>
+<table><thead><tr><th>ปัญหาที่พบ</th><th>สาเหตุที่เป็นไปได้</th><th>วิธีการแก้ไข</th></tr></thead><tbody><tr><td><strong>แบตเตอรี่หมดเกลี้ยงในวันที่ 2 ที่ฝนตก</strong></td><td>คำนวณชั่วโมงแดดสูงเกินจริง หรือไม่ได้ใช้โหมด Deep Sleep</td><td>ปรับปรุงเฟิร์มแวร์ให้บอร์ดหลับ (Deep Sleep) ตื่นมาส่งข้อมูลเพียง 2 วินาทีต่อรอบ</td></tr><tr><td><strong>บอร์ดช็อตดับหลังจากใช้งานกลางแจ้งได้ 1 สัปดาห์</strong></td><td>มีน้ำซึมเข้าทางรูเจาะสายไฟ หรือมดเข้าไปทำรังใต้แผง</td><td>ขัน Cable Gland ให้แน่น ทาซิลิโคนอุดรูเจาะ และฉีดสเปรย์เคลือบวงจร</td></tr><tr><td><strong>สัญญาณ Wi-Fi หลุดบ่อยเมื่อต้นไม้โตขึ้น</strong></td><td>ใบไม้และผลไม้มีน้ำเป็นส่วนประกอบ ทำให้ดูดกลืนคลื่น 2.4 GHz</td><td>ยกเสาอากาศให้สูงพ้นแนวพุ่มไม้ หรือเปลี่ยนไปใช้โพรโทคอล ESP-NOW / LoRa</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="rubric">
+    <h2 class="section-title"><span>📊</span> 8. เกณฑ์การประเมินผลการเรียนรู้ (Assessment Rubric)</h2>
+<table><thead><tr><th>เกณฑ์การประเมิน</th><th>ดีเยี่ยม (4-5 คะแนน)</th><th>พอใช้ (2-3 คะแนน)</th><th>ต้องปรับปรุง (0-1 คะแนน)</th></tr></thead><tbody><tr><td><strong>การเลือกเครือข่ายสื่อสาร (5 คะแนน)</strong></td><td>เปรียบเทียบข้อดี-ข้อจำกัดของ Wi-Fi/ESP-NOW/LoRa ได้ตรงโจทย์</td><td>เลือกเทคโนโลยีได้ถูกต้องแต่อธิบายเหตุผลไม่ชัดเจน</td><td>เลือกเทคโนโลยีไม่เหมาะสมกับพื้นที่</td></tr><tr><td><strong>การคำนวณ Power Budget (5 คะแนน)</strong></td><td>คำนวณพลังงาน ขนาดแผง และขนาดแบตเตอรี่ได้ถูกต้องตามสูตรวิศวกรรม</td><td>คำนวณได้แต่ลืมคิดค่าประสิทธิภาพหรือ DOD</td><td>คำนวณผิดพลาดอย่างมีนัยสำคัญ</td></tr><tr><td><strong>การออกแบบความปลอดภัยฮาร์ดแวร์ (5 คะแนน)</strong></td><td>คำนึงถึงการป้องกันแดด ฝน แมลง และฟ้าผ่าอย่างครบถ้วน</td><td>ระบุเรื่องกันน้ำได้ แต่ลืมเรื่องความร้อนหรือแมลง</td><td>ไม่ได้คำนึงถึงสภาพแวดล้อมจริง</td></tr><tr><td><strong>การตอบคำถามคิดวิเคราะห์ 8-Q (5 คะแนน)</strong></td><td>อภิปรายปัญหาและเสนอวิธีแก้ไขเชิงวิศวกรรมทั้ง 4 ด้านได้ลึกซึ้ง</td><td>ตอบได้บางด้าน เช่น เรื่องฝนและความชื้น</td><td>ตอบไม่ตรงประเด็น</td></tr></tbody></table>
+  </div>
+
+  <div class="card footer-nav">
+    <a href="activity_7_dashboard_guide.html" class="btn btn-outline">⬅️ กิจกรรมที่ 7 (Dashboard)</a>
+    <a href="index.html" class="btn btn-outline">🏠 กลับสู่ศูนย์รวมคู่มือ</a>
+    <a href="activity_9_espnow_send_guide.html" class="btn btn-primary">กิจกรรมที่ 9 (Send) ➡️</a>
+  </div>
+
+</div>
+
+<script>
+function copyCode(btn) {
+  const pre = btn.parentElement;
+  const code = pre.querySelector('code').innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    const originalText = btn.innerText;
+    btn.innerText = '✓ คัดลอกแล้ว';
+    setTimeout(() => { btn.innerText = originalText; }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>

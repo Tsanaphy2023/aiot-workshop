@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>คู่มือการจัดกิจกรรม: กิจกรรมที่ 6 — การอ่านข้อมูลที่บันทึกไว้ย้อนหลัง (History) | Smart Farm AIoT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+  <style>
+    :root {
+      --primary: #0d9488;
+      --primary-dark: #0f766e;
+      --primary-light: #ccfbf1;
+      --success: #16a34a;
+      --success-light: #dcfce7;
+      --warning: #d97706;
+      --warning-light: #fef3c7;
+      --danger: #dc2626;
+      --danger-light: #fee2e2;
+      --purple: #7c3aed;
+      --purple-light: #f3e8ff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --border: #e2e8f0;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.7;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 30px 20px 80px 20px;
+    }
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, var(--primary-dark) 100%);
+      color: white;
+      padding: 44px 32px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    header::after {
+      content: '📈';
+      position: absolute;
+      right: 24px;
+      bottom: -15px;
+      font-size: 130px;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .badge-header {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+      padding: 4px 14px;
+      border-radius: 9999px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+    header p {
+      font-size: 16px;
+      opacity: 0.9;
+      max-width: 760px;
+    }
+    .nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+      padding: 12px 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-bar a {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .nav-bar a:hover {
+      background: var(--primary-light);
+    }
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 30px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    h2.section-title {
+      font-size: 21px;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #f1f5f9;
+    }
+    h3.sub-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1e293b;
+      margin: 22px 0 12px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .callout {
+      padding: 16px 20px;
+      border-radius: 10px;
+      margin: 18px 0;
+      font-size: 15px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .callout-icon { font-size: 22px; line-height: 1.4; flex-shrink: 0; }
+    .callout.important { background-color: var(--primary-light); border-left: 4px solid var(--primary); color: var(--primary-dark); }
+    .callout.warning { background-color: var(--warning-light); border-left: 4px solid var(--warning); color: #92400e; }
+    .callout.success { background-color: var(--success-light); border-left: 4px solid var(--success); color: #166534; }
+    .callout.danger { background-color: var(--danger-light); border-left: 4px solid var(--danger); color: #991b1b; }
+    table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14.5px; }
+    th, td { border: 1px solid var(--border); padding: 12px 14px; text-align: left; vertical-align: top; }
+    th { background: #f8fafc; font-weight: 600; color: #334155; }
+    tr:nth-child(even) td { background-color: #fafbfd; }
+    pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 18px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin: 16px 0;
+      position: relative;
+    }
+    code { font-family: 'JetBrains Mono', monospace; font-size: 13.5px; }
+    .code-inline { background: #f1f5f9; color: #0369a1; padding: 2px 6px; border-radius: 4px; font-weight: 500; }
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      font-family: 'Sarabun', sans-serif;
+    }
+    .copy-btn:hover { background: rgba(255, 255, 255, 0.3); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14.5px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-outline { background: white; color: var(--primary); border: 1.5px solid var(--primary); }
+    .btn-outline:hover { background: var(--primary-light); }
+    .footer-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    @media print {
+      body { background: white; color: black; font-size: 13px; }
+      .container { max-width: 100%; padding: 0; }
+      .card { border: 1px solid #ccc; box-shadow: none; page-break-inside: avoid; margin-bottom: 16px; padding: 16px; }
+      header { background: #1e293b !important; color: white !important; padding: 20px; page-break-after: avoid; }
+      .nav-bar, .copy-btn, .footer-nav { display: none !important; }
+      pre { background: #f8fafc !important; color: #0f172a !important; border: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <div class="badge-header">คู่มือมาตรฐานสำหรับวิทยากร ผู้ช่วยสอน (TA) และผู้เรียน</div>
+    <h1>📈 กิจกรรมที่ 6 — การอ่านข้อมูลที่บันทึกไว้ย้อนหลัง (History)</h1>
+    <p>คู่มือปฏิบัติการวิเคราะห์ข้อมูลย้อนหลังใน Home Assistant, การใช้ History Graph และ Logbook, การจับคู่เหตุการณ์ทางกายภาพกับยอดกราฟ, การอ่านค่าต่ำสุด-สูงสุดรอบวัน, และการวินิจฉัยข้อมูลที่ขาดหาย (Data Gaps)</p>
+  </header>
+
+  <div class="nav-bar">
+    <a href="index.html">🏠 ศูนย์รวมคู่มือ (Master Hub)</a>
+    <a href="#intro">1. บทนำและแนวคิด</a>
+    <a href="#time-matrix">2. แผนการจัดเวลา</a>
+    <a href="#hardware">3. อุปกรณ์และการเชื่อมต่อ</a>
+    <a href="#steps">4. ขั้นตอนการทดลอง</a>
+    <a href="#code">5. โค้ด/การตั้งค่า</a>
+    <a href="#answers">6. เฉลยใบงาน</a>
+    <a href="#troubleshooting">7. การแก้ปัญหา</a>
+    <a href="#rubric">8. เกณฑ์การประเมิน</a>
+  </div>
+
+  <div class="card" id="intro">
+    <h2 class="section-title"><span>📌</span> 1. บทนำและแนวคิดวิศวกรรม (History Principles)</h2>
+<p style="margin-bottom:12px;">ข้อมูลเซนเซอร์แบบเรียลไทม์บอกได้เพียงว่า "ขณะนี้เกิดอะไรขึ้น" แต่การทำความเข้าใจพฤติกรรมพืช สภาพอากาศ และความผิดปกติของเครื่องจักร จำเป็นต้องอาศัย <strong>"ข้อมูลอนุกรมเวลาในอดีต" (Historical Time-Series Data)</strong></p>
+<p style="margin-bottom:12px;"><strong>แนวคิดสำคัญในกิจกรรมที่ 6:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>Time-Series Database & Recorder:</strong> กลไกการจัดเก็บข้อมูลของ Home Assistant ที่บันทึกทุก State Change พร้อมประทับเวลา (Timestamp)</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>Logbook Audit Trail:</strong> บันทึกปูมเหตุการณ์ที่ระบุชัดเจนว่า "ใครหรือกฎข้อใด" เป็นผู้สั่งเปิด/ปิดอุปกรณ์ในเวลาใด</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>Diurnal Cycle Analysis:</strong> วงจรรอบวันของอุณหภูมิและความชื้น (สัมพันธ์แบบผกผัน: เมื่อแดดออกอุณหภูมิพุ่งสูง ความชื้นสัมพัทธ์จะลดต่ำลง)</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>4.</strong> <strong>Data Gap Forensics:</strong> ร่องรอยของข้อมูลที่ขาดหายไปบนกราฟ (เส้นกราฟขาดเป็นช่องว่าง) ซึ่งเป็นหลักฐานสำคัญของปัญหาเครือข่ายหลุดหรือไฟดับ</p>
+  </div>
+
+  <div class="card" id="time-matrix">
+    <h2 class="section-title"><span>⏱️</span> 2. แผนการจัดการเรียนรู้และเวลา (Facilitator Time Matrix)</h2>
+    <p style="margin-bottom: 14px;"><strong>เวลารวม:</strong> 45 นาที | <strong>รูปแบบการจัด:</strong> ปฏิบัติการวิเคราะห์ข้อมูลและตรวจสอบไทม์ไลน์เชิงลึก (Timeline & Forensic Analysis)</p>
+    <div class="mermaid">
+gantt
+    title ลำดับขั้นตอนกิจกรรมที่ 6: History (45 นาที)
+    dateFormat  m
+    axisFormat %M นาที
+    section สำรวจกราฟ
+    เปิดแท็บ History & ปรับแกนเวลา   :a1, 0, 10m
+    section ตรวจสอบเหตุการณ์
+    จับคู่ยอดกราฟกับการทดลองที่ผ่านมา :a2, after a1, 10m
+    section วิเคราะห์ตัวเลข
+    หาค่า Min / Max & ความชัน      :a3, after a2, 15m
+    section หาสาเหตุข้อมูลขาด
+    วิเคราะห์ช่องว่าง & สรุป 6-Q     :a4, after a3, 10m
+    </div>
+<table><thead><tr><th>ช่วงเวลา</th><th>กิจกรรมย่อย</th><th>บทบาทวิทยากร / TA</th><th>ผลลัพธ์ที่ต้องได้</th></tr></thead><tbody><tr><td><strong>00:00 - 10:00</strong></td><td>6.1 เปิดกราฟดูข้อมูลย้อนหลัง</td><td>แนะนำการเข้าแท็บ History การเลือก Entity และการซูมช่วงเวลา 1h / 24h</td><td>ดึงกราฟความชื้นและรีเลย์ขึ้นมาดูได้</td></tr><tr><td><strong>10:00 - 20:00</strong></td><td>6.2 เชื่อมกราฟกับการทดลอง</td><td>ชี้ให้ดูจุดที่ผู้เรียนเป่าลมร้อน (Spike) และจุดที่สั่งปั๊มทำงาน</td><td>ผู้เรียนจับคู่ยอดกราฟกับสิ่งที่ทำในแล็บได้</td></tr><tr><td><strong>20:00 - 35:00</strong></td><td>6.3 อ่านค่าต่ำสุด-สูงสุด</td><td>สอนวิธีเอาเมาส์ Hover บนเส้นเพื่ออ่านตัวเลข Min, Max และคำนวณช่วงการเปลี่ยนแปลง</td><td>บันทึกค่าตัวเลขลงในตารางใบงาน</td></tr><tr><td><strong>35:00 - 45:00</strong></td><td>6.4 วินิจฉัยข้อมูลขาดหาย & 6-Q</td><td>ชี้ให้เห็นเส้นกราฟที่ขาดช่วงจากการถอดสายไฟในกิจกรรมที่ 5 และอภิปราย 6-Q</td><td>สรุปสาเหตุ Data Gap และผลของการเก็บข้อมูลถี่เกิน</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="hardware">
+    <h2 class="section-title"><span>🔌</span> 3. รายการอุปกรณ์และการเชื่อมต่อ (Hardware BOM & Interfacing)</h2>
+    <div class="mermaid">
+flowchart LR
+    subgraph SENSORS["เซนเซอร์ & รีเลย์"]
+        DEV["GoGo-IoT / GoGo-Relay"]
+    end
+
+    subgraph HA_CORE["Home Assistant Architecture"]
+        STATE_BUS["Event Bus (State Changes)"]
+        RECORDER["Recorder Component"]
+        SQLITE["SQLite / MariaDB Database"]
+        HISTORY_UI["History Tab (Apex/Chart.js)"]
+        LOGBOOK_UI["Logbook Tab (Chronological Events)"]
+
+        STATE_BUS --> RECORDER --> SQLITE
+        SQLITE --> HISTORY_UI
+        SQLITE --> LOGBOOK_UI
+    end
+
+    DEV -->|State Updates| STATE_BUS
+    </div>
+<table><thead><tr><th>ลำดับ</th><th>รายการอุปกรณ์</th><th>สเปก / คุณสมบัติ</th><th>หน้าที่ในระบบ</th></tr></thead><tbody><tr><td>1</td><td><strong>Home Assistant Database</strong></td><td>SQLite Database (ค่าเริ่มต้น) บันทึกย้อนหลัง 10 วัน</td><td>เก็บข้อมูลค่าตัวเลขและสถานะการเปลี่ยนสถานะ</td></tr><tr><td>2</td><td><strong>History Component</strong></td><td>เครื่องมือพล็อตกราฟเส้นอนุกรมเวลาในตัว HA</td><td>แสดงแนวโน้มและการเปลี่ยนแปลงของข้อมูล</td></tr><tr><td>3</td><td><strong>Logbook Component</strong></td><td>ปูมบันทึกเหตุการณ์แบบเรียงตามเวลา</td><td>ตรวจสอบย้อนหลังว่าระบบหรือผู้ใช้คนใดสั่งการ</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="steps">
+    <h2 class="section-title"><span>🧪</span> 4. ขั้นตอนการทดลองอย่างละเอียดทีละขั้น (Step-by-Step Lab Protocol)</h2>
+<h3 class="sub-title">ขั้นตอนที่ 6.1: การเปิดกราฟดูข้อมูลย้อนหลัง</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> ในแถบเมนูด้านซ้ายของ Home Assistant คลิกที่ไอคอน <strong>History</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> คลิกเลือก Entity:</p>
+<p style="margin-left:20px; text-indent:-15px;">• เซนเซอร์ความชื้น (<code class="code-inline">sensor.gogo_iot_xxxxxx_humidity</code>)</p>
+<p style="margin-left:20px; text-indent:-15px;">• เซนเซอร์อุณหภูมิ (<code class="code-inline">sensor.gogo_iot_xxxxxx_temperature</code>)</p>
+<p style="margin-left:20px; text-indent:-15px;">• สถานะสวิตช์รีเลย์ (<code class="code-inline">switch.gogo_relay_xxxxxx_relay</code>)</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> เลือกช่วงเวลา: ปรับจากแถบด้านบนเป็น "Today" หรือเลือกช่วง 2 ชั่วโมงล่าสุด</p>
+<h3 class="sub-title">ขั้นตอนที่ 6.2: เชื่อมโยงกราฟกับการทดลองในแล็บ</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> เลื่อนเมาส์ไปตามเส้นกราฟ สังเกตยอดกราฟ (Peak/Spike):</p>
+<p style="margin-left:20px; text-indent:-15px;">• จุดที่กราฟความชื้นพุ่งขึ้นแตะ 90%+ คือช่วงเวลาที่มีการเป่าลมชื้นในกิจกรรมที่ 1</p>
+<p style="margin-left:20px; text-indent:-15px;">• แถบสีของสวิตช์รีเลย์ที่เปลี่ยนเป็นสีเขียว คือช่วงที่มีการสั่งเปิดปั๊มน้ำ</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> เปิดแท็บ <strong>Logbook</strong> ควบคู่กัน เพื่อดูว่าเวลานั้นเกิดจาก Automation ตัวใดเป็นผู้สั่งงาน</p>
+<h3 class="sub-title">ขั้นตอนที่ 6.3: การอ่านค่าต่ำสุด-สูงสุด (Min/Max & Trends)</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> นำเมาส์ไปชี้ที่จุดต่ำสุดของกราฟ บันทึกค่า Min และเวลา</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> ชี้ที่จุดสูงสุดของกราฟ บันทึกค่า Max และเวลา</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> คำนวณช่วงการแกว่งตัว $\Delta = 	ext{Max} - 	ext{Min}$</p>
+<h3 class="sub-title">ขั้นตอนที่ 6.4: หาสาเหตุของข้อมูลที่ขาดหาย (Data Gaps)</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> เลื่อนดูกราฟในช่วงกิจกรรมที่ 5 ที่ผ่านมา สังเกตบางช่วงเส้นกราฟขาดหายไป (เป็นช่องว่างสีเทา)</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> เทียบเวลากับการทดลอง: ช่องว่างนั้นตรงกับจังหวะที่ผู้เรียนปิดสวิตช์บอร์ด หรือถอดสาย USB</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> สรุปความหมาย: เส้นกราฟที่ขาดช่วงแสดงว่า Home Assistant ขาดการติดต่อกับอุปกรณ์ ไม่ได้รับข้อมูลตัวเลขใด ๆ เข้ามาในฐานข้อมูล</p>
+  </div>
+
+  <div class="card" id="code">
+    <h2 class="section-title"><span>💻</span> 5. โค้ดและการตั้งค่าสำเร็จรูป (Ready-to-use Configurations)</h2>
+    <pre><button class="copy-btn" onclick="copyCode(this)">📋 คัดลอก</button><code># ตัวอย่างการตั้งค่า Recorder ใน configuration.yaml เพื่อจำกัดขนาดฐานข้อมูล
+recorder:
+  purge_keep_days: 7  # เก็บลบข้อมูลเก่าที่เกิน 7 วันออกอัตโนมัติ
+  commit_interval: 10 # รวมข้อมูลเขียนลงดิสก์ทุก 10 วินาทีเพื่อถนอม SSD
+  include:
+    entities:
+      - sensor.gogo_iot_red_242dcc_khwamchun_humidity
+      - switch.gogo_relay_red_b97df0_riley_relay</code></pre>
+  </div>
+
+  <div class="card" id="answers">
+    <h2 class="section-title"><span>📝</span> 6. แนวทางการตรวจคำตอบและเฉลยใบงาน (Answer Key & Discussion)</h2>
+<h3 class="sub-title">เฉลยคำตอบและแนวทางการตรวจใบงาน (Activity 6 Worksheet)</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>ข้อ 6.2 การจับคู่ยอดกราฟ:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• ยอดความชื้นพุ่งสูงสัมพันธ์กับการเป่าลมร้อนในกิจกรรมที่ 1</p>
+<p style="margin-left:20px; text-indent:-15px;">• แถบสวิตช์ On สัมพันธ์กับการทดสอบเปิดไฟในกิจกรรมที่ 2 และ 3</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>ข้อ 6.3 ค่าต่ำสุด-สูงสุด:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• ค่าความชื้น Min: ~55 - 65% / Max: ~88 - 98%</p>
+<p style="margin-left:20px; text-indent:-15px;">• อุณหภูมิ Min: ~27.5 °C / Max: ~32.0 °C</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>ข้อ 6.4 สาเหตุของกราฟแหว่ง (Data Gap):</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• เกิดจากการปิดสวิตช์บอร์ด GoGo-IoT หรือการหลุดของการเชื่อมต่อ Wi-Fi ในกิจกรรมที่ 5</p>
+<hr style="border:0; border-top:1px solid var(--border); margin:20px 0;">
+<h3 class="sub-title">💡 การอภิปรายเชิงวิศวกรรม (คำถาม 6-Q)</h3>
+<p style="margin-bottom:12px;"><strong>คำถาม:</strong> <em>หากตั้งความถี่ในการบันทึกข้อมูลของเซนเซอร์ให้ถี่มากเกินไป (เช่น ส่งทุก 0.1 วินาที แทนที่จะเป็นทุก 1-5 นาที) จะส่งผลเสียอย่างไรต่อระบบฟาร์มอัจฉริยะ?</em></p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>เฉลยเชิงวิศวกรรม:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>Database Bloat & Storage Exhaustion:</strong> ขนาดฐานข้อมูลจะขยายตัวเร็วมาก การบันทึกทุก 0.1 วินาทีจะสร้างข้อมูลถึง 864,000 จุดต่อเซนเซอร์ในวันเดียว ทำให้พื้นที่ดิสก์ (SD Card/SSD) เต็มอย่างรวดเร็ว</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>Wear-out of Storage Media:</strong> หน่วยความจำแบบ Flash (SD Card บน Raspberry Pi) จะเสื่อมสภาพและพังอย่างรวดเร็วจากการเขียนข้อมูลซ้ำ ๆ ไม่หยุด</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>High Power Consumption:</strong> หากเป็นเซนเซอร์ที่ใช้แบตเตอรี่และโซลาร์เซลล์ การตื่นมาส่งข้อมูลถี่จะทำให้พลังงานหมดภายในเวลาไม่กี่ชั่วโมง</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>4.</strong> <strong>Network Congestion:</strong> ทราฟฟิกในวง Wi-Fi ฟาร์มจะแออัดโดยไม่จำเป็น ในทางการเกษตร ค่าความชื้นและอุณหภูมิเปลี่ยนแปลงช้า การบันทึกทุก 1 ถึง 5 นาทีก็เพียงพอต่อการควบคุมแล้ว</p>
+  </div>
+
+  <div class="card" id="troubleshooting">
+    <h2 class="section-title"><span>🛠️</span> 7. การแก้ไขปัญหาหน้างานที่พบบ่อย (Troubleshooting FAQ)</h2>
+<table><thead><tr><th>ปัญหาที่พบ</th><th>สาเหตุที่เป็นไปได้</th><th>วิธีการแก้ไข</th></tr></thead><tbody><tr><td><strong>เปิดหน้า History แล้วกราฟไม่ยอมโหลด</strong></td><td>ช่วงเวลาที่เลือกกว้างเกินไป (เช่น 7 วัน) ฐานข้อมูลใหญ่</td><td>ปรับตัวกรองช่วงเวลาให้แคบลงเหลือ 1-2 ชั่วโมงล่าสุด</td></tr><tr><td><strong>เส้นกราฟความชื้นเป็นเส้นตรงเรียบสนิท</strong></td><td>เซนเซอร์ค้าง หรือไม่มีการเปลี่ยนแปลงค่า</td><td>ลองเป่าลมร้อนที่เซนเซอร์ แล้วกด Refresh เบราว์เซอร์</td></tr><tr><td><strong>เวลาบนแกนนอนของกราฟไม่ตรงกับนาฬิกา</strong></td><td>Timezone ของเซิร์ฟเวอร์ยังเป็น UTC</td><td>ไปที่ Settings -> System -> General ปรับ Time Zone เป็น <code class="code-inline">Asia/Bangkok</code></td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="rubric">
+    <h2 class="section-title"><span>📊</span> 8. เกณฑ์การประเมินผลการเรียนรู้ (Assessment Rubric)</h2>
+<table><thead><tr><th>เกณฑ์การประเมิน</th><th>ดีเยี่ยม (4-5 คะแนน)</th><th>พอใช้ (2-3 คะแนน)</th><th>ต้องปรับปรุง (0-1 คะแนน)</th></tr></thead><tbody><tr><td><strong>การใช้งานแท็บ History (5 คะแนน)</strong></td><td>เรียกดูและเลือก Entity เซนเซอร์และรีเลย์ได้อย่างคล่องแคล่ว</td><td>เรียกดูได้แต่ปรับแกนเวลาไม่คล่อง</td><td>ไม่สามารถเปิดหน้ากราฟดูได้</td></tr><tr><td><strong>การจับคู่เหตุการณ์ (5 คะแนน)</strong></td><td>ระบุจุดเชื่อมโยงระหว่างการทดลองในห้องกับยอดกราฟได้อย่างแม่นยำ</td><td>บอกยอดกราฟได้แต่ไม่แน่ใจว่าเกิดจากขั้นตอนใด</td><td>จับคู่เหตุการณ์ไม่ได้</td></tr><tr><td><strong>การอ่านค่า Min/Max (5 คะแนน)</strong></td><td>อ่านค่าตัวเลขและเวลาได้อย่างถูกต้องพร้อมหน่วย</td><td>อ่านค่าได้แต่ระบุเวลาคลาดเคลื่อน</td><td>อ่านค่ากราฟไม่ถูกต้อง</td></tr><tr><td><strong>การตอบคำถามคิดวิเคราะห์ 6-Q (5 คะแนน)</strong></td><td>อธิบายผลเสียของการบันทึกข้อมูลถี่เกินไปทั้ง 4 มิติได้ครบถ้วน</td><td>ตอบได้เฉพาะเรื่องพื้นที่ดิสก์เต็ม</td><td>ไม่ได้ตอบคำถาม 6-Q</td></tr></tbody></table>
+  </div>
+
+  <div class="card footer-nav">
+    <a href="activity_5_failure_lab_guide.html" class="btn btn-outline">⬅️ กิจกรรมที่ 5 (Failure Lab)</a>
+    <a href="index.html" class="btn btn-outline">🏠 กลับสู่ศูนย์รวมคู่มือ</a>
+    <a href="activity_7_dashboard_guide.html" class="btn btn-primary">กิจกรรมที่ 7 (Dashboard) ➡️</a>
+  </div>
+
+</div>
+
+<script>
+function copyCode(btn) {
+  const pre = btn.parentElement;
+  const code = pre.querySelector('code').innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    const originalText = btn.innerText;
+    btn.innerText = '✓ คัดลอกแล้ว';
+    setTimeout(() => { btn.innerText = originalText; }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>

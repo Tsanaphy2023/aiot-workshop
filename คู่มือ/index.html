@@ -693,6 +693,688 @@
           หากกดไปเพียงครั้งเดียวและระบบยังไม่เริ่มเขียนฐานข้อมูล ระบบอาจยังบูตขึ้นได้ แต่หากเปิดแล้วขึ้น Error จอดำค้าง วิธีแก้ที่ดีที่สุดคือ ลบเครื่องเสมือนตัวเดิมออก (Remove only) แล้วทำขั้นตอน <strong>Import Appliance...</strong> ไฟล์ <code>.ova</code> ใหม่อีกครั้ง
         </div>
       </details>
+        <!-- Section 6: Comprehensive Workshop Curriculum & Facilitator Guides -->
+    <div class="card" style="margin-top: 24px; border-left: 5px solid #0284c7; background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
+        <h2 style="margin: 0; font-size: 1.45rem; color: #0f172a; border-bottom: none; padding-bottom: 0;">📚 ชุดคู่มือการจัดกิจกรรมเชิงปฏิบัติการ 11 กิจกรรม (Full Workshop Guides)</h2>
+        <span style="background: #0284c7; color: white; padding: 5px 14px; border-radius: 999px; font-size: 13px; font-weight: 600;">คู่มือมาตรฐานสำหรับวิทยากร & ผู้เรียน</span>
+      </div>
+      <p style="color: #475569; font-size: 14.5px; margin-bottom: 24px; line-height: 1.6;">
+        คู่มือมาตรฐานฉบับสมบูรณ์สำหรับวิทยากร ผู้ช่วยสอน (TA) และผู้เข้าอบรม ในการจัดกิจกรรมเชิงปฏิบัติการ Smart Farm AIoT ทั้ง 4 ช่วง (11 กิจกรรม) แต่ละคู่มือประกอบด้วย บทนำวิศวกรรม, แผนคุมเวลา (Facilitator Matrix), ผังวงจรฮาร์ดแวร์, โค้ด YAML/Config สำเร็จรูป, เฉลยใบงานครบถ้วน, การแก้ไขปัญหาหน้างาน (FAQ) และเกณฑ์การประเมิน 20 คะแนน
+      </p>
+      <div style="margin-bottom: 28px;">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+          <span style="background: #e0f2fe; color: #0369a1; padding: 2px 10px; border-radius: 6px; font-size: 12.5px; font-weight: 700;">SESSION 1</span>
+          <h3 style="margin: 0; font-size: 1.15rem; color: #1e293b;">ช่วงที่ 1: การสำรวจและต่ออุปกรณ์พื้นฐาน (Sense, Act, Logic)</h3>
+        </div>
+        <p style="font-size: 13.5px; color: #64748b; margin-bottom: 14px;">ปูพื้นฐานการรับรู้ทางกายภาพ การขับโหลดกำลังสูง และการเชื่อมต่อเข้าสู่ระบบอัตโนมัติส่วนกลาง</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+          <div style="background: white; border: 1px solid var(--border); border-top: 4px solid #0284c7; padding: 18px; border-radius: 10px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                <span style="font-size: 24px;">🌡️</span>
+                <span style="background: #f1f5f9; color: #475569; padding: 2px 8px; border-radius: 6px; font-size: 11.5px; font-weight: 600;">⏱️ 45 นาที</span>
+              </div>
+              <h4 style="margin: 0 0 6px 0; font-size: 15px; color: #0f172a; line-height: 1.4;">กิจกรรมที่ 1: รู้จักและทดลองอ่านค่าเซนเซอร์ <span style="font-size: 13px; color: #64748b; font-weight: 400;">(Sense)</span></h4>
+              <p style="font-size: 13px; color: #64748b; line-height: 1.5; margin-bottom: 16px;">สถาปัตยกรรมบอร์ด GoGo-IoT (ESP32-C3), สวิตช์ลูกลอย (Dry Contact), เซนเซอร์ SHT30 ผ่าน I2C Bus, เซนเซอร์สั่นสะเทือน และการเปิด Web UI ผ่าน mDNS</p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: 1px solid #f1f5f9;">
+              <a href="activity_1_sense_guide.html" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 6px; background: #0284c7; color: white; padding: 7px 12px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600;">
+                📖 เปิดคู่มือฉบับสมบูรณ์ (HTML) ↗
+              </a>
+              <div style="display: flex; gap: 6px;">
+                <a href="../iot_training_workshop/renders/activity-1.html" target="_blank" style="flex: 1; text-align: center; background: white; color: #0284c7; border: 1px solid #0284c7; padding: 5px 8px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 500;">
+                  📝 ใบงาน
+                </a>
+                <a href="activity_1_sense_guide.md" target="_blank" style="flex: 1; text-align: center; background: #f8fafc; color: #475569; border: 1px solid var(--border); padding: 5px 8px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 500;">
+                  📄 โค้ด .md
+                </a>
+              </div>
+            </div>
+          </div>
+          <div style="background: white; border: 1px solid var(--border); border-top: 4px solid #059669; padding: 18px; border-radius: 10px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                <span style="font-size: 24px;">💡</span>
+                <span style="background: #f1f5f9; color: #475569; padding: 2px 8px; border-radius: 6px; font-size: 11.5px; font-weight: 600;">⏱️ 45 นาที</span>
+              </div>
+              <h4 style="margin: 0 0 6px 0; font-size: 15px; color: #0f172a; line-height: 1.4;">กิจกรรมที่ 2: ต่อวงจรและสั่งงานหลอดไฟ <span style="font-size: 13px; color: #64748b; font-weight: 400;">(Act)</span></h4>
+              <p style="font-size: 13px; color: #64748b; line-height: 1.5; margin-bottom: 16px;">บอร์ดขับโหลด GoGo-Relay, การทำงานของรีเลย์กลไก, การแยกกักทางไฟฟ้า (Galvanic Isolation), ขั้ว COM/NO/NC, วงจรไฟฟ้า 12V DC และการสั่งงานผ่านเว็บ</p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: 1px solid #f1f5f9;">
+              <a href="activity_2_act_guide.html" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 6px; background: #059669; color: white; padding: 7px 12px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600;">
+                📖 เปิดคู่มือฉบับสมบูรณ์ (HTML) ↗
+              </a>
+              <div style="display: flex; gap: 6px;">
+                <a href="../iot_training_workshop/renders/activity-2.html" target="_blank" style="flex: 1; text-align: center; background: white; color: #059669; border: 1px solid #059669; padding: 5px 8px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 500;">
+                  📝 ใบงาน
+                </a>
+                <a href="activity_2_act_guide.md" target="_blank" style="flex: 1; text-align: center; background: #f8fafc; color: #475569; border: 1px solid var(--border); padding: 5px 8px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 500;">
+                  📄 โค้ด .md
+                </a>
+              </div>
+            </div>
+          </div>
+          <div style="background: white; border: 1px solid var(--border); border-top: 4px solid #4f46e5; padding: 18px; border-radius: 10px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                <span style="font-size: 24px;">⚙️</span>
+                <span style="background: #f1f5f9; color: #475569; padding: 2px 8px; border-radius: 6px; font-size: 11.5px; font-weight: 600;">⏱️ 50 นาที</span>
+              </div>
+              <h4 style="margin: 0 0 6px 0; font-size: 15px; color: #0f172a; line-height: 1.4;">กิจกรรมที่ 3: สร้างกฎควบคุมระบบ <span style="font-size: 13px; color: #64748b; font-weight: 400;">(Logic)</span></h4>
+              <p style="font-size: 13px; color: #64748b; line-height: 1.5; margin-bottom: 16px;">เชื่อมโยง Sense และ Act ผ่าน Home Assistant Automation Engine, ESPHome Native API, การตั้งค่า Threshold และการวิเคราะห์เส้นทางประเมินตรรกะด้วย Traces</p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: 1px solid #f1f5f9;">
+              <a href="activity_3_logic_guide.html" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 6px; background: #4f46e5; color: white; padding: 7px 12px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600;">
+                📖 เปิดคู่มือฉบับสมบูรณ์ (HTML) ↗
+              </a>
+              <div style="display: flex; gap: 6px;">
+                <a href="../iot_training_workshop/renders/activity-3.html" target="_blank" style="flex: 1; text-align: center; background: white; color: #4f46e5; border: 1px solid #4f46e5; padding: 5px 8px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 500;">
+                  📝 ใบงาน
+                </a>
+                <a href="activity_3_logic_guide.md" target="_blank" style="flex: 1; text-align: center; background: #f8fafc; color: #475569; border: 1px solid var(--border); padding: 5px 8px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 500;">
+                  📄 โค้ด .md
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-bottom: 28px;">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+          <span style="background: #e0f2fe; color: #0369a1; padding: 2px 10px; border-radius: 6px; font-size: 12.5px; font-weight: 700;">SESSION 2</span>
+          <h3 style="margin: 0; font-size: 1.15rem; color: #1e293b;">ช่วงที่ 2: ระบบควบคุมอัตโนมัติและความปลอดภัย (Think & Failure Lab)</h3>
+        </div>
+        <p style="font-size: 13.5px; color: #64748b; margin-bottom: 14px;">การยกระดับตรรกะสู่ความเสถียรสูง และการฝึกอบรมวิศวกรรมความปลอดภัยเชิงลึก (Fail-safe Engineering)</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+          <div style="background: white; border: 1px solid var(--border); border-top: 4px solid #d97706; padding: 18px; border-radius: 10px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                <span style="font-size: 24px;">🧠</span>
+                <span style="background: #f1f5f9; color: #475569; padding: 2px 8px; border-radius: 6px; font-size: 11.5px; font-weight: 600;">⏱️ 50 นาที</span>
+              </div>
+              <h4 style="margin: 0 0 6px 0; font-size: 15px; color: #0f172a; line-height: 1.4;">กิจกรรมที่ 4: ตั้งกฎให้ระบบทำงานอัตโนมัติ <span style="font-size: 13px; color: #64748b; font-weight: 400;">(Think)</span></h4>
+              <p style="font-size: 13px; color: #64748b; line-height: 1.5; margin-bottom: 16px;">แก้ปัญหาไฟกะพริบ/ปั๊มตัดต่อถี่ (Chattering) ด้วย Hysteresis Band, การจำกัดช่วงเวลาทำงาน (Time Condition), การต่อปั๊มน้ำจริง, และการสร้างสวิตช์ Auto/Manual Helper</p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: 1px solid #f1f5f9;">
+              <a href="activity_4_think_guide.html" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 6px; background: #d97706; color: white; padding: 7px 12px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600;">
+                📖 เปิดคู่มือฉบับสมบูรณ์ (HTML) ↗
+              </a>
+              <div style="display: flex; gap: 6px;">
+                <a href="../iot_training_workshop/renders/activity-4.html" target="_blank" style="flex: 1; text-align: center; background: white; color: #d97706; border: 1px solid #d97706; padding: 5px 8px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 500;">
+                  📝 ใบงาน
+                </a>
+                <a href="activity_4_think_guide.md" target="_blank" style="flex: 1; text-align: center; background: #f8fafc; color: #475569; border: 1px solid var(--border); padding: 5px 8px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 500;">
+                  📄 โค้ด .md
+                </a>
+              </div>
+            </div>
+          </div>
+          <div style="background: white; border: 1px solid var(--border); border-top: 4px solid #0284c7; padding: 18px; border-radius: 10px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                <span style="font-size: 24px;">🛡️</span>
+                <span style="background: #f1f5f9; color: #475569; padding: 2px 8px; border-radius: 6px; font-size: 11.5px; font-weight: 600;">⏱️ 55 นาที</span>
+              </div>
+              <h4 style="margin: 0 0 6px 0; font-size: 15px; color: #0f172a; line-height: 1.4;">กิจกรรมที่ 5: จำลองปัญหาและเพิ่มระบบป้องกัน <span style="font-size: 13px; color: #64748b; font-weight: 400;">(Failure Lab)</span></h4>
+              <p style="font-size: 13px; color: #64748b; line-height: 1.5; margin-bottom: 16px;">จำลอง 4 สถานการณ์ความล้มเหลว (น้ำหมด Dry-run, ปั๊มไม่สั่น Stalled, บอร์ดดับ Unavailable, ปั๊มเดินแช่นาน Timeout), ตารางบำรุงรักษา และสถาปัตยกรรม Hardware Interlock</p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: 1px solid #f1f5f9;">
+              <a href="activity_5_failure_lab_guide.html" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 6px; background: #0284c7; color: white; padding: 7px 12px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600;">
+                📖 เปิดคู่มือฉบับสมบูรณ์ (HTML) ↗
+              </a>
+              <div style="display: flex; gap: 6px;">
+                <a href="../iot_training_workshop/renders/activity-5.html" target="_blank" style="flex: 1; text-align: center; background: white; color: #0284c7; border: 1px solid #0284c7; padding: 5px 8px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 500;">
+                  📝 ใบงาน
+                </a>
+                <a href="activity_5_failure_lab_guide.md" target="_blank" style="flex: 1; text-align: center; background: #f8fafc; color: #475569; border: 1px solid var(--border); padding: 5px 8px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 500;">
+                  📄 โค้ด .md
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-bottom: 28px;">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+          <span style="background: #e0f2fe; color: #0369a1; padding: 2px 10px; border-radius: 6px; font-size: 12.5px; font-weight: 700;">SESSION 3</span>
+          <h3 style="margin: 0; font-size: 1.15rem; color: #1e293b;">ช่วงที่ 3: การวิเคราะห์ข้อมูลและการออกแบบระบบฟาร์ม (History, Dashboard, Design)</h3>
+        </div>
+        <p style="font-size: 13.5px; color: #64748b; margin-bottom: 14px;">การใช้ข้อมูลอดีตเพื่อตัดสินใจ การออกแบบแดชบอร์ดให้ตอบโจทย์ผู้ใช้จริง และการคำนวณพลังงานโซลาร์</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+          <div style="background: white; border: 1px solid var(--border); border-top: 4px solid #0d9488; padding: 18px; border-radius: 10px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                <span style="font-size: 24px;">📈</span>
+                <span style="background: #f1f5f9; color: #475569; padding: 2px 8px; border-radius: 6px; font-size: 11.5px; font-weight: 600;">⏱️ 45 นาที</span>
+              </div>
+              <h4 style="margin: 0 0 6px 0; font-size: 15px; color: #0f172a; line-height: 1.4;">กิจกรรมที่ 6: การอ่านข้อมูลที่บันทึกไว้ย้อนหลัง <span style="font-size: 13px; color: #64748b; font-weight: 400;">(History)</span></h4>
+              <p style="font-size: 13px; color: #64748b; line-height: 1.5; margin-bottom: 16px;">วิเคราะห์ข้อมูลอนุกรมเวลาใน History Graph และ Logbook, จับคู่ยอดกราฟกับเหตุการณ์ในแปลง, การวิเคราะห์ค่า Min/Max รอบวัน และการวินิจฉัยข้อมูลขาดหาย (Data Gaps)</p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: 1px solid #f1f5f9;">
+              <a href="activity_6_history_guide.html" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 6px; background: #0d9488; color: white; padding: 7px 12px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600;">
+                📖 เปิดคู่มือฉบับสมบูรณ์ (HTML) ↗
+              </a>
+              <div style="display: flex; gap: 6px;">
+                <a href="../iot_training_workshop/renders/activity-6.html" target="_blank" style="flex: 1; text-align: center; background: white; color: #0d9488; border: 1px solid #0d9488; padding: 5px 8px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 500;">
+                  📝 ใบงาน
+                </a>
+                <a href="activity_6_history_guide.md" target="_blank" style="flex: 1; text-align: center; background: #f8fafc; color: #475569; border: 1px solid var(--border); padding: 5px 8px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 500;">
+                  📄 โค้ด .md
+                </a>
+              </div>
+            </div>
+          </div>
+          <div style="background: white; border: 1px solid var(--border); border-top: 4px solid #0284c7; padding: 18px; border-radius: 10px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                <span style="font-size: 24px;">📊</span>
+                <span style="background: #f1f5f9; color: #475569; padding: 2px 8px; border-radius: 6px; font-size: 11.5px; font-weight: 600;">⏱️ 45 นาที</span>
+              </div>
+              <h4 style="margin: 0 0 6px 0; font-size: 15px; color: #0f172a; line-height: 1.4;">กิจกรรมที่ 7: สร้างหน้าจอติดตามและควบคุมฟาร์ม <span style="font-size: 13px; color: #64748b; font-weight: 400;">(Dashboard)</span></h4>
+              <p style="font-size: 13px; color: #64748b; line-height: 1.5; margin-bottom: 16px;">ออกแบบ UI/UX สำหรับคนงานและเจ้าของฟาร์ม (User Persona), จัดลำดับความสำคัญของข้อมูล, สร้างการ์ด Lovelace (Gauge, Button, Entities) และทดสอบความง่ายกับเพื่อน</p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: 1px solid #f1f5f9;">
+              <a href="activity_7_dashboard_guide.html" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 6px; background: #0284c7; color: white; padding: 7px 12px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600;">
+                📖 เปิดคู่มือฉบับสมบูรณ์ (HTML) ↗
+              </a>
+              <div style="display: flex; gap: 6px;">
+                <a href="../iot_training_workshop/renders/activity-7.html" target="_blank" style="flex: 1; text-align: center; background: white; color: #0284c7; border: 1px solid #0284c7; padding: 5px 8px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 500;">
+                  📝 ใบงาน
+                </a>
+                <a href="activity_7_dashboard_guide.md" target="_blank" style="flex: 1; text-align: center; background: #f8fafc; color: #475569; border: 1px solid var(--border); padding: 5px 8px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 500;">
+                  📄 โค้ด .md
+                </a>
+              </div>
+            </div>
+          </div>
+          <div style="background: white; border: 1px solid var(--border); border-top: 4px solid #334155; padding: 18px; border-radius: 10px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                <span style="font-size: 24px;">📐</span>
+                <span style="background: #f1f5f9; color: #475569; padding: 2px 8px; border-radius: 6px; font-size: 11.5px; font-weight: 600;">⏱️ 50 นาที</span>
+              </div>
+              <h4 style="margin: 0 0 6px 0; font-size: 15px; color: #0f172a; line-height: 1.4;">กิจกรรมที่ 8: ออกแบบระบบสำหรับฟาร์ม <span style="font-size: 13px; color: #64748b; font-weight: 400;">(Design)</span></h4>
+              <p style="font-size: 13px; color: #64748b; line-height: 1.5; margin-bottom: 16px;">เปรียบเทียบเครือข่ายฟาร์ม (Wi-Fi, ESP-NOW, LoRa, 4G), สถาปัตยกรรมคลาวด์/VPN, การคำนวณพลังงาน (Watt-hour/day), การเลือกแผงโซลาร์เซลล์ และชนิดแบตเตอรี่ LiFePO4</p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: 1px solid #f1f5f9;">
+              <a href="activity_8_farm_design_guide.html" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 6px; background: #334155; color: white; padding: 7px 12px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600;">
+                📖 เปิดคู่มือฉบับสมบูรณ์ (HTML) ↗
+              </a>
+              <div style="display: flex; gap: 6px;">
+                <a href="../iot_training_workshop/renders/activity-8.html" target="_blank" style="flex: 1; text-align: center; background: white; color: #334155; border: 1px solid #334155; padding: 5px 8px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 500;">
+                  📝 ใบงาน
+                </a>
+                <a href="activity_8_farm_design_guide.md" target="_blank" style="flex: 1; text-align: center; background: #f8fafc; color: #475569; border: 1px solid var(--border); padding: 5px 8px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 500;">
+                  📄 โค้ด .md
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-bottom: 28px;">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+          <span style="background: #e0f2fe; color: #0369a1; padding: 2px 10px; border-radius: 6px; font-size: 12.5px; font-weight: 700;">SESSION 4</span>
+          <h3 style="margin: 0; font-size: 1.15rem; color: #1e293b;">ช่วงที่ 4: ระบบโทรมาตรระยะไกลระดับแปลงฟาร์มด้วย ESP-NOW (Send, Receive, Bridge)</h3>
+        </div>
+        <p style="font-size: 13.5px; color: #64748b; margin-bottom: 14px;">ก้าวข้ามข้อจำกัดของ Wi-Fi ในแปลงไกลด้วยเทคโนโลยีไร้สาย ESP-NOW และการบริดจ์ข้อมูลเข้า Home Assistant</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+          <div style="background: white; border: 1px solid var(--border); border-top: 4px solid #e11d48; padding: 18px; border-radius: 10px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                <span style="font-size: 24px;">📡</span>
+                <span style="background: #f1f5f9; color: #475569; padding: 2px 8px; border-radius: 6px; font-size: 11.5px; font-weight: 600;">⏱️ 45 นาที</span>
+              </div>
+              <h4 style="margin: 0 0 6px 0; font-size: 15px; color: #0f172a; line-height: 1.4;">กิจกรรมที่ 9: อัปเดตบอร์ดที่แปลงให้ส่งข้อมูลด้วย ESP-NOW <span style="font-size: 13px; color: #64748b; font-weight: 400;">(Send)</span></h4>
+              <p style="font-size: 13px; color: #64748b; line-height: 1.5; margin-bottom: 16px;">แฟลชเฟิร์มแวร์รุ่นใหม่ผ่าน Web Serial (ESP Web Tools บน Chrome), การส่งข้อมูลแบบ Connectionless Broadcast, การจดจำ MAC Address และการทำงานแบบ Dual-Stack</p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: 1px solid #f1f5f9;">
+              <a href="activity_9_espnow_send_guide.html" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 6px; background: #e11d48; color: white; padding: 7px 12px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600;">
+                📖 เปิดคู่มือฉบับสมบูรณ์ (HTML) ↗
+              </a>
+              <div style="display: flex; gap: 6px;">
+                <a href="../iot_training_workshop/renders/activity-9.html" target="_blank" style="flex: 1; text-align: center; background: white; color: #e11d48; border: 1px solid #e11d48; padding: 5px 8px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 500;">
+                  📝 ใบงาน
+                </a>
+                <a href="activity_9_espnow_send_guide.md" target="_blank" style="flex: 1; text-align: center; background: #f8fafc; color: #475569; border: 1px solid var(--border); padding: 5px 8px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 500;">
+                  📄 โค้ด .md
+                </a>
+              </div>
+            </div>
+          </div>
+          <div style="background: white; border: 1px solid var(--border); border-top: 4px solid #7c3aed; padding: 18px; border-radius: 10px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                <span style="font-size: 24px;">📥</span>
+                <span style="background: #f1f5f9; color: #475569; padding: 2px 8px; border-radius: 6px; font-size: 11.5px; font-weight: 600;">⏱️ 45 นาที</span>
+              </div>
+              <h4 style="margin: 0 0 6px 0; font-size: 15px; color: #0f172a; line-height: 1.4;">กิจกรรมที่ 10: เพิ่มบอร์ดตัวรับที่ตัวเรือน <span style="font-size: 13px; color: #64748b; font-weight: 400;">(Receive)</span></h4>
+              <p style="font-size: 13px; color: #64748b; line-height: 1.5; margin-bottom: 16px;">ติดตั้งเฟิร์มแวร์ตัวรับ (Gateway Node), จับคู่ด้วย MAC Address, ทดสอบระยะทางและสิ่งกีดขวาง (Range & RSSI Testing), และการจำลองแปลงเงียบ (Fail-to-Unknown Timeout)</p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: 1px solid #f1f5f9;">
+              <a href="activity_10_espnow_receive_guide.html" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 6px; background: #7c3aed; color: white; padding: 7px 12px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600;">
+                📖 เปิดคู่มือฉบับสมบูรณ์ (HTML) ↗
+              </a>
+              <div style="display: flex; gap: 6px;">
+                <a href="../iot_training_workshop/renders/activity-10.html" target="_blank" style="flex: 1; text-align: center; background: white; color: #7c3aed; border: 1px solid #7c3aed; padding: 5px 8px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 500;">
+                  📝 ใบงาน
+                </a>
+                <a href="activity_10_espnow_receive_guide.md" target="_blank" style="flex: 1; text-align: center; background: #f8fafc; color: #475569; border: 1px solid var(--border); padding: 5px 8px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 500;">
+                  📄 โค้ด .md
+                </a>
+              </div>
+            </div>
+          </div>
+          <div style="background: white; border: 1px solid var(--border); border-top: 4px solid #0284c7; padding: 18px; border-radius: 10px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                <span style="font-size: 24px;">🌉</span>
+                <span style="background: #f1f5f9; color: #475569; padding: 2px 8px; border-radius: 6px; font-size: 11.5px; font-weight: 600;">⏱️ 45 นาที</span>
+              </div>
+              <h4 style="margin: 0 0 6px 0; font-size: 15px; color: #0f172a; line-height: 1.4;">กิจกรรมที่ 11: นำข้อมูลจากแปลงไกลขึ้นแดชบอร์ด Home Assistant <span style="font-size: 13px; color: #64748b; font-weight: 400;">(Bridge)</span></h4>
+              <p style="font-size: 13px; color: #64748b; line-height: 1.5; margin-bottom: 16px;">เชื่อมต่อเกตเวย์ตัวรับเข้า Home Assistant ผ่าน ESPHome, เปรียบเทียบค่าสองเส้นทาง, สร้างแดชบอร์ดแปลงไกล, และสร้าง Automation เฝ้าระวังแปลงเงียบ (Deadman Alert)</p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: 1px solid #f1f5f9;">
+              <a href="activity_11_bridge_guide.html" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 6px; background: #0284c7; color: white; padding: 7px 12px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600;">
+                📖 เปิดคู่มือฉบับสมบูรณ์ (HTML) ↗
+              </a>
+              <div style="display: flex; gap: 6px;">
+                <a href="../iot_training_workshop/renders/activity-11.html" target="_blank" style="flex: 1; text-align: center; background: white; color: #0284c7; border: 1px solid #0284c7; padding: 5px 8px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 500;">
+                  📝 ใบงาน
+                </a>
+                <a href="activity_11_bridge_guide.md" target="_blank" style="flex: 1; text-align: center; background: #f8fafc; color: #475569; border: 1px solid var(--border); padding: 5px 8px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 500;">
+                  📄 โค้ด .md
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- Section 7: Assessment & Troubleshooting Quiz -->
+    <div class="card" style="margin-top: 24px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 8px;">
+        <h2 style="margin: 0; font-size: 1.4rem; color: #1e293b;">📝 แบบทดสอบวัดความรู้และวิเคราะห์ปัญหา (Assessment Quiz)</h2>
+        <span style="background: #e0f2fe; color: #0369a1; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 600;">20 ข้อมาตรฐาน (2 ชุดวิเคราะห์)</span>
+      </div>
+      <p style="color: #64748b; font-size: 14px; margin-bottom: 20px;">
+        แบบทดสอบวัดผลการปฏิบัติการจริง ครอบคลุมการต่อวงจรเซนเซอร์, วงจรรีเลย์, ตรรกะ Automation ใน Home Assistant, การควบคุมแบบ Hysteresis, เครือข่ายฟาร์ม, สถาปัตยกรรม Cloud, โพรโทคอล ESP-NOW และระบบรดน้ำอัตโนมัติ
+      </p>
+
+      <div style="margin-bottom: 16px;">
+        <h3 style="margin: 0 0 14px 0; font-size: 1.15rem; color: #334155;">🏠 ชุดที่ 1: ระบบควบคุมภายในฟาร์ม Home Assistant & Automation (10 ข้อ)</h3>
+      </div>
+
+      <!-- Q1 -->
+      <details style="margin-bottom: 14px; padding: 14px; background: #f8fafc; border-radius: 10px; border: 1px solid var(--border);">
+        <summary style="font-weight: 600; cursor: pointer; color: #0f172a; font-size: 15px;">
+          ข้อ 1: กดเปิด–ปิดรีเลย์แล้วไฟติด แต่พอบังแสงจนต่ำกว่าเกณฑ์ ไฟกลับไม่เปิดตามกฎอัตโนมัติ ควรตรวจอะไรต่อ?
+        </summary>
+        <div style="font-size: 14px; color: #334155; margin-top: 12px; line-height: 1.6;">
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>ก. ตรวจแรงดันของแหล่งจ่ายไฟที่ต่อให้หลอด</li>
+            <li>ข. ตรวจขั้วหน้าสัมผัสรีเลย์ที่ต่อกับหลอดไฟ</li>
+            <li>ค. ตรวจการตอบสนองของเซนเซอร์บนบอร์ด</li>
+            <li>ง. <strong>ตรวจการเปิดใช้กฎและอุปกรณ์ที่เลือกในกฎ</strong></li>
+          </ul>
+          <div style="background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; border-radius: 4px; margin-top: 8px;">
+            <b style="color: #065f46;">✅ เฉลยข้อ ง:</b> เพราะกด Manual ติดแสดงว่าฮาร์ดแวร์รีเลย์และไฟปกติ และค่าแสงใน Home Assistant ลดลงแสดงว่าเซนเซอร์และเน็ตปกติ ปัญหาจึงอยู่ที่ตรรกะหรือการเปิดใช้งาน Automation ใน Home Assistant
+          </div>
+        </div>
+      </details>
+
+      <!-- Q2 -->
+      <details style="margin-bottom: 14px; padding: 14px; background: #f8fafc; border-radius: 10px; border: 1px solid var(--border);">
+        <summary style="font-weight: 600; cursor: pointer; color: #0f172a; font-size: 15px;">
+          ข้อ 2: บังแสงแล้วค่าบนเว็บของบอร์ดลดลง แต่ Home Assistant ยังแสดงค่าเดิม ควรตรวจอะไรเป็นอันดับแรก?
+        </summary>
+        <div style="font-size: 14px; color: #334155; margin-top: 12px; line-height: 1.6;">
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>ก. การต่อหลอดไฟกับหน้าสัมผัสของรีเลย์</li>
+            <li>ข. แรงดันไฟจากแหล่งจ่ายที่ต่อให้หลอด LED</li>
+            <li>ค. ตำแหน่งติดตั้งหลอดไฟเมื่อเทียบกับเซนเซอร์</li>
+            <li>ง. <strong>การส่งค่าจากบอร์ดเข้า Home Assistant</strong></li>
+          </ul>
+          <div style="background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; border-radius: 4px; margin-top: 8px;">
+            <b style="color: #065f46;">✅ เฉลยข้อ ง:</b> ค่าบนเว็บของบอร์ดลดลงแปลว่าฮาร์ดแวร์เซนเซอร์ปกติ แต่ไม่เข้า Home Assistant แสดงว่าเกิดปัญหาที่การเชื่อมต่อเครือข่าย Wi-Fi หรือ ESPHome API หลุด
+          </div>
+        </div>
+      </details>
+
+      <!-- Q3 -->
+      <details style="margin-bottom: 14px; padding: 14px; background: #f8fafc; border-radius: 10px; border: 1px solid var(--border);">
+        <summary style="font-weight: 600; cursor: pointer; color: #0f172a; font-size: 15px;">
+          ข้อ 3: ต้องการเปิดไฟเมื่อมืดและเวลาตั้งแต่ 18.30 น. หากตั้ง Trigger แสงอย่างเดียวแล้วมืดก่อนเวลา ไฟจะไม่เปิดตอน 18.30 น. ต้องแก้ไขอย่างไร?
+        </summary>
+        <div style="font-size: 14px; color: #334155; margin-top: 12px; line-height: 1.6;">
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>ก. <strong>ใช้ Trigger แสงและเวลา แล้วตรวจทั้งเวลาและแสงใน Condition</strong></li>
+            <li>ข. ใช้ Trigger แสงอย่างเดียว แล้วตรวจเวลาใน Condition สองครั้ง</li>
+            <li>ค. ใช้ Trigger แสงและเวลา แล้วตรวจเฉพาะเวลาใน Condition</li>
+            <li>ง. ใช้ Trigger เวลาอย่างเดียว แล้วตรวจว่าแสงต่ำกว่าเกณฑ์หรือไม่</li>
+          </ul>
+          <div style="background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; border-radius: 4px; margin-top: 8px;">
+            <b style="color: #065f46;">✅ เฉลยข้อ ก:</b> Trigger ใน Home Assistant เป็นแบบ Edge-trigger ทำงานเฉพาะตอนข้ามเส้นเกณฑ์ จึงต้องดักทั้งสองเหตุการณ์ (แสงมืด หรือ ถึงเวลา) และมี Condition ตรวจสอบความถูกต้องทั้งสองเงื่อนไขเสมอ
+          </div>
+        </div>
+      </details>
+
+      <!-- Q4 -->
+      <details style="margin-bottom: 14px; padding: 14px; background: #f8fafc; border-radius: 10px; border: 1px solid var(--border);">
+        <summary style="font-weight: 600; cursor: pointer; color: #0f172a; font-size: 15px;">
+          ข้อ 4: ระบบ A ใช้เครื่องในฟาร์มผ่าน WiFi ส่วนระบบ B พึ่งพาคลาวด์ ถ้าเน็ตหลุดแต่ไฟและ WiFi ยังปกติ ทั้งสองระบบจะเป็นอย่างไร?
+        </summary>
+        <div style="font-size: 14px; color: #334155; margin-top: 12px; line-height: 1.6;">
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>ก. <strong>ระบบ A ใช้กฎได้ ระบบ B รับคำสั่งใหม่ไม่ได้</strong></li>
+            <li>ข. ทั้งสองระบบยังใช้กฎได้ เพราะ WiFi ไม่ขัดข้อง</li>
+            <li>ค. ระบบ A ใช้กฎไม่ได้ ระบบ B ยังรับคำสั่งได้</li>
+            <li>ง. ทั้งสองระบบใช้กฎไม่ได้ เพราะอินเทอร์เน็ตขาด</li>
+          </ul>
+          <div style="background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; border-radius: 4px; margin-top: 8px;">
+            <b style="color: #065f46;">✅ เฉลยข้อ ก:</b> ระบบ A เป็น Local Edge (เช่น Home Assistant ในฟาร์ม) ประมวลผลในวงแลนได้ตามปกติ ส่วนระบบ B ขาดเน็ตทำให้ติดต่อคลาวด์ไม่ได้จึงรับคำสั่งไม่ได้
+          </div>
+        </div>
+      </details>
+
+      <!-- Q5 -->
+      <details style="margin-bottom: 14px; padding: 14px; background: #f8fafc; border-radius: 10px; border: 1px solid var(--border);">
+        <summary style="font-weight: 600; cursor: pointer; color: #0f172a; font-size: 15px;">
+          ข้อ 5: สั่งเปิดรีเลย์แล้วไฟ LED บนบอร์ดรีเลย์ติด แต่หลอดไฟภายนอกไม่สว่าง ควรด่วนสรุปอย่างไร?
+        </summary>
+        <div style="font-size: 14px; color: #334155; margin-top: 12px; line-height: 1.6;">
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>ก. ปัญหาอยู่ที่การรับคำสั่งของรีเลย์</li>
+            <li>ข. หน้าสัมผัสต่อถูกแล้ว จึงเหลือเพียงปัญหาแรงดัน</li>
+            <li>ค. ปัญหาอยู่ที่ตัวหลอด เพราะรีเลย์เปิดแล้ว</li>
+            <li>ง. <strong>ยังระบุไม่ได้ ต้องตรวจวงจรหลอดไฟต่อ</strong></li>
+          </ul>
+          <div style="background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; border-radius: 4px; margin-top: 8px;">
+            <b style="color: #065f46;">✅ เฉลยข้อ ง:</b> ไฟบนบอร์ดรีเลย์ติดยืนยันเฉพาะวงจรควบคุม (Control) ทำงาน แต่วงจรโหลด (Load) อาจต่อขั้ว NO/NC ผิด สายหลวม ขั้วสลับ หรือหลอดขาด จึงต้องตรวจไล่วงจรต่อไป
+          </div>
+        </div>
+      </details>
+
+      <!-- Q6 -->
+      <details style="margin-bottom: 14px; padding: 14px; background: #f8fafc; border-radius: 10px; border: 1px solid var(--border);">
+        <summary style="font-weight: 600; cursor: pointer; color: #0f172a; font-size: 15px;">
+          ข้อ 6: ตั้งกฎเปิดไฟเมื่อแสง &lt; 40 และปิดเมื่อ &gt; 60 (เริ่มต้นแสง 70 ไฟดับ) จากนั้นค่าเปลี่ยนเป็น 30, 50, 70, 50 สถานะไฟจะเป็นอย่างไร?
+        </summary>
+        <div style="font-size: 14px; color: #334155; margin-top: 12px; line-height: 1.6;">
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>ก. ครั้งแรกดับ ครั้งที่สองติด ครั้งที่สามดับ และครั้งสุดท้ายติด</li>
+            <li>ข. ครั้งแรกติด ครั้งที่สองดับ ครั้งที่สามดับ และครั้งสุดท้ายดับ</li>
+            <li>ค. ครั้งแรกติด ครั้งที่สองติด ครั้งที่สามดับ และครั้งสุดท้ายติด</li>
+            <li>ง. <strong>ครั้งแรกติด ครั้งที่สองติด ครั้งที่สามดับ และครั้งสุดท้ายดับ</strong></li>
+          </ul>
+          <div style="background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; border-radius: 4px; margin-top: 8px;">
+            <b style="color: #065f46;">✅ เฉลยข้อ ง:</b> เข้าหลักการ Deadband (40–60): 30 (&lt;40) ติด $\rightarrow$ 50 (คงเดิม) ติด $\rightarrow$ 70 (&gt;60) ดับ $\rightarrow$ 50 (คงเดิม) ดับ
+          </div>
+        </div>
+      </details>
+
+      <!-- Q7 -->
+      <details style="margin-bottom: 14px; padding: 14px; background: #f8fafc; border-radius: 10px; border: 1px solid var(--border);">
+        <summary style="font-weight: 600; cursor: pointer; color: #0f172a; font-size: 15px;">
+          ข้อ 7: ควบคุมผ่านคลาวด์ได้ แล้วเครื่อง Home Assistant ที่ฟาร์มเกิดดับไป แต่โทรศัพท์ยังมีเน็ต จะเกิดอะไรขึ้น?
+        </summary>
+        <div style="font-size: 14px; color: #334155; margin-top: 12px; line-height: 1.6;">
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>ก. คลาวด์ประมวลผลกฎและสั่งอุปกรณ์แทน</li>
+            <li>ข. <strong>ควบคุมผ่านคลาวด์ไม่ได้จนกว่าเครื่องที่ฟาร์มจะทำงาน</strong></li>
+            <li>ค. รีเลย์เชื่อมกับโทรศัพท์โดยตรงเพื่อรับคำสั่ง</li>
+            <li>ง. โทรศัพท์ประมวลผลกฎผ่านหน้าเว็บที่เปิดไว้</li>
+          </ul>
+          <div style="background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; border-radius: 4px; margin-top: 8px;">
+            <b style="color: #065f46;">✅ เฉลยข้อ ข:</b> คลาวด์เป็นเพียงท่อเชื่อมต่อไปยังเครื่องที่ฟาร์ม เมื่อปลายทางดับ ระบบทั้งหมดจะขาดการติดต่อจนกว่าเครื่องที่ฟาร์มจะบูตกลับขึ้นมา
+          </div>
+        </div>
+      </details>
+
+      <!-- Q8 -->
+      <details style="margin-bottom: 14px; padding: 14px; background: #f8fafc; border-radius: 10px; border: 1px solid var(--border);">
+        <summary style="font-weight: 600; cursor: pointer; color: #0f172a; font-size: 15px;">
+          ข้อ 8: โรงเรือนมีไฟฟ้าและสัญญาณ WiFi ครอบคลุมอยู่แล้ว ส่งข้อมูลทุกนาทีและไม่ใช้แบตเตอรี่ ควรเลือกการเชื่อมต่อแบบใด?
+        </summary>
+        <div style="font-size: 14px; color: #334155; margin-top: 12px; line-height: 1.6;">
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>ก. เปลี่ยนบอร์ดทุกจุดไปใช้เครือข่าย LoRa</li>
+            <li>ข. เดินสาย RS-485 เชื่อมจุดวัดเข้าระบบ</li>
+            <li>ค. ติดตั้งโมเด็มมือถือให้บอร์ดแต่ละจุดใช้สัญญาณ 4G, 5G จากมือถือ</li>
+            <li>ง. <strong>ใช้ WiFi เดิมเหมาะสมอยู่แล้ว</strong></li>
+          </ul>
+          <div style="background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; border-radius: 4px; margin-top: 8px;">
+            <b style="color: #065f46;">✅ เฉลยข้อ ง:</b> ใช้โครงสร้างพื้นฐานเดิมที่มีความพร้อม ประหยัดต้นทุนอุปกรณ์และค่าบริการรายเดือนได้สูงสุด
+          </div>
+        </div>
+      </details>
+
+      <!-- Q9 -->
+      <details style="margin-bottom: 14px; padding: 14px; background: #f8fafc; border-radius: 10px; border: 1px solid var(--border);">
+        <summary style="font-weight: 600; cursor: pointer; color: #0f172a; font-size: 15px;">
+          ข้อ 9: ต้องติดตั้งจุดวัดความชื้นในแปลงส่งข้อมูลทุก 10 นาที ระยะ LoRa ส่งถึงบ้านได้ ต้องเตรียมการเชื่อมต่ออย่างไร?
+        </summary>
+        <div style="font-size: 14px; color: #334155; margin-top: 12px; line-height: 1.6;">
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>ก. ส่งค่าจากเซนเซอร์ผ่าน LoRa เข้าเราเตอร์ WiFi โดยตรง</li>
+            <li>ข. ส่งค่าผ่านตัวส่งและตัวรับ LoRa อุปกรณ์จะถูกเพิ่มเข้า Home Assistant เอง พร้อมใช้งานได้เองทันที</li>
+            <li>ค. ส่งค่าจากเซนเซอร์ผ่าน LoRa เข้า Home Assistant โดยไม่ใช้ตัวรับ</li>
+            <li>ง. <strong>ส่งค่าผ่านตัวส่งและตัวรับ LoRa แล้วเพิ่มอุปกรณ์พร้อมตั้งค่าใน Home Assistant เพื่อให้พร้อมใช้งาน</strong></li>
+          </ul>
+          <div style="background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; border-radius: 4px; margin-top: 8px;">
+            <b style="color: #065f46;">✅ เฉลยข้อ ง:</b> ต้องมีบอร์ดตัวส่ง (Transmitter) ที่แปลง และตัวรับ (Receiver) ที่บ้าน และผู้ใช้ต้องทำการตั้งค่าเพิ่มอุปกรณ์ใน Home Assistant เพื่อให้อ่านค่าได้
+          </div>
+        </div>
+      </details>
+
+      <!-- Q10 -->
+      <details style="margin-bottom: 14px; padding: 14px; background: #f8fafc; border-radius: 10px; border: 1px solid var(--border);">
+        <summary style="font-weight: 600; cursor: pointer; color: #0f172a; font-size: 15px;">
+          ข้อ 10: ตั้ง Automation เปิดไฟด้วย Trigger เวลา 18.30 น. อย่างเดียว จะเกิดปัญหาอะไรถ้าถึงเวลาแล้วแสงยังสูงกว่า 40 และต้องแก้อย่างไร?
+        </summary>
+        <div style="font-size: 14px; color: #334155; margin-top: 12px; line-height: 1.6;">
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>ก. ไฟไม่เปิด เพราะต้องเกิดทั้งสอง Trigger จึงใช้กฎเดิมได้</li>
+            <li>ข. <strong>ไฟเปิดทั้งที่สว่าง จึงต้องเพิ่ม Condition ตรวจว่าแสงต่ำกว่า 40</strong></li>
+            <li>ค. ไฟเปิดตามประวัติแสงที่บันทึกไว้ จึงควรลบข้อมูลย้อนหลัง</li>
+            <li>ง. ไฟไม่เปิด เพราะ Trigger แสงตรวจความมืดแล้ว จึงใช้กฎเดิมได้</li>
+          </ul>
+          <div style="background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; border-radius: 4px; margin-top: 8px;">
+            <b style="color: #065f46;">✅ เฉลยข้อ ข:</b> ถ้าตั้ง Trigger เวลาอย่างเดียว ถึงเวลาระบบจะสั่งเปิดไฟทันทีแม้แสงยังสว่างอยู่ จึงต้องใส่ Condition เพื่อเช็คระดับแสงก่อนสั่งเปิดไฟ
+          </div>
+        </div>
+      </details>
+
+      <!-- Divider between Part 1 and Part 2 -->
+      <div style="margin: 32px 0 16px; padding-top: 24px; border-top: 2px dashed #cbd5e1; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+        <h3 style="margin: 0; font-size: 1.25rem; color: #0369a1;">☁️ ชุดที่ 2: ระบบ Cloud, ESP-NOW & รดน้ำอัตโนมัติ (Module 4)</h3>
+        <span style="background: #ecfdf5; color: #065f46; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 600;">10 ข้อปฏิบัติการ</span>
+      </div>
+      <p style="color: #64748b; font-size: 14px; margin-bottom: 20px;">
+        แบบทดสอบวัดผลการปฏิบัติการเชื่อมต่อเซิร์ฟเวอร์ Cloud (AWS EC2, Flask API), การสื่อสารระยะไกลด้วยโพรโทคอล ESP-NOW, สถาปัตยกรรม HTTP Polling, การตั้งเวลาด้วย Cron และสคริปต์ตัดสินใจรดน้ำอัตโนมัติ
+      </p>
+
+      <!-- Q11 -->
+      <details style="margin-bottom: 14px; padding: 14px; background: #f8fafc; border-radius: 10px; border: 1px solid var(--border);">
+        <summary style="font-weight: 600; cursor: pointer; color: #0f172a; font-size: 15px;">
+          ข้อ 11: หากมีการยิง POST ไปที่ /api/data โดยข้อมูลที่ส่งไม่มีคีย์ temp หรือ hum เซิร์ฟเวอร์จะตอบกลับอย่างไร?
+        </summary>
+        <div style="font-size: 14px; color: #334155; margin-top: 12px; line-height: 1.6;">
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>ก. ตอบสถานะ 200 พร้อมบันทึกค่าว่างลง CSV</li>
+            <li>ข. <strong>ตอบสถานะ 400 พร้อมข้อความแจ้งว่า payload ไม่ถูกต้อง</strong></li>
+            <li>ค. เปลี่ยนไปเรียกคำสั่งรดน้ำแทน</li>
+            <li>ง. ตอบสถานะ 500 แล้วหยุดการทำงานของเซิร์ฟเวอร์</li>
+          </ul>
+          <div style="background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; border-radius: 4px; margin-top: 8px;">
+            <b style="color: #065f46;">✅ เฉลยข้อ ข:</b> ในโค้ด <code>server_app.py</code> ตรวจสอบโครงสร้างข้อมูลด้วย <code>if not data or 'temp' not in data or 'hum' not in data:</code> หากข้อมูลไม่ครบจะตอบกลับสถานะ 400 (Bad Request) พร้อมข้อความแจ้งข้อผิดพลาดทันที โดยไม่บันทึกลง CSV
+          </div>
+        </div>
+      </details>
+
+      <!-- Q12 -->
+      <details style="margin-bottom: 14px; padding: 14px; background: #f8fafc; border-radius: 10px; border: 1px solid var(--border);">
+        <summary style="font-weight: 600; cursor: pointer; color: #0f172a; font-size: 15px;">
+          ข้อ 12: Cron รันสคริปต์ trigger_water.py แล้วพบว่าค่าความชื้นล่าสุดในไฟล์ CSV คือ 85% ระบบจะทำอย่างไร (เกณฑ์ตั้งไว้ที่ 80%)?
+        </summary>
+        <div style="font-size: 14px; color: #334155; margin-top: 12px; line-height: 1.6;">
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>ก. สั่งเปิดน้ำเป็นเวลาครึ่งหนึ่งของที่กำหนดไว้</li>
+            <li>ข. สั่งเปิดน้ำทันทีเพราะค่าความชื้นสูง</li>
+            <li>ค. <strong>ข้ามการรดน้ำ เพราะถือว่าฝนตกหรือดินชื้นเพียงพอแล้ว</strong></li>
+            <li>ง. แจ้งข้อผิดพลาดว่าไม่มีข้อมูลความชื้น</li>
+          </ul>
+          <div style="background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; border-radius: 4px; margin-top: 8px;">
+            <b style="color: #065f46;">✅ เฉลยข้อ ค:</b> ใน <code>trigger_water.py</code> มีเงื่อนไข <code>if hum >= HUMIDITY_THRESHOLD:</code> (80%) ค่า 85% สูงกว่าเกณฑ์ ระบบจะข้ามรอบการรดน้ำ (Skip) เพื่อประหยัดน้ำและป้องกันรากพืชเน่า
+          </div>
+        </div>
+      </details>
+
+      <!-- Q13 -->
+      <details style="margin-bottom: 14px; padding: 14px; background: #f8fafc; border-radius: 10px; border: 1px solid var(--border);">
+        <summary style="font-weight: 600; cursor: pointer; color: #0f172a; font-size: 15px;">
+          ข้อ 13: บรรทัดใน crontab ที่เขียนว่า 0 7,17 * * * หมายความว่าอย่างไร?
+        </summary>
+        <div style="font-size: 14px; color: #334155; margin-top: 12px; line-height: 1.6;">
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>ก. ทำงานทุกวันที่ 7 และ 17 ของเดือน</li>
+            <li>ข. ทำงานทุก 7 ถึง 17 นาที</li>
+            <li>ค. <strong>ทำงานทุกวัน เวลา 07:00 น. และ 17:00 น.</strong></li>
+            <li>ง. ทำงานทุก 17 ชั่วโมง เริ่มตอน 7 โมง</li>
+          </ul>
+          <div style="background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; border-radius: 4px; margin-top: 8px;">
+            <b style="color: #065f46;">✅ เฉลยข้อ ค:</b> รูปแบบ 5 ช่องของ Crontab คือ <code>[นาที] [ชั่วโมง] [วัน] [เดือน] [วันในสัปดาห์]</code> ค่า <code>0 7,17 * * *</code> จึงหมายถึง นาทีที่ 0 ของเวลา 07:00 น. และ 17:00 น. ทุกวัน
+          </div>
+        </div>
+      </details>
+
+      <!-- Q14 -->
+      <details style="margin-bottom: 14px; padding: 14px; background: #f8fafc; border-radius: 10px; border: 1px solid var(--border);">
+        <summary style="font-weight: 600; cursor: pointer; color: #0f172a; font-size: 15px;">
+          ข้อ 14: โค้ดบอร์ด 1 กำหนด SEND_INTERVAL = 300 หมายความว่าอย่างไร?
+        </summary>
+        <div style="font-size: 14px; color: #334155; margin-top: 12px; line-height: 1.6;">
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>ก. <strong>ส่งค่าเซนเซอร์ทุก 5 นาที</strong></li>
+            <li>ข. ส่งค่าเซนเซอร์ได้สูงสุด 300 ครั้งต่อวัน</li>
+            <li>ค. ส่งค่าเซนเซอร์ทุก 300 มิลลิวินาที</li>
+            <li>ง. เก็บข้อมูลย้อนหลังได้ 300 แถว</li>
+          </ul>
+          <div style="background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; border-radius: 4px; margin-top: 8px;">
+            <b style="color: #065f46;">✅ เฉลยข้อ ก:</b> หน่วยเวลาในคำสั่งหน่วงเวลาของ Python คือวินาที ดังนั้น 300 วินาที ÷ 60 = 5 นาที เป็นการส่งข้อมูลทุกๆ 5 นาทีเพื่อช่วยประหยัดแบตเตอรี่ในแปลงเกษตร
+          </div>
+        </div>
+      </details>
+
+      <!-- Q15 -->
+      <details style="margin-bottom: 14px; padding: 14px; background: #f8fafc; border-radius: 10px; border: 1px solid var(--border);">
+        <summary style="font-weight: 600; cursor: pointer; color: #0f172a; font-size: 15px;">
+          ข้อ 15: บอร์ด 2 ตั้งค่า POLL_INTERVAL = 15 เมื่อผู้ใช้กดสั่งรดน้ำผ่านคลาวด์ คำสั่งอาจใช้เวลานานที่สุดประมาณเท่าใดกว่าวาล์วน้ำจะเปิด?
+        </summary>
+        <div style="font-size: 14px; color: #334155; margin-top: 12px; line-height: 1.6;">
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>ก. <strong>ประมาณ 15 วินาที ตามรอบที่บอร์ดไปถามคำสั่ง</strong></li>
+            <li>ข. ประมาณ 5 นาที ตามรอบการส่งค่าเซนเซอร์</li>
+            <li>ค. ทันทีเสมอ เพราะเซิร์ฟเวอร์ส่งคำสั่งไปหาบอร์ดโดยตรง</li>
+            <li>ง. ประมาณ 60 วินาที ตามระยะเวลารดน้ำ</li>
+          </ul>
+          <div style="background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; border-radius: 4px; margin-top: 8px;">
+            <b style="color: #065f46;">✅ เฉลยข้อ ก:</b> บอร์ด 2 ใช้สถาปัตยกรรมแบบ Polling ยิง HTTP GET ไปถามคำสั่งจากคลาวด์ทุกๆ 15 วินาที หากผู้ใช้กดสั่งหลังจากรอบก่อนหน้าเสร็จพอดี จะต้องรอจนจบรอบถัดไปไม่เกิน 15 วินาที
+          </div>
+        </div>
+      </details>
+
+      <!-- Q16 -->
+      <details style="margin-bottom: 14px; padding: 14px; background: #f8fafc; border-radius: 10px; border: 1px solid var(--border);">
+        <summary style="font-weight: 600; cursor: pointer; color: #0f172a; font-size: 15px;">
+          ข้อ 16: เมื่อบอร์ด 2 เรียก GET /api/command และได้รับคำสั่ง WATER_ON แล้ว เซิร์ฟเวอร์จะทำอย่างไรต่อ?
+        </summary>
+        <div style="font-size: 14px; color: #334155; margin-top: 12px; line-height: 1.6;">
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>ก. เก็บคำสั่ง WATER_ON ไว้เหมือนเดิมจนกว่าจะมีคำสั่งใหม่มาทับ</li>
+            <li>ข. <strong>เคลียร์ค่าคำสั่งกลับเป็น NONE เพื่อไม่ให้บอร์ดสั่งงานซ้ำในรอบถัดไป</strong></li>
+            <li>ค. บันทึกคำสั่งลงไฟล์ sensor_data.csv</li>
+            <li>ง. ส่งคำสั่งเดิมซ้ำอีกครั้งเพื่อความแน่นอน</li>
+          </ul>
+          <div style="background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; border-radius: 4px; margin-top: 8px;">
+            <b style="color: #065f46;">✅ เฉลยข้อ ข:</b> เซิร์ฟเวอร์มีคำสั่ง <code>pending_command = "NONE"</code> ทันทีหลังส่งคำสั่งออกไป เพื่อป้องกันไม่ให้บอร์ด 2 ที่ส่งคำขอรอบถัดไปได้รับคำสั่งเปิดน้ำซ้ำซ้อน
+          </div>
+        </div>
+      </details>
+
+      <!-- Q17 -->
+      <details style="margin-bottom: 14px; padding: 14px; background: #f8fafc; border-radius: 10px; border: 1px solid var(--border);">
+        <summary style="font-weight: 600; cursor: pointer; color: #0f172a; font-size: 15px;">
+          ข้อ 17: ติดตั้งและรันสคริปต์ Flask บน EC2 เรียบร้อยแล้ว แต่บอร์ด 2 ส่งข้อมูลเข้าไปไม่ได้เลย สิ่งใดควรตรวจสอบเป็นลำดับแรก?
+        </summary>
+        <div style="font-size: 14px; color: #334155; margin-top: 12px; line-height: 1.6;">
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>ก. ระดับแบตเตอรี่ของบอร์ดในสวน</li>
+            <li>ข. ค่า HUMIDITY_THRESHOLD ในสคริปต์รดน้ำ</li>
+            <li>ค. <strong>Inbound Rule ของ EC2 ว่าเปิดรับ Traffic พอร์ต 5000 แบบ Custom TCP แล้วหรือยัง</strong></li>
+            <li>ง. จำนวนแถวข้อมูลในไฟล์ sensor_data.csv</li>
+          </ul>
+          <div style="background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; border-radius: 4px; margin-top: 8px;">
+            <b style="color: #065f46;">✅ เฉลยข้อ ค:</b> ค่าเริ่มต้นของ AWS Security Group จะบล็อกพอร์ตทั้งหมดจากภายนอกยกเว้น SSH (พอร์ต 22) หากไม่เปิด Inbound Rules พอร์ต 5000 แหล่งที่มา Anywhere (0.0.0.0/0) บอร์ดภายนอกจะไม่สามารถส่งข้อมูลเข้ามาได้
+          </div>
+        </div>
+      </details>
+
+      <!-- Q18 -->
+      <details style="margin-bottom: 14px; padding: 14px; background: #f8fafc; border-radius: 10px; border: 1px solid var(--border);">
+        <summary style="font-weight: 600; cursor: pointer; color: #0f172a; font-size: 15px;">
+          ข้อ 18: รันคำสั่ง python3 app.py แล้วโปรแกรมหยุดทำงานทุกครั้งที่ปิดหน้าต่าง Terminal ควรแก้ไขอย่างไรตามที่แนะนำไว้?
+        </summary>
+        <div style="font-size: 14px; color: #334155; margin-top: 12px; line-height: 1.6;">
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>ก. ติดตั้ง Flask ใหม่ด้วย pip3 install flask requests</li>
+            <li>ข. ย้ายไปรันบน Raspberry Pi แทน</li>
+            <li>ค. <strong>รันด้วยคำสั่ง nohup python3 app.py & เพื่อให้ทำงานเป็น Background</strong></li>
+            <li>ง. เปลี่ยนพอร์ตจาก 5000 เป็น 80</li>
+          </ul>
+          <div style="background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; border-radius: 4px; margin-top: 8px;">
+            <b style="color: #065f46;">✅ เฉลยข้อ ค:</b> คำสั่ง <code>nohup</code> จะสั่งให้ระบบเพิกเฉยต่อสัญญาณ SIGHUP เมื่อปิด Terminal และ <code>&</code> จะผลักโปรแกรมให้ทำงานเป็น Background Process ต่อเนื่องตลอดเวลา
+          </div>
+        </div>
+      </details>
+
+      <!-- Q19 -->
+      <details style="margin-bottom: 14px; padding: 14px; background: #f8fafc; border-radius: 10px; border: 1px solid var(--border);">
+        <summary style="font-weight: 600; cursor: pointer; color: #0f172a; font-size: 15px;">
+          ข้อ 19: หากกรอกค่า BOARD_2_MAC ในโค้ดบอร์ด 1 ไม่ถูกต้อง จะเกิดผลอย่างไร และควรหาค่าที่ถูกได้จากที่ใด?
+        </summary>
+        <div style="font-size: 14px; color: #334155; margin-top: 12px; line-height: 1.6;">
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>ก. ข้อมูลจะถูกส่งขึ้นคลาวด์โดยตรงแทน</li>
+            <li>ข. <strong>ข้อมูลจะส่งไปไม่ถึงปลายทาง ต้องอ่านค่า MAC จากบอร์ด 2 ด้วยคำสั่ง wlan.config('mac')</strong></li>
+            <li>ค. บอร์ด 1 จะรีสตาร์ตซ้ำ ๆ ต้องแก้ด้วยการติดตั้งเฟิร์มแวร์ใหม่</li>
+            <li>ง. ระบบยังทำงานได้ปกติ เพราะ ESP-NOW ค้นหาอุปกรณ์เองอัตโนมัติ</li>
+          </ul>
+          <div style="background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; border-radius: 4px; margin-top: 8px;">
+            <b style="color: #065f46;">✅ เฉลยข้อ ข:</b> ESP-NOW ส่งข้อมูลแบบ Peer-to-Peer โดยอ้างอิง Hardware MAC Address ของบอร์ดปลายทางโดยตรง หากระบุผิด ข้อมูลจะสูญหาย การอ่านค่า MAC ทำได้โดยใช้คำสั่ง <code>wlan.config('mac')</code> บนบอร์ด 2 ผ่าน MicroPython
+          </div>
+        </div>
+      </details>
+
+      <!-- Q20 -->
+      <details style="margin-bottom: 14px; padding: 14px; background: #f8fafc; border-radius: 10px; border: 1px solid var(--border);">
+        <summary style="font-weight: 600; cursor: pointer; color: #0f172a; font-size: 15px;">
+          ข้อ 20: หากค่าความชื้นล่าสุดคือ 60% ลำดับการทำงานของสคริปต์รดน้ำจะเป็นอย่างไร?
+        </summary>
+        <div style="font-size: 14px; color: #334155; margin-top: 12px; line-height: 1.6;">
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>ก. ส่งคำสั่งไปยังบอร์ด 1 ผ่าน ESP-NOW โดยตรงโดยไม่ผ่าน API</li>
+            <li>ข. สั่ง WATER_ON แล้วปล่อยให้วาล์วเปิดค้างไว้จนกว่าความชื้นจะถึงเกณฑ์</li>
+            <li>ค. สั่ง WATER_OFF ก่อนแล้วจึงสั่ง WATER_ON</li>
+            <li>ง. <strong>สั่ง WATER_ON รอครบ 60 วินาที แล้วจึงสั่ง WATER_OFF</strong></li>
+          </ul>
+          <div style="background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; border-radius: 4px; margin-top: 8px;">
+            <b style="color: #065f46;">✅ เฉลยข้อ ง:</b> เมื่อความชื้น 60% ต่ำกว่าเกณฑ์ 80% สคริปต์จะยิง POST สั่ง WATER_ON จากนั้นหน่วงเวลาด้วย <code>time.sleep(60)</code> เป็นเวลา 60 วินาที แล้วจึงยิง POST สั่ง WATER_OFF เพื่อปิดวาล์วน้ำ เป็นการควบคุมแบบจำกัดเวลาเพื่อความปลอดภัย
+          </div>
+        </div>
+      </details>
     </div>
 
     <!-- Footer -->

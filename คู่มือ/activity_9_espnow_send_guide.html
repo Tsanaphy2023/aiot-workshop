@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>คู่มือการจัดกิจกรรม: กิจกรรมที่ 9 — อัปเดตบอร์ดที่แปลงให้ส่งข้อมูลด้วย ESP-NOW (Send) | Smart Farm AIoT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+  <style>
+    :root {
+      --primary: #e11d48;
+      --primary-dark: #be123c;
+      --primary-light: #ffe4e6;
+      --success: #16a34a;
+      --success-light: #dcfce7;
+      --warning: #d97706;
+      --warning-light: #fef3c7;
+      --danger: #dc2626;
+      --danger-light: #fee2e2;
+      --purple: #7c3aed;
+      --purple-light: #f3e8ff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --border: #e2e8f0;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.7;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 30px 20px 80px 20px;
+    }
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, var(--primary-dark) 100%);
+      color: white;
+      padding: 44px 32px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    header::after {
+      content: '📡';
+      position: absolute;
+      right: 24px;
+      bottom: -15px;
+      font-size: 130px;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .badge-header {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+      padding: 4px 14px;
+      border-radius: 9999px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+    header p {
+      font-size: 16px;
+      opacity: 0.9;
+      max-width: 760px;
+    }
+    .nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+      padding: 12px 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-bar a {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .nav-bar a:hover {
+      background: var(--primary-light);
+    }
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 30px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    h2.section-title {
+      font-size: 21px;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #f1f5f9;
+    }
+    h3.sub-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1e293b;
+      margin: 22px 0 12px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .callout {
+      padding: 16px 20px;
+      border-radius: 10px;
+      margin: 18px 0;
+      font-size: 15px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .callout-icon { font-size: 22px; line-height: 1.4; flex-shrink: 0; }
+    .callout.important { background-color: var(--primary-light); border-left: 4px solid var(--primary); color: var(--primary-dark); }
+    .callout.warning { background-color: var(--warning-light); border-left: 4px solid var(--warning); color: #92400e; }
+    .callout.success { background-color: var(--success-light); border-left: 4px solid var(--success); color: #166534; }
+    .callout.danger { background-color: var(--danger-light); border-left: 4px solid var(--danger); color: #991b1b; }
+    table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14.5px; }
+    th, td { border: 1px solid var(--border); padding: 12px 14px; text-align: left; vertical-align: top; }
+    th { background: #f8fafc; font-weight: 600; color: #334155; }
+    tr:nth-child(even) td { background-color: #fafbfd; }
+    pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 18px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin: 16px 0;
+      position: relative;
+    }
+    code { font-family: 'JetBrains Mono', monospace; font-size: 13.5px; }
+    .code-inline { background: #f1f5f9; color: #0369a1; padding: 2px 6px; border-radius: 4px; font-weight: 500; }
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      font-family: 'Sarabun', sans-serif;
+    }
+    .copy-btn:hover { background: rgba(255, 255, 255, 0.3); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14.5px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-outline { background: white; color: var(--primary); border: 1.5px solid var(--primary); }
+    .btn-outline:hover { background: var(--primary-light); }
+    .footer-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    @media print {
+      body { background: white; color: black; font-size: 13px; }
+      .container { max-width: 100%; padding: 0; }
+      .card { border: 1px solid #ccc; box-shadow: none; page-break-inside: avoid; margin-bottom: 16px; padding: 16px; }
+      header { background: #1e293b !important; color: white !important; padding: 20px; page-break-after: avoid; }
+      .nav-bar, .copy-btn, .footer-nav { display: none !important; }
+      pre { background: #f8fafc !important; color: #0f172a !important; border: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <div class="badge-header">คู่มือมาตรฐานสำหรับวิทยากร ผู้ช่วยสอน (TA) และผู้เรียน</div>
+    <h1>📡 กิจกรรมที่ 9 — อัปเดตบอร์ดที่แปลงให้ส่งข้อมูลด้วย ESP-NOW (Send)</h1>
+    <p>คู่มือปฏิบัติการอัปเกรดเฟิร์มแวร์บอร์ด GoGo-IoT ผ่าน Web Serial (ESP Web Tools), การเปิดใช้งานโพรโทคอล ESP-NOW สำหรับส่งข้อมูลแบบไร้สายระยะไกลโดยไม่ง้อ Access Point, และการทำงานแบบ Dual-Stack</p>
+  </header>
+
+  <div class="nav-bar">
+    <a href="index.html">🏠 ศูนย์รวมคู่มือ (Master Hub)</a>
+    <a href="#intro">1. บทนำและแนวคิด</a>
+    <a href="#time-matrix">2. แผนการจัดเวลา</a>
+    <a href="#hardware">3. อุปกรณ์และการเชื่อมต่อ</a>
+    <a href="#steps">4. ขั้นตอนการทดลอง</a>
+    <a href="#code">5. โค้ด/การตั้งค่า</a>
+    <a href="#answers">6. เฉลยใบงาน</a>
+    <a href="#troubleshooting">7. การแก้ปัญหา</a>
+    <a href="#rubric">8. เกณฑ์การประเมิน</a>
+  </div>
+
+  <div class="card" id="intro">
+    <h2 class="section-title"><span>📌</span> 1. บทนำและแนวคิดวิศวกรรม (Send Principles)</h2>
+<p style="margin-bottom:12px;">ในแปลงเกษตรขนาดใหญ่ สัญญาณ Wi-Fi จากตัวเรือนมักแผ่ไปไม่ถึง และการตั้งเสาขยายสัญญาณ Wi-Fi กลางแดดก็มีค่าใช้จ่ายสูงและกินพลังงานมาก <strong>ESP-NOW</strong> คือโพรโทคอลสื่อสารไร้สายความเร็วสูงที่พัฒนาโดย Espressif ซึ่งส่งข้อมูลตรงระหว่างชิป ESP32 โดยไม่ต้องเชื่อมต่อเราเตอร์</p>
+<p style="margin-bottom:12px;"><strong>แนวคิดสำคัญในกิจกรรมที่ 9:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>Connectionless Protocol (ไร้การจับคู่แบบดั้งเดิม):</strong> ไม่ต้องรอการจับมือ 4 ทาง (4-Way Handshake) ไม่ต้องขอ IP ผ่าน DHCP ทำให้ตื่นขึ้นมาส่งข้อมูลเสร็จภายในเวลาเพียง 2-5 มิลลิวินาที</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>Web Serial API & ESP Web Tools:</strong> เทคโนโลยีเว็บเบราว์เซอร์ยุคใหม่ที่สามารถสื่อสารตรงกับพอร์ต USB Serial บนชิป ESP32 ทำให้แฟลชเฟิร์มแวร์ผ่านเว็บได้โดยไม่ต้องติดตั้งไดรเวอร์หรือโปรแกรมเสริม</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>Broadcast Transmission:</strong> การยิงแพ็กเก็ตข้อมูลออกสู่อากาศโดยใช้แอดเดรสปลายทางแบบบรอดคาสต์ (<code class="code-inline">FF:FF:FF:FF:FF:FF</code>) ทำให้บอร์ดตัวรับใด ๆ ในรัศมีสัญญาณสามารถดักฟังข้อมูลได้</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>4.</strong> <strong>Dual-Stack Operation:</strong> ในกิจกรรมนี้ เฟิร์มแวร์รุ่นใหม่ถูกออกแบบให้ส่งข้อมูล 2 ช่องทางพร้อมกัน: ต่อ Wi-Fi เดิมเพื่อส่งให้ Home Assistant และยิง ESP-NOW ออกอากาศ เพื่อเตรียมรับมือกับสถานการณ์ Wi-Fi ดับ</p>
+  </div>
+
+  <div class="card" id="time-matrix">
+    <h2 class="section-title"><span>⏱️</span> 2. แผนการจัดการเรียนรู้และเวลา (Facilitator Time Matrix)</h2>
+    <p style="margin-bottom: 14px;"><strong>เวลารวม:</strong> 45 นาที | <strong>รูปแบบการจัด:</strong> ปฏิบัติการแฟลชเฟิร์มแวร์ผ่านเบราว์เซอร์และการดักฟังสัญญาณแพ็กเก็ตบรอดคาสต์</p>
+    <div class="mermaid">
+gantt
+    title ลำดับขั้นตอนกิจกรรมที่ 9: ESP-NOW Send (45 นาที)
+    dateFormat  m
+    axisFormat %M นาที
+    section แฟลชเฟิร์มแวร์
+    เสียบสาย USB & แฟลชผ่าน Web Tools :a1, 0, 15m
+    section ตรวจสอบบูต
+    อ่าน Log บูต & บันทึก MAC Address  :a2, after a1, 10m
+    section ตรวจสอบสองทาง
+    ตรวจค่าบนเว็บเดิม & ใน HA         :a3, after a2, 10m
+    section สรุป & วิศวกรรม
+    วิเคราะห์ข้อได้เปรียบ & อภิปราย 9-Q :a4, after a3, 10m
+    </div>
+<table><thead><tr><th>ช่วงเวลา</th><th>กิจกรรมย่อย</th><th>บทบาทวิทยากร / TA</th><th>ผลลัพธ์ที่ต้องได้</th></tr></thead><tbody><tr><td><strong>00:00 - 15:00</strong></td><td>9.1 แฟลชเฟิร์มแวร์ใหม่</td><td>แนะนำเว็บ <code class="code-inline">web.esphome.io</code> เลือกไฟล์เฟิร์มแวร์โซนสีของกลุ่ม (เช่น <code class="code-inline">red_espnow.bin</code>)</td><td>แฟลชผ่าน 100% บอร์ดรีสตาร์ตสำเร็จ</td></tr><tr><td><strong>15:00 - 25:00</strong></td><td>9.2 ตรวจสอบ Log และ MAC</td><td>ให้ผู้เรียนเปิด Logs ในเบราว์เซอร์ ดูข้อความการส่ง ESP-NOW และจด MAC Address</td><td>จดค่า MAC Address 6 ไบต์ของบอร์ดตนเอง</td></tr><tr><td><strong>25:00 - 35:00</strong></td><td>9.3 ดูค่าใหม่บนหน้าเว็บ & HA</td><td>ตรวจดูว่าหน้าเว็บเดิมของบอร์ดยังเข้าได้ และใน Home Assistant อุปกรณ์กลับมาออนไลน์</td><td>ข้อมูลใน HA อัปเดตปกติ แสดงว่า Dual-stack สมบูรณ์</td></tr><tr><td><strong>35:00 - 45:00</strong></td><td>สรุปวิศวกรรมเครือข่าย & 9-Q</td><td>อธิบายความต่างระหว่าง Wi-Fi Packet กับ ESP-NOW Action Frame</td><td>ตอบคำถาม 9-Q ลงใบงานครบถ้วน</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="hardware">
+    <h2 class="section-title"><span>🔌</span> 3. รายการอุปกรณ์และการเชื่อมต่อ (Hardware BOM & Interfacing)</h2>
+    <div class="mermaid">
+flowchart TD
+    subgraph GOGO_BOARD["บอร์ด GoGo-IoT (ส่งข้อมูล)"]
+        SHT["SHT30: อุณหภูมิ/ความชื้น"]
+        ESP["ESP32-C3 Firmware v2 (ESP-NOW Enabled)"]
+        SHT --> ESP
+    end
+
+    subgraph PATH_A["เส้นทางที่ 1: เครือข่าย Wi-Fi เดิม (ห้องอบรม)"]
+        AP["Wi-Fi Access Point (โซนสี)"]
+        HA["Home Assistant Server"]
+        ESP -->|Wi-Fi Station (TCP/IP)| AP --> HA
+    end
+
+    subgraph PATH_B["เส้นทางที่ 2: คลื่นไร้สาย ESP-NOW (เตรียมใช้จริง)"]
+        AIR["คลื่นวิทยุ 2.4 GHz (Broadcast Packets)"]
+        ESP -->|ESP-NOW Action Frames (No Router)| AIR
+    end
+    </div>
+<table><thead><tr><th>ลำดับ</th><th>รายการอุปกรณ์</th><th>สเปก / คุณสมบัติ</th><th>หน้าที่ในระบบ</th></tr></thead><tbody><tr><td>1</td><td><strong>บอร์ด GoGo-IoT (Sensor Node)</strong></td><td>ESP32-C3 พร้อมเซนเซอร์เดิมจากช่วงที่ 1</td><td>อัปเกรดเป็นโหนดส่งสัญญาณ ESP-NOW</td></tr><tr><td>2</td><td><strong>สาย USB-C Data Cable</strong></td><td>สายเชื่อมต่อ USB ที่มีสายข้อมูลครบ 4 เส้น</td><td>ใช้สำหรับเบิร์นเฟิร์มแวร์ผ่าน Web Serial</td></tr><tr><td>3</td><td><strong>Google Chrome เบราว์เซอร์</strong></td><td>รองรับ Web Serial API</td><td>โปรแกรมสำหรับติดต่อฮาร์ดแวร์เพื่อแฟลชโค้ด</td></tr><tr><td>4</td><td><strong>ไฟล์เฟิร์มแวร์ ESP-NOW (.bin)</strong></td><td>เฟิร์มแวร์ที่คอมไพล์สำเร็จรูปตรงตามโซนสี</td><td>โปรแกรมควบคุมระบบสื่อสารสองทาง</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="steps">
+    <h2 class="section-title"><span>🧪</span> 4. ขั้นตอนการทดลองอย่างละเอียดทีละขั้น (Step-by-Step Lab Protocol)</h2>
+<h3 class="sub-title">ขั้นตอนที่ 9.1: ดาวน์โหลดและติดตั้งเฟิร์มแวร์รุ่นใหม่ผ่าน Web Serial</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> นำสาย USB-C ของบอร์ด GoGo-IoT มาเสียบเข้ากับพอร์ต USB ของแล็ปท็อป</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> เปิด Google Chrome ไปที่หน้าติดตั้งเฟิร์มแวร์ของโครงการ (หรือ <code class="code-inline">web.esphome.io</code>)</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> กดปุ่ม <strong>Connect</strong> -> จะมีหน้าต่าง Pop-up ให้เลือกพอร์ต (เช่น <code class="code-inline">USB Serial JTAG</code> หรือ <code class="code-inline">ttyUSB0</code>) -> กดเลือกแล้วคลิก <strong>Connect</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>4.</strong> เลือกไฟล์เฟิร์มแวร์ที่ตรงกับ <strong>"สีโซนของกลุ่ม"</strong> (ระวัง: ห้ามเลือกผิดโซน เพราะค่า Wi-Fi จะไม่ตรง)</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>5.</strong> กดปุ่ม <strong>Install</strong> รอแถบเปอร์เซ็นต์วิ่งจนครบ 100% (ใช้เวลาประมาณ 1-2 นาที)</p>
+<h3 class="sub-title">ขั้นตอนที่ 9.2: ตรวจสอบ Log และจดหมายเลข MAC Address</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> เมื่อติดตั้งเสร็จ ให้คลิกที่ปุ่ม <strong>Logs & Console</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> กดรีเซ็ตบอร์ดหนึ่งครั้ง สังเกตข้อความบรรทัดเริ่มต้น:</p>
+<p style="margin-left:20px; text-indent:-15px;">• จะแสดงหมายเลข MAC Address ของบอร์ด เช่น <code class="code-inline">MAC: 24:D7:EB:24:2D:CC</code></p>
+<p style="margin-left:20px; text-indent:-15px;">• จะแสดงข้อความการส่งแพ็กเก็ต: <code class="code-inline">[ESP-NOW] Broadcast packet sent: Temp=30.2, Hum=65.4</code></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>จดหมายเลข MAC Address นี้ไว้อย่างถูกต้อง</strong> เพราะจำเป็นต้องใช้ในกิจกรรมที่ 10</p>
+<h3 class="sub-title">ขั้นตอนที่ 9.3: ตรวจสอบความพร้อมของระบบเดิม</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> เปิดหน้าเว็บเดิมของบอร์ด (<code class="code-inline">http://gogo-iot-xxxxxx.local</code>) ตรวจสอบว่าค่ายังขึ้นปกติ</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> ตรวจสอบใน Home Assistant: Entity ของบอร์ดยังต้องออนไลน์และส่งค่าตามปกติ</p>
+  </div>
+
+  <div class="card" id="code">
+    <h2 class="section-title"><span>💻</span> 5. โค้ดและการตั้งค่าสำเร็จรูป (Ready-to-use Configurations)</h2>
+    <pre><button class="copy-btn" onclick="copyCode(this)">📋 คัดลอก</button><code>// ตัวอย่างโครงสร้างโค้ด ESP-NOW Sender บน ESP32-C3
+#include <esp_now.h>
+#include <WiFi.h>
+
+typedef struct struct_message {
+    char board_id[16];
+    float temp;
+    float hum;
+    bool float_switch;
+} struct_message;
+
+struct_message myData;
+uint8_t broadcastAddress[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+
+void setup() {
+    WiFi.mode(WIFI_AP_STA); // ทำงานควบคู่ทั้ง Wi-Fi และ ESP-NOW
+    if (esp_now_init() != ESP_OK) return;
+    
+    esp_now_peer_info_t peerInfo = {};
+    memcpy(peerInfo.peer_addr, broadcastAddress, 6);
+    peerInfo.channel = 0;
+    peerInfo.encrypt = false;
+    esp_now_add_peer(&peerInfo);
+}
+
+void loop() {
+    // อ่านค่าเซนเซอร์แล้วส่งออกอากาศทุก 3 วินาที
+    myData.temp = readTemp();
+    myData.hum = readHum();
+    esp_now_send(broadcastAddress, (uint8_t *) &myData, sizeof(myData));
+    delay(3000);
+}</code></pre>
+  </div>
+
+  <div class="card" id="answers">
+    <h2 class="section-title"><span>📝</span> 6. แนวทางการตรวจคำตอบและเฉลยใบงาน (Answer Key & Discussion)</h2>
+<h3 class="sub-title">เฉลยคำตอบและแนวทางการตรวจใบงาน (Activity 9 Worksheet)</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>ข้อ 9.2 หมายเลข MAC Address ของบอร์ดที่แปลง:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• บันทึกเลขฐานสิบหก 12 ตัว (คั่นด้วยโคลอน 6 คู่) เช่น <code class="code-inline">24:D7:EB:24:2D:CC</code></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>ข้อ 9.3 ความเปลี่ยนแปลงบนหน้าเว็บและ Home Assistant:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• หน้าเว็บยังแสดงค่าเซนเซอร์เหมือนเดิม</p>
+<p style="margin-left:20px; text-indent:-15px;">• ใน Home Assistant อุปกรณ์ไม่หลุด (ยังออนไลน์ตามปกติผ่าน Dual-Stack)</p>
+<hr style="border:0; border-top:1px solid var(--border); margin:20px 0;">
+<h3 class="sub-title">💡 การอภิปรายเชิงวิศวกรรม (คำถาม 9-Q)</h3>
+<p style="margin-bottom:12px;"><strong>คำถาม:</strong> <em>ในแปลงเกษตรที่ห่างไกลและไม่มีโครงข่ายไฟฟ้า ทำไมการส่งข้อมูลด้วย ESP-NOW จึงประหยัดพลังงานแบตเตอรี่ได้มากกว่าการเชื่อมต่อ Wi-Fi ทั่วไปอย่างมหาศาล?</em></p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>เฉลยเชิงวิศวกรรม:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>Zero Association Overhead:</strong> การต่อ Wi-Fi มาตรฐาน โหนดต้องสแกนหา SSID, ส่ง Authentication Frame, ทำ 4-Way Handshake เพื่อยืนยันรหัส WPA2, และรอรับ IP ผ่าน DHCP ขั้นตอนนี้ใช้เวลานานถึง <strong>3 - 8 วินาที</strong> ซึ่งชิปต้องใช้พลังงานสูงตลอดเวลานี้</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>Sub-10ms Transmission:</strong> ESP-NOW เป็นโพรโทคอลแบบ Connectionless ทำงานที่ระดับ MAC Layer เมื่อไมโครคอนโทรลเลอร์ตื่นจาก Deep Sleep สามารถยิงแพ็กเก็ตข้อมูลออกสู่อากาศได้ทันทีในเวลาเพียง <strong>3 - 10 มิลลิวินาที</strong> แล้วกลับเข้าสู่ Deep Sleep ได้ทันที</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>อายุการใช้งานแบตเตอรี่:</strong> ด้วยความต่างของเวลาทำงาน (3 วินาที เทียบกับ 5 มิลลิวินาที) โหนดเซนเซอร์ที่ใช้ ESP-NOW สามารถทำงานด้วยแบตเตอรี่ก้อนเดิมได้นานกว่า Wi-Fi มาตรฐานถึง <strong>10 ถึง 50 เท่า</strong> (อยู่ได้นับปี)</p>
+  </div>
+
+  <div class="card" id="troubleshooting">
+    <h2 class="section-title"><span>🛠️</span> 7. การแก้ไขปัญหาหน้างานที่พบบ่อย (Troubleshooting FAQ)</h2>
+<table><thead><tr><th>ปัญหาที่พบ</th><th>สาเหตุที่เป็นไปได้</th><th>วิธีการแก้ไข</th></tr></thead><tbody><tr><td><strong>เบราว์เซอร์มองไม่เห็นพอร์ต USB Serial</strong></td><td>ใช้สายชาร์จที่ไม่มีสายดาต้า (Charge-only cable) หรือขาดไดรเวอร์ CH340/CP2102</td><td>เปลี่ยนสาย USB เส้นใหม่ หรือกดปุ่ม <strong>BOOT</strong> บนบอร์ดค้างไว้ขณะเสียบสาย</td></tr><tr><td><strong>แฟลชหยุดชะงักที่ 50% หรือ Error</strong></td><td>จ่ายไฟผ่านพอร์ต USB ไม่พอ หรือสายหลวม</td><td>ขยับสายให้แน่น และปิดโปรแกรม Terminal/Arduino IDE อื่นที่แย่งพอร์ตอยู่</td></tr><tr><td><strong>บอร์ดไม่ต่อ Wi-Fi เดิมหลังแฟลชเสร็จ</strong></td><td>เลือกไฟล์เฟิร์มแวร์ผิดสีโซน</td><td>ดาวน์โหลดไฟล์เฟิร์มแวร์ที่ตรงกับสีกลุ่มตนเอง แล้วทำการแฟลชใหม่อีกครั้ง</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="rubric">
+    <h2 class="section-title"><span>📊</span> 8. เกณฑ์การประเมินผลการเรียนรู้ (Assessment Rubric)</h2>
+<table><thead><tr><th>เกณฑ์การประเมิน</th><th>ดีเยี่ยม (4-5 คะแนน)</th><th>พอใช้ (2-3 คะแนน)</th><th>ต้องปรับปรุง (0-1 คะแนน)</th></tr></thead><tbody><tr><td><strong>การแฟลชเฟิร์มแวร์ผ่านเว็บ (5 คะแนน)</strong></td><td>แฟลชเฟิร์มแวร์ได้ตรงตามโซนสี และบอร์ดรีสตาร์ตสำเร็จในครั้งแรก</td><td>แฟลชได้สำเร็จแต่ต้องได้รับคำแนะนำเรื่องสายหรือพอร์ต</td><td>ไม่สามารถแฟลชบอร์ดได้</td></tr><tr><td><strong>การบันทึกหมายเลข MAC (5 คะแนน)</strong></td><td>เปิด Log และจดหมายเลข MAC Address ได้ถูกต้องครบทั้ง 6 ไบต์</td><td>จด MAC ได้แต่มีพิมพ์ผิดบางตัวอักษร</td><td>ไม่สามารถหา MAC Address ได้</td></tr><tr><td><strong>การตรวจสอบ Dual-Stack (5 คะแนน)</strong></td><td>ตรวจสอบทั้งหน้าเว็บและ Home Assistant ว่ายังทำงานได้ครบถ้วน</td><td>ตรวจสอบได้เฉพาะหน้าเว็บของบอร์ด</td><td>ไม่ได้ทำการตรวจสอบ</td></tr><tr><td><strong>การตอบคำถามคิดวิเคราะห์ 9-Q (5 คะแนน)</strong></td><td>อธิบายกลไก Handshake และการลดเวลาตื่นของชิปได้อย่างลึกซึ้ง</td><td>ตอบได้เรื่องประหยัดแบตเตอรี่แต่ไม่อธิบายกลไก</td><td>ตอบไม่ตรงประเด็น</td></tr></tbody></table>
+  </div>
+
+  <div class="card footer-nav">
+    <a href="activity_8_farm_design_guide.html" class="btn btn-outline">⬅️ กิจกรรมที่ 8 (Design)</a>
+    <a href="index.html" class="btn btn-outline">🏠 กลับสู่ศูนย์รวมคู่มือ</a>
+    <a href="activity_10_espnow_receive_guide.html" class="btn btn-primary">กิจกรรมที่ 10 (Receive) ➡️</a>
+  </div>
+
+</div>
+
+<script>
+function copyCode(btn) {
+  const pre = btn.parentElement;
+  const code = pre.querySelector('code').innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    const originalText = btn.innerText;
+    btn.innerText = '✓ คัดลอกแล้ว';
+    setTimeout(() => { btn.innerText = originalText; }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>

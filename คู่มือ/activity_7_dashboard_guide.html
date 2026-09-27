@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>คู่มือการจัดกิจกรรม: กิจกรรมที่ 7 — สร้างหน้าจอติดตามและควบคุมฟาร์ม (Dashboard) | Smart Farm AIoT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --primary-light: #e0f2fe;
+      --success: #16a34a;
+      --success-light: #dcfce7;
+      --warning: #d97706;
+      --warning-light: #fef3c7;
+      --danger: #dc2626;
+      --danger-light: #fee2e2;
+      --purple: #7c3aed;
+      --purple-light: #f3e8ff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --border: #e2e8f0;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.7;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 30px 20px 80px 20px;
+    }
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, var(--primary-dark) 100%);
+      color: white;
+      padding: 44px 32px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    header::after {
+      content: '📊';
+      position: absolute;
+      right: 24px;
+      bottom: -15px;
+      font-size: 130px;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .badge-header {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+      padding: 4px 14px;
+      border-radius: 9999px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+    header p {
+      font-size: 16px;
+      opacity: 0.9;
+      max-width: 760px;
+    }
+    .nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+      padding: 12px 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-bar a {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .nav-bar a:hover {
+      background: var(--primary-light);
+    }
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 30px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    h2.section-title {
+      font-size: 21px;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #f1f5f9;
+    }
+    h3.sub-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1e293b;
+      margin: 22px 0 12px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .callout {
+      padding: 16px 20px;
+      border-radius: 10px;
+      margin: 18px 0;
+      font-size: 15px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .callout-icon { font-size: 22px; line-height: 1.4; flex-shrink: 0; }
+    .callout.important { background-color: var(--primary-light); border-left: 4px solid var(--primary); color: var(--primary-dark); }
+    .callout.warning { background-color: var(--warning-light); border-left: 4px solid var(--warning); color: #92400e; }
+    .callout.success { background-color: var(--success-light); border-left: 4px solid var(--success); color: #166534; }
+    .callout.danger { background-color: var(--danger-light); border-left: 4px solid var(--danger); color: #991b1b; }
+    table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14.5px; }
+    th, td { border: 1px solid var(--border); padding: 12px 14px; text-align: left; vertical-align: top; }
+    th { background: #f8fafc; font-weight: 600; color: #334155; }
+    tr:nth-child(even) td { background-color: #fafbfd; }
+    pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 18px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin: 16px 0;
+      position: relative;
+    }
+    code { font-family: 'JetBrains Mono', monospace; font-size: 13.5px; }
+    .code-inline { background: #f1f5f9; color: #0369a1; padding: 2px 6px; border-radius: 4px; font-weight: 500; }
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      font-family: 'Sarabun', sans-serif;
+    }
+    .copy-btn:hover { background: rgba(255, 255, 255, 0.3); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14.5px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-outline { background: white; color: var(--primary); border: 1.5px solid var(--primary); }
+    .btn-outline:hover { background: var(--primary-light); }
+    .footer-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    @media print {
+      body { background: white; color: black; font-size: 13px; }
+      .container { max-width: 100%; padding: 0; }
+      .card { border: 1px solid #ccc; box-shadow: none; page-break-inside: avoid; margin-bottom: 16px; padding: 16px; }
+      header { background: #1e293b !important; color: white !important; padding: 20px; page-break-after: avoid; }
+      .nav-bar, .copy-btn, .footer-nav { display: none !important; }
+      pre { background: #f8fafc !important; color: #0f172a !important; border: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <div class="badge-header">คู่มือมาตรฐานสำหรับวิทยากร ผู้ช่วยสอน (TA) และผู้เรียน</div>
+    <h1>📊 กิจกรรมที่ 7 — สร้างหน้าจอติดตามและควบคุมฟาร์ม (Dashboard)</h1>
+    <p>คู่มือปฏิบัติการออกแบบ UI/UX สำหรับระบบเกษตรอัจฉริยะ, การวิเคราะห์กลุ่มผู้ใช้งาน (User Persona), การจัดลำดับข้อมูล (Information Hierarchy), การสร้างแดชบอร์ดด้วย Lovelace Cards, และการทดสอบความง่ายในการใช้งาน (Usability Testing)</p>
+  </header>
+
+  <div class="nav-bar">
+    <a href="index.html">🏠 ศูนย์รวมคู่มือ (Master Hub)</a>
+    <a href="#intro">1. บทนำและแนวคิด</a>
+    <a href="#time-matrix">2. แผนการจัดเวลา</a>
+    <a href="#hardware">3. อุปกรณ์และการเชื่อมต่อ</a>
+    <a href="#steps">4. ขั้นตอนการทดลอง</a>
+    <a href="#code">5. โค้ด/การตั้งค่า</a>
+    <a href="#answers">6. เฉลยใบงาน</a>
+    <a href="#troubleshooting">7. การแก้ปัญหา</a>
+    <a href="#rubric">8. เกณฑ์การประเมิน</a>
+  </div>
+
+  <div class="card" id="intro">
+    <h2 class="section-title"><span>📌</span> 1. บทนำและแนวคิดวิศวกรรม (Dashboard Principles)</h2>
+<p style="margin-bottom:12px;">หน้าจอแดชบอร์ดที่ดีไม่ใช่หน้าจอที่มีข้อมูลมากที่สุด แต่เป็นหน้าจอที่ <strong>"แสดงข้อมูลที่ถูกต้อง ให้แก่คนที่ถูกคน ในเวลาที่ต้องการ"</strong> เพื่อให้การตัดสินใจสั่งการเกิดขึ้นได้อย่างรวดเร็วและไม่ผิดพลาด</p>
+<p style="margin-bottom:12px;"><strong>แนวคิดสำคัญในกิจกรรมที่ 7:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>User Persona (กลุ่มผู้ใช้งานในฟาร์ม):</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>เจ้าของฟาร์ม / ผู้บริหาร:</strong> ต้องการดูภาพรวมรายวัน สรุปสถานะ สภาพอากาศ และความพร้อมของระบบ</p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>คนงานหน้าแปลง:</strong> ต้องการปุ่มกดสั่งงานขนาดใหญ่ แสดงสถานะปั๊มชัดเจน มองเห็นง่ายกลางแดด</p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>ช่างเทคนิค:</strong> ต้องการดูระดับแบตเตอรี่ ความแรงสัญญาณ Wi-Fi และข้อความแจ้งเตือนความผิดพลาด</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>Information Hierarchy (การจัดลำดับการรับรู้):</strong> วางข้อมูลสำคัญที่สุด (Critical Status) ไว้บนสุด ตามด้วยเกจวัดค่าหลัก และปุ่มควบคุม</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>Lovelace UI Cards:</strong> โมดูลการ์ดแสดงผลมาตรฐานของ Home Assistant เช่น <strong>Gauge Card</strong> (เกจวัดเข็มพร้อมแถบสี), <strong>Entities Card</strong> (รายการสวิตช์), และ <strong>Button Card</strong> (ปุ่มกดด่วน)</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>4.</strong> <strong>Peer Usability Testing:</strong> การทดสอบให้ผู้อื่นลองสั่งงานโดยไม่อธิบาย เพื่อค้นหาจุดบกพร่องในการออกแบบ</p>
+  </div>
+
+  <div class="card" id="time-matrix">
+    <h2 class="section-title"><span>⏱️</span> 2. แผนการจัดการเรียนรู้และเวลา (Facilitator Time Matrix)</h2>
+    <p style="margin-bottom: 14px;"><strong>เวลารวม:</strong> 45 นาที | <strong>รูปแบบการจัด:</strong> ปฏิบัติการออกแบบหน้าจอและสลับให้เพื่อนต่างกลุ่มทดสอบการใช้งานจริง (Peer Usability Testing)</p>
+    <div class="mermaid">
+gantt
+    title ลำดับขั้นตอนกิจกรรมที่ 7: Dashboard (45 นาที)
+    dateFormat  m
+    axisFormat %M นาที
+    section วิเคราะห์ Persona
+    เลือกกลุ่มเป้าหมาย & วางโครงสร้าง :a1, 0, 10m
+    section สร้างแดชบอร์ด
+    เพิ่ม Gauge, Button, Entities Cards :a2, after a1, 20m
+    section ทดสอบกับเพื่อน
+    สลับให้เพื่อนกด & ประเมินผล     :a3, after a2, 10m
+    section ปรับปรุง & สรุป
+    บันทึกข้อเสนอแนะ & อภิปราย 7-Q   :a4, after a3, 5m
+    </div>
+<table><thead><tr><th>ช่วงเวลา</th><th>กิจกรรมย่อย</th><th>บทบาทวิทยากร / TA</th><th>ผลลัพธ์ที่ต้องได้</th></tr></thead><tbody><tr><td><strong>00:00 - 10:00</strong></td><td>7.1 กำหนด Persona & วางผัง</td><td>อธิบายความต่างระหว่างหน้าจอเจ้าของฟาร์มกับคนงาน ให้เลือกโจทย์ 1 แบบ</td><td>แผนผังหน้าจอคร่าว ๆ ในกระดาษ/ใบงาน</td></tr><tr><td><strong>10:00 - 30:00</strong></td><td>7.2 & 7.3 สร้างแดชบอร์ด Lovelace</td><td>แนะนำการกด Edit Dashboard -> Add Card สร้าง Gauge, Entities, Button</td><td>แดชบอร์ดที่ใช้งานได้จริง มีเกจและปุ่มกด</td></tr><tr><td><strong>30:00 - 40:00</strong></td><td>7.4 ให้เพื่อนต่างกลุ่มทดลองใช้</td><td>ให้สลับเครื่องกันลองกดสั่งปั๊ม และสังเกตว่าเพื่อนกดถูกหรือไม่</td><td>บันทึกผล Usability Feedback</td></tr><tr><td><strong>40:00 - 45:00</strong></td><td>สรุปผลและอภิปราย 7-Q</td><td>สรุปหลัก UX สำหรับเกษตรกรหน้างาน และตอบคำถาม 7-Q</td><td>สรุปผลลงใบงานครบถ้วน</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="hardware">
+    <h2 class="section-title"><span>🔌</span> 3. รายการอุปกรณ์และการเชื่อมต่อ (Hardware BOM & Interfacing)</h2>
+    <div class="mermaid">
+flowchart TD
+    subgraph BACKEND["ข้อมูลหลังบ้าน (Home Assistant)"]
+        S1["sensor.humidity"]
+        S2["sensor.temperature"]
+        S3["binary_sensor.water_level"]
+        SW1["switch.pump_relay"]
+        HLP["input_boolean.auto_mode"]
+    end
+
+    subgraph DASHBOARD["หน้าจอแดชบอร์ด Lovelace UI"]
+        HEADER["ส่วนบน: สถานะเตือนภัย & โหมด Auto/Manual"]
+        MIDDLE["ส่วนกลาง: Gauge Card ความชื้นดิน (แถบสี เขียว/เหลือง/แดง)"]
+        BOTTOM["ส่วนล่าง: Big Button Card สั่งเปิด/ปิดปั๊มน้ำฉุกเฉิน"]
+    end
+
+    BACKEND --> DASHBOARD
+    DASHBOARD -->|สั่งงานผ่านสมาร์ตโฟน/แท็บเล็ต| USER["ผู้ใช้งาน (คนงาน/เกษตรกร)"]
+    </div>
+<table><thead><tr><th>ลำดับ</th><th>การ์ดใน Home Assistant</th><th>ชนิดการ์ด</th><th>ประโยชน์การใช้งาน</th></tr></thead><tbody><tr><td>1</td><td><strong>Gauge Card</strong></td><td>เกจวัดเข็มครึ่งวงกลม</td><td>แสดงค่าความชื้นสัมพัทธ์ พร้อมแบ่งช่วงสี (เขียว=พอดี, แดง=แห้งแล้ง)</td></tr><tr><td>2</td><td><strong>Button Card</strong></td><td>ปุ่มสัมผัสขนาดใหญ่</td><td>สั่งเปิด-ปิดปั๊มน้ำได้สะดวกรวดเร็ว แม้ใช้งานบนมือถือ</td></tr><tr><td>3</td><td><strong>Entities Card</strong></td><td>การ์ดรวมรายการสวิตช์</td><td>รวมสวิตช์ Auto Mode และสถานะสวิตช์ลูกลอย</td></tr><tr><td>4</td><td><strong>History Graph Card</strong></td><td>มินิกราฟเส้น</td><td>แสดงแนวโน้มความชื้นย้อนหลัง 24 ชั่วโมงในหน้าเดียว</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="steps">
+    <h2 class="section-title"><span>🧪</span> 4. ขั้นตอนการทดลองอย่างละเอียดทีละขั้น (Step-by-Step Lab Protocol)</h2>
+<h3 class="sub-title">ขั้นตอนที่ 7.1: วิเคราะห์กลุ่มผู้ใช้งาน (Persona)</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> ตอบคำถามในใบงาน: หน้าจอนี้ออกแบบให้ <strong>"คนงานดูแลแปลง"</strong> หรือ <strong>"เจ้าของฟาร์ม"</strong>?</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> หากเป็นคนงาน: ต้องเน้นปุ่มกดใหญ่ ไม่ซับซ้อน ตัวอักษรใหญ่ชัดเจน</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> หากเป็นเจ้าของฟาร์ม: เน้นสรุปตัวเลขสถิติ กราฟประวัติ และการตั้งค่าโหมด</p>
+<h3 class="sub-title">ขั้นตอนที่ 7.2: เลือกข้อมูลและสร้างแดชบอร์ดใหม่</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> ใน Home Assistant ไปที่ <strong>Overview</strong> -> คลิกจุดสามจุดมุมบนขวา -> <strong>Edit Dashboard</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> คลิกปุ่ม <strong>+ Add Card</strong> เพื่อเริ่มวางการ์ด</p>
+<h3 class="sub-title">ขั้นตอนที่ 7.3: สร้างการ์ดแสดงผลหลัก 3 แบบ</h3>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>การ์ดที่ 1: Gauge Card (เกจวัดความชื้นดิน):</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• Entity: <code class="code-inline">sensor.gogo_iot_xxxxxx_humidity</code></p>
+<p style="margin-left:20px; text-indent:-15px;">• กำหนดช่วงสี: Green (60-80%), Yellow (40-60%), Red (0-40%)</p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>การ์ดที่ 2: Big Button Card (ปุ่มควบคุมปั๊มน้ำ):</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• Entity: <code class="code-inline">switch.gogo_relay_xxxxxx_relay</code></p>
+<p style="margin-left:20px; text-indent:-15px;">• Name: "ปั๊มน้ำแปลงที่ 1", Show Name, Show State</p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>การ์ดที่ 3: Entities Card (การ์ดสถานะความปลอดภัย):</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• รวมสวิตช์ Auto Mode, สวิตช์ลูกลอยระดับน้ำ, และอุณหภูมิ</p>
+<h3 class="sub-title">ขั้นตอนที่ 7.4: ทดสอบการใช้งานกับเพื่อน (Peer Testing)</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> สลับหน้าจอให้เพื่อนกลุ่มข้างเคียงทดลองสั่งงาน</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> มอบหมายภารกิจ: "สั่งเปิดปั๊มน้ำด้วยตนเอง แล้วตรวจสอบว่ามีน้ำในถังหรือไม่"</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> สังเกตว่าเพื่อนต้องใช้เวลากี่วินาทีในการหาปุ่มเจอ และมีจุดสับสนหรือไม่</p>
+  </div>
+
+  <div class="card" id="code">
+    <h2 class="section-title"><span>💻</span> 5. โค้ดและการตั้งค่าสำเร็จรูป (Ready-to-use Configurations)</h2>
+    <pre><button class="copy-btn" onclick="copyCode(this)">📋 คัดลอก</button><code># ตัวอย่าง Lovelace Dashboard YAML Configuration
+type: vertical-stack
+cards:
+  - type: gauge
+    entity: sensor.gogo_iot_red_242dcc_khwamchun_humidity
+    name: ความชื้นในแปลงปลูก
+    min: 0
+    max: 100
+    needle: true
+    severity:
+      red: 0
+      yellow: 40
+      green: 60
+  - type: horizontal-stack
+    cards:
+      - type: button
+        entity: switch.gogo_relay_red_b97df0_riley_relay
+        name: ปั๊มน้ำแปลง 1
+        icon: mdi:water-pump
+        tap_action:
+          action: toggle
+      - type: button
+        entity: input_boolean.farm_auto_mode
+        name: ระบบ Auto
+        icon: mdi:robot
+        tap_action:
+          action: toggle</code></pre>
+  </div>
+
+  <div class="card" id="answers">
+    <h2 class="section-title"><span>📝</span> 6. แนวทางการตรวจคำตอบและเฉลยใบงาน (Answer Key & Discussion)</h2>
+<h3 class="sub-title">เฉลยคำตอบและแนวทางการตรวจใบงาน (Activity 7 Worksheet)</h3>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>ข้อ 7.1 กลุ่มผู้ใช้เป้าหมาย:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• เลือกบทบาท (เช่น คนงานรดน้ำในแปลง)</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>ข้อ 7.2 ข้อมูลที่ต้องแสดง:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• ลำดับที่ 1: สถานะปั๊มน้ำและปุ่มเปิด-ปิด</p>
+<p style="margin-left:20px; text-indent:-15px;">• ลำดับที่ 2: ค่าความชื้นในดิน/ระดับน้ำในถัง</p>
+<p style="margin-left:20px; text-indent:-15px;">• ลำดับที่ 3: โหมดการทำงาน (Auto/Manual)</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>ข้อ 7.4 ผลการทดสอบจากเพื่อน:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;">• บันทึกคำติชม เช่น "ปุ่มกดหาเจอง่าย", "ควรเปลี่ยนสีตัวหนังสือให้สว่างขึ้น"</p>
+<hr style="border:0; border-top:1px solid var(--border); margin:20px 0;">
+<h3 class="sub-title">💡 การอภิปรายเชิงวิศวกรรม (คำถาม 7-Q)</h3>
+<p style="margin-bottom:12px;"><strong>คำถาม:</strong> <em>การออกแบบแดชบอร์ดสำหรับคนงานที่ต้องใช้งานผ่านสมาร์ตโฟนกลางแดดจัดในแปลงเกษตรจริง ควรคำนึงถึงปัจจัย UI/UX ใดเป็นพิเศษ?</em></p>
+<p style="margin-left:20px; text-indent:-15px;">• <strong>เฉลยเชิงวิศวกรรม:</strong></p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>1.</strong> <strong>High Contrast & Light/Dark Mode:</strong> กลางแดดจ้า แสงสะท้อนบนหน้าจอมือถือจะสูงมาก ต้องใช้พื้นผิวที่มีความเปรียบต่างสูง (High Contrast) หลีกเลี่ยงตัวหนังสือสีเทาจาง ๆ</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>2.</strong> <strong>Large Touch Targets (Fat Finger Friendly):</strong> คนงานเกษตรอาจสวมถุงมือหรือนิ้วเปื้อนดิน ปุ่มกดต้องมีขนาดใหญ่ไม่ต่ำกว่า 48x48 พิกเซล และเว้นระยะห่างเพื่อไม่ให้แตะโดนปุ่มข้างเคียง</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>3.</strong> <strong>Visual & Haptic Confirmation:</strong> ต้องมีไฟสถานะเปลี่ยนสีอย่างชัดเจนเมื่อปั๊มเปิด (เช่น เปลี่ยนเป็นสีเขียวสดใส) และเปิดระบบสั่น (Haptic Feedback) เพื่อยืนยันว่าการกดสำเร็จแล้ว</p>
+<p style="margin-left:20px; text-indent:-15px;"><strong>4.</strong> <strong>Minimal Typing:</strong> ไม่ควรมีการพิมพ์ข้อความใด ๆ บนหน้าจอควบคุม ทุกคำสั่งต้องเป็นปุ่มกดหรือสวิตช์ Toggle</p>
+  </div>
+
+  <div class="card" id="troubleshooting">
+    <h2 class="section-title"><span>🛠️</span> 7. การแก้ไขปัญหาหน้างานที่พบบ่อย (Troubleshooting FAQ)</h2>
+<table><thead><tr><th>ปัญหาที่พบ</th><th>สาเหตุที่เป็นไปได้</th><th>วิธีการแก้ไข</th></tr></thead><tbody><tr><td><strong>เกจวัดไม่ขึ้นแถบสีตามที่ตั้งไว้</strong></td><td>ไม่ได้เปิดฟังก์ชัน <code class="code-inline">needle: true</code> หรือกำหนดช่วงตัวเลขกลับด้าน</td><td>ตรวจสอบค่า min (0) ถึง max (100) และกำหนดช่วง severity ให้ถูกต้อง</td></tr><tr><td><strong>การ์ดกระจัดกระจายไม่เป็นระเบียบ</strong></td><td>ไม่ได้จัดกลุ่มด้วย Horizontal/Vertical Stack</td><td>ใช้การ์ดประเภท Stack เพื่อล็อกตำแหน่งการ์ดให้อยู่ในแถวเดียวกัน</td></tr><tr><td><strong>หน้าจอในมือถือตัวหนังสือเล็กเกินไป</strong></td><td>ใช้ Theme ตัวอักษรมาตรฐานที่เล็ก</td><td>ปรับขนาดฟอนต์ในการ์ด หรือใช้การ์ดประเภท Tile/Button ที่ขยายตามความกว้างจอ</td></tr></tbody></table>
+  </div>
+
+  <div class="card" id="rubric">
+    <h2 class="section-title"><span>📊</span> 8. เกณฑ์การประเมินผลการเรียนรู้ (Assessment Rubric)</h2>
+<table><thead><tr><th>เกณฑ์การประเมิน</th><th>ดีเยี่ยม (4-5 คะแนน)</th><th>พอใช้ (2-3 คะแนน)</th><th>ต้องปรับปรุง (0-1 คะแนน)</th></tr></thead><tbody><tr><td><strong>การจัดลำดับข้อมูล (5 คะแนน)</strong></td><td>จัดวางข้อมูลสำคัญไว้บนสุด แยกแยะกลุ่มข้อมูลได้ชัดเจนตาม Persona</td><td>วางข้อมูลได้ครบแต่ลำดับยังสับสนเล็กน้อย</td><td>วางการ์ดปะปนกันโดยไม่มีโครงสร้าง</td></tr><tr><td><strong>ความสวยงามและใช้งานง่าย (5 คะแนน)</strong></td><td>แดชบอร์ดสะอาด สวยงาม มีเกจวัดสี และปุ่มกดที่ชัดเจน</td><td>แดชบอร์ดใช้งานได้ แต่ดีไซน์ยังไม่ลงตัว</td><td>ขาดการ์ดสำคัญ</td></tr><tr><td><strong>การทดสอบ Usability (5 คะแนน)</strong></td><td>ให้เพื่อนทดสอบจริงและบันทึกข้อเสนอแนะเชิงลึก</td><td>ให้เพื่อนทดสอบแต่ไม่ได้บันทึกรายละเอียด</td><td>ไม่ได้ทำการทดสอบกับผู้อื่น</td></tr><tr><td><strong>การตอบคำถามคิดวิเคราะห์ 7-Q (5 คะแนน)</strong></td><td>ระบุข้อจำกัดหน้างานกลางแจ้งและแนวทางแก้ปัญหา UI/UX ได้ครอบคลุม</td><td>ตอบได้เรื่องปุ่มใหญ่ แต่ขาดเรื่องแสงสะท้อนและการยืนยันสถานะ</td><td>ตอบไม่ตรงประเด็น</td></tr></tbody></table>
+  </div>
+
+  <div class="card footer-nav">
+    <a href="activity_6_history_guide.html" class="btn btn-outline">⬅️ กิจกรรมที่ 6 (History)</a>
+    <a href="index.html" class="btn btn-outline">🏠 กลับสู่ศูนย์รวมคู่มือ</a>
+    <a href="activity_8_farm_design_guide.html" class="btn btn-primary">กิจกรรมที่ 8 (Design) ➡️</a>
+  </div>
+
+</div>
+
+<script>
+function copyCode(btn) {
+  const pre = btn.parentElement;
+  const code = pre.querySelector('code').innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    const originalText = btn.innerText;
+    btn.innerText = '✓ คัดลอกแล้ว';
+    setTimeout(() => { btn.innerText = originalText; }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>
