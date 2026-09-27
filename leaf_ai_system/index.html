@@ -574,9 +574,23 @@
             </div>
           </div>
 
-          <button id="btn-detect-bbox" class="btn btn-primary btn-block mt-4" disabled>
-            <span>✨ สแกนและตีกรอบ Bounding Box ทันที (Detect Bounding Boxes)</span>
-          </button>
+          <div class="flex-gap mt-4">
+            <button id="btn-detect-bbox" class="btn btn-primary flex-1" disabled>
+              <span>✨ สแกนและตีกรอบ Bounding Box ทันที (Detect)</span>
+            </button>
+            <button id="btn-open-webcam" class="btn btn-outline" style="border-color: #8B5CF6; color: #A78BFA;" title="เปิดกล้องเว็บแคมส่องสด">
+              <span>📷 เปิดกล้อง</span>
+            </button>
+          </div>
+
+          <!-- Live Webcam Capture Overlay -->
+          <div id="webcam-container" style="display: none; margin-top: 1rem; padding: 1rem; background: rgba(15, 23, 42, 0.95); border: 2px solid #8B5CF6; border-radius: 12px; text-align: center;">
+            <video id="webcam-video" autoplay playsinline style="width: 100%; max-height: 280px; border-radius: 8px; background: #000; object-fit: cover;"></video>
+            <div class="flex-gap mt-2" style="justify-content: center;">
+              <button id="btn-webcam-capture" class="btn btn-sm btn-primary">📸 ถ่ายภาพ & ตรวจจับทันที</button>
+              <button id="btn-webcam-close" class="btn btn-sm btn-outline text-danger">✖ ปิดกล้อง</button>
+            </div>
+          </div>
         </div>
 
         <!-- Right: Interactive Canvas & Detection Table -->

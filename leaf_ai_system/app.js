@@ -737,7 +737,12 @@ document.addEventListener("DOMContentLoaded", () => {
       updateBboxUIStats();
     };
 
-    if (source.type === "file") {
+    if (source.type === "dataUrl") {
+      bboxState.imageFile = null;
+      bboxState.imagePath = "";
+      bboxState.imageSrc = source.dataUrl;
+      img.src = source.dataUrl;
+    } else if (source.type === "file") {
       bboxState.imageFile = source.file;
       bboxState.imagePath = "";
       const reader = new FileReader();
@@ -758,6 +763,68 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
     }
+  }
+
+  // 9.3.1 Live Webcam Controller
+  const btnOpenWebcam = document.getElementById("btn-open-webcam");
+  const webcamContainer = document.getElementById("webcam-container");
+  const webcamVideo = document.getElementById("webcam-video");
+  const btnWebcamCapture = document.getElementById("btn-webcam-capture");
+  const btnWebcamClose = document.getElementById("btn-webcam-close");
+  let webcamStream = null;
+
+  if (btnOpenWebcam) {
+    btnOpenWebcam.addEventListener("click", async () => {
+      try {
+        webcamStream = await navigator.mediaDevices.getUserMedia({
+          video: { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: "environment" }
+        });
+        if (webcamVideo) {
+          webcamVideo.srcObject = webcamStream;
+          if (webcamContainer) webcamContainer.style.display = "block";
+        }
+      } catch (err) {
+        alert("ไม่สามารถเปิดกล้องได้: " + err.message);
+      }
+    });
+  }
+
+  if (btnWebcamClose) {
+    btnWebcamClose.addEventListener("click", () => {
+      if (webcamStream) {
+        webcamStream.getTracks().forEach((track) => track.stop());
+        webcamStream = null;
+      }
+      if (webcamContainer) webcamContainer.style.display = "none";
+    });
+  }
+
+  if (btnWebcamCapture) {
+    btnWebcamCapture.addEventListener("click", () => {
+      if (!webcamVideo) return;
+      const snapCanvas = document.createElement("canvas");
+      snapCanvas.width = webcamVideo.videoWidth || 640;
+      snapCanvas.height = webcamVideo.videoHeight || 480;
+      const snapCtx = snapCanvas.getContext("2d");
+      snapCtx.drawImage(webcamVideo, 0, 0);
+      const dataUrl = snapCanvas.toDataURL("image/jpeg", 0.92);
+
+      setBboxTargetImage({ type: "dataUrl", dataUrl: dataUrl });
+
+      // Stop camera stream after capture
+      if (webcamStream) {
+        webcamStream.getTracks().forEach((track) => track.stop());
+        webcamStream = null;
+      }
+      if (webcamContainer) webcamContainer.style.display = "none";
+
+      // Auto trigger detection
+      setTimeout(() => {
+        if (btnDetectBbox && !btnDetectBbox.disabled) {
+          btnDetectBbox.click();
+        }
+      }, 350);
+    });
   }
 
   // 9.4 Dropzone & File Input for Bbox Studio
