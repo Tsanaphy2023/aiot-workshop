@@ -6,6 +6,7 @@ import 'tabs/control_tab.dart';
 import 'tabs/automation_tab.dart';
 import 'tabs/espnow_tab.dart';
 import 'tabs/history_tab.dart';
+import 'dialogs/connection_settings_dialog.dart';
 
 class MainScreen extends StatefulWidget {
   final VoidCallback onToggleTheme;
@@ -73,6 +74,33 @@ class _MainScreenState extends State<MainScreen> {
           ],
         ),
         actions: [
+          // Hardware Connection Indicator & Settings Button
+          ActionChip(
+            visualDensity: VisualDensity.compact,
+            padding: const EdgeInsets.symmetric(horizontal: 2),
+            backgroundColor: vm.isDirectBoard
+                ? const Color(0xFF10B981).withValues(alpha: 0.18)
+                : null,
+            side: vm.isDirectBoard
+                ? const BorderSide(color: Color(0xFF10B981), width: 1.2)
+                : null,
+            avatar: Icon(
+              vm.isDirectBoard ? Icons.wifi : Icons.sensors_outlined,
+              size: 14,
+              color: vm.isDirectBoard ? const Color(0xFF10B981) : Colors.grey,
+            ),
+            label: Text(
+              vm.isDirectBoard ? (vm.connectedBoardName ?? 'ต่อบอร์ด') : 'Sim',
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: vm.isDirectBoard ? FontWeight.bold : FontWeight.normal,
+                color: vm.isDirectBoard ? const Color(0xFF10B981) : null,
+              ),
+            ),
+            onPressed: () => ConnectionSettingsDialog.show(context),
+          ),
+          const SizedBox(width: 4),
+
           // Team Selector Button (Compact for smartphone)
           ActionChip(
             visualDensity: VisualDensity.compact,

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import '../../data/models/farm_models.dart';
+import '../../data/models/board_discovery_model.dart';
 import '../../data/repositories/farm_repository.dart';
 
 class FarmViewModel extends ChangeNotifier {
@@ -22,6 +23,11 @@ class FarmViewModel extends ChangeNotifier {
   String _activeAlert = '';
   int _secondsSinceLastPacket = 0;
 
+  // Board Discovery & Direct Connection State
+  List<DiscoveredBoard> _discoveredBoards = [];
+  bool _isScanning = false;
+  String _scanStatusMessage = '';
+
   FarmViewModel({required FarmRepository repository})
       : _repository = repository {
     _init();
@@ -36,9 +42,68 @@ class FarmViewModel extends ChangeNotifier {
   String get activeAlert => _activeAlert;
   int get secondsSinceLastPacket => _secondsSinceLastPacket;
   bool get isSimulatorActive => _repository.isUsingSimulator;
+  bool get isDirectBoard => _repository.isDirectBoard;
+  ConnectionMode get connectionMode => _repository.connectionMode;
+  String? get connectedBoardIp => _repository.connectedBoardIp;
+  String? get connectedBoardName => _repository.connectedBoardName;
+
+  List<DiscoveredBoard> get discoveredBoards => _discoveredBoards;
+  bool get isScanning => _isScanning;
+  String get scanStatusMessage => _scanStatusMessage;
 
   void setTeamNumber(int no) {
     _teamNumber = no;
+    notifyListeners();
+  }
+
+  /// Scan for physical GoGo-IoT / LEQs IoT hardware on Wi-Fi
+  Future<void> scanForBoards() async {
+    _isScanning = true;
+    _scanStatusMessage = 'กำลังสแกนหาบอร์ด GoGo-IoT / LEQs IoT บนเครือข่าย Wi-Fi...';
+    notifyListeners();
+
+    try {
+      final results = await _repository.scanForBoards();
+      _discoveredBoards = results;
+      if (results.isEmpty) {
+        _scanStatusMessage = 'ไม่พบบอร์ดอัตโนมัติ (กรุณาตรวจสอบว่าบอร์ดและมือถือต่อ Wi-Fi เดียวกัน หรือใช้การกำหนด IP ด้วยตนเอง)';
+      } else {
+        _scanStatusMessage = 'ตรวจพบบอร์ด ${results.length} อุปกรณ์พร้อมเชื่อมต่อ';
+      }
+    } catch (e) {
+      _scanStatusMessage = 'เกิดข้อผิดพลาดในการสแกน: $e';
+    } finally {
+      _isScanning = false;
+      notifyListeners();
+    }
+  }
+
+  /// Connect to a discovered board
+  Future<bool> connectToBoard(DiscoveredBoard board) async {
+    final success = await _repository.connectToDirectBoard(board.ip, deviceName: board.deviceName);
+    if (success) {
+      if (board.teamNumber > 0) {
+        _teamNumber = board.teamNumber;
+      }
+      _activeAlert = '';
+      notifyListeners();
+    }
+    return success;
+  }
+
+  /// Connect to board via manual IP address
+  Future<bool> connectToManualIp(String ip) async {
+    final success = await _repository.connectToDirectBoard(ip);
+    if (success) {
+      _activeAlert = '';
+      notifyListeners();
+    }
+    return success;
+  }
+
+  /// Disconnect physical board and switch back to Simulator
+  void disconnectToSimulator() {
+    _repository.returnToSimulator();
     notifyListeners();
   }
 
@@ -124,12 +189,14 @@ class FarmViewModel extends ChangeNotifier {
     );
     _activeAlert = 'ระบบหยุดฉุกเฉินทำงาน (Emergency Stop Active)! รีเลย์ทั้งหมดถูกตัด';
     _repository.updateActuatorSimulation(isPumpOn: false, isGrowLightOn: false);
+    _repository.triggerEmergencyStop(true);
     notifyListeners();
   }
 
   void resetEmergencyStop() {
     _actuators = _actuators.copyWith(isEmergencyStopped: false);
     _activeAlert = '';
+    _repository.triggerEmergencyStop(false);
     notifyListeners();
   }
 
