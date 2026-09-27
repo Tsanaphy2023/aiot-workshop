@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>คู่มือการจัดกิจกรรม: กิจกรรมที่ 12 — วิชันเอไอจำแนกโรคพืชและประเมินคุณภาพผลผลิต (Leaf Vision AI) | Smart Farm AIoT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+  <style>
+    :root {
+      --primary: #059669;
+      --primary-dark: #047857;
+      --primary-light: #d1fae5;
+      --success: #16a34a;
+      --success-light: #dcfce7;
+      --warning: #d97706;
+      --warning-light: #fef3c7;
+      --danger: #dc2626;
+      --danger-light: #fee2e2;
+      --purple: #7c3aed;
+      --purple-light: #f3e8ff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --border: #e2e8f0;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.7;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 30px 20px 80px 20px;
+    }
+    header {
+      background: linear-gradient(135deg, #064e3b 0%, #065f46 40%, var(--primary-dark) 100%);
+      color: white;
+      padding: 44px 32px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    header::after {
+      content: '🍃';
+      position: absolute;
+      right: 20px;
+      bottom: -10px;
+      font-size: 120px;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(4px);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      font-size: 15px;
+      opacity: 0.9;
+      font-weight: 300;
+    }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .card-title {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--primary-light);
+    }
+    .time-badge {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      padding: 2px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-left: auto;
+    }
+    .mermaid-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      margin: 16px 0;
+      overflow-x: auto;
+      text-align: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 14.5px;
+    }
+    th, td {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      text-align: left;
+    }
+    th {
+      background-color: #f1f5f9;
+      color: #334155;
+      font-weight: 600;
+    }
+    tr:nth-child(even) { background-color: #f8fafc; }
+    .callout {
+      border-left: 4px solid var(--primary);
+      background: var(--primary-light);
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+      font-size: 14.5px;
+    }
+    .callout-warning {
+      border-left-color: var(--warning);
+      background: var(--warning-light);
+    }
+    .step-box {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px;
+      margin-bottom: 14px;
+      background: #fafbfc;
+      transition: all 0.2s;
+    }
+    .step-box:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+    .step-title {
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .code-box {
+      background: #0f172a;
+      color: #e2e8f0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      padding: 14px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 10px 0;
+      line-height: 1.5;
+    }
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 36px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    .nav-prev {
+      background: #e2e8f0;
+      color: #334155;
+    }
+    .nav-next {
+      background: var(--primary);
+      color: white;
+    }
+    .nav-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="badge">AIoT WORKSHOP ACTIVITY 12</div>
+      <h1>กิจกรรมที่ 12: วิชันเอไอจำแนกโรคพืชและประเมินคุณภาพผลผลิต</h1>
+      <p class="subtitle">คู่มือมาตรฐานสำหรับวิทยากร ผู้ช่วยสอน (TA) และผู้เรียน — โครงการ Smart Farm AIoT (มรภ.รำไพพรรณี × ม.เชียงใหม่)</p>
+    </header>
+
+    <!-- SECTION 1 -->
+    <div class="card">
+      <div class="card-title">
+        <span>📌 1. บทนำและแนวคิดวิศวกรรม (Vision AI & Edge Classification)</span>
+      </div>
+      <p>ในกิจกรรมนี้ ผู้เรียนจะได้ต่อยอดจากระบบโทรมาตรเชิงตัวเลข (Scalar Telemetry) สู่ <strong>ระบบคอมพิวเตอร์วิทัศน์และปัญญาประดิษฐ์ฝังตัว (Embedded Computer Vision & Edge AI)</strong> เพื่อตรวจจับความผิดปกติของใบพืช วินิจฉัยโรคระบาด และคัดแยกคุณภาพผลผลิตทางการเกษตร 6 ชนิด ได้แก่ ข้าวโพด, กาแฟ, มันฝรั่ง, ส้ม, มะม่วง และกล้วย รวม 18 คลาส จากชุดข้อมูลภาพถ่ายจริง 5,846 ภาพ</p>
+      
+      <div class="mermaid-box">
+        <pre class="mermaid">
+flowchart LR
+    CAM["📷 กล้องถ่ายภาพใบพืช<br>(ESP32-CAM / Smartphone)"] --> PRE["⚙️ ปรับขนาด & Normalize<br>(224x224 RGB ImageNet)"]
+    PRE --> CNN["🧠 โครงข่ายประสาทเทียม CNN<br>(MobileNetV2 / LeafNet)"]
+    CNN --> OUT["🎯 ผลการวินิจฉัยโรคพืช<br>(Class Label & Confidence %)"]
+    OUT --> ACT["🚨 มาตรการจัดการแปลง<br>(สั่งพ่นชีวภัณฑ์ / แจ้งเตือนเกษตรกร)"]
+        </pre>
+      </div>
+
+      <div class="callout">
+        <strong>หัวใจสำคัญในกิจกรรมที่ 12:</strong>
+        <ul style="margin-left: 20px; margin-top: 6px;">
+          <li><strong>Stratified Train / Val / Test:</strong> การแบ่งข้อมูลอย่างสมดุล (70% ฝึกสอน, 15% ตรวจสอบ, 15% ทดสอบจริง) ป้องกันปัญหาข้อมูลเอียง (Imbalance)</li>
+          <li><strong>Depthwise Separable Convolutions:</strong> โครงสร้างโมเดล MobileNetV2 และ LeafNet ที่ลดการคำนวณลง 8-9 เท่า เหมาะสำหรับบอร์ด Edge AI</li>
+          <li><strong>Dual Execution Runtime:</strong> เลือกได้ว่าจะรันฝึกสอนบนเครื่องคอมพิวเตอร์จริงผ่าน Apple Silicon MPS หรือเปิดรันบน Google Colab GPU T4 ฟรี</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="card">
+      <div class="card-title">
+        <span>⏱️ 2. แผนการจัดการเรียนรู้และเวลา (Facilitator Time Matrix)</span>
+        <span class="time-badge">เวลารวม: 60 นาที</span>
+      </div>
+
+      <div class="mermaid-box">
+        <pre class="mermaid">
+gantt
+    title ลำดับขั้นตอนกิจกรรมที่ 12: Leaf Vision AI Workshop (60 นาที)
+    dateFormat  m
+    axisFormat %M นาที
+    section สำรวจ & แบ่งข้อมูล
+    สำรวจภาพ 6 พืช & สั่ง Stratified Split   :a1, 0, 10m
+    section สถาปัตยกรรม & ไฮเปอร์พารามิเตอร์
+    เลือกโมเดล MobileNetV2 vs LeafNet      :a2, after a1, 10m
+    section ฝึกสอนโมเดลจริง
+    เทรนบน Local MPS หรือ Google Colab T4   :a3, after a2, 15m
+    section ประเมินผล & Matrix
+    วิเคราะห์ Confusion Matrix & F1-Score  :a4, after a3, 10m
+    section ทดสอบทำนาย & ส่งออก
+    ทดสอบทำนายภาพสด & ส่งออก ONNX Edge AI :a5, after a4, 15m
+        </pre>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ช่วงเวลา</th>
+            <th>กิจกรรมย่อย</th>
+            <th>บทบาทวิทยากร / TA</th>
+            <th>ผลลัพธ์ที่ผู้เรียนต้องได้</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>00:00 - 10:00</strong></td>
+            <td>12.1 สำรวจข้อมูลและสั่งรันการแบ่ง Train/Val/Test</td>
+            <td>เปิดเว็บพอร์ทัลแท็บที่ 1 แนะนำ 6 ชนิดพืช สั่งรันการแบ่งข้อมูลจริง</td>
+            <td>ตารางสรุปคลาสสมดุล 70:15:15</td>
+          </tr>
+          <tr>
+            <td><strong>10:00 - 20:00</strong></td>
+            <td>12.2 เลือกสถาปัตยกรรมโมเดลและตั้งค่า</td>
+            <td>เปรียบเทียบ MobileNetV2 vs LeafNet อธิบายโครงสร้างคอนโวลูชัน</td>
+            <td>เข้าใจพารามิเตอร์ 3.5M vs 1.2M</td>
+          </tr>
+          <tr>
+            <td><strong>20:00 - 35:00</strong></td>
+            <td>12.3 ปฏิบัติการฝึกสอนโมเดลจริง</td>
+            <td>ให้ผู้เรียนกดเริ่มเทรนบนเว็บ หรือเปิดรันบน Google Colab T4</td>
+            <td>เห็นกราฟ Loss ลดลง และ Acc เพิ่มขึ้น</td>
+          </tr>
+          <tr>
+            <td><strong>35:00 - 45:00</strong></td>
+            <td>12.4 ประเมินผลและวิเคราะห์แผนภาพความสับสน</td>
+            <td>อธิบายการอ่าน Confusion Matrix Heatmap, F1-Score และ Precision/Recall</td>
+            <td>ชี้ชัดได้ว่าโรคใดสับสนกับโรคใด</td>
+          </tr>
+          <tr>
+            <td><strong>45:00 - 55:00</strong></td>
+            <td>12.5 ห้องทดลองทำนายภาพโรคพืชสด</td>
+            <td>ให้ผู้เรียนลากวางภาพใบไม้ หรือเลือกจากคลังเพื่อทดสอบทำนาย Top-3</td>
+            <td>ผลวินิจฉัยโรคพร้อมค่าความมั่นใจ (%)</td>
+          </tr>
+          <tr>
+            <td><strong>55:00 - 60:00</strong></td>
+            <td>12.6 ส่งออกโมเดลและสรุปคำถาม 12-Q</td>
+            <td>สาธิตการแปลงเป็น ONNX และแนะนำการต่อยอดกล้องติดแปลงเกษตร</td>
+            <td>ไฟล์โมเดล ONNX พร้อมโค้ด IoT</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="card">
+      <div class="card-title">
+        <span>🛠️ 3. สถาปัตยกรรมระบบและเครื่องมือประจำเวิร์กช็อป</span>
+      </div>
+      <p>ระบบถูกสร้างขึ้นแบบบูรณาการผ่าน 3 ช่องทางหลักที่ทำงานสอดประสานกัน:</p>
+      
+      <div class="mermaid-box">
+        <pre class="mermaid">
+flowchart TD
+    subgraph PORTAL["🌐 Leaf AI Studio Web Portal (localhost/cmu_aiot/leaf_ai_system/)"]
+        T1["01. สำรวจ & แบ่งข้อมูล"]
+        T2["02. สถาปัตยกรรมโมเดล"]
+        T3["03. สั่งเทรนสด & Colab"]
+        T4["04. ประเมินผล & Matrix"]
+        T5["05. ทดสอบทำนายภาพ"]
+        T6["06. ส่งออก Edge AI"]
+    end
+    subgraph CLOUD["☁️ Google Colab Cloud GPU (Tesla T4)"]
+        NB["Leaf_AI_Training_Colab.ipynb"]
+    end
+    subgraph GITHUB["📦 GitHub Repository"]
+        REPO["Tsanaphy2023/aiot-workshop"]
+    end
+    PORTAL --> CLOUD
+    PORTAL <--> GITHUB
+    CLOUD <--> GITHUB
+        </pre>
+      </div>
+
+      <div class="callout">
+        <strong>ลิงก์เครื่องมือและคลังโค้ดประจำเวิร์กช็อป:</strong>
+        <ul style="margin-left: 20px; margin-top: 4px;">
+          <li>เว็บแอปพลิเคชันพอร์ทัล: <a href="http://localhost/cmu_aiot/leaf_ai_system/" target="_blank">http://localhost/cmu_aiot/leaf_ai_system/</a></li>
+          <li>GitHub Repository: <a href="https://github.com/Tsanaphy2023/aiot-workshop" target="_blank">https://github.com/Tsanaphy2023/aiot-workshop</a></li>
+          <li>Google Colab One-Click: <a href="https://colab.research.google.com/github/Tsanaphy2023/aiot-workshop/blob/main/leaf_ai_system/Leaf_AI_Training_Colab.ipynb" target="_blank">เปิดรันบน Google Colab GPU T4 ฟรี</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="card">
+      <div class="card-title">
+        <span>📋 4. ขั้นตอนการลงมือปฏิบัติทีละขั้น (Step-by-Step Hands-on)</span>
+      </div>
+
+      <div class="step-box">
+        <div class="step-title"><span>ขั้นตอนที่ 12.1</span> สำรวจข้อมูลและแบ่งสัดส่วน Stratified Train/Val/Test</div>
+        <p>เปิดไปที่หน้าเว็บพอร์ทัลแท็บ <strong>01. สำรวจ & แบ่งข้อมูล</strong> เลือกชนิดพืชเป้าหมาย (เช่น ข้าวโพด 4 คลาส 3,924 ภาพ) ปรับสัดส่วน Slider 70% : 15% : 15% แล้วกดปุ่ม <strong>"⚡ สั่งรันการแบ่งชุดข้อมูลจริง"</strong> สังเกตตารางสรุปจำนวนภาพและคลังตัวอย่างภาพถ่ายจริง</p>
+      </div>
+
+      <div class="step-box">
+        <div class="step-title"><span>ขั้นตอนที่ 12.2</span> เลือกสถาปัตยกรรมโครงข่ายประสาทเทียม</div>
+        <p>คลิกแท็บ <strong>02. เลือกโมเดล & ตั้งค่า</strong> เพื่อเปรียบเทียบสเปกของโมเดล:</p>
+        <ul style="margin-left: 24px; font-size: 14.5px;">
+          <li><strong>MobileNetV2:</strong> แนะนำสำหรับบอร์ด Raspberry Pi / Web (3.5M พารามิเตอร์)</li>
+          <li><strong>ResNet18:</strong> โครงข่าย Residual มาตรฐานงานวิจัย ให้ความแม่นยำสูง (11.7M พารามิเตอร์)</li>
+          <li><strong>LeafNet:</strong> Custom Lightweight CNN ขนาดเบาพิเศษ (1.2M พารามิเตอร์) สำหรับบอร์ด ESP32</li>
+        </ul>
+      </div>
+
+      <div class="step-box">
+        <div class="step-title"><span>ขั้นตอนที่ 12.3</span> ปฏิบัติการฝึกสอนโมเดลจริง (Live Training)</div>
+        <p>คลิกแท็บ <strong>03. ฝึกสอนโมเดลจริง</strong> ผู้เรียนสามารถเลือกฝึกสอนได้ 2 รูปแบบ:</p>
+        <ul style="margin-left: 24px; font-size: 14.5px;">
+          <li><strong>รันบนเครื่องคอมพิวเตอร์จริง:</strong> กดปุ่ม "▶ เริ่มต้นฝึกสอนบนเครื่องจริง" พร้อมดู Terminal Log สด</li>
+          <li><strong>รันบน Google Colab:</strong> กดปุ่มสีส้ม "🚀 เปิดรันใน Google Colab" เพื่อใช้ GPU Tesla T4 ฟรี</li>
+        </ul>
+        <div class="code-box">python scripts/02_train.py --crop corn --backbone mobilenet_v2 --epochs 15 --batch_size 32</div>
+      </div>
+
+      <div class="step-box">
+        <div class="step-title"><span>ขั้นตอนที่ 12.4</span> ประเมินผลบน Test Set และอ่านแผนภาพความสับสน</div>
+        <p>คลิกแท็บ <strong>04. ประเมินผล & Matrix</strong> กดปุ่ม "🔍 สั่งประเมินผลบน Test Set" ระบบจะดึงภาพ 15% ที่ไม่เคยผ่านการเทรนมาทดสอบ เพื่อคำนวณ Test Accuracy, Macro F1, และสร้างภาพ Confusion Matrix Heatmap</p>
+      </div>
+
+      <div class="step-box">
+        <div class="step-title"><span>ขั้นตอนที่ 12.5</span> ห้องทดลองทำนายภาพโรคพืชสด (Inference Playground)</div>
+        <p>คลิกแท็บ <strong>05. ทดสอบทำนายภาพ</strong> ลากไฟล์ภาพใบไม้มาวางในกล่อง Dropzone หรือคลิกเลือกจากคลังตัวอย่าง แล้วกดปุ่ม "✨ วิเคราะห์และทำนายโรคพืช" ระบบจะแสดงชื่อโรคที่วินิจฉัยได้ แถบเปอร์เซ็นต์ความมั่นใจ และอันดับ Top-3 Classes</p>
+      </div>
+
+      <div class="step-box">
+        <div class="step-title"><span>ขั้นตอนที่ 12.6</span> ส่งออกโมเดลสำหรับ Edge AI (ONNX / TorchScript)</div>
+        <p>คลิกแท็บ <strong>06. ส่งออก Edge AI</strong> กดปุ่ม "💾 แปลงและส่งออกโมเดล" เพื่อรับไฟล์ <code>.onnx</code> และ <code>.pt</code> พร้อมดาวน์โหลดนำไปติดตั้งบนบอร์ดสมาร์ทฟาร์มจริง</p>
+      </div>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div class="card">
+      <div class="card-title">
+        <span>⚠️ 5. จุดที่มักผิดพลาดและการแก้ปัญหา (Troubleshooting)</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>ปัญหาที่พบบ่อย</th>
+            <th>สาเหตุ</th>
+            <th>แนวทางแก้ไข</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>กดปุ่มบนเว็บแล้วไม่ตอบสนอง</td>
+            <td>Apache / XAMPP หรือ Python Server ออฟไลน์</td>
+            <td>ตรวจจุดสถานะขวาบนต้องเป็นสีเขียว หากสีแดงให้เปิด XAMPP Control Panel แล้ว Start Apache</td>
+          </tr>
+          <tr>
+            <td>เทรนบนเครื่องช้ามาก</td>
+            <td>เครื่องคอมพิวเตอร์ไม่มี GPU เร่งการประมวลผล</td>
+            <td>ให้คลิกปุ่มสีส้มเพื่อสลับไปรันบน <strong>Google Colab (GPU Tesla T4 ฟรี)</strong></td>
+          </tr>
+          <tr>
+            <td>โมเดล Overfitting (Train สูง แต่ Val ต่ำ)</td>
+            <td>โมเดลจำข้อสอบฝึกสอนแต่ไม่สามารถปรับตัวกับภาพใหม่</td>
+            <td>เปิดใช้งาน Data Augmentation (สุ่มหมุน, สุ่มพลิก) และระบบ Early Stopping</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECTION 6 -->
+    <div class="card">
+      <div class="card-title">
+        <span>💡 6. คำถามชวนคิดและการเชื่อมโยงสู่ฟาร์มจริง (12-Q)</span>
+      </div>
+      <ol style="margin-left: 20px; line-height: 1.8;">
+        <li><strong>คำถามที่ 1:</strong> เหตุใดเราจึงต้องใช้การแบ่งแบบ <em>Stratified Sampling</em> แทนการสุ่มแบบ Uniform Random ทั่วไป?</li>
+        <li><strong>คำถามที่ 2:</strong> หากต้องการนำโมเดลไปติดตั้งบนกล้องดักถ่ายพลังงานแสงอาทิตย์ที่ใช้ชิป ESP32-S3 ในสวนทุเรียน ควรเลือกสถาปัตยกรรมโมเดลใด เพราะเหตุใด?</li>
+        <li><strong>คำถามที่ 3:</strong> ในพื้นที่เกษตรกรรมที่ไม่มีสัญญาณอินเทอร์เน็ต การประมวลผลด้วย Edge AI มีข้อได้เปรียบกว่าการส่งภาพไปประมวลผลบนคลาวด์อย่างไร?</li>
+      </ol>
+    </div>
+
+    <!-- NAV BAR -->
+    <div class="nav-bar">
+      <a href="activity_11_bridge_guide.html" class="nav-btn nav-prev">← กิจกรรมที่ 11: Bridge แปลงไกล</a>
+      <a href="index.html" class="nav-btn nav-next">กลับสู่หน้าหลักคลังคู่มือ 📚</a>
+    </div>
+
+  </div>
+
+</body>
+</html>
