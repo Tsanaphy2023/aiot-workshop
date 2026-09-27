@@ -1,0 +1,154 @@
+{
+  "crop": "all",
+  "total_images": 5846,
+  "classes": [
+    "banana_Green banana",
+    "banana_Rotten banana",
+    "banana_Yellow banana",
+    "coffee_healthy",
+    "coffee_leaf_rust",
+    "coffee_phoma",
+    "corn_Blight",
+    "corn_Common_Rust",
+    "corn_Gray_Leaf_Spot",
+    "corn_Healthy",
+    "mango_Green mango",
+    "mango_Rotten Mango",
+    "mango_Yellow mango",
+    "orange_Ripe orange",
+    "orange_orange",
+    "potato_Potato___Early_blight",
+    "potato_Potato___Late_blight",
+    "potato_Potato___healthy"
+  ],
+  "class_to_id": {
+    "banana_Green banana": 0,
+    "banana_Rotten banana": 1,
+    "banana_Yellow banana": 2,
+    "coffee_healthy": 3,
+    "coffee_leaf_rust": 4,
+    "coffee_phoma": 5,
+    "corn_Blight": 6,
+    "corn_Common_Rust": 7,
+    "corn_Gray_Leaf_Spot": 8,
+    "corn_Healthy": 9,
+    "mango_Green mango": 10,
+    "mango_Rotten Mango": 11,
+    "mango_Yellow mango": 12,
+    "orange_Ripe orange": 13,
+    "orange_orange": 14,
+    "potato_Potato___Early_blight": 15,
+    "potato_Potato___Late_blight": 16,
+    "potato_Potato___healthy": 17
+  },
+  "distribution": {
+    "banana_Green banana": {
+      "train": 45,
+      "val": 10,
+      "test": 10,
+      "total": 65
+    },
+    "banana_Rotten banana": {
+      "train": 46,
+      "val": 10,
+      "test": 9,
+      "total": 65
+    },
+    "banana_Yellow banana": {
+      "train": 52,
+      "val": 12,
+      "test": 11,
+      "total": 75
+    },
+    "coffee_healthy": {
+      "train": 35,
+      "val": 7,
+      "test": 8,
+      "total": 50
+    },
+    "coffee_leaf_rust": {
+      "train": 35,
+      "val": 7,
+      "test": 8,
+      "total": 50
+    },
+    "coffee_phoma": {
+      "train": 35,
+      "val": 7,
+      "test": 8,
+      "total": 50
+    },
+    "corn_Blight": {
+      "train": 805,
+      "val": 173,
+      "test": 172,
+      "total": 1150
+    },
+    "corn_Common_Rust": {
+      "train": 727,
+      "val": 155,
+      "test": 156,
+      "total": 1038
+    },
+    "corn_Gray_Leaf_Spot": {
+      "train": 402,
+      "val": 86,
+      "test": 86,
+      "total": 574
+    },
+    "corn_Healthy": {
+      "train": 813,
+      "val": 175,
+      "test": 174,
+      "total": 1162
+    },
+    "mango_Green mango": {
+      "train": 57,
+      "val": 12,
+      "test": 12,
+      "total": 81
+    },
+    "mango_Rotten Mango": {
+      "train": 56,
+      "val": 12,
+      "test": 12,
+      "total": 80
+    },
+    "mango_Yellow mango": {
+      "train": 55,
+      "val": 12,
+      "test": 12,
+      "total": 79
+    },
+    "orange_Ripe orange": {
+      "train": 126,
+      "val": 27,
+      "test": 27,
+      "total": 180
+    },
+    "orange_orange": {
+      "train": 172,
+      "val": 37,
+      "test": 37,
+      "total": 246
+    },
+    "potato_Potato___Early_blight": {
+      "train": 211,
+      "val": 45,
+      "test": 45,
+      "total": 301
+    },
+    "potato_Potato___Late_blight": {
+      "train": 210,
+      "val": 45,
+      "test": 45,
+      "total": 300
+    },
+    "potato_Potato___healthy": {
+      "train": 210,
+      "val": 45,
+      "test": 45,
+      "total": 300
+    }
+  }
+}

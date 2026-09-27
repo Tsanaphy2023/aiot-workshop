@@ -1,0 +1,42 @@
+{
+  "crop": "corn",
+  "total_images": 3924,
+  "classes": [
+    "Blight",
+    "Common_Rust",
+    "Gray_Leaf_Spot",
+    "Healthy"
+  ],
+  "class_to_id": {
+    "Blight": 0,
+    "Common_Rust": 1,
+    "Gray_Leaf_Spot": 2,
+    "Healthy": 3
+  },
+  "distribution": {
+    "Blight": {
+      "train": 805,
+      "val": 172,
+      "test": 173,
+      "total": 1150
+    },
+    "Common_Rust": {
+      "train": 726,
+      "val": 156,
+      "test": 156,
+      "total": 1038
+    },
+    "Gray_Leaf_Spot": {
+      "train": 402,
+      "val": 86,
+      "test": 86,
+      "total": 574
+    },
+    "Healthy": {
+      "train": 813,
+      "val": 175,
+      "test": 174,
+      "total": 1162
+    }
+  }
+}

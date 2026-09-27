@@ -1,0 +1,26 @@
+{
+  "backbone": "leaf_net",
+  "classes": [
+    "healthy",
+    "leaf_rust",
+    "phoma"
+  ],
+  "num_classes": 3,
+  "input_size": [
+    3,
+    224,
+    224
+  ],
+  "mean": [
+    0.485,
+    0.456,
+    0.406
+  ],
+  "std": [
+    0.229,
+    0.224,
+    0.225
+  ],
+  "val_acc": 0.5909090909090909,
+  "epoch": 3
+}

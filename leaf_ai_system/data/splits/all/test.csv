@@ -1,0 +1,878 @@
+filepath,crop,raw_label,label_name,filename,filesize,label_id
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (1102).jpg,corn,Blight,corn_Blight,Corn_Blight (1102).jpg,1759488,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (153).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (153).JPG,16135,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Rotten banana/translation_Screen-Shot-2018-06-12-at-9_03_40-PM_png.rf.625769a9b64a72d7dc32b0b4643c2ad6.jpg,banana,Rotten banana,banana_Rotten banana,translation_Screen-Shot-2018-06-12-at-9_03_40-PM_png.rf.625769a9b64a72d7dc32b0b4643c2ad6.jpg,35653,1
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1249).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1249).JPG,11384,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (125).jpg,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (125).jpg,19958,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1140).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1140).JPG,12267,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/img_191_jpeg.rf.24db3bafce82375d2feb41c93492e20f.jpg,orange,orange,orange_orange,img_191_jpeg.rf.24db3bafce82375d2feb41c93492e20f.jpg,24211,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (922).JPG,corn,Blight,corn_Blight,Corn_Blight (922).JPG,12687,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (322).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (322).JPG,11567,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/Ripe orange/36_jpg.rf.81da423592bdcae536e3c91a65d894a2.jpg,orange,Ripe orange,orange_Ripe orange,36_jpg.rf.81da423592bdcae536e3c91a65d894a2.jpg,24491,13
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/b11189c8-ab6f-4d69-9ffa-e52749d2a3a5___RS_LB 4537.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,b11189c8-ab6f-4d69-9ffa-e52749d2a3a5___RS_LB 4537.JPG,15175,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (159).JPG,corn,Blight,corn_Blight,Corn_Blight (159).JPG,13742,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (160).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (160).JPG,11750,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (30).jpg,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (30).jpg,37266,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (164).JPG,corn,Blight,corn_Blight,Corn_Blight (164).JPG,15524,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (419).JPG,corn,Blight,corn_Blight,Corn_Blight (419).JPG,13744,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/f3ad73cc-2e88-4157-97ea-d57d87c5760c___RS_Early.B 6687.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,f3ad73cc-2e88-4157-97ea-d57d87c5760c___RS_Early.B 6687.JPG,21273,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (66).jpg,corn,Healthy,corn_Healthy,Corn_Health (66).jpg,9949,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (126).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (126).JPG,17178,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/d286d101-227f-48ba-b906-586879eb6a00___RS_Early.B 7095.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,d286d101-227f-48ba-b906-586879eb6a00___RS_Early.B 7095.JPG,18878,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/dc0536f7-e777-4751-8733-f643eb18329a___RS_Early.B 7492.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,dc0536f7-e777-4751-8733-f643eb18329a___RS_Early.B 7492.JPG,16993,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Green banana/27_jpg.rf.868c661c3158aeef0a06599f5af76d4f.jpg,banana,Green banana,banana_Green banana,27_jpg.rf.868c661c3158aeef0a06599f5af76d4f.jpg,30199,0
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (357).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (357).JPG,14911,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/img_1161_jpeg.rf.98fb678aae3c002508e15b59f61f7cf0.jpg,orange,orange,orange_orange,img_1161_jpeg.rf.98fb678aae3c002508e15b59f61f7cf0.jpg,27168,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (893).jpg,corn,Healthy,corn_Healthy,Corn_Health (893).jpg,8237,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (588).jpg,corn,Healthy,corn_Healthy,Corn_Health (588).jpg,12177,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (141).jpg,corn,Healthy,corn_Healthy,Corn_Health (141).jpg,6660,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (10).jpg,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (10).jpg,177428,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (441).jpg,corn,Healthy,corn_Healthy,Corn_Health (441).jpg,13681,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1279).jpg,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1279).jpg,31681,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Yellow banana/90_jpg.rf.b8b4af2f8fa9ccb7b3c5fad0db131024.jpg,banana,Yellow banana,banana_Yellow banana,90_jpg.rf.b8b4af2f8fa9ccb7b3c5fad0db131024.jpg,8993,2
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (641).jpg,corn,Healthy,corn_Healthy,Corn_Health (641).jpg,7355,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (557).jpg,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (557).jpg,16890,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (82).jpg,corn,Blight,corn_Blight,Corn_Blight (82).jpg,89681,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (442).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (442).JPG,14340,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (698).JPG,corn,Blight,corn_Blight,Corn_Blight (698).JPG,13701,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (573).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (573).JPG,14975,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (820).jpg,corn,Healthy,corn_Healthy,Corn_Health (820).jpg,11698,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-147-_0_1286.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-147-_0_1286.jpg,18947,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (228).JPG,corn,Blight,corn_Blight,Corn_Blight (228).JPG,15107,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/e1197d2d-980a-45b1-9ab1-5b7cc36660bc___RS_LB 3885.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,e1197d2d-980a-45b1-9ab1-5b7cc36660bc___RS_LB 3885.JPG,14207,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (100).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (100).JPG,14370,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/img_491_jpeg.rf.58ff93ed1f56c407d3a3c02358a6ff8b.jpg,orange,orange,orange_orange,img_491_jpeg.rf.58ff93ed1f56c407d3a3c02358a6ff8b.jpg,39728,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (273).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (273).JPG,12357,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/f7740cb1-3295-4022-ae6c-7ffeee775f6f___RS_Early.B 8991.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,f7740cb1-3295-4022-ae6c-7ffeee775f6f___RS_Early.B 8991.JPG,19171,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/6-1_jpg.rf.855bb6dd2749d298b1427925c9308eb6.jpg,orange,orange,orange_orange,6-1_jpg.rf.855bb6dd2749d298b1427925c9308eb6.jpg,43406,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (388).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (388).JPG,9849,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (225).jpg,corn,Healthy,corn_Healthy,Corn_Health (225).jpg,17623,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-136-_0_7754.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-136-_0_7754.jpg,15802,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Yellow mango/d4e83da71d56ea72f49721d7a38b077f_jpg.rf.da8eed4589dfbb3b1ffbbbb13decc220.jpg,mango,Yellow mango,mango_Yellow mango,d4e83da71d56ea72f49721d7a38b077f_jpg.rf.da8eed4589dfbb3b1ffbbbb13decc220.jpg,38704,12
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (226).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (226).JPG,14727,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Green banana/3_jpg.rf.cd5875bb6a0a13f9930ac5df93eaf1c0.jpg,banana,Green banana,banana_Green banana,3_jpg.rf.cd5875bb6a0a13f9930ac5df93eaf1c0.jpg,13225,0
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Green banana/101_jpg.rf.3a38349a7cc3f0ed74bb92fb415a0f09.jpg,banana,Green banana,banana_Green banana,101_jpg.rf.3a38349a7cc3f0ed74bb92fb415a0f09.jpg,38717,0
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (449).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (449).JPG,14694,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (466).jpg,corn,Healthy,corn_Healthy,Corn_Health (466).jpg,11686,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (492).JPG,corn,Blight,corn_Blight,Corn_Blight (492).JPG,14570,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1250).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1250).JPG,17861,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Green mango/WIN_20230323_14_42_58_Pro_jpg.rf.193161afad1a3be8d39dd91e79233bbe.jpg,mango,Green mango,mango_Green mango,WIN_20230323_14_42_58_Pro_jpg.rf.193161afad1a3be8d39dd91e79233bbe.jpg,23871,10
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (713).jpg,corn,Blight,corn_Blight,Corn_Blight (713).jpg,15846,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (303).jpg,corn,Healthy,corn_Healthy,Corn_Health (303).jpg,7920,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (313).JPG,corn,Blight,corn_Blight,Corn_Blight (313).JPG,10925,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (81).jpg,corn,Healthy,corn_Healthy,Corn_Health (81).jpg,14335,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1060).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1060).JPG,12636,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (185).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (185).JPG,13248,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1241).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1241).JPG,15070,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Rotten banana/translation_Screen-Shot-2018-06-12-at-9_06_13-PM_png.rf.5204e4d40c8479027823c4a5e48bfc8c.jpg,banana,Rotten banana,banana_Rotten banana,translation_Screen-Shot-2018-06-12-at-9_06_13-PM_png.rf.5204e4d40c8479027823c4a5e48bfc8c.jpg,25256,1
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (481).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (481).JPG,14321,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1271).jpg,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1271).jpg,38761,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (203).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (203).JPG,14897,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (244).jpg,corn,Healthy,corn_Healthy,Corn_Health (244).jpg,8465,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/img_571_jpeg.rf.eee637ad01a5acd682a0f1fb6d4d1b8b.jpg,orange,orange,orange_orange,img_571_jpeg.rf.eee637ad01a5acd682a0f1fb6d4d1b8b.jpg,40146,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/img_841_jpeg.rf.01035b52c292078b5ec4a67337058475.jpg,orange,orange,orange_orange,img_841_jpeg.rf.01035b52c292078b5ec4a67337058475.jpg,25806,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (168).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (168).JPG,16427,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (594).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (594).JPG,13373,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/images173_jpg.rf.19c0a01f7fdd43ee5e0f4d21e840c814.jpg,orange,orange,orange_orange,images173_jpg.rf.19c0a01f7fdd43ee5e0f4d21e840c814.jpg,33333,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (148).jpg,corn,Healthy,corn_Healthy,Corn_Health (148).jpg,15921,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (843).jpg,corn,Healthy,corn_Healthy,Corn_Health (843).jpg,5664,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/img_1331_jpeg.rf.f536e9707925597eca23d1179d12b480.jpg,orange,orange,orange_orange,img_1331_jpeg.rf.f536e9707925597eca23d1179d12b480.jpg,31000,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (1139).jpg,corn,Blight,corn_Blight,Corn_Blight (1139).jpg,51945,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (134).jpg,corn,Healthy,corn_Healthy,Corn_Health (134).jpg,13109,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/f795a3d7-2915-447c-9e6f-df1d895f98bc___RS_LB 2792.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,f795a3d7-2915-447c-9e6f-df1d895f98bc___RS_LB 2792.JPG,15255,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1256).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1256).JPG,14431,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (451).jpg,corn,Healthy,corn_Healthy,Corn_Health (451).jpg,12878,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-101-_0_7343.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-101-_0_7343.jpg,14084,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (626).jpg,corn,Healthy,corn_Healthy,Corn_Health (626).jpg,16447,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-94-_0_396.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-94-_0_396.jpg,17251,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Yellow banana/79_jpg.rf.993db4f770d8fd0b8b47cc44126bdf42.jpg,banana,Yellow banana,banana_Yellow banana,79_jpg.rf.993db4f770d8fd0b8b47cc44126bdf42.jpg,12592,2
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/d80e59e3-a88d-4c32-8dd1-a23a6fed45ae___RS_LB 2846.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,d80e59e3-a88d-4c32-8dd1-a23a6fed45ae___RS_LB 2846.JPG,14843,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (200).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (200).JPG,12642,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Yellow mango/20230305_052147105_iOS_jpg.rf.2051bda5c51f5175a1eb07b35f329ee8.jpg,mango,Yellow mango,mango_Yellow mango,20230305_052147105_iOS_jpg.rf.2051bda5c51f5175a1eb07b35f329ee8.jpg,18695,12
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (398).jpg,corn,Healthy,corn_Healthy,Corn_Health (398).jpg,16868,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/healthy/188.jpg,coffee,healthy,coffee_healthy,188.jpg,136105,3
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (536).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (536).JPG,11909,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-84-_0_775.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-84-_0_775.jpg,16793,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/cfd3112d-e376-4b82-bc06-de0bfba0ab41___RS_Early.B 8389.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,cfd3112d-e376-4b82-bc06-de0bfba0ab41___RS_Early.B 8389.JPG,20912,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/phoma/246.jpg,coffee,phoma,coffee_phoma,246.jpg,87047,5
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-107-_0_8773.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-107-_0_8773.jpg,15696,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (73).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (73).JPG,19172,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (776).JPG,corn,Blight,corn_Blight,Corn_Blight (776).JPG,15298,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (408).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (408).JPG,16590,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/img_41_jpeg.rf.162a3a37540fca6ad9f9f991750a0ce2.jpg,orange,orange,orange_orange,img_41_jpeg.rf.162a3a37540fca6ad9f9f991750a0ce2.jpg,29627,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (378).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (378).JPG,11897,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (44).jpg,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (44).jpg,71341,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/cd025ad0-9486-4ee6-b545-c9040dc4e1c7___RS_Early.B 8821.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,cd025ad0-9486-4ee6-b545-c9040dc4e1c7___RS_Early.B 8821.JPG,20885,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-92-_0_7234.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-92-_0_7234.jpg,16341,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (166).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (166).JPG,10964,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (281).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (281).JPG,12822,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (744).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (744).JPG,17933,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (54).jpg,corn,Blight,corn_Blight,Corn_Blight (54).jpg,89753,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (571).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (571).JPG,13639,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-130-_0_1600.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-130-_0_1600.jpg,14818,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (427).jpg,corn,Healthy,corn_Healthy,Corn_Health (427).jpg,15888,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Rotten banana/translation_Screen-Shot-2018-06-12-at-9_12_49-PM_png.rf.52abd2b86238cae0a1e1dd84ccaf83cb.jpg,banana,Rotten banana,banana_Rotten banana,translation_Screen-Shot-2018-06-12-at-9_12_49-PM_png.rf.52abd2b86238cae0a1e1dd84ccaf83cb.jpg,15821,1
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (712).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (712).JPG,14371,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (5).jpg,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (5).jpg,132409,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/phoma/253.jpg,coffee,phoma,coffee_phoma,253.jpg,86475,5
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Rotten banana/translation_Screen-Shot-2018-06-12-at-9_11_52-PM_png.rf.86275438ae3bb283b14ac3d978190a46.jpg,banana,Rotten banana,banana_Rotten banana,translation_Screen-Shot-2018-06-12-at-9_11_52-PM_png.rf.86275438ae3bb283b14ac3d978190a46.jpg,19882,1
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1163).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1163).JPG,14466,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (149).jpg,corn,Healthy,corn_Healthy,Corn_Health (149).jpg,14978,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (497).JPG,corn,Blight,corn_Blight,Corn_Blight (497).JPG,13515,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (305).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (305).JPG,12093,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (551).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (551).JPG,13206,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (980).jpg,corn,Healthy,corn_Healthy,Corn_Health (980).jpg,11310,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/healthy/199.jpg,coffee,healthy,coffee_healthy,199.jpg,128520,3
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (569).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (569).JPG,11513,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (542).jpg,corn,Blight,corn_Blight,Corn_Blight (542).jpg,13154,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Green banana/7_jpg.rf.9202d26e40f2f992f74a645bc4b43ba9.jpg,banana,Green banana,banana_Green banana,7_jpg.rf.9202d26e40f2f992f74a645bc4b43ba9.jpg,28315,0
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (272).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (272).JPG,14894,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (720).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (720).JPG,18553,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1194).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1194).JPG,13050,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1214).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1214).JPG,11280,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1091).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1091).JPG,13622,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-137-_0_4027.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-137-_0_4027.jpg,18086,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (361).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (361).JPG,16534,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (574).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (574).JPG,13043,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (416).JPG,corn,Blight,corn_Blight,Corn_Blight (416).JPG,15354,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (384).jpg,corn,Blight,corn_Blight,Corn_Blight (384).jpg,16860,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (274).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (274).JPG,20089,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Yellow banana/Blog_Manfaat-Pisang-Buah-Merakyat-yang-Kaya-Khasiat_jpg.rf.aeffde0c828eba59c03e0fce03887e3b.jpg,banana,Yellow banana,banana_Yellow banana,Blog_Manfaat-Pisang-Buah-Merakyat-yang-Kaya-Khasiat_jpg.rf.aeffde0c828eba59c03e0fce03887e3b.jpg,33705,2
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (13).jpg,corn,Blight,corn_Blight,Corn_Blight (13).jpg,66302,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (1097).jpg,corn,Healthy,corn_Healthy,Corn_Health (1097).jpg,10492,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (787).JPG,corn,Blight,corn_Blight,Corn_Blight (787).JPG,15392,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/c14e2b11-510b-4967-ac96-ae965972ad50___RS_Early.B 7327.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,c14e2b11-510b-4967-ac96-ae965972ad50___RS_Early.B 7327.JPG,19029,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-97-_0_2674.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-97-_0_2674.jpg,15514,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (418).jpg,corn,Healthy,corn_Healthy,Corn_Health (418).jpg,6080,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/images328_jpg.rf.72650967e1d0d136333538bcb1d323e0.jpg,orange,orange,orange_orange,images328_jpg.rf.72650967e1d0d136333538bcb1d323e0.jpg,11286,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (583).jpg,corn,Healthy,corn_Healthy,Corn_Health (583).jpg,6474,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (1058).jpg,corn,Blight,corn_Blight,Corn_Blight (1058).jpg,16072,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (605).jpg,corn,Healthy,corn_Healthy,Corn_Health (605).jpg,14464,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (602).JPG,corn,Blight,corn_Blight,Corn_Blight (602).JPG,15399,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Rotten Mango/1260664_1_jpg.rf.b49b0a43e85710b08367c70d48087969.jpg,mango,Rotten Mango,mango_Rotten Mango,1260664_1_jpg.rf.b49b0a43e85710b08367c70d48087969.jpg,35970,11
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/leaf_rust/168.jpg,coffee,leaf_rust,coffee_leaf_rust,168.jpg,124749,4
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/orange2_jpg.rf.662e8cfcd35fb19a0070a78562a08a4b.jpg,orange,orange,orange_orange,orange2_jpg.rf.662e8cfcd35fb19a0070a78562a08a4b.jpg,24426,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (754).jpg,corn,Healthy,corn_Healthy,Corn_Health (754).jpg,20862,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (724).JPG,corn,Blight,corn_Blight,Corn_Blight (724).JPG,12285,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/phoma/254.jpg,coffee,phoma,coffee_phoma,254.jpg,86472,5
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-118-_0_760.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-118-_0_760.jpg,14888,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (7).jpg,corn,Healthy,corn_Healthy,Corn_Health (7).jpg,11153,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (594).jpg,corn,Healthy,corn_Healthy,Corn_Health (594).jpg,11477,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-109-_0_8248.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-109-_0_8248.jpg,17254,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1293).jpg,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1293).jpg,2125803,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (522).jpg,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (522).jpg,20537,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Yellow mango/20230305_052242260_iOS_jpg.rf.18f66c2bb3cb50b6128b25066853e817.jpg,mango,Yellow mango,mango_Yellow mango,20230305_052242260_iOS_jpg.rf.18f66c2bb3cb50b6128b25066853e817.jpg,22047,12
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Green mango/WIN_20230323_14_20_56_Pro_jpg.rf.ba77448dbe1ec37e80d88f70fb0a53f6.jpg,mango,Green mango,mango_Green mango,WIN_20230323_14_20_56_Pro_jpg.rf.ba77448dbe1ec37e80d88f70fb0a53f6.jpg,21533,10
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (1126).jpg,corn,Blight,corn_Blight,Corn_Blight (1126).jpg,212214,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (145).JPG,corn,Blight,corn_Blight,Corn_Blight (145).JPG,12695,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (687).JPG,corn,Blight,corn_Blight,Corn_Blight (687).JPG,14434,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (1108).jpg,corn,Blight,corn_Blight,Corn_Blight (1108).jpg,35944,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Yellow banana/200348_jpg.rf.2dc5b87df9532ecedcac8b38280a296c.jpg,banana,Yellow banana,banana_Yellow banana,200348_jpg.rf.2dc5b87df9532ecedcac8b38280a296c.jpg,35421,2
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (427).JPG,corn,Blight,corn_Blight,Corn_Blight (427).JPG,14013,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Rotten banana/translation_Screen-Shot-2018-06-12-at-9_20_14-PM_png.rf.b23e6a7a960decdec86e544d89b7c0de.jpg,banana,Rotten banana,banana_Rotten banana,translation_Screen-Shot-2018-06-12-at-9_20_14-PM_png.rf.b23e6a7a960decdec86e544d89b7c0de.jpg,23463,1
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (23).jpg,corn,Blight,corn_Blight,Corn_Blight (23).jpg,23813,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (695).jpg,corn,Healthy,corn_Healthy,Corn_Health (695).jpg,10129,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (536).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (536).JPG,17070,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-86-_0_8434.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-86-_0_8434.jpg,14691,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Green mango/WIN_20230323_14_59_40_Pro_jpg.rf.f4e2a2eab09fe08f838682356ff6aa7a.jpg,mango,Green mango,mango_Green mango,WIN_20230323_14_59_40_Pro_jpg.rf.f4e2a2eab09fe08f838682356ff6aa7a.jpg,23517,10
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (478).JPG,corn,Blight,corn_Blight,Corn_Blight (478).JPG,12910,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (638).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (638).JPG,15546,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (818).JPG,corn,Blight,corn_Blight,Corn_Blight (818).JPG,14733,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/bb4aa884-a811-4229-bfc0-1df1e7330877___RS_LB 5049.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,bb4aa884-a811-4229-bfc0-1df1e7330877___RS_LB 5049.JPG,17953,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (1106).jpg,corn,Blight,corn_Blight,Corn_Blight (1106).jpg,1086237,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/ec9ea109-34c7-48c5-bbac-40a36b21fa05___RS_Early.B 8761.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,ec9ea109-34c7-48c5-bbac-40a36b21fa05___RS_Early.B 8761.JPG,16593,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/cc63b147-ad2a-4bc1-aa05-a07b3c6b7761___RS_Early.B 7091.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,cc63b147-ad2a-4bc1-aa05-a07b3c6b7761___RS_Early.B 7091.JPG,19778,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/Orange_C2A9_Seedling_Commerce_jpg.rf.729c16a24d3aeea4c581361bbbf2d45e.jpg,orange,orange,orange_orange,Orange_C2A9_Seedling_Commerce_jpg.rf.729c16a24d3aeea4c581361bbbf2d45e.jpg,14405,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (292).jpg,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (292).jpg,19726,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Green banana/71_jpg.rf.2339fe02f8099a7a4b1d50e176f66177.jpg,banana,Green banana,banana_Green banana,71_jpg.rf.2339fe02f8099a7a4b1d50e176f66177.jpg,11426,0
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (490).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (490).JPG,16523,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (645).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (645).JPG,15823,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/dc3e6480-10c2-429b-bd9a-b8dd7d538594___RS_Early.B 8061.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,dc3e6480-10c2-429b-bd9a-b8dd7d538594___RS_Early.B 8061.JPG,18347,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (192).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (192).JPG,17079,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1215).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1215).JPG,10623,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (222).jpg,corn,Healthy,corn_Healthy,Corn_Health (222).jpg,13010,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Green banana/8_jpg.rf.e03aed0c9725cb52a2aa86eb9bc6982b.jpg,banana,Green banana,banana_Green banana,8_jpg.rf.e03aed0c9725cb52a2aa86eb9bc6982b.jpg,35659,0
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (627).jpg,corn,Healthy,corn_Healthy,Corn_Health (627).jpg,13518,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (776).jpg,corn,Healthy,corn_Healthy,Corn_Health (776).jpg,16005,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/Ripe orange/31_jpg.rf.6b9f5cd5c4cc00a60279a27d77de9052.jpg,orange,Ripe orange,orange_Ripe orange,31_jpg.rf.6b9f5cd5c4cc00a60279a27d77de9052.jpg,25677,13
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (408).JPG,corn,Blight,corn_Blight,Corn_Blight (408).JPG,11579,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (262).JPG,corn,Blight,corn_Blight,Corn_Blight (262).JPG,14085,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/fcbf4e6c-ba09-40f5-97c2-063bb20844bc___RS_Early.B 6938.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,fcbf4e6c-ba09-40f5-97c2-063bb20844bc___RS_Early.B 6938.JPG,22758,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (211).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (211).JPG,14356,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (143).jpg,corn,Healthy,corn_Healthy,Corn_Health (143).jpg,19638,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (314).jpg,corn,Healthy,corn_Healthy,Corn_Health (314).jpg,10397,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/b334273e-833f-48fc-b6fb-7d7a31e1a541___RS_LB 4112.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,b334273e-833f-48fc-b6fb-7d7a31e1a541___RS_LB 4112.JPG,12132,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (212).JPG,corn,Blight,corn_Blight,Corn_Blight (212).JPG,18132,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (335).jpg,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (335).jpg,16726,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/healthy/6.jpg,coffee,healthy,coffee_healthy,6.jpg,159668,3
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (48).jpg,corn,Healthy,corn_Healthy,Corn_Health (48).jpg,9389,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (910).JPG,corn,Blight,corn_Blight,Corn_Blight (910).JPG,13876,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-79-_0_9790.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-79-_0_9790.jpg,15647,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (657).JPG,corn,Blight,corn_Blight,Corn_Blight (657).JPG,14523,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (940).jpg,corn,Healthy,corn_Healthy,Corn_Health (940).jpg,8994,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/Ripe orange/72_jpg.rf.4caba49217d93f6bedf3665f5f0bfe81.jpg,orange,Ripe orange,orange_Ripe orange,72_jpg.rf.4caba49217d93f6bedf3665f5f0bfe81.jpg,27292,13
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (550).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (550).JPG,10964,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (101).jpg,corn,Blight,corn_Blight,Corn_Blight (101).jpg,290779,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (315).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (315).JPG,20817,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (369).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (369).JPG,14159,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (658).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (658).JPG,10885,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (260).jpg,corn,Healthy,corn_Healthy,Corn_Health (260).jpg,15470,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (1093).JPG,corn,Blight,corn_Blight,Corn_Blight (1093).JPG,15106,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (1038).jpg,corn,Blight,corn_Blight,Corn_Blight (1038).jpg,14936,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Yellow mango/d4e83da71d56ea72f49721d7a38b077f_jpg.rf.4c10b9089ce78e90bf66d3481ccb7b59.jpg,mango,Yellow mango,mango_Yellow mango,d4e83da71d56ea72f49721d7a38b077f_jpg.rf.4c10b9089ce78e90bf66d3481ccb7b59.jpg,38589,12
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (194).JPG,corn,Blight,corn_Blight,Corn_Blight (194).JPG,13405,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-87-_0_9861.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-87-_0_9861.jpg,13003,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (191).jpg,corn,Healthy,corn_Healthy,Corn_Health (191).jpg,17506,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Green mango/WIN_20230323_14_52_40_Pro_jpg.rf.aa98239e71c98f6c5e15518473995a68.jpg,mango,Green mango,mango_Green mango,WIN_20230323_14_52_40_Pro_jpg.rf.aa98239e71c98f6c5e15518473995a68.jpg,24271,10
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (333).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (333).JPG,19134,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (70).jpg,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (70).jpg,124800,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (774).jpg,corn,Healthy,corn_Healthy,Corn_Health (774).jpg,13253,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1260).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1260).JPG,18887,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/images107_jpg.rf.2a3fcfa6436ae3d145be709d7e80a429.jpg,orange,orange,orange_orange,images107_jpg.rf.2a3fcfa6436ae3d145be709d7e80a429.jpg,23965,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (406).jpg,corn,Healthy,corn_Healthy,Corn_Health (406).jpg,14555,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (227).JPG,corn,Blight,corn_Blight,Corn_Blight (227).JPG,15012,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/f8de1c8d-67a0-4825-9ad6-e15809ff909c___RS_Early.B 7348.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,f8de1c8d-67a0-4825-9ad6-e15809ff909c___RS_Early.B 7348.JPG,18355,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (14).jpg,corn,Blight,corn_Blight,Corn_Blight (14).jpg,47175,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Yellow mango/cdf786196836cb73c8d7fe418403d42a_jpg.rf.70adc3e40b945cdc85c58643334f97b9.jpg,mango,Yellow mango,mango_Yellow mango,cdf786196836cb73c8d7fe418403d42a_jpg.rf.70adc3e40b945cdc85c58643334f97b9.jpg,13917,12
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/be89d35f-e382-4b1c-95e8-af88d969d306___RS_Early.B 6758.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,be89d35f-e382-4b1c-95e8-af88d969d306___RS_Early.B 6758.JPG,21364,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Green banana/102_jpg.rf.dae3d21425c042b1b16f2ebdcc7f10ca.jpg,banana,Green banana,banana_Green banana,102_jpg.rf.dae3d21425c042b1b16f2ebdcc7f10ca.jpg,18931,0
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/image29_jpeg_jpg.rf.ebc21d45cd0e09a6cd299e55ecc750d4.jpg,orange,orange,orange_orange,image29_jpeg_jpg.rf.ebc21d45cd0e09a6cd299e55ecc750d4.jpg,32255,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (982).JPG,corn,Healthy,corn_Healthy,Corn_Health (982).JPG,12165,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (572).JPG,corn,Blight,corn_Blight,Corn_Blight (572).JPG,10762,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/healthy/11.jpg,coffee,healthy,coffee_healthy,11.jpg,163395,3
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (1030).jpg,corn,Blight,corn_Blight,Corn_Blight (1030).jpg,14565,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (272).JPG,corn,Blight,corn_Blight,Corn_Blight (272).JPG,12750,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (359).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (359).JPG,19965,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (131).jpg,corn,Healthy,corn_Healthy,Corn_Health (131).jpg,8828,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (505).jpg,corn,Healthy,corn_Healthy,Corn_Health (505).jpg,14922,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (92).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (92).JPG,14057,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Yellow mango/20230305_052221196_iOS_jpg.rf.e2b0beeb60addb69e5723a7805d829ee.jpg,mango,Yellow mango,mango_Yellow mango,20230305_052221196_iOS_jpg.rf.e2b0beeb60addb69e5723a7805d829ee.jpg,19881,12
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (413).JPG,corn,Blight,corn_Blight,Corn_Blight (413).JPG,15367,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/phoma/285.jpg,coffee,phoma,coffee_phoma,285.jpg,110036,5
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/de8d212e-1bbf-41d7-b13b-29f0746223aa___RS_Early.B 8022.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,de8d212e-1bbf-41d7-b13b-29f0746223aa___RS_Early.B 8022.JPG,21401,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (255).jpg,corn,Healthy,corn_Healthy,Corn_Health (255).jpg,7971,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Yellow banana/200342_jpg.rf.7f0d22d156e4bfb5ccda353a410eda83.jpg,banana,Yellow banana,banana_Yellow banana,200342_jpg.rf.7f0d22d156e4bfb5ccda353a410eda83.jpg,26344,2
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/d4486c3c-6d93-4d08-a3f5-7f4ae1f7ef3b___RS_LB 2829.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,d4486c3c-6d93-4d08-a3f5-7f4ae1f7ef3b___RS_LB 2829.JPG,16848,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Rotten Mango/-1_jpg.rf.8a4bc11cd1c3f948f132b2947ba8eaf3.jpg,mango,Rotten Mango,mango_Rotten Mango,-1_jpg.rf.8a4bc11cd1c3f948f132b2947ba8eaf3.jpg,21953,11
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (617).JPG,corn,Healthy,corn_Healthy,Corn_Health (617).JPG,14378,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (242).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (242).JPG,16415,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (521).jpg,corn,Healthy,corn_Healthy,Corn_Health (521).jpg,15168,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (523).JPG,corn,Blight,corn_Blight,Corn_Blight (523).JPG,11632,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/daa35c03-7307-4e2e-8b15-f33bfff5a12d___RS_Early.B 7712.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,daa35c03-7307-4e2e-8b15-f33bfff5a12d___RS_Early.B 7712.JPG,19857,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/Ripe orange/31_jpg.rf.346f76a29628f96e7a38cc9c659e1681.jpg,orange,Ripe orange,orange_Ripe orange,31_jpg.rf.346f76a29628f96e7a38cc9c659e1681.jpg,25626,13
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (1079).JPG,corn,Blight,corn_Blight,Corn_Blight (1079).JPG,10964,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (990).jpg,corn,Healthy,corn_Healthy,Corn_Health (990).jpg,7322,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (706).JPG,corn,Blight,corn_Blight,Corn_Blight (706).JPG,14460,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1099).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1099).JPG,13632,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (635).JPG,corn,Blight,corn_Blight,Corn_Blight (635).JPG,13364,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (209).JPG,corn,Blight,corn_Blight,Corn_Blight (209).JPG,13879,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/d3cbf715-a2a3-4024-ac5d-c6ae21a77720___RS_LB 2735.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,d3cbf715-a2a3-4024-ac5d-c6ae21a77720___RS_LB 2735.JPG,20498,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (174).jpg,corn,Healthy,corn_Healthy,Corn_Health (174).jpg,9414,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/Ripe orange/47_jpg.rf.a2a20b0b7ab4a2b4811ce7596ce7ddff.jpg,orange,Ripe orange,orange_Ripe orange,47_jpg.rf.a2a20b0b7ab4a2b4811ce7596ce7ddff.jpg,19609,13
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Green mango/IMG_128_jpg.rf.351f0bf2ec8146b811bc201790c25b5a.jpg,mango,Green mango,mango_Green mango,IMG_128_jpg.rf.351f0bf2ec8146b811bc201790c25b5a.jpg,16027,10
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1134).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1134).JPG,13412,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (60).jpg,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (60).jpg,64829,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (84).jpg,corn,Blight,corn_Blight,Corn_Blight (84).jpg,171309,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (65).jpg,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (65).jpg,246400,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (998).JPG,corn,Blight,corn_Blight,Corn_Blight (998).JPG,13034,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (395).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (395).JPG,12087,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (592).jpg,corn,Healthy,corn_Healthy,Corn_Health (592).jpg,12935,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/def9c9e1-fd12-44d9-92ae-18c5ff0f52da___RS_LB 2605.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,def9c9e1-fd12-44d9-92ae-18c5ff0f52da___RS_LB 2605.JPG,15579,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (1134).jpg,corn,Blight,corn_Blight,Corn_Blight (1134).jpg,123255,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (443).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (443).JPG,14459,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/f188a6c1-fbed-4941-a5a7-e11a6b4ddcfb___RS_Early.B 6910.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,f188a6c1-fbed-4941-a5a7-e11a6b4ddcfb___RS_Early.B 6910.JPG,20407,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (350).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (350).JPG,16592,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (563).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (563).JPG,12578,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (482).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (482).JPG,13383,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-145-_0_2509.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-145-_0_2509.jpg,14860,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/phoma/267.jpg,coffee,phoma,coffee_phoma,267.jpg,78370,5
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (530).jpg,corn,Healthy,corn_Healthy,Corn_Health (530).jpg,14341,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (486).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (486).JPG,13328,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-103-_0_391.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-103-_0_391.jpg,17791,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (590).JPG,corn,Blight,corn_Blight,Corn_Blight (590).JPG,7549,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (394).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (394).JPG,13380,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1112).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1112).JPG,15804,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (43).jpg,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (43).jpg,26097,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Yellow mango/20230305_052208801_iOS_jpg.rf.4a544bc02ea36c2648b68fffbfd94a4b.jpg,mango,Yellow mango,mango_Yellow mango,20230305_052208801_iOS_jpg.rf.4a544bc02ea36c2648b68fffbfd94a4b.jpg,22413,12
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Green mango/IMG_101_jpg.rf.ff6e3f7c22265aee0e21b0f617b0e60d.jpg,mango,Green mango,mango_Green mango,IMG_101_jpg.rf.ff6e3f7c22265aee0e21b0f617b0e60d.jpg,16639,10
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (115).JPG,corn,Blight,corn_Blight,Corn_Blight (115).JPG,18824,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/c3cd2ad3-174e-48b4-a7a5-ce63be745fd5___RS_LB 3243.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,c3cd2ad3-174e-48b4-a7a5-ce63be745fd5___RS_LB 3243.JPG,19895,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-82-_0_7714.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-82-_0_7714.jpg,18452,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (157).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (157).JPG,15679,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (767).jpg,corn,Healthy,corn_Healthy,Corn_Health (767).jpg,8196,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/Ripe orange/45_jpg.rf.c9fcc2c689529a31ed333fca6a15e1a5.jpg,orange,Ripe orange,orange_Ripe orange,45_jpg.rf.c9fcc2c689529a31ed333fca6a15e1a5.jpg,21164,13
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (533).jpg,corn,Healthy,corn_Healthy,Corn_Health (533).jpg,13984,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (547).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (547).JPG,15153,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/e766a563-c87a-4d14-ae00-898ce62e15d4___RS_LB 5123.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,e766a563-c87a-4d14-ae00-898ce62e15d4___RS_LB 5123.JPG,14353,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (312).JPG,corn,Blight,corn_Blight,Corn_Blight (312).JPG,13317,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (252).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (252).JPG,12794,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (218).jpg,corn,Healthy,corn_Healthy,Corn_Health (218).jpg,7928,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (543).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (543).JPG,14508,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/ffef8a3b-3e8a-4c24-a27e-64c41708f7a0___RS_Early.B 7132.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,ffef8a3b-3e8a-4c24-a27e-64c41708f7a0___RS_Early.B 7132.JPG,21644,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (549).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (549).JPG,12470,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (479).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (479).JPG,12189,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/images373_jpg.rf.105a0b2bb7ed2749ffd935cfc3d961b3.jpg,orange,orange,orange_orange,images373_jpg.rf.105a0b2bb7ed2749ffd935cfc3d961b3.jpg,26159,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (182).JPG,corn,Blight,corn_Blight,Corn_Blight (182).JPG,16023,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/d94eae91-7d2e-4394-b892-8c8c7fa9cf11___RS_LB 4864.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,d94eae91-7d2e-4394-b892-8c8c7fa9cf11___RS_LB 4864.JPG,16871,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (348).jpg,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (348).jpg,12939,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1109).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1109).JPG,12240,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (332).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (332).JPG,13472,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/Ripe orange/8_jpg.rf.c920b3e2a6713125cc04d2f8a103a963.jpg,orange,Ripe orange,orange_Ripe orange,8_jpg.rf.c920b3e2a6713125cc04d2f8a103a963.jpg,21160,13
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1030).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1030).JPG,16344,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/fd81a3e2-1d3e-4e52-a010-ad1b36a5220d___RS_LB 4067.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,fd81a3e2-1d3e-4e52-a010-ad1b36a5220d___RS_LB 4067.JPG,13672,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (806).JPG,corn,Blight,corn_Blight,Corn_Blight (806).JPG,13778,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (919).JPG,corn,Blight,corn_Blight,Corn_Blight (919).JPG,12719,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (494).jpg,corn,Healthy,corn_Healthy,Corn_Health (494).jpg,8333,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/leaf_rust/156.jpg,coffee,leaf_rust,coffee_leaf_rust,156.jpg,170731,4
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/leaf_rust/152.jpg,coffee,leaf_rust,coffee_leaf_rust,152.jpg,167627,4
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (436).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (436).JPG,16425,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (566).jpg,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (566).jpg,75855,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (14).jpg,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (14).jpg,320765,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (497).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (497).JPG,13844,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/leaf_rust/130.jpg,coffee,leaf_rust,coffee_leaf_rust,130.jpg,200822,4
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (920).jpg,corn,Healthy,corn_Healthy,Corn_Health (920).jpg,12358,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (167).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (167).JPG,15096,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (736).JPG,corn,Blight,corn_Blight,Corn_Blight (736).JPG,14305,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (261).jpg,corn,Healthy,corn_Healthy,Corn_Health (261).jpg,10079,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (193).jpg,corn,Healthy,corn_Healthy,Corn_Health (193).jpg,8236,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Rotten banana/translation_Screen-Shot-2018-06-12-at-9_10_55-PM_png.rf.89203381b8e4bfd63b78a2d26e359d88.jpg,banana,Rotten banana,banana_Rotten banana,translation_Screen-Shot-2018-06-12-at-9_10_55-PM_png.rf.89203381b8e4bfd63b78a2d26e359d88.jpg,16064,1
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (150).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (150).JPG,18003,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/Ripe orange/36_jpg.rf.9ee7d9a6255ecaa79c6daf85a319ce3a.jpg,orange,Ripe orange,orange_Ripe orange,36_jpg.rf.9ee7d9a6255ecaa79c6daf85a319ce3a.jpg,24481,13
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/healthy/189.jpg,coffee,healthy,coffee_healthy,189.jpg,136115,3
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (552).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (552).JPG,16698,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (528).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (528).JPG,7826,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (361).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (361).JPG,13644,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (898).jpg,corn,Blight,corn_Blight,Corn_Blight (898).jpg,12010,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (688).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (688).JPG,13223,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (1049).JPG,corn,Blight,corn_Blight,Corn_Blight (1049).JPG,14341,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1108).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1108).JPG,10213,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (336).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (336).JPG,13871,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/cc48c415-4a2d-4d8d-94db-c736e7b7c882___RS_Early.B 7705.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,cc48c415-4a2d-4d8d-94db-c736e7b7c882___RS_Early.B 7705.JPG,20989,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (637).JPG,corn,Blight,corn_Blight,Corn_Blight (637).JPG,12912,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/Ripe orange/36_jpg.rf.7515c5d49c25d15037b94fc9559fe38f.jpg,orange,Ripe orange,orange_Ripe orange,36_jpg.rf.7515c5d49c25d15037b94fc9559fe38f.jpg,24474,13
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (674).jpg,corn,Healthy,corn_Healthy,Corn_Health (674).jpg,10899,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (124).jpg,corn,Healthy,corn_Healthy,Corn_Health (124).jpg,15166,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (752).jpg,corn,Healthy,corn_Healthy,Corn_Health (752).jpg,10523,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/cbd4ef4a-1e84-41ac-8744-b5a1c52461be___RS_Early.B 8191.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,cbd4ef4a-1e84-41ac-8744-b5a1c52461be___RS_Early.B 8191.JPG,21189,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (560).JPG,corn,Blight,corn_Blight,Corn_Blight (560).JPG,14785,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (273).JPG,corn,Blight,corn_Blight,Corn_Blight (273).JPG,18834,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Yellow mango/20230305_051900687_iOS_jpg.rf.f885e5ddf32738238d49c44b869c3f17.jpg,mango,Yellow mango,mango_Yellow mango,20230305_051900687_iOS_jpg.rf.f885e5ddf32738238d49c44b869c3f17.jpg,18912,12
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1153).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1153).JPG,12119,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (414).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (414).JPG,12276,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (477).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (477).JPG,13514,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1187).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1187).JPG,14739,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (314).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (314).JPG,14885,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (726).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (726).JPG,17568,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (616).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (616).JPG,15406,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (803).jpg,corn,Healthy,corn_Healthy,Corn_Health (803).jpg,10398,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (36).jpg,corn,Healthy,corn_Healthy,Corn_Health (36).jpg,7187,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1268).jpg,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1268).jpg,1549625,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (820).jpg,corn,Blight,corn_Blight,Corn_Blight (820).jpg,15868,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (987).jpg,corn,Healthy,corn_Healthy,Corn_Health (987).jpg,13012,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (1058).jpg,corn,Healthy,corn_Healthy,Corn_Health (1058).jpg,11194,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (733).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (733).JPG,13118,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/b8803558-9e0f-404e-80b3-c78d0bc7f6d0___RS_Early.B 7548.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,b8803558-9e0f-404e-80b3-c78d0bc7f6d0___RS_Early.B 7548.JPG,19308,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (966).jpg,corn,Blight,corn_Blight,Corn_Blight (966).jpg,13819,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (412).jpg,corn,Healthy,corn_Healthy,Corn_Health (412).jpg,8285,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (364).JPG,corn,Blight,corn_Blight,Corn_Blight (364).JPG,13021,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Green mango/WIN_20230323_15_00_58_Pro_jpg.rf.3e9de64b808af958887addaf7fd04d96.jpg,mango,Green mango,mango_Green mango,WIN_20230323_15_00_58_Pro_jpg.rf.3e9de64b808af958887addaf7fd04d96.jpg,22386,10
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (636).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (636).JPG,14897,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (146).JPG,corn,Blight,corn_Blight,Corn_Blight (146).JPG,14713,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (942).jpg,corn,Healthy,corn_Healthy,Corn_Health (942).jpg,7850,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (399).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (399).JPG,14632,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-89-_0_4320.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-89-_0_4320.jpg,17690,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (288).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (288).JPG,13832,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (282).jpg,corn,Healthy,corn_Healthy,Corn_Health (282).jpg,13969,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (711).JPG,corn,Blight,corn_Blight,Corn_Blight (711).JPG,12238,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/f20b88af-30e2-4270-a035-2cf217469cf8___RS_Early.B 8266.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,f20b88af-30e2-4270-a035-2cf217469cf8___RS_Early.B 8266.JPG,22703,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (707).JPG,corn,Blight,corn_Blight,Corn_Blight (707).JPG,14136,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (373).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (373).JPG,13755,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-102-_0_5547.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-102-_0_5547.jpg,18923,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/Ripe orange/61_jpg.rf.f4349b221dcf0c13dbf5ab468b820c1e.jpg,orange,Ripe orange,orange_Ripe orange,61_jpg.rf.f4349b221dcf0c13dbf5ab468b820c1e.jpg,44116,13
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (475).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (475).JPG,10557,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (673).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (673).JPG,12385,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-96-_0_4579.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-96-_0_4579.jpg,14814,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (1070).JPG,corn,Blight,corn_Blight,Corn_Blight (1070).JPG,11772,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (202).JPG,corn,Blight,corn_Blight,Corn_Blight (202).JPG,13303,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/Ripe orange/68_jpg.rf.5ed8e20e63ed6eb205de19f616a2e127.jpg,orange,Ripe orange,orange_Ripe orange,68_jpg.rf.5ed8e20e63ed6eb205de19f616a2e127.jpg,39765,13
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-118-_0_2867.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-118-_0_2867.jpg,13908,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (108).jpg,corn,Healthy,corn_Healthy,Corn_Health (108).jpg,6523,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/f2a56e13-438e-4bef-a3ea-beb9f347d481___RS_Early.B 6691.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,f2a56e13-438e-4bef-a3ea-beb9f347d481___RS_Early.B 6691.JPG,19764,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1130).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1130).JPG,13026,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (107).jpg,corn,Blight,corn_Blight,Corn_Blight (107).jpg,50683,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (601).jpg,corn,Healthy,corn_Healthy,Corn_Health (601).jpg,10319,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Rotten Mango/20230305_052301035_iOS_jpg.rf.4c72bcb0ccd7f6dd70f159be1fb03b59.jpg,mango,Rotten Mango,mango_Rotten Mango,20230305_052301035_iOS_jpg.rf.4c72bcb0ccd7f6dd70f159be1fb03b59.jpg,21999,11
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (275).jpg,corn,Healthy,corn_Healthy,Corn_Health (275).jpg,9049,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (439).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (439).JPG,16165,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Rotten banana/vertical_flip_Screen-Shot-2018-06-12-at-9_04_47-PM_png.rf.2734334a39ee00fc49cbaab9462736ac.jpg,banana,Rotten banana,banana_Rotten banana,vertical_flip_Screen-Shot-2018-06-12-at-9_04_47-PM_png.rf.2734334a39ee00fc49cbaab9462736ac.jpg,37662,1
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (76).jpg,corn,Healthy,corn_Healthy,Corn_Health (76).jpg,16707,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (923).JPG,corn,Blight,corn_Blight,Corn_Blight (923).JPG,12086,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/d2f57448-1770-46dc-97e3-40247d37094b___RS_LB 4455.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,d2f57448-1770-46dc-97e3-40247d37094b___RS_LB 4455.JPG,17078,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1156).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1156).JPG,12435,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (488).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (488).JPG,10979,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1288).jpg,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1288).jpg,1459136,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (761).jpg,corn,Healthy,corn_Healthy,Corn_Health (761).jpg,12152,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (552).JPG,corn,Blight,corn_Blight,Corn_Blight (552).JPG,15137,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (1091).JPG,corn,Blight,corn_Blight,Corn_Blight (1091).JPG,13296,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (1078).jpg,corn,Healthy,corn_Healthy,Corn_Health (1078).jpg,14152,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1255).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1255).JPG,14730,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (1017).jpg,corn,Healthy,corn_Healthy,Corn_Health (1017).jpg,14501,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (1146).jpg,corn,Healthy,corn_Healthy,Corn_Health (1146).jpg,9788,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (520).jpg,corn,Healthy,corn_Healthy,Corn_Health (520).jpg,7410,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (851).jpg,corn,Blight,corn_Blight,Corn_Blight (851).jpg,15153,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1074).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1074).JPG,14563,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (31).jpg,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (31).jpg,1342670,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (737).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (737).JPG,18508,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1146).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1146).JPG,13905,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (197).JPG,corn,Blight,corn_Blight,Corn_Blight (197).JPG,15845,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (62).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (62).JPG,23075,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/e4bd2479-dd2f-41ce-9544-4f1804c4ab8b___RS_Early.B 8601.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,e4bd2479-dd2f-41ce-9544-4f1804c4ab8b___RS_Early.B 8601.JPG,18754,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (892).JPG,corn,Blight,corn_Blight,Corn_Blight (892).JPG,13943,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (515).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (515).JPG,8500,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-141-_0_1735.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-141-_0_1735.jpg,18242,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (683).jpg,corn,Healthy,corn_Healthy,Corn_Health (683).jpg,7458,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (24).jpg,corn,Blight,corn_Blight,Corn_Blight (24).jpg,204182,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Yellow mango/20230305_052147105_iOS_jpg.rf.cf4335734e6c0bfcc34aa72afca9ed0c.jpg,mango,Yellow mango,mango_Yellow mango,20230305_052147105_iOS_jpg.rf.cf4335734e6c0bfcc34aa72afca9ed0c.jpg,20631,12
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (356).jpg,corn,Healthy,corn_Healthy,Corn_Health (356).jpg,15252,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (462).JPG,corn,Blight,corn_Blight,Corn_Blight (462).JPG,12975,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (516).jpg,corn,Healthy,corn_Healthy,Corn_Health (516).jpg,12048,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/db973ce3-7198-4ae8-910a-bb1a3046e353___RS_LB 5152.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,db973ce3-7198-4ae8-910a-bb1a3046e353___RS_LB 5152.JPG,14747,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1056).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1056).JPG,13104,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (997).JPG,corn,Blight,corn_Blight,Corn_Blight (997).JPG,14063,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/images101_jpg.rf.950e9158b12a987153cbccff2d7d0b96.jpg,orange,orange,orange_orange,images101_jpg.rf.950e9158b12a987153cbccff2d7d0b96.jpg,28888,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/Ripe orange/89_jpg.rf.8bc978ea98448eed32822e7ab004b550.jpg,orange,Ripe orange,orange_Ripe orange,89_jpg.rf.8bc978ea98448eed32822e7ab004b550.jpg,27241,13
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Rotten Mango/20230305_061238189_iOS_jpg.rf.8a28f583c0e8caf31446edd591d26d7f.jpg,mango,Rotten Mango,mango_Rotten Mango,20230305_061238189_iOS_jpg.rf.8a28f583c0e8caf31446edd591d26d7f.jpg,22004,11
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/img_31_jpeg.rf.a901a243d2751b60c8f0a43378552292.jpg,orange,orange,orange_orange,img_31_jpeg.rf.a901a243d2751b60c8f0a43378552292.jpg,28773,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (659).JPG,corn,Blight,corn_Blight,Corn_Blight (659).JPG,11044,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (601).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (601).JPG,15066,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Green banana/65_jpg.rf.3e8305c97a71f02d897c2462ebbce9c0.jpg,banana,Green banana,banana_Green banana,65_jpg.rf.3e8305c97a71f02d897c2462ebbce9c0.jpg,33382,0
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1126).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1126).JPG,14488,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Green mango/WIN_20230323_14_47_48_Pro_jpg.rf.e3a586d4221d5d342a1a0979f0847fa2.jpg,mango,Green mango,mango_Green mango,WIN_20230323_14_47_48_Pro_jpg.rf.e3a586d4221d5d342a1a0979f0847fa2.jpg,22707,10
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/c63d5cca-9639-4d42-88c4-13572afa1dda___RS_LB 2747.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,c63d5cca-9639-4d42-88c4-13572afa1dda___RS_LB 2747.JPG,17558,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (425).jpg,corn,Healthy,corn_Healthy,Corn_Health (425).jpg,9822,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (916).JPG,corn,Blight,corn_Blight,Corn_Blight (916).JPG,10672,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/be6b5fab-c3de-4d33-b7fc-87bf794d8705___RS_LB 4850.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,be6b5fab-c3de-4d33-b7fc-87bf794d8705___RS_LB 4850.JPG,19366,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-110-_0_2603.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-110-_0_2603.jpg,18650,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (1037).jpg,corn,Healthy,corn_Healthy,Corn_Health (1037).jpg,19161,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (591).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (591).JPG,12726,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/images369_jpg.rf.46f60eb76a91a201a86633dbd3341ef3.jpg,orange,orange,orange_orange,images369_jpg.rf.46f60eb76a91a201a86633dbd3341ef3.jpg,19139,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (30).jpg,corn,Healthy,corn_Healthy,Corn_Health (30).jpg,10929,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (369).JPG,corn,Blight,corn_Blight,Corn_Blight (369).JPG,14073,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1024).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1024).JPG,14828,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Green mango/WIN_20230323_14_11_26_Pro_jpg.rf.543e9b9e276f2c2e7273c4315d290fd1.jpg,mango,Green mango,mango_Green mango,WIN_20230323_14_11_26_Pro_jpg.rf.543e9b9e276f2c2e7273c4315d290fd1.jpg,23705,10
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/Ripe orange/29_jpg.rf.92d227a5b6ef1d0813116b37783f62f4.jpg,orange,Ripe orange,orange_Ripe orange,29_jpg.rf.92d227a5b6ef1d0813116b37783f62f4.jpg,27291,13
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (580).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (580).JPG,12225,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (235).jpg,corn,Healthy,corn_Healthy,Corn_Health (235).jpg,9363,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (716).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (716).JPG,16435,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (8).jpg,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (8).jpg,347147,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (189).jpg,corn,Healthy,corn_Healthy,Corn_Health (189).jpg,9521,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (291).jpg,corn,Healthy,corn_Healthy,Corn_Health (291).jpg,14836,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (508).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (508).JPG,13341,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (176).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (176).JPG,21971,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (245).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (245).JPG,17266,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (905).JPG,corn,Blight,corn_Blight,Corn_Blight (905).JPG,14511,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (387).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (387).JPG,13049,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (44).jpg,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (44).jpg,221893,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (722).jpg,corn,Healthy,corn_Healthy,Corn_Health (722).jpg,11179,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (676).JPG,corn,Blight,corn_Blight,Corn_Blight (676).JPG,12850,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (656).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (656).JPG,15193,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (295).jpg,corn,Healthy,corn_Healthy,Corn_Health (295).jpg,8772,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (800).jpg,corn,Healthy,corn_Healthy,Corn_Health (800).jpg,7991,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (1113).jpg,corn,Blight,corn_Blight,Corn_Blight (1113).jpg,753590,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (611).JPG,corn,Blight,corn_Blight,Corn_Blight (611).JPG,14787,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (143).JPG,corn,Blight,corn_Blight,Corn_Blight (143).JPG,12264,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/Orange_jpg.rf.130da7b225a4fa16297a3780dc0d1b1c.jpg,orange,orange,orange_orange,Orange_jpg.rf.130da7b225a4fa16297a3780dc0d1b1c.jpg,21146,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (3).jpg,corn,Blight,corn_Blight,Corn_Blight (3).jpg,101172,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (1161).jpg,corn,Healthy,corn_Healthy,Corn_Health (1161).jpg,15073,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1116).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1116).JPG,13689,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (443).jpg,corn,Healthy,corn_Healthy,Corn_Health (443).jpg,11489,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (236).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (236).JPG,14861,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/image28_jpeg_jpg.rf.24f8d58d7c99e15546716d4263917915.jpg,orange,orange,orange_orange,image28_jpeg_jpg.rf.24f8d58d7c99e15546716d4263917915.jpg,20742,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/f536e055-666e-41cc-8ee2-c1af2fbf754a___RS_Early.B 8104.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,f536e055-666e-41cc-8ee2-c1af2fbf754a___RS_Early.B 8104.JPG,22822,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Rotten Mango/20230305_062143064_iOS_jpg.rf.62ca9ccde29e79947aeb0e12fd96f5ce.jpg,mango,Rotten Mango,mango_Rotten Mango,20230305_062143064_iOS_jpg.rf.62ca9ccde29e79947aeb0e12fd96f5ce.jpg,18285,11
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (860).JPG,corn,Blight,corn_Blight,Corn_Blight (860).JPG,14469,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (547).JPG,corn,Blight,corn_Blight,Corn_Blight (547).JPG,12213,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/d438f9b3-2952-425e-8c5f-a92a21b35f5f___RS_LB 4470.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,d438f9b3-2952-425e-8c5f-a92a21b35f5f___RS_LB 4470.JPG,19254,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (744).JPG,corn,Blight,corn_Blight,Corn_Blight (744).JPG,13064,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (1132).jpg,corn,Blight,corn_Blight,Corn_Blight (1132).jpg,201357,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/images303_jpg.rf.0538f24eee80df0af571ae7d9a78f85c.jpg,orange,orange,orange_orange,images303_jpg.rf.0538f24eee80df0af571ae7d9a78f85c.jpg,18957,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Green mango/IMG_73_jpg.rf.f4646f34ae10b09fddf0dcc2a6078c19.jpg,mango,Green mango,mango_Green mango,IMG_73_jpg.rf.f4646f34ae10b09fddf0dcc2a6078c19.jpg,19463,10
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/image26_jpeg_jpg.rf.3faa043588e8bdfdbaa0c31a031f887c.jpg,orange,orange,orange_orange,image26_jpeg_jpg.rf.3faa043588e8bdfdbaa0c31a031f887c.jpg,29783,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Rotten Mango/20230305_062135304_iOS_jpg.rf.3da8644f94d8a5eaee25f01e45859d48.jpg,mango,Rotten Mango,mango_Rotten Mango,20230305_062135304_iOS_jpg.rf.3da8644f94d8a5eaee25f01e45859d48.jpg,21823,11
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (546).jpg,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (546).jpg,13474,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (187).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (187).JPG,14088,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (164).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (164).JPG,18065,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (1039).jpg,corn,Blight,corn_Blight,Corn_Blight (1039).jpg,14755,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1031).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1031).JPG,14172,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Yellow banana/latundan-164-_jpg.rf.7ce3950a07fb885d72da4513b5470518.jpg,banana,Yellow banana,banana_Yellow banana,latundan-164-_jpg.rf.7ce3950a07fb885d72da4513b5470518.jpg,9317,2
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (237).JPG,corn,Blight,corn_Blight,Corn_Blight (237).JPG,15685,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/healthy/201.jpg,coffee,healthy,coffee_healthy,201.jpg,139121,3
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (629).jpg,corn,Healthy,corn_Healthy,Corn_Health (629).jpg,8034,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (694).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (694).JPG,12440,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (296).jpg,corn,Healthy,corn_Healthy,Corn_Health (296).jpg,16116,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (1087).JPG,corn,Blight,corn_Blight,Corn_Blight (1087).JPG,12128,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/banner_naranja_jpg.rf.2b86eb6a31cfa38a4cc70109df7913e4.jpg,orange,orange,orange_orange,banner_naranja_jpg.rf.2b86eb6a31cfa38a4cc70109df7913e4.jpg,19751,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/Ripe orange/22_jpg.rf.0dff79c2150ab8b5c514cf6e97579995.jpg,orange,Ripe orange,orange_Ripe orange,22_jpg.rf.0dff79c2150ab8b5c514cf6e97579995.jpg,26124,13
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (366).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (366).JPG,13777,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (9).jpg,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (9).jpg,177599,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (484).JPG,corn,Blight,corn_Blight,Corn_Blight (484).JPG,15446,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (196).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (196).JPG,13395,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (31).jpg,corn,Blight,corn_Blight,Corn_Blight (31).jpg,183035,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (220).jpg,corn,Healthy,corn_Healthy,Corn_Health (220).jpg,5943,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (433).jpg,corn,Blight,corn_Blight,Corn_Blight (433).jpg,13488,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (31).jpg,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (31).jpg,18236,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/fc748621-bd56-4012-a617-9e30df58ecfc___RS_LB 4402.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,fc748621-bd56-4012-a617-9e30df58ecfc___RS_LB 4402.JPG,17329,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (136).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (136).JPG,20117,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/c09e4b05-b196-4955-abd4-6aed44c40132___RS_Early.B 6823.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,c09e4b05-b196-4955-abd4-6aed44c40132___RS_Early.B 6823.JPG,21638,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/img_651_jpeg.rf.674b8f7718a57e25dfdbaa22547d6b18.jpg,orange,orange,orange_orange,img_651_jpeg.rf.674b8f7718a57e25dfdbaa22547d6b18.jpg,35089,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/Ripe orange/39_jpg.rf.67ded2f0d8b260f4104acff0936a80b2.jpg,orange,Ripe orange,orange_Ripe orange,39_jpg.rf.67ded2f0d8b260f4104acff0936a80b2.jpg,24730,13
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Green mango/WIN_20230323_14_33_52_Pro_jpg.rf.01d9870043cb2e05d51b0cfc697edbe6.jpg,mango,Green mango,mango_Green mango,WIN_20230323_14_33_52_Pro_jpg.rf.01d9870043cb2e05d51b0cfc697edbe6.jpg,21591,10
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (766).JPG,corn,Blight,corn_Blight,Corn_Blight (766).JPG,9899,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (17).jpg,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (17).jpg,228137,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-129-_0_582.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-129-_0_582.jpg,17778,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (118).JPG,corn,Blight,corn_Blight,Corn_Blight (118).JPG,14646,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Green banana/115_jpg.rf.073ae164c7dc45fa0fc2ad052efc798c.jpg,banana,Green banana,banana_Green banana,115_jpg.rf.073ae164c7dc45fa0fc2ad052efc798c.jpg,35828,0
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/c5ff46d5-8f49-409f-b3c1-9a1a25418f47___RS_LB 2596.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,c5ff46d5-8f49-409f-b3c1-9a1a25418f47___RS_LB 2596.JPG,14813,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (265).JPG,corn,Blight,corn_Blight,Corn_Blight (265).JPG,13060,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (1051).jpg,corn,Healthy,corn_Healthy,Corn_Health (1051).jpg,8388,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/bb3049f8-7377-4610-b13f-8daf6753bda7___RS_LB 4031.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,bb3049f8-7377-4610-b13f-8daf6753bda7___RS_LB 4031.JPG,11073,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/img_891_jpeg.rf.2e9b357de12c4b5e74465a95c5a2892f.jpg,orange,orange,orange_orange,img_891_jpeg.rf.2e9b357de12c4b5e74465a95c5a2892f.jpg,29108,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (701).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (701).JPG,14818,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (421).jpg,corn,Healthy,corn_Healthy,Corn_Health (421).jpg,14570,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (188).jpg,corn,Healthy,corn_Healthy,Corn_Health (188).jpg,10869,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1270).jpg,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1270).jpg,163113,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/Ripe orange/94_jpg.rf.a97e5eda91eba819ea5e0963bcb1c18d.jpg,orange,Ripe orange,orange_Ripe orange,94_jpg.rf.a97e5eda91eba819ea5e0963bcb1c18d.jpg,24091,13
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-144-_0_1482.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-144-_0_1482.jpg,17943,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (91).jpg,corn,Blight,corn_Blight,Corn_Blight (91).jpg,6574069,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1045).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1045).JPG,14263,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/e9429874-1098-43af-bc38-0acc0b93f4f9___RS_LB 2682.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,e9429874-1098-43af-bc38-0acc0b93f4f9___RS_LB 2682.JPG,18512,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/Ripe orange/35_jpg.rf.1617c57522766580c22b958f74107226.jpg,orange,Ripe orange,orange_Ripe orange,35_jpg.rf.1617c57522766580c22b958f74107226.jpg,41736,13
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (355).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (355).JPG,11517,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (1152).jpg,corn,Healthy,corn_Healthy,Corn_Health (1152).jpg,11533,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/leaf_rust/172.jpg,coffee,leaf_rust,coffee_leaf_rust,172.jpg,190183,4
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (1096).jpg,corn,Healthy,corn_Healthy,Corn_Health (1096).jpg,8106,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (353).jpg,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (353).jpg,17846,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (584).JPG,corn,Blight,corn_Blight,Corn_Blight (584).JPG,10768,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (592).JPG,corn,Blight,corn_Blight,Corn_Blight (592).JPG,14015,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (883).JPG,corn,Blight,corn_Blight,Corn_Blight (883).JPG,17402,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Rotten Mango/20230305_062143064_iOS_jpg.rf.c097fd40903852d52191a53dd04c85f5.jpg,mango,Rotten Mango,mango_Rotten Mango,20230305_062143064_iOS_jpg.rf.c097fd40903852d52191a53dd04c85f5.jpg,20892,11
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (1134).jpg,corn,Healthy,corn_Healthy,Corn_Health (1134).jpg,10595,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/banner_naranja_jpg.rf.aa9a1e5f27156b4fac52cd3796942265.jpg,orange,orange,orange_orange,banner_naranja_jpg.rf.aa9a1e5f27156b4fac52cd3796942265.jpg,19749,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (848).JPG,corn,Blight,corn_Blight,Corn_Blight (848).JPG,15733,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (422).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (422).JPG,19158,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/ec4e730c-02c1-4b4e-b9fc-9387e2f30a8a___RS_Early.B 7701.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,ec4e730c-02c1-4b4e-b9fc-9387e2f30a8a___RS_Early.B 7701.JPG,18285,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (388).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (388).JPG,12784,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (323).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (323).JPG,14518,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (456).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (456).JPG,11865,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/da16cb94-4f1d-4390-b446-19eac2110115___RS_LB 2912.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,da16cb94-4f1d-4390-b446-19eac2110115___RS_LB 2912.JPG,16701,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (286).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (286).JPG,14312,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/Ripe orange/77_jpg.rf.37212a4c5f75d7204dba810c5c0bbc94.jpg,orange,Ripe orange,orange_Ripe orange,77_jpg.rf.37212a4c5f75d7204dba810c5c0bbc94.jpg,21356,13
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (556).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (556).JPG,15573,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (663).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (663).JPG,11613,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (598).jpg,corn,Healthy,corn_Healthy,Corn_Health (598).jpg,11707,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/img_201_jpeg.rf.47dbb8f3f49561232c2225a3042247c0.jpg,orange,orange,orange_orange,img_201_jpeg.rf.47dbb8f3f49561232c2225a3042247c0.jpg,29820,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/c03a3f69-00b7-4aa5-a49f-794416af0598___RS_Early.B 8112.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,c03a3f69-00b7-4aa5-a49f-794416af0598___RS_Early.B 8112.JPG,20418,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (318).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (318).JPG,15958,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/images12_jpg.rf.21d6f838db26bfec4cc99684d79f5f04.jpg,orange,orange,orange_orange,images12_jpg.rf.21d6f838db26bfec4cc99684d79f5f04.jpg,41117,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1243).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1243).JPG,16434,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/Ripe orange/66_jpg.rf.e457ca079f2f1aebbfe9e1b6feac5687.jpg,orange,Ripe orange,orange_Ripe orange,66_jpg.rf.e457ca079f2f1aebbfe9e1b6feac5687.jpg,16960,13
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (1000).jpg,corn,Healthy,corn_Healthy,Corn_Health (1000).jpg,4907,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (458).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (458).JPG,6399,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Rotten Mango/20230305_061055587_iOS_jpg.rf.3bd2ec5353fb2b7f2c4712b100e68551.jpg,mango,Rotten Mango,mango_Rotten Mango,20230305_061055587_iOS_jpg.rf.3bd2ec5353fb2b7f2c4712b100e68551.jpg,24389,11
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (861).jpg,corn,Healthy,corn_Healthy,Corn_Health (861).jpg,10483,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (850).JPG,corn,Blight,corn_Blight,Corn_Blight (850).JPG,12871,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-103-_0_969.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-103-_0_969.jpg,18475,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-114-_0_1555.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-114-_0_1555.jpg,14015,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (213).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (213).JPG,15916,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/images119_jpg.rf.ecd6bdc794a42e5720f7852bc12aab79.jpg,orange,orange,orange_orange,images119_jpg.rf.ecd6bdc794a42e5720f7852bc12aab79.jpg,15372,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/fc759d3f-64c7-4e45-9a0c-5a2f07fd1055___RS_LB 3030.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,fc759d3f-64c7-4e45-9a0c-5a2f07fd1055___RS_LB 3030.JPG,15688,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (1114).jpg,corn,Healthy,corn_Healthy,Corn_Health (1114).jpg,14254,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/05795a16b647118ffb6629390e995adb_jpg.rf.f222192f83706581a5554b6b965265a6.jpg,orange,orange,orange_orange,05795a16b647118ffb6629390e995adb_jpg.rf.f222192f83706581a5554b6b965265a6.jpg,20904,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Rotten banana/translation_Screen-Shot-2018-06-12-at-9_22_32-PM_png.rf.2974ea676a5261dad614e7adfca72816.jpg,banana,Rotten banana,banana_Rotten banana,translation_Screen-Shot-2018-06-12-at-9_22_32-PM_png.rf.2974ea676a5261dad614e7adfca72816.jpg,25508,1
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (1030).jpg,corn,Healthy,corn_Healthy,Corn_Health (1030).jpg,12177,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (1041).jpg,corn,Healthy,corn_Healthy,Corn_Health (1041).jpg,7476,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (282).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (282).JPG,11284,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/f3ee2886-4ada-4287-94b6-c4c93005b887___RS_LB 4352.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,f3ee2886-4ada-4287-94b6-c4c93005b887___RS_LB 4352.JPG,17341,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (535).jpg,corn,Healthy,corn_Healthy,Corn_Health (535).jpg,8012,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (334).JPG,corn,Blight,corn_Blight,Corn_Blight (334).JPG,11016,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/e575421c-a9d4-4c0e-8027-b12fca1e3ac9___RS_LB 2806.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,e575421c-a9d4-4c0e-8027-b12fca1e3ac9___RS_LB 2806.JPG,18266,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (1061).jpg,corn,Healthy,corn_Healthy,Corn_Health (1061).jpg,9712,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/leaf_rust/147.jpg,coffee,leaf_rust,coffee_leaf_rust,147.jpg,157108,4
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (75).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (75).JPG,16179,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1175).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1175).JPG,15713,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (83).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (83).JPG,22397,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (82).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (82).JPG,13638,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (195).jpg,corn,Healthy,corn_Healthy,Corn_Health (195).jpg,7859,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (40).jpg,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (40).jpg,31704,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (524).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (524).JPG,14599,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (637).jpg,corn,Healthy,corn_Healthy,Corn_Health (637).jpg,9158,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (113).JPG,corn,Blight,corn_Blight,Corn_Blight (113).JPG,13420,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (150).JPG,corn,Blight,corn_Blight,Corn_Blight (150).JPG,12397,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (291).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (291).JPG,16221,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/d8e3b97f-d362-4e05-8600-a103580aace4___RS_LB 4773.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,d8e3b97f-d362-4e05-8600-a103580aace4___RS_LB 4773.JPG,14500,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (534).jpg,corn,Healthy,corn_Healthy,Corn_Health (534).jpg,11153,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (573).JPG,corn,Blight,corn_Blight,Corn_Blight (573).JPG,16516,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (788).jpg,corn,Healthy,corn_Healthy,Corn_Health (788).jpg,17982,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (687).jpg,corn,Healthy,corn_Healthy,Corn_Health (687).jpg,15925,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (452).JPG,corn,Blight,corn_Blight,Corn_Blight (452).JPG,16248,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (242).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (242).JPG,14315,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/b3123a68-bf01-4d71-a561-e1e7363a6419___RS_LB 2586.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,b3123a68-bf01-4d71-a561-e1e7363a6419___RS_LB 2586.JPG,16401,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (850).jpg,corn,Healthy,corn_Healthy,Corn_Health (850).jpg,12513,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Green banana/53_jpg.rf.8c94af97c1979324627e0a3a98e47f4d.jpg,banana,Green banana,banana_Green banana,53_jpg.rf.8c94af97c1979324627e0a3a98e47f4d.jpg,38743,0
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (1126).jpg,corn,Healthy,corn_Healthy,Corn_Health (1126).jpg,17450,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1191).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1191).JPG,16180,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (902).jpg,corn,Healthy,corn_Healthy,Corn_Health (902).jpg,17165,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1061).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1061).JPG,13806,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (50).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (50).JPG,14482,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/Ripe orange/35_jpg.rf.15eaedb5a657f2c210cd4f2395969a4b.jpg,orange,Ripe orange,orange_Ripe orange,35_jpg.rf.15eaedb5a657f2c210cd4f2395969a4b.jpg,41743,13
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (478).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (478).JPG,14361,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (614).jpg,corn,Healthy,corn_Healthy,Corn_Health (614).jpg,14619,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (417).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (417).JPG,14692,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-123-_0_2475.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-123-_0_2475.jpg,17130,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (449).jpg,corn,Healthy,corn_Healthy,Corn_Health (449).jpg,14747,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (8).jpg,corn,Blight,corn_Blight,Corn_Blight (8).jpg,348672,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/leaf_rust/174.jpg,coffee,leaf_rust,coffee_leaf_rust,174.jpg,190182,4
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/e7cab6f5-308b-41ea-af82-e20cfe540729___RS_Early.B 7177.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,e7cab6f5-308b-41ea-af82-e20cfe540729___RS_Early.B 7177.JPG,18644,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/c419a9f0-5fb9-4db6-a229-5c08c36896fe___RS_Early.B 8585.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,c419a9f0-5fb9-4db6-a229-5c08c36896fe___RS_Early.B 8585.JPG,17356,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (421).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (421).JPG,14243,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Yellow banana/1478371348p_jpg.rf.48854ba80d5c9e77ad08c32f5eb6c18a.jpg,banana,Yellow banana,banana_Yellow banana,1478371348p_jpg.rf.48854ba80d5c9e77ad08c32f5eb6c18a.jpg,31800,2
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (263).JPG,corn,Blight,corn_Blight,Corn_Blight (263).JPG,14924,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-78-_0_7756.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-78-_0_7756.jpg,15215,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (993).jpg,corn,Healthy,corn_Healthy,Corn_Health (993).jpg,8033,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/baac20f4-7978-4258-8cd0-f3f8fe98bf83___RS_LB 4774.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,baac20f4-7978-4258-8cd0-f3f8fe98bf83___RS_LB 4774.JPG,14458,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (498).jpg,corn,Blight,corn_Blight,Corn_Blight (498).jpg,12517,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (390).JPG,corn,Blight,corn_Blight,Corn_Blight (390).JPG,15235,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (19).jpg,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (19).jpg,144442,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (67).jpg,corn,Blight,corn_Blight,Corn_Blight (67).jpg,15003,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (411).JPG,corn,Blight,corn_Blight,Corn_Blight (411).JPG,12375,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (224).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (224).JPG,15572,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-149-_0_4500.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-149-_0_4500.jpg,17051,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (311).jpg,corn,Healthy,corn_Healthy,Corn_Health (311).jpg,6123,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1261).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1261).JPG,17808,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (526).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (526).JPG,12252,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/healthy/1.jpg,coffee,healthy,coffee_healthy,1.jpg,169928,3
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (552).jpg,corn,Healthy,corn_Healthy,Corn_Health (552).jpg,15865,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (228).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (228).JPG,17395,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (677).jpg,corn,Healthy,corn_Healthy,Corn_Health (677).jpg,12838,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Green mango/IMG_104_jpg.rf.694298afe24fb27a718ac4f8ef6c036b.jpg,mango,Green mango,mango_Green mango,IMG_104_jpg.rf.694298afe24fb27a718ac4f8ef6c036b.jpg,15680,10
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (89).jpg,corn,Healthy,corn_Healthy,Corn_Health (89).jpg,12036,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1176).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1176).JPG,13695,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (11).jpg,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (11).jpg,491349,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (769).jpg,corn,Healthy,corn_Healthy,Corn_Health (769).jpg,17350,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (1119).jpg,corn,Blight,corn_Blight,Corn_Blight (1119).jpg,2271286,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (643).jpg,corn,Healthy,corn_Healthy,Corn_Health (643).jpg,12603,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (38).jpg,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (38).jpg,228364,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (925).JPG,corn,Blight,corn_Blight,Corn_Blight (925).JPG,12433,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (254).JPG,corn,Blight,corn_Blight,Corn_Blight (254).JPG,13698,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (354).JPG,corn,Blight,corn_Blight,Corn_Blight (354).JPG,17075,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-132-_0_5862.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-132-_0_5862.jpg,16688,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (129).JPG,corn,Blight,corn_Blight,Corn_Blight (129).JPG,18561,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Yellow banana/128_JPG_jpg.rf.7fd105647723d5418169eb2b822366d9.jpg,banana,Yellow banana,banana_Yellow banana,128_JPG_jpg.rf.7fd105647723d5418169eb2b822366d9.jpg,19530,2
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (120).jpg,corn,Healthy,corn_Healthy,Corn_Health (120).jpg,6046,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (582).jpg,corn,Healthy,corn_Healthy,Corn_Health (582).jpg,9538,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (470).jpg,corn,Healthy,corn_Healthy,Corn_Health (470).jpg,4993,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Yellow mango/20230305_052215902_iOS_jpg.rf.b55357d75947405573fdacbc5abcc10c.jpg,mango,Yellow mango,mango_Yellow mango,20230305_052215902_iOS_jpg.rf.b55357d75947405573fdacbc5abcc10c.jpg,21043,12
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/e7e39ba3-b9af-4d5f-afb1-aea45e13446a___RS_LB 2876.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,e7e39ba3-b9af-4d5f-afb1-aea45e13446a___RS_LB 2876.JPG,17270,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (397).jpg,corn,Healthy,corn_Healthy,Corn_Health (397).jpg,14205,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (859).jpg,corn,Healthy,corn_Healthy,Corn_Health (859).jpg,18265,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (690).jpg,corn,Healthy,corn_Healthy,Corn_Health (690).jpg,8586,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (626).JPG,corn,Blight,corn_Blight,Corn_Blight (626).JPG,12600,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/Ripe orange/87_jpg.rf.04b1599a188a6a442374740da54c98bb.jpg,orange,Ripe orange,orange_Ripe orange,87_jpg.rf.04b1599a188a6a442374740da54c98bb.jpg,28655,13
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (293).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (293).JPG,13225,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/leaf_rust/171.jpg,coffee,leaf_rust,coffee_leaf_rust,171.jpg,124754,4
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Yellow banana/105_JPG_jpg.rf.13d48760029a5eba17b1ed9b0b66d53a.jpg,banana,Yellow banana,banana_Yellow banana,105_JPG_jpg.rf.13d48760029a5eba17b1ed9b0b66d53a.jpg,27886,2
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (750).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (750).JPG,17805,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/e2326741-ee59-4e3c-86bf-9e81ccf50b6b___RS_LB 4147.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,e2326741-ee59-4e3c-86bf-9e81ccf50b6b___RS_LB 4147.JPG,13646,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/c82e587c-a0f2-451e-9057-e3719a3d9562___RS_Early.B 6824.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,c82e587c-a0f2-451e-9057-e3719a3d9562___RS_Early.B 6824.JPG,20876,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/dc2775b9-e62e-4fe5-921f-e1cf5c4e2fe4___RS_Early.B 6942.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,dc2775b9-e62e-4fe5-921f-e1cf5c4e2fe4___RS_Early.B 6942.JPG,22175,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (771).jpg,corn,Healthy,corn_Healthy,Corn_Health (771).jpg,14346,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (12).jpg,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (12).jpg,377749,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (797).jpg,corn,Healthy,corn_Healthy,Corn_Health (797).jpg,8032,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (703).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (703).JPG,12573,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (217).jpg,corn,Healthy,corn_Healthy,Corn_Health (217).jpg,11418,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (254).jpg,corn,Healthy,corn_Healthy,Corn_Health (254).jpg,9471,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (149).JPG,corn,Blight,corn_Blight,Corn_Blight (149).JPG,12518,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/c01daf14-9595-4b10-974d-3452fe133060___RS_LB 4463.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,c01daf14-9595-4b10-974d-3452fe133060___RS_LB 4463.JPG,20571,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (250).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (250).JPG,15846,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (152).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (152).JPG,17351,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (227).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (227).JPG,12227,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1098).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1098).JPG,11480,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (578).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (578).JPG,10284,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (226).jpg,corn,Healthy,corn_Healthy,Corn_Health (226).jpg,3874,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (1009).JPG,corn,Blight,corn_Blight,Corn_Blight (1009).JPG,14782,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-98-_0_9109.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-98-_0_9109.jpg,14812,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (81).jpg,corn,Blight,corn_Blight,Corn_Blight (81).jpg,104324,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Yellow banana/200355_jpg.rf.b4826edbd54c1fcb84494140b1bcfb83.jpg,banana,Yellow banana,banana_Yellow banana,200355_jpg.rf.b4826edbd54c1fcb84494140b1bcfb83.jpg,32674,2
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-113-_0_8320.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-113-_0_8320.jpg,15673,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (877).jpg,corn,Blight,corn_Blight,Corn_Blight (877).jpg,11483,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/d998c614-017c-4f90-8e39-f8c500d21218___RS_Early.B 8292.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,d998c614-017c-4f90-8e39-f8c500d21218___RS_Early.B 8292.JPG,15640,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (165).jpg,corn,Blight,corn_Blight,Corn_Blight (165).jpg,10567,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (401).jpg,corn,Healthy,corn_Healthy,Corn_Health (401).jpg,6402,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Rotten Mango/download_jpg.rf.ec018d63b381f6b9031fa83428d8e80e.jpg,mango,Rotten Mango,mango_Rotten Mango,download_jpg.rf.ec018d63b381f6b9031fa83428d8e80e.jpg,14161,11
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/d7c9765e-4a73-4eeb-9f9e-9ed98b7e93fe___RS_Early.B 7601.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,d7c9765e-4a73-4eeb-9f9e-9ed98b7e93fe___RS_Early.B 7601.JPG,16477,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (1123).jpg,corn,Blight,corn_Blight,Corn_Blight (1123).jpg,343185,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Rotten Mango/20230305_061243438_iOS_jpg.rf.0bd6d523c0a0ed555ca35d7a00cf4bdd.jpg,mango,Rotten Mango,mango_Rotten Mango,20230305_061243438_iOS_jpg.rf.0bd6d523c0a0ed555ca35d7a00cf4bdd.jpg,21238,11
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (911).jpg,corn,Healthy,corn_Healthy,Corn_Health (911).jpg,11317,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (781).JPG,corn,Blight,corn_Blight,Corn_Blight (781).JPG,15759,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (134).jpg,corn,Blight,corn_Blight,Corn_Blight (134).jpg,14766,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Yellow mango/20230305_052232301_iOS_jpg.rf.de38f03a729fbad3af4ee424a8354bda.jpg,mango,Yellow mango,mango_Yellow mango,20230305_052232301_iOS_jpg.rf.de38f03a729fbad3af4ee424a8354bda.jpg,22115,12
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/e0a085c0-20e4-4e36-87db-49f0b58fa349___RS_LB 4324.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,e0a085c0-20e4-4e36-87db-49f0b58fa349___RS_LB 4324.JPG,22999,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (506).jpg,corn,Healthy,corn_Healthy,Corn_Health (506).jpg,9105,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-76-_0_7539.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-76-_0_7539.jpg,15701,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (414).jpg,corn,Healthy,corn_Healthy,Corn_Health (414).jpg,15077,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/Ripe orange/94_jpg.rf.77e46bd092a8849f26938bb292464b45.jpg,orange,Ripe orange,orange_Ripe orange,94_jpg.rf.77e46bd092a8849f26938bb292464b45.jpg,24080,13
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (30).jpg,corn,Blight,corn_Blight,Corn_Blight (30).jpg,126411,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (152).jpg,corn,Healthy,corn_Healthy,Corn_Health (152).jpg,6442,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (530).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (530).JPG,13016,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (211).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (211).JPG,17666,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/d1b4cb77-db0e-42db-b1c0-25d222844241___RS_Early.B 7130.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,d1b4cb77-db0e-42db-b1c0-25d222844241___RS_Early.B 7130.JPG,19951,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/d32f991e-d1da-44a3-b3e0-2f99cc038900___RS_Early.B 6994.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,d32f991e-d1da-44a3-b3e0-2f99cc038900___RS_Early.B 6994.JPG,19012,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/Ripe orange/76_jpg.rf.7813123e839d6188cc7d04c5b5ffea6e.jpg,orange,Ripe orange,orange_Ripe orange,76_jpg.rf.7813123e839d6188cc7d04c5b5ffea6e.jpg,28799,13
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (26).jpg,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (26).jpg,95313,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (701).jpg,corn,Healthy,corn_Healthy,Corn_Health (701).jpg,7282,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/d97f6469-bef9-4276-b918-efb1a1859fb7___RS_Early.B 6958.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,d97f6469-bef9-4276-b918-efb1a1859fb7___RS_Early.B 6958.JPG,22395,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (235).JPG,corn,Blight,corn_Blight,Corn_Blight (235).JPG,18415,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/image26_jpeg_jpg.rf.20c4ea0614aefad11d61e8365933e9e2.jpg,orange,orange,orange_orange,image26_jpeg_jpg.rf.20c4ea0614aefad11d61e8365933e9e2.jpg,29789,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/e00d7014-a909-4d98-892b-da96a2be9a2e___RS_Early.B 7535.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,e00d7014-a909-4d98-892b-da96a2be9a2e___RS_Early.B 7535.JPG,18960,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/f217f3ba-56fa-4f97-bf9a-07697e08e845___RS_Early.B 9161.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,f217f3ba-56fa-4f97-bf9a-07697e08e845___RS_Early.B 9161.JPG,22342,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/bbdf98a1-9e54-4afd-bdfc-870d91627a52___RS_LB 2853.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,bbdf98a1-9e54-4afd-bdfc-870d91627a52___RS_LB 2853.JPG,15733,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (342).jpg,corn,Healthy,corn_Healthy,Corn_Health (342).jpg,17781,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1172).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1172).JPG,17182,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-150-_0_6986.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-150-_0_6986.jpg,17867,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (402).JPG,corn,Blight,corn_Blight,Corn_Blight (402).JPG,15847,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (889).JPG,corn,Blight,corn_Blight,Corn_Blight (889).JPG,14984,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (613).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (613).JPG,14865,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (22).jpg,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (22).jpg,71415,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (121).jpg,corn,Healthy,corn_Healthy,Corn_Health (121).jpg,8664,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (491).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (491).JPG,13228,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/51kEFrU5nuL_jpg.rf.b5a8145cf541c35a52568d9509a8f67f.jpg,orange,orange,orange_orange,51kEFrU5nuL_jpg.rf.b5a8145cf541c35a52568d9509a8f67f.jpg,15999,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (745).jpg,corn,Healthy,corn_Healthy,Corn_Health (745).jpg,9779,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/c4263e49-60ed-4f6b-aa78-cc9f3117ce73___RS_LB 4100.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,c4263e49-60ed-4f6b-aa78-cc9f3117ce73___RS_LB 4100.JPG,15967,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (433).jpg,corn,Healthy,corn_Healthy,Corn_Health (433).jpg,5971,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (479).JPG,corn,Healthy,corn_Healthy,Corn_Health (479).JPG,14146,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (292).jpg,corn,Healthy,corn_Healthy,Corn_Health (292).jpg,16260,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-113-_0_803.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-113-_0_803.jpg,15697,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (609).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (609).JPG,12167,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/Ripe orange/97_jpg.rf.69162546b8d73929b0d8b27580d049b4.jpg,orange,Ripe orange,orange_Ripe orange,97_jpg.rf.69162546b8d73929b0d8b27580d049b4.jpg,23389,13
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (438).jpg,corn,Blight,corn_Blight,Corn_Blight (438).jpg,13315,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (118).jpg,corn,Healthy,corn_Healthy,Corn_Health (118).jpg,9172,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (538).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (538).JPG,10097,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (155).jpg,corn,Healthy,corn_Healthy,Corn_Health (155).jpg,9847,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (735).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (735).JPG,15994,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/df67aec2-c706-4a6f-8a4a-e11d7eb41eb8___RS_Early.B 7287.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,df67aec2-c706-4a6f-8a4a-e11d7eb41eb8___RS_Early.B 7287.JPG,19537,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (211).jpg,corn,Healthy,corn_Healthy,Corn_Health (211).jpg,12261,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/f1764cd0-d391-4214-93db-20299d62e853___RS_LB 3012.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,f1764cd0-d391-4214-93db-20299d62e853___RS_LB 3012.JPG,18804,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/f5f41985-23db-4902-96a1-db4d7f95a26a___RS_LB 3177.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,f5f41985-23db-4902-96a1-db4d7f95a26a___RS_LB 3177.JPG,19817,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (213).jpg,corn,Healthy,corn_Healthy,Corn_Health (213).jpg,11360,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (123).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (123).JPG,13988,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (17).jpg,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (17).jpg,302297,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-91-_0_3899.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-91-_0_3899.jpg,16054,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (454).JPG,corn,Blight,corn_Blight,Corn_Blight (454).JPG,13645,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/phoma/247.jpg,coffee,phoma,coffee_phoma,247.jpg,87040,5
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (669).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (669).JPG,13554,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (238).jpg,corn,Healthy,corn_Healthy,Corn_Health (238).jpg,16205,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (447).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (447).JPG,13626,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (680).jpg,corn,Healthy,corn_Healthy,Corn_Health (680).jpg,14486,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (3).jpg,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (3).jpg,73619,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/fbc7567e-ce08-4ad0-b8fe-ffd98296ce02___RS_Early.B 8607.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,fbc7567e-ce08-4ad0-b8fe-ffd98296ce02___RS_Early.B 8607.JPG,19588,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (59).jpg,corn,Healthy,corn_Healthy,Corn_Health (59).jpg,14376,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/fdf53f6c-db92-48b9-9e06-0358e4114be6___RS_LB 2656.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,fdf53f6c-db92-48b9-9e06-0358e4114be6___RS_LB 2656.JPG,16747,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (97).jpg,corn,Healthy,corn_Healthy,Corn_Health (97).jpg,6953,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1237).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1237).JPG,14798,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (962).jpg,corn,Healthy,corn_Healthy,Corn_Health (962).jpg,7338,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (472).jpg,corn,Healthy,corn_Healthy,Corn_Health (472).jpg,14161,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/e9643c88-239f-4587-8093-3b96eb3723f4___RS_Early.B 7353.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,e9643c88-239f-4587-8093-3b96eb3723f4___RS_Early.B 7353.JPG,18465,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/phoma/280.jpg,coffee,phoma,coffee_phoma,280.jpg,91162,5
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (731).JPG,corn,Blight,corn_Blight,Corn_Blight (731).JPG,15772,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (123).jpg,corn,Healthy,corn_Healthy,Corn_Health (123).jpg,13024,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-81-_0_7043.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-81-_0_7043.jpg,16577,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (949).jpg,corn,Healthy,corn_Healthy,Corn_Health (949).jpg,14547,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (119).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (119).JPG,15885,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (978).jpg,corn,Healthy,corn_Healthy,Corn_Health (978).jpg,13421,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (184).JPG,corn,Blight,corn_Blight,Corn_Blight (184).JPG,9123,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (1137).jpg,corn,Blight,corn_Blight,Corn_Blight (1137).jpg,163907,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (888).JPG,corn,Blight,corn_Blight,Corn_Blight (888).JPG,12552,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (847).JPG,corn,Blight,corn_Blight,Corn_Blight (847).JPG,21129,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (305).jpg,corn,Healthy,corn_Healthy,Corn_Health (305).jpg,11887,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/image19_jpeg_jpg.rf.db183fd9575eaf4f70f5e9d9ae861e11.jpg,orange,orange,orange_orange,image19_jpeg_jpg.rf.db183fd9575eaf4f70f5e9d9ae861e11.jpg,35350,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (188).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (188).JPG,17044,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/phoma/269.jpg,coffee,phoma,coffee_phoma,269.jpg,106453,5
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/e7b48816-19f7-4dc2-bf52-dfbb85e1f59a___RS_Early.B 7240.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,e7b48816-19f7-4dc2-bf52-dfbb85e1f59a___RS_Early.B 7240.JPG,17280,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Rotten Mango/-4_jpg.rf.304c78fe858a4ad766ceeea01b19bb61.jpg,mango,Rotten Mango,mango_Rotten Mango,-4_jpg.rf.304c78fe858a4ad766ceeea01b19bb61.jpg,35826,11
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (292).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (292).JPG,11575,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (76).jpg,corn,Blight,corn_Blight,Corn_Blight (76).jpg,381820,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (501).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (501).JPG,16415,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (627).JPG,corn,Blight,corn_Blight,Corn_Blight (627).JPG,15034,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (708).JPG,corn,Blight,corn_Blight,Corn_Blight (708).JPG,16364,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1069).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1069).JPG,12267,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/feefc118-4434-4ffb-afbb-02fb292f72b6___RS_LB 2874.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,feefc118-4434-4ffb-afbb-02fb292f72b6___RS_LB 2874.JPG,15864,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (838).jpg,corn,Healthy,corn_Healthy,Corn_Health (838).jpg,10917,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/d031102c-679d-4323-a5ee-4c52ed2d5740___RS_Early.B 6947.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,d031102c-679d-4323-a5ee-4c52ed2d5740___RS_Early.B 6947.JPG,23172,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/c6ecc36c-1886-4d2d-89aa-0e9e9dc7ba32___RS_LB 4997.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,c6ecc36c-1886-4d2d-89aa-0e9e9dc7ba32___RS_LB 4997.JPG,18478,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (237).jpg,corn,Healthy,corn_Healthy,Corn_Health (237).jpg,15852,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (455).JPG,corn,Blight,corn_Blight,Corn_Blight (455).JPG,16497,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (137).jpg,corn,Healthy,corn_Healthy,Corn_Health (137).jpg,11682,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/c48719ce-1230-465b-b481-177b7e0f7074___RS_LB 3835.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,c48719ce-1230-465b-b481-177b7e0f7074___RS_LB 3835.JPG,11537,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (231).JPG,corn,Blight,corn_Blight,Corn_Blight (231).JPG,10661,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (458).JPG,corn,Blight,corn_Blight,Corn_Blight (458).JPG,16929,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (1164).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (1164).JPG,15414,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/naranjas-rodajas-enteras_144627-3981_jpg.rf.9e2fa4dbb769cfac3b1febcdc70aa8f5.jpg,orange,orange,orange_orange,naranjas-rodajas-enteras_144627-3981_jpg.rf.9e2fa4dbb769cfac3b1febcdc70aa8f5.jpg,25875,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/Ripe orange/3_jpg.rf.8f3f79bf7d3365145c0167f8a8822d89.jpg,orange,Ripe orange,orange_Ripe orange,3_jpg.rf.8f3f79bf7d3365145c0167f8a8822d89.jpg,14666,13
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (447).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (447).JPG,17478,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Rotten banana/vertical_flip_Screen-Shot-2018-06-12-at-8_56_11-PM_png.rf.a74af808dcc13e0e9805600faaebb54a.jpg,banana,Rotten banana,banana_Rotten banana,vertical_flip_Screen-Shot-2018-06-12-at-8_56_11-PM_png.rf.a74af808dcc13e0e9805600faaebb54a.jpg,19936,1
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/Ripe orange/42_jpg.rf.56716261ebcbcf9dbe67ec79aa07d610.jpg,orange,Ripe orange,orange_Ripe orange,42_jpg.rf.56716261ebcbcf9dbe67ec79aa07d610.jpg,25242,13
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (166).JPG,corn,Blight,corn_Blight,Corn_Blight (166).JPG,12818,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (555).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (555).JPG,17908,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (446).jpg,corn,Healthy,corn_Healthy,Corn_Health (446).jpg,11632,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (1089).JPG,corn,Blight,corn_Blight,Corn_Blight (1089).JPG,14458,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (269).JPG,corn,Blight,corn_Blight,Corn_Blight (269).JPG,16263,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Rotten Mango/20230305_062109619_iOS_jpg.rf.8e4fdce6a0a72769f4afa16849e51fe4.jpg,mango,Rotten Mango,mango_Rotten Mango,20230305_062109619_iOS_jpg.rf.8e4fdce6a0a72769f4afa16849e51fe4.jpg,22094,11
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (404).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (404).JPG,19834,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-102-_0_1031.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-102-_0_1031.jpg,18735,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (344).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (344).JPG,15516,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/d30021ba-fbbd-451b-b257-1fc5c6ac54d4___RS_LB 4466.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,d30021ba-fbbd-451b-b257-1fc5c6ac54d4___RS_LB 4466.JPG,20678,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (309).jpg,corn,Blight,corn_Blight,Corn_Blight (309).jpg,15145,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-134-_0_5916.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-134-_0_5916.jpg,17813,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (1101).jpg,corn,Blight,corn_Blight,Corn_Blight (1101).jpg,399001,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (923).jpg,corn,Healthy,corn_Healthy,Corn_Health (923).jpg,13166,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/MANGO/Yellow mango/cdf786196836cb73c8d7fe418403d42a_jpg.rf.7e754d64cfa1feb57680c3d2c28849ea.jpg,mango,Yellow mango,mango_Yellow mango,cdf786196836cb73c8d7fe418403d42a_jpg.rf.7e754d64cfa1feb57680c3d2c28849ea.jpg,14632,12
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (281).JPG,corn,Blight,corn_Blight,Corn_Blight (281).JPG,11961,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-123-_0_7881.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-123-_0_7881.jpg,16582,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/c4ec31de-5466-49c0-b034-84a825327e0b___RS_Early.B 8062.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,c4ec31de-5466-49c0-b034-84a825327e0b___RS_Early.B 8062.JPG,20914,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (620).jpg,corn,Healthy,corn_Healthy,Corn_Health (620).jpg,18638,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (999).JPG,corn,Blight,corn_Blight,Corn_Blight (999).JPG,13477,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-149-_0_7325.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-149-_0_7325.jpg,16745,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (117).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (117).JPG,14138,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/img_1121_jpeg.rf.337978d7fef4114299c0e730aca6efd9.jpg,orange,orange,orange_orange,img_1121_jpeg.rf.337978d7fef4114299c0e730aca6efd9.jpg,43701,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/images157_jpg.rf.8ef3610813a5484842e48fce50f26c6c.jpg,orange,orange,orange_orange,images157_jpg.rf.8ef3610813a5484842e48fce50f26c6c.jpg,37826,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (948).jpg,corn,Healthy,corn_Healthy,Corn_Health (948).jpg,5788,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (199).JPG,corn,Healthy,corn_Healthy,Corn_Health (199).JPG,19326,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (803).JPG,corn,Blight,corn_Blight,Corn_Blight (803).JPG,13248,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (164).jpg,corn,Healthy,corn_Healthy,Corn_Health (164).jpg,9048,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (852).jpg,corn,Healthy,corn_Healthy,Corn_Health (852).jpg,13685,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (249).JPG,corn,Blight,corn_Blight,Corn_Blight (249).JPG,13080,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (557).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (557).JPG,17155,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-93-_0_1588.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-93-_0_1588.jpg,14772,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (642).JPG,corn,Blight,corn_Blight,Corn_Blight (642).JPG,13427,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (616).JPG,corn,Blight,corn_Blight,Corn_Blight (616).JPG,11068,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Early_blight/e3007682-ad4b-4a62-b64d-ebb0c4537077___RS_Early.B 7772.JPG,potato,Potato___Early_blight,potato_Potato___Early_blight,e3007682-ad4b-4a62-b64d-ebb0c4537077___RS_Early.B 7772.JPG,21073,15
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/healthy/204.jpg,coffee,healthy,coffee_healthy,204.jpg,122187,3
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (524).JPG,corn,Blight,corn_Blight,Corn_Blight (524).JPG,13902,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Gray_Leaf_Spot/Corn_Gray_Spot (80).JPG,corn,Gray_Leaf_Spot,corn_Gray_Leaf_Spot,Corn_Gray_Spot (80).JPG,14749,8
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/d50d5ba8-c809-431c-8cc1-e297bc2706f7___RS_LB 4467.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,d50d5ba8-c809-431c-8cc1-e297bc2706f7___RS_LB 4467.JPG,18227,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (243).jpg,corn,Healthy,corn_Healthy,Corn_Health (243).jpg,13338,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/orange/img_31_jpeg.rf.cdc93558aa847647f454308e9f691d40.jpg,orange,orange,orange_orange,img_31_jpeg.rf.cdc93558aa847647f454308e9f691d40.jpg,28831,14
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/ef49abc4-4b8e-4438-88a9-b3acfdb52014___RS_LB 2623.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,ef49abc4-4b8e-4438-88a9-b3acfdb52014___RS_LB 2623.JPG,17973,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (666).JPG,corn,Blight,corn_Blight,Corn_Blight (666).JPG,11955,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (264).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (264).JPG,10002,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (1028).JPG,corn,Healthy,corn_Healthy,Corn_Health (1028).JPG,8299,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/BANANA/Yellow banana/200271_jpg.rf.559699dd0e654f316fc8368caea1533e.jpg,banana,Yellow banana,banana_Yellow banana,200271_jpg.rf.559699dd0e654f316fc8368caea1533e.jpg,18409,2
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___healthy/Potato_healthy-87-_0_6154.jpg,potato,Potato___healthy,potato_Potato___healthy,Potato_healthy-87-_0_6154.jpg,13189,17
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Common_Rust/Corn_Common_Rust (725).JPG,corn,Common_Rust,corn_Common_Rust,Corn_Common_Rust (725).JPG,14340,7
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Healthy/Corn_Health (846).jpg,corn,Healthy,corn_Healthy,Corn_Health (846).jpg,15443,9
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (715).JPG,corn,Blight,corn_Blight,Corn_Blight (715).JPG,15116,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/ORANGE/Ripe orange/47_jpg.rf.ccfbd92c558c14d71bb8d185eca7556d.jpg,orange,Ripe orange,orange_Ripe orange,47_jpg.rf.ccfbd92c558c14d71bb8d185eca7556d.jpg,19622,13
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (643).JPG,corn,Blight,corn_Blight,Corn_Blight (643).JPG,10967,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (1136).jpg,corn,Blight,corn_Blight,Corn_Blight (1136).jpg,66228,6
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/potato_dataset/Potato___Late_blight/d2d8eb78-d267-4c37-a18c-b39a0bb11d82___RS_LB 3147.JPG,potato,Potato___Late_blight,potato_Potato___Late_blight,d2d8eb78-d267-4c37-a18c-b39a0bb11d82___RS_LB 3147.JPG,19608,16
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/corn_dataset/Blight/Corn_Blight (968).jpg,corn,Blight,corn_Blight,Corn_Blight (968).jpg,12859,6

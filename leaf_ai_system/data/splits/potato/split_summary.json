@@ -1,0 +1,34 @@
+{
+  "crop": "potato",
+  "total_images": 901,
+  "classes": [
+    "Potato___Early_blight",
+    "Potato___Late_blight",
+    "Potato___healthy"
+  ],
+  "class_to_id": {
+    "Potato___Early_blight": 0,
+    "Potato___Late_blight": 1,
+    "Potato___healthy": 2
+  },
+  "distribution": {
+    "Potato___Early_blight": {
+      "train": 210,
+      "val": 45,
+      "test": 46,
+      "total": 301
+    },
+    "Potato___Late_blight": {
+      "train": 210,
+      "val": 45,
+      "test": 45,
+      "total": 300
+    },
+    "Potato___healthy": {
+      "train": 210,
+      "val": 45,
+      "test": 45,
+      "total": 300
+    }
+  }
+}

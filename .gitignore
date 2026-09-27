@@ -9,6 +9,7 @@ Thumbs.db
 *.mkv
 *.zip
 *.tar.gz
+*.rar
 *.ova
 *.iso
 
@@ -19,6 +20,10 @@ __pycache__/
 *.pyo
 .venv/
 env/
+*.pth
+*.pt
+*.onnx
+*.onnx.data
 
 # LaTeX build artifacts
 *.aux

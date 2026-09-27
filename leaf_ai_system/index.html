@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leaf AI Studio & Workshop Portal | CMU AIoT 2027</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Prompt:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%200%20100%20100%22><text y=%22.9em%22 font-size=%2290%22>🍃</text></svg>">
+</head>
+<body>
+
+  <!-- Top Glass Header -->
+  <header class="site-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-icon">🍃</div>
+        <div>
+          <div class="brand-badge">CMU AIoT 2027 × SCIRBRU</div>
+          <h1 class="brand-title">Leaf AI Studio & Workshop Portal</h1>
+          <p class="brand-subtitle">ระบบปฏิบัติการจริง: การจัดการข้อมูล, แบ่ง Train/Val/Test, ฝึกสอน Deep Learning และทดสอบทำนายโรคพืช</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <a href="https://colab.research.google.com/github/Tsanaphy2023/aiot-workshop/blob/main/leaf_ai_system/Leaf_AI_Training_Colab.ipynb" target="_blank" class="btn-colab" title="เปิดรันบน Google Colab ด้วย GPU T4 ฟรี">
+          <svg class="colab-icon" viewBox="0 0 24 24" width="20" height="20">
+            <path fill="#F9AB00" d="M16.9 14.1c-1.3 0-2.4-.8-2.8-2 .4-1.2 1.5-2 2.8-2 1.6 0 3 1.3 3 3s-1.4 3-3 3z"/>
+            <path fill="#E37400" d="M7.1 14.1c1.3 0 2.4-.8 2.8-2-.4-1.2-1.5-2-2.8-2-1.6 0-3 1.3-3 3s1.4 3 3 3z"/>
+            <path fill="#EA4335" d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm4.9 15.1c-2.8 0-5.1-2.3-5.1-5.1s2.3-5.1 5.1-5.1 5.1 2.3 5.1 5.1-2.3 5.1-5.1 5.1zm-9.8 0c-2.8 0-5.1-2.3-5.1-5.1s2.3-5.1 5.1-5.1 5.1 2.3 5.1 5.1-2.3 5.1-5.1 5.1z"/>
+          </svg>
+          <span>Open in Colab (GPU T4)</span>
+        </a>
+        <a href="https://github.com/Tsanaphy2023/aiot-workshop" target="_blank" class="btn-github">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          <span>GitHub</span>
+        </a>
+        <div class="system-status" id="system-status">
+          <span class="status-dot"></span>
+          <span class="status-text" id="status-text">กำลังเชื่อมต่อ Backend...</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- KPI Quick Stats Ribbon -->
+  <section class="stats-ribbon">
+    <div class="stat-card">
+      <div class="stat-label">พืชในชุดข้อมูล</div>
+      <div class="stat-val">6 ชนิด</div>
+      <div class="stat-desc">Corn, Potato, Orange, Mango, Banana, Coffee</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">จำนวนคลาสทั้งหมด</div>
+      <div class="stat-val">18 Classes</div>
+      <div class="stat-desc">อาการโรคทางใบ & คุณภาพผลผลิต</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">จำนวนภาพจริง</div>
+      <div class="stat-val">5,846 ภาพ</div>
+      <div class="stat-desc">ความละเอียดสูง JPG/JPEG 100%</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">สัดส่วนการแบ่งข้อมูล</div>
+      <div class="stat-val">70 : 15 : 15</div>
+      <div class="stat-desc">Train : Validation : Test (Stratified)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">การประมวลผลโมเดล</div>
+      <div class="stat-val" id="kpi-hardware">Apple MPS GPU</div>
+      <div class="stat-desc">Metal Performance Shaders / CUDA Ready</div>
+    </div>
+  </section>
+
+  <!-- Main Workflow Container -->
+  <main class="main-container">
+
+    <!-- Tabs Navigation -->
+    <nav class="workflow-tabs">
+      <button class="tab-btn active" data-tab="tab-split">
+        <span class="tab-num">01</span>
+        <span class="tab-title">สำรวจ & แบ่งข้อมูล</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-model">
+        <span class="tab-num">02</span>
+        <span class="tab-title">เลือกโมเดล & ตั้งค่า</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-train">
+        <span class="tab-num">03</span>
+        <span class="tab-title">ฝึกสอนโมเดลจริง</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-eval">
+        <span class="tab-num">04</span>
+        <span class="tab-title">ประเมินผล & Matrix</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-predict">
+        <span class="tab-num">05</span>
+        <span class="tab-title">ทดสอบทำนายภาพ</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-export">
+        <span class="tab-num">06</span>
+        <span class="tab-title">ส่งออก Edge AI</span>
+      </button>
+    </nav>
+
+    <!-- TAB 1: SPLIT DATASET -->
+    <section id="tab-split" class="tab-content active">
+      <div class="panel-header">
+        <div>
+          <h2>🌿 ขั้นตอนที่ 1: สำรวจและแบ่งชุดข้อมูล (Dataset & Stratified Splitting)</h2>
+          <p class="panel-sub">เลือกชนิดพืชที่ต้องการทดลองฝึกสอน และกำหนดสัดส่วนการแบ่งข้อมูลแบบ Stratified เพื่อความสมดุลของทุกคลาส</p>
+        </div>
+        <div class="panel-tools">
+          <span class="badge">Real Backend Execution</span>
+        </div>
+      </div>
+
+      <div class="grid-2col">
+        <!-- Controls Card -->
+        <div class="card">
+          <h3 class="card-title">⚙️ ตั้งค่าการแบ่งข้อมูล</h3>
+          
+          <div class="form-group">
+            <label for="select-crop">เลือกชนิดพืชเป้าหมาย (Target Crop):</label>
+            <select id="select-crop" class="form-select">
+              <option value="corn" selected>🌽 ข้าวโพด (Corn - 4 คลาส, 3,924 ภาพ)</option>
+              <option value="potato">🥔 มันฝรั่ง (Potato - 3 คลาส, 901 ภาพ)</option>
+              <option value="coffee">☕ กาแฟ (Coffee - 3 คลาส, 150 ภาพ)</option>
+              <option value="orange">🍊 ส้ม (Orange - 2 คลาส, 426 ภาพ)</option>
+              <option value="mango">🥭 มะม่วง (Mango - 3 คลาส, 240 ภาพ)</option>
+              <option value="banana">🍌 กล้วย (Banana - 3 คลาส, 205 ภาพ)</option>
+              <option value="all">🌿 รวมทุกพืชทุกคลาส (All - 18 คลาส, 5,846 ภาพ)</option>
+            </select>
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-label">
+              <span>Train Ratio (สำหรับฝึกสอน):</span>
+              <strong id="val-train-ratio">70%</strong>
+            </div>
+            <input type="range" id="input-train-ratio" min="50" max="85" value="70" step="5" class="slider">
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-label">
+              <span>Validation Ratio (สำหรับตรวจสอบระหว่างเทรน):</span>
+              <strong id="val-val-ratio">15%</strong>
+            </div>
+            <input type="range" id="input-val-ratio" min="5" max="30" value="15" step="5" class="slider">
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-label">
+              <span>Test Ratio (สำหรับทดสอบจริง):</span>
+              <strong id="val-test-ratio">15%</strong>
+            </div>
+            <input type="range" id="input-test-ratio" min="5" max="30" value="15" step="5" class="slider" readonly disabled>
+          </div>
+
+          <div class="form-group">
+            <label for="input-seed">Random Seed (สร้างผลลัพธ์ซ้ำเดิมได้ 100%):</label>
+            <input type="number" id="input-seed" value="42" class="form-input">
+          </div>
+
+          <button id="btn-run-split" class="btn btn-primary btn-block">
+            <span>⚡ สั่งรันการแบ่งชุดข้อมูลจริง (Execute Real Split)</span>
+          </button>
+        </div>
+
+        <!-- Live Split Preview & Distribution -->
+        <div class="card">
+          <h3 class="card-title">📊 ตารางการกระจายตัวของคลาส (Class Distribution)</h3>
+          <div id="split-summary-container">
+            <div class="loading-placeholder">กำลังโหลดข้อมูลการแบ่ง...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sample Image Gallery -->
+      <div class="card mt-4">
+        <h3 class="card-title">🖼️ ตัวอย่างภาพในชุดข้อมูล (Sample Leaf Images)</h3>
+        <p class="text-muted">ตัวอย่างภาพถ่ายจริงจากโฟลเดอร์สำหรับพืชแต่ละชนิดและอาการโรค</p>
+        <div class="sample-gallery" id="sample-gallery">
+          <!-- Loaded dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: MODEL & HYPERPARAMETERS -->
+    <section id="tab-model" class="tab-content">
+      <div class="panel-header">
+        <div>
+          <h2>🧠 ขั้นตอนที่ 2: สถาปัตยกรรมโมเดลและไฮเปอร์พารามิเตอร์ (Model Architecture)</h2>
+          <p class="panel-sub">เลือกโครงข่ายประสาทเทียมที่เหมาะสมกับการประมวลผล ทั้งบนคลาวด์และบอร์ดสมองกลฝังตัว (Edge AI)</p>
+        </div>
+      </div>
+
+      <div class="model-selection-grid">
+        <!-- Model Card 1: MobileNetV2 -->
+        <div class="model-card selected" data-model="mobilenet_v2">
+          <div class="model-badge">แนะนำสำหรับ Edge AI</div>
+          <h3 class="model-name">MobileNetV2</h3>
+          <p class="model-sub">Inverted Residuals & Linear Bottlenecks</p>
+          <div class="model-specs">
+            <div class="spec-item"><span>Parameters:</span> <strong>3.5M</strong></div>
+            <div class="spec-item"><span>Pretrained:</span> <strong>ImageNet-1K</strong></div>
+            <div class="spec-item"><span>Model Size:</span> <strong>~14 MB</strong></div>
+            <div class="spec-item"><span>Target:</span> <strong>Raspberry Pi / Mobile / Web</strong></div>
+          </div>
+          <p class="model-desc">โครงสร้างโมเดลขนาดเล็กที่ให้ความแม่นยำสูงมาก ประมวลผลเร็ว เหมาะสำหรับระบบฟาร์มอัจฉริยะที่ต้องการวิเคราะห์โรคพืช ณ จุดเกิดเหตุ</p>
+        </div>
+
+        <!-- Model Card 2: ResNet18 -->
+        <div class="model-card" data-model="resnet18">
+          <div class="model-badge">ความแม่นยำสูงสุด</div>
+          <h3 class="model-name">ResNet18</h3>
+          <p class="model-sub">Deep Residual Learning (18 Layers)</p>
+          <div class="model-specs">
+            <div class="spec-item"><span>Parameters:</span> <strong>11.7M</strong></div>
+            <div class="spec-item"><span>Pretrained:</span> <strong>ImageNet-1K</strong></div>
+            <div class="spec-item"><span>Model Size:</span> <strong>~45 MB</strong></div>
+            <div class="spec-item"><span>Target:</span> <strong>Edge Server / Jetson / PC</strong></div>
+          </div>
+          <p class="model-desc">โครงสร้าง Residual Connections มาตรฐานงานวิจัย คอมพิวเตอร์วิทัศน์ ให้ฟีเจอร์ที่ละเอียดและเสถียร เหมาะกับการวิเคราะห์โรคที่ซับซ้อน</p>
+        </div>
+
+        <!-- Model Card 3: LeafNet (Custom CNN) -->
+        <div class="model-card" data-model="leaf_net">
+          <div class="model-badge">Custom 1.2M Params</div>
+          <h3 class="model-name">LeafNet (Custom CNN)</h3>
+          <p class="model-sub">4-Stage Lightweight Convolutional Network</p>
+          <div class="model-specs">
+            <div class="spec-item"><span>Parameters:</span> <strong>1.2M</strong></div>
+            <div class="spec-item"><span>Pretrained:</span> <strong>Train from Scratch</strong></div>
+            <div class="spec-item"><span>Model Size:</span> <strong>~4.8 MB</strong></div>
+            <div class="spec-item"><span>Target:</span> <strong>ESP32-S3 / Microcontroller</strong></div>
+          </div>
+          <p class="model-desc">โครงข่ายคอนโวลูชันขนาดกะทัดรัดที่พัฒนาขึ้นเฉพาะสำหรับเวิร์กช็อปนี้ ออกแบบให้สามารถแปลงลงบอร์ดไมโครคอนโทรลเลอร์ ESP32 ได้โดยตรง</p>
+        </div>
+      </div>
+
+      <div class="card mt-4">
+        <h3 class="card-title">⚙️ ปรับแต่งไฮเปอร์พารามิเตอร์การฝึกสอน (Hyperparameters)</h3>
+        <div class="grid-4col">
+          <div class="form-group">
+            <label for="input-epochs">จำนวนรอบ (Epochs):</label>
+            <input type="number" id="input-epochs" value="15" min="1" max="100" class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="input-batch-size">Batch Size:</label>
+            <select id="input-batch-size" class="form-select">
+              <option value="16">16 (สำหรับเครื่องสเปกประหยัด)</option>
+              <option value="32" selected>32 (มาตรฐานแนะนำ)</option>
+              <option value="64">64 (สำหรับ GPU ขนาดใหญ่)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="input-lr">Learning Rate:</label>
+            <select id="input-lr" class="form-select">
+              <option value="0.0001">0.0001 (Fine-tuning ละเอียด)</option>
+              <option value="0.001" selected>0.001 (AdamW แนะนำ)</option>
+              <option value="0.01">0.01 (Fast Learning)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="select-device">อุปกรณ์ประมวลผล (Device):</label>
+            <select id="select-device" class="form-select">
+              <option value="auto" selected>อัตโนมัติ (Apple Silicon MPS / CUDA)</option>
+              <option value="cpu">บังคับใช้ CPU</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: TRAINING PIPELINE -->
+    <section id="tab-train" class="tab-content">
+      <div class="panel-header">
+        <div>
+          <h2>🚀 ขั้นตอนที่ 3: สั่งฝึกสอนโมเดลจริง (Live Model Training Pipeline)</h2>
+          <p class="panel-sub">เลือกฝึกสอนบนเครื่องคอมพิวเตอร์ของคุณผ่าน XAMPP Backend หรือคลิกเปิดรันบน Google Colab เพื่อใช้ GPU T4 ฟรี</p>
+        </div>
+      </div>
+
+      <!-- Dual Execution Banner -->
+      <div class="dual-mode-banner">
+        <div class="mode-box local-box">
+          <div class="mode-tag">โหมดที่ 1: Local Backend</div>
+          <h4>รันบนเครื่องคอมพิวเตอร์จริง</h4>
+          <p>ประมวลผลผ่าน GPU Apple Silicon (MPS) หรือ CPU บนเครื่องนี้ พร้อมอัปเดตกราฟและสถานะสด</p>
+          <button id="btn-start-train" class="btn btn-primary">
+            <span>▶ เริ่มต้นฝึกสอนบนเครื่องจริง (Start Local Train)</span>
+          </button>
+        </div>
+        <div class="mode-box colab-box">
+          <div class="mode-tag">โหมดที่ 2: Google Colab Cloud</div>
+          <h4>รันบนคลาวด์ฟรีด้วย GPU T4</h4>
+          <p>เปิดสมุดบันทึก Google Colab เพื่อใช้ Tesla T4 GPU โดยไม่ต้องใช้ทรัพยากรบนเครื่องของคุณ</p>
+          <a href="https://colab.research.google.com/github/Tsanaphy2023/aiot-workshop/blob/main/leaf_ai_system/Leaf_AI_Training_Colab.ipynb" target="_blank" class="btn btn-accent">
+            <span>🚀 เปิดรันใน Google Colab (One-Click)</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="grid-2col mt-4">
+        <!-- Live Terminal Streamer -->
+        <div class="card">
+          <div class="card-header-flex">
+            <h3 class="card-title">💻 Terminal Log Stream (ผลการทำงานสด)</h3>
+            <button id="btn-refresh-log" class="btn btn-sm btn-outline">🔄 รีเฟรช Log</button>
+          </div>
+          <pre id="train-terminal" class="terminal-view">พร้อมเริ่มการฝึกสอน... กรุณากดปุ่ม "เริ่มต้นฝึกสอนบนเครื่องจริง" หรือเปิดรันใน Google Colab</pre>
+        </div>
+
+        <!-- Live Curves / Latest Curve Image -->
+        <div class="card">
+          <h3 class="card-title">📈 กราฟประวัติการฝึกสอน (Loss & Accuracy Curves)</h3>
+          <div id="curves-container" class="image-viewer-box">
+            <img id="curves-img" src="outputs/reports/coffee_leaf_net_curves.png" alt="Training Curves" onerror="this.style.display='none'; document.getElementById('no-curves-msg').style.display='block';">
+            <div id="no-curves-msg" style="display:none;" class="text-muted p-4 text-center">ยังไม่มีกราฟประวัติการเทรนสำหรับพืชนี้</div>
+          </div>
+          <div class="mt-2 text-sm text-muted" id="checkpoint-info">
+            โมเดลที่ดีที่สุดจะถูกจัดเก็บไว้ที่: <code>outputs/checkpoints/&lt;crop&gt;_&lt;backbone&gt;_best.pth</code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: EVALUATION & CONFUSION MATRIX -->
+    <section id="tab-eval" class="tab-content">
+      <div class="panel-header">
+        <div>
+          <h2>📊 ขั้นตอนที่ 4: ประเมินผลโมเดลบนชุดทดสอบ (Evaluation & Confusion Matrix)</h2>
+          <p class="panel-sub">ทดสอบโมเดลกับภาพที่ไม่เคยผ่านการฝึกสอนมาก่อน (Unseen Test Set 15%) และสร้างแผนภาพความสับสน (Confusion Matrix)</p>
+        </div>
+        <div>
+          <button id="btn-run-eval" class="btn btn-primary">
+            <span>🔍 สั่งประเมินผลบน Test Set (Run Evaluation)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Metrics Scorecards -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-title">Test Accuracy</div>
+          <div class="metric-value text-emerald" id="metric-acc">73.91%</div>
+          <div class="metric-desc">ความแม่นยำโดยรวมบน Test Set</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-title">Macro F1-Score</div>
+          <div class="metric-value text-cyan" id="metric-f1">65.91%</div>
+          <div class="metric-desc">ค่าเฉลี่ย F1 ถ่วงน้ำหนักเท่ากันทุกคลาส</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-title">Weighted F1-Score</div>
+          <div class="metric-value text-amber" id="metric-wf1">67.69%</div>
+          <div class="metric-desc">ค่าเฉลี่ย F1 ถ่วงตามจำนวนตัวอย่าง</div>
+        </div>
+      </div>
+
+      <div class="grid-2col mt-4">
+        <!-- Confusion Matrix Image Box -->
+        <div class="card">
+          <h3 class="card-title">🗺️ แผนภาพความสับสน (Confusion Matrix Heatmap)</h3>
+          <div class="image-viewer-box">
+            <img id="cm-img" src="outputs/reports/coffee_leaf_net_confusion_matrix.png" alt="Confusion Matrix" class="responsive-img">
+          </div>
+        </div>
+
+        <!-- Detailed Classification Report -->
+        <div class="card">
+          <h3 class="card-title">📋 รายงานผลการประเมินแยกตามคลาส (Classification Report)</h3>
+          <div id="eval-report-container" class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>คลาส (Class Name)</th>
+                  <th>Precision</th>
+                  <th>Recall</th>
+                  <th>F1-Score</th>
+                  <th>Support</th>
+                </tr>
+              </thead>
+              <tbody id="eval-report-tbody">
+                <tr><td>healthy</td><td>1.00</td><td>0.14</td><td>0.25</td><td>7</td></tr>
+                <tr><td>leaf_rust</td><td>0.57</td><td>1.00</td><td>0.73</td><td>8</td></tr>
+                <tr><td>phoma</td><td>1.00</td><td>1.00</td><td>1.00</td><td>8</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: PREDICTION PLAYGROUND -->
+    <section id="tab-predict" class="tab-content">
+      <div class="panel-header">
+        <div>
+          <h2>🔬 ขั้นตอนที่ 5: ห้องทดลองทำนายภาพโรคพืชจริง (Live Inference Playground)</h2>
+          <p class="panel-sub">อัปโหลดภาพใบพืชของคุณเอง หรือเลือกภาพตัวอย่างจากคลังเพื่อทดสอบทำนายผลแบบเรียลไทม์</p>
+        </div>
+      </div>
+
+      <div class="grid-2col">
+        <!-- Input Selector Card -->
+        <div class="card">
+          <h3 class="card-title">📤 เลือกภาพสำหรับทดสอบทำนาย</h3>
+
+          <!-- Dropzone -->
+          <div class="upload-dropzone" id="upload-dropzone">
+            <input type="file" id="file-input" accept="image/*" class="file-input-hidden">
+            <div class="dropzone-icon">📷</div>
+            <h4>ลากไฟล์ภาพมาวางที่นี่ หรือคลิกเพื่ออัปโหลด</h4>
+            <p class="text-muted">รองรับไฟล์ JPG, JPEG, PNG (ขนาดไม่เกิน 10MB)</p>
+          </div>
+
+          <div class="divider-text"><span>หรือเลือกจากภาพตัวอย่างในเวิร์กช็อป</span></div>
+
+          <div class="sample-picks-grid" id="sample-picks-grid">
+            <!-- Sample thumbnails will be injected here -->
+          </div>
+
+          <button id="btn-predict-now" class="btn btn-primary btn-block mt-4" disabled>
+            <span>✨ วิเคราะห์และทำนายโรคพืช (Predict Now)</span>
+          </button>
+        </div>
+
+        <!-- Prediction Result Display -->
+        <div class="card">
+          <h3 class="card-title">🎯 ผลการวิเคราะห์และทำนาย (Prediction Result)</h3>
+          
+          <div id="predict-empty" class="text-center p-6 text-muted">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">🍃</div>
+            <p>กรุณาเลือกหรืออัปโหลดภาพทางด้านซ้าย แล้วกดปุ่ม "วิเคราะห์และทำนายโรคพืช"</p>
+          </div>
+
+          <div id="predict-result-box" style="display:none;">
+            <div class="predict-layout">
+              <div class="predict-img-wrap">
+                <img id="predict-preview-img" src="" alt="Test Image">
+              </div>
+              <div class="predict-details">
+                <div class="result-badge">ผลลัพธ์อันดับ 1</div>
+                <h3 class="result-class-name" id="result-class-name">leaf_rust</h3>
+                <div class="result-conf-row">
+                  <span>ความมั่นใจ (Confidence):</span>
+                  <strong class="result-conf-val" id="result-conf-val">98.5%</strong>
+                </div>
+                <div class="confidence-bar-bg">
+                  <div class="confidence-bar-fill" id="result-bar-fill" style="width: 98.5%;"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <h4 class="subhead">อันดับความน่าจะเป็นทั้งหมด (Top Classes):</h4>
+              <div id="top-probs-list" class="top-probs-list">
+                <!-- Injected dynamically -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 6: EDGE AI EXPORT -->
+    <section id="tab-export" class="tab-content">
+      <div class="panel-header">
+        <div>
+          <h2>📦 ขั้นตอนที่ 6: ส่งออกโมเดลสำหรับ Edge AI & IoT (ONNX / TorchScript)</h2>
+          <p class="panel-sub">ส่งออกโมเดลสำหรับนำไปใช้งานจริงบนอุปกรณ์ IoT, บอร์ด ESP32-CAM, Raspberry Pi, หรือ Web Application</p>
+        </div>
+        <div>
+          <button id="btn-run-export" class="btn btn-primary">
+            <span>💾 แปลงและส่งออกโมเดล (Export Models)</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="grid-2col">
+        <!-- Exported Files Card -->
+        <div class="card">
+          <h3 class="card-title">📁 ไฟล์โมเดลที่ส่งออกพร้อมใช้งาน (Exported Artifacts)</h3>
+          <div id="exported-files-list" class="file-list">
+            <div class="file-item">
+              <div class="file-icon">📦</div>
+              <div class="file-info">
+                <div class="file-name">coffee_leaf_net_best.onnx</div>
+                <div class="file-meta">ONNX Format • 4.8 MB • เหมาะสำหรับ Raspberry Pi / OpenCV DNN</div>
+              </div>
+              <a href="outputs/exported/coffee_leaf_net_best.onnx" download class="btn btn-sm btn-outline">ดาวน์โหลด</a>
+            </div>
+            <div class="file-item">
+              <div class="file-icon">⚡</div>
+              <div class="file-info">
+                <div class="file-name">coffee_leaf_net_best.pt</div>
+                <div class="file-meta">TorchScript C++ • 4.8 MB • รันใน C++ / LibTorch / iOS / Android</div>
+              </div>
+              <a href="outputs/exported/coffee_leaf_net_best.pt" download class="btn btn-sm btn-outline">ดาวน์โหลด</a>
+            </div>
+            <div class="file-item">
+              <div class="file-icon">📄</div>
+              <div class="file-info">
+                <div class="file-name">coffee_leaf_net_best_meta.json</div>
+                <div class="file-meta">Class Labels & Normalization JSON Metadata</div>
+              </div>
+              <a href="outputs/exported/coffee_leaf_net_best_meta.json" download class="btn btn-sm btn-outline">ดาวน์โหลด</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Code Snippet for Edge Device Integration -->
+        <div class="card">
+          <h3 class="card-title">💻 ตัวอย่างโค้ดนำไปรันบน Edge Device (Python / ONNX Runtime)</h3>
+          <pre class="code-block"><code>import onnxruntime as ort
+import numpy as np
+from PIL import Image
+
+# 1. โหลดโมเดล ONNX บน Raspberry Pi / Jetson
+session = ort.InferenceSession("coffee_leaf_net_best.onnx")
+
+# 2. ปรับขนาดภาพใบไม้ (224x224) และ Normalize
+img = Image.open("leaf.jpg").convert("RGB").resize((224, 224))
+img_data = (np.array(img).astype(np.float32) / 255.0 - [0.485, 0.456, 0.406]) / [0.229, 0.224, 0.225]
+input_tensor = np.transpose(img_data, (2, 0, 1))[np.newaxis, ...].astype(np.float32)
+
+# 3. รัน Inference ทำนายโรคพืชทันที
+outputs = session.run(None, {"input": input_tensor})
+class_id = np.argmax(outputs[0])
+print(f"ผลการทำนาย Class ID: {class_id}")</code></pre>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 4-Column Professional Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <!-- Col 1: Brand & Vision -->
+      <div class="footer-col">
+        <div class="footer-brand">🍃 CMU AIoT 2027</div>
+        <p class="footer-desc">
+          โครงการพัฒนาและฝึกอบรมเทคโนโลยีปัญญาประดิษฐ์ในอุปกรณ์อัจฉริยะ (AIoT) การเกษตรแม่นยำ และระบบตรวจวัดสิ่งแวดล้อมดิจิทัล
+        </p>
+        <div class="footer-badge">มหาวิทยาลัยเชียงใหม่ × มหาวิทยาลัยราชภัฏรำไพพรรณี</div>
+      </div>
+
+      <!-- Col 2: Navigation Links -->
+      <div class="footer-col">
+        <h4 class="footer-title">เมนูระบบ & โค้ด</h4>
+        <ul class="footer-links">
+          <li><a href="https://github.com/Tsanaphy2023/aiot-workshop" target="_blank">📦 GitHub: Tsanaphy2023/aiot-workshop</a></li>
+          <li><a href="https://colab.research.google.com/github/Tsanaphy2023/aiot-workshop/blob/main/leaf_ai_system/Leaf_AI_Training_Colab.ipynb" target="_blank">🚀 รันบน Google Colab (GPU T4)</a></li>
+          <li><a href="../" target="_blank">🌐 หน้าหลัก AIoT Portal</a></li>
+          <li><a href="../smart_farm_dashboard/" target="_blank">🌱 Smart Farm Dashboard</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Research Contact -->
+      <div class="footer-col">
+        <h4 class="footer-title">ข้อมูลวิชาการ & ติดต่อ</h4>
+        <p class="footer-contact">
+          <strong>ผศ.ดร.ชีวะ ทัศนา</strong><br>
+          กลุ่มวิจัยฟิสิกส์เกษตรดิจิทัลและปัญญาประดิษฐ์ฝังตัว<br>
+          คณะวิทยาศาสตร์และเทคโนโลยี<br>
+          มหาวิทยาลัยราชภัฏรำไพพรรณี
+        </p>
+      </div>
+
+      <!-- Col 4: Platform Specs -->
+      <div class="footer-col">
+        <h4 class="footer-title">สถาปัตยกรรมระบบ</h4>
+        <div class="footer-tags">
+          <span class="ftag">PyTorch 2.14</span>
+          <span class="ftag">Apple Silicon MPS</span>
+          <span class="ftag">Google Colab T4</span>
+          <span class="ftag">MobileNetV2</span>
+          <span class="ftag">ONNX Runtime</span>
+          <span class="ftag">Apache XAMPP</span>
+          <span class="ftag">Edge AI</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026-2027 CMU AIoT Workshop & Research Lab. All Rights Reserved. Clean Architecture Standard.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

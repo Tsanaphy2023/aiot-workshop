@@ -1,0 +1,24 @@
+filepath,crop,raw_label,label_name,filename,filesize,label_id
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/healthy/199.jpg,coffee,healthy,healthy,199.jpg,128520,0
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/healthy/7.jpg,coffee,healthy,healthy,7.jpg,159802,0
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/phoma/268.jpg,coffee,phoma,phoma,268.jpg,106361,2
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/leaf_rust/160.jpg,coffee,leaf_rust,leaf_rust,160.jpg,152985,1
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/phoma/280.jpg,coffee,phoma,phoma,280.jpg,91162,2
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/phoma/251.jpg,coffee,phoma,phoma,251.jpg,112825,2
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/leaf_rust/152.jpg,coffee,leaf_rust,leaf_rust,152.jpg,167627,1
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/phoma/285.jpg,coffee,phoma,phoma,285.jpg,110036,2
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/healthy/202.jpg,coffee,healthy,healthy,202.jpg,139084,0
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/leaf_rust/176.jpg,coffee,leaf_rust,leaf_rust,176.jpg,152691,1
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/leaf_rust/174.jpg,coffee,leaf_rust,leaf_rust,174.jpg,190182,1
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/healthy/200.jpg,coffee,healthy,healthy,200.jpg,139267,0
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/leaf_rust/159.jpg,coffee,leaf_rust,leaf_rust,159.jpg,170713,1
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/phoma/254.jpg,coffee,phoma,phoma,254.jpg,86472,2
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/leaf_rust/161.jpg,coffee,leaf_rust,leaf_rust,161.jpg,152945,1
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/phoma/278.jpg,coffee,phoma,phoma,278.jpg,111030,2
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/healthy/190.jpg,coffee,healthy,healthy,190.jpg,136102,0
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/leaf_rust/142.jpg,coffee,leaf_rust,leaf_rust,142.jpg,161718,1
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/phoma/270.jpg,coffee,phoma,phoma,270.jpg,106462,2
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/healthy/213.jpg,coffee,healthy,healthy,213.jpg,140783,0
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/leaf_rust/175.jpg,coffee,leaf_rust,leaf_rust,175.jpg,190172,1
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/phoma/252.jpg,coffee,phoma,phoma,252.jpg,86448,2
+/Applications/XAMPP/xamppfiles/htdocs/cmu_aiot/leaf workshop/coffee_dataset/healthy/196.jpg,coffee,healthy,healthy,196.jpg,128533,0

@@ -1,0 +1,26 @@
+{
+  "crop": "orange",
+  "total_images": 426,
+  "classes": [
+    "Ripe orange",
+    "orange"
+  ],
+  "class_to_id": {
+    "Ripe orange": 0,
+    "orange": 1
+  },
+  "distribution": {
+    "Ripe orange": {
+      "train": 126,
+      "val": 27,
+      "test": 27,
+      "total": 180
+    },
+    "orange": {
+      "train": 172,
+      "val": 37,
+      "test": 37,
+      "total": 246
+    }
+  }
+}

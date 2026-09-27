@@ -1,0 +1,34 @@
+{
+  "crop": "banana",
+  "total_images": 205,
+  "classes": [
+    "Green banana",
+    "Rotten banana",
+    "Yellow banana"
+  ],
+  "class_to_id": {
+    "Green banana": 0,
+    "Rotten banana": 1,
+    "Yellow banana": 2
+  },
+  "distribution": {
+    "Green banana": {
+      "train": 45,
+      "val": 10,
+      "test": 10,
+      "total": 65
+    },
+    "Rotten banana": {
+      "train": 46,
+      "val": 9,
+      "test": 10,
+      "total": 65
+    },
+    "Yellow banana": {
+      "train": 52,
+      "val": 12,
+      "test": 11,
+      "total": 75
+    }
+  }
+}
