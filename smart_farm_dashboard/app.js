@@ -157,9 +157,16 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   setInterval(updateClock, 1000);
-  setInterval(simulationTick, 3000);
-  setInterval(syncWithBackend, 1200);
+  setInterval(simulationTick, 5000);  // 5s sim tick — backend is now fast
+  // Adaptive sync scheduler: 1.5s when online, 8s backoff when board is offline
+  (function scheduleSync() {
+    syncWithBackend().finally(() => {
+      const interval = (farmState.hardware && farmState.hardware.online) ? 1500 : 8000;
+      setTimeout(scheduleSync, interval);
+    });
+  })();
   updateClock();
+
 
   renderDashboard();
   renderAiStudio();
