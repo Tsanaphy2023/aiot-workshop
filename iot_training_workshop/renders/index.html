@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ใบงานและระบบจำลองการอบรม IoT ในฟาร์มอัจฉริยะ (Workshop Renders & Dashboard)</title>
+<meta name="description" content="สารบัญใบงานและแดชบอร์ดระบบฟาร์มอัจฉริยะ CMU AIoT 2027">
+<style>
+  @font-face {
+    font-family: 'Prompt';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url(../fonts/prompt-300-thai.woff2) format('woff2');
+  }
+  @font-face {
+    font-family: 'Prompt';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../fonts/prompt-400-thai.woff2) format('woff2');
+  }
+  @font-face {
+    font-family: 'Prompt';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url(../fonts/prompt-500-thai.woff2) format('woff2');
+  }
+  @font-face {
+    font-family: 'Prompt';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url(../fonts/prompt-600-thai.woff2) format('woff2');
+  }
+
+  :root {
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --ink: #0f172a;
+    --ink-muted: #475569;
+    --ink-faint: #94a3b8;
+    --accent: #10b981;
+    --accent-dark: #059669;
+    --accent-light: #ecfdf5;
+    --border: #e2e8f0;
+    --shadow: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+    --shadow-hover: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.05);
+    --r: 12px;
+    --font: 'Prompt', -apple-system, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0b1315;
+      --card: #152225;
+      --ink: #f1f5f9;
+      --ink-muted: #94a3b8;
+      --ink-faint: #64748b;
+      --accent: #10b981;
+      --accent-dark: #34d399;
+      --accent-light: rgba(16, 185, 129, 0.12);
+      --border: rgba(255, 255, 255, 0.08);
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.3);
+      --shadow-hover: 0 10px 20px -3px rgba(0,0,0,0.4);
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font);
+    line-height: 1.6;
+    padding: 24px 16px 60px;
+  }
+
+  .wrap {
+    max-width: 1040px;
+    margin: 0 auto;
+  }
+
+  header.portal-header {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 28px 24px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .portal-title h1 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .portal-title p {
+    color: var(--ink-muted);
+    font-size: 0.95rem;
+    margin-top: 4px;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-family: var(--font);
+    font-size: 0.92rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+  }
+
+  .btn-outline {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--ink);
+  }
+  .btn-outline:hover {
+    background: var(--accent-light);
+    border-color: var(--accent);
+    color: var(--accent-dark);
+  }
+
+  /* Real Hardware Live Banner Card */
+  .hero-hw-card {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(6, 182, 212, 0.1) 100%);
+    border: 1.5px solid rgba(16, 185, 129, 0.4);
+    border-radius: var(--r);
+    padding: 24px;
+    margin-bottom: 28px;
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .hero-hw-info h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #10b981;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hero-hw-info p {
+    color: var(--ink-muted);
+    font-size: 0.95rem;
+    margin-top: 6px;
+    max-width: 650px;
+  }
+
+  .badge-live {
+    display: inline-block;
+    background: #10b981;
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 999px;
+    animation: pulse 1.8s infinite;
+  }
+
+  @keyframes pulse {
+    0% { opacity: 0.8; transform: scale(0.98); }
+    50% { opacity: 1; transform: scale(1.04); }
+    100% { opacity: 0.8; transform: scale(0.98); }
+  }
+
+  /* Grid of Sections */
+  .section-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 28px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 16px;
+  }
+
+  .act-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 18px 20px;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: var(--shadow);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .act-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--accent);
+  }
+
+  .act-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 4px;
+    background: var(--border);
+    transition: background 0.2s;
+  }
+
+  .act-card:hover::before {
+    background: var(--accent);
+  }
+
+  .act-tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .act-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .act-desc {
+    font-size: 0.88rem;
+    color: var(--ink-muted);
+    line-height: 1.5;
+  }
+
+  .act-meta {
+    margin-top: 14px;
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .act-arrow {
+    color: var(--accent);
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+
+  footer.portal-footer {
+    text-align: center;
+    color: var(--ink-faint);
+    font-size: 0.85rem;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- Header -->
+  <header class="portal-header">
+    <div class="portal-title">
+      <h1>🌱 คลังใบงานและการอบรม IoT ฟาร์มอัจฉริยะ</h1>
+      <p>CMU AIoT 2027 Workshop Renders & Interactive Learning System</p>
+    </div>
+    <div class="header-actions">
+      <a class="btn btn-outline" href="../index.html">← หน้าหลักการอบรม</a>
+      <a class="btn btn-primary" href="../../smart_farm_dashboard/">📊 เปิด Smart Farm Dashboard</a>
+    </div>
+  </header>
+
+  <!-- Special Real Hardware & Dashboard Banner -->
+  <section class="hero-hw-card">
+    <div class="hero-hw-info">
+      <h2>📡 แดชบอร์ดควบคุมฟาร์มและเซนเซอร์จริง <span class="badge-live">ONLINE 10.10.31.65</span></h2>
+      <p>
+        เข้าถึงระบบควบคุมปั๊ม รดน้ำ สวิตช์ลูกลอยระดับน้ำ วัดความชื้น อุณหภูมิ แสงสว่าง ความกดอากาศ และระบบ AIoT Deep Learning บนฮาร์ดแวร์จริง ESP32 (โหนดเซนเซอร์ <code>10.10.31.65</code> และโหนดรีเลย์ <code>10.10.29.103</code>)
+      </p>
+    </div>
+    <div>
+      <a class="btn btn-primary" href="../../smart_farm_dashboard/">
+        ⚡ เปิดหน้าจอเซนเซอร์บอร์ดจริง →
+      </a>
+    </div>
+  </section>
+
+  <!-- Special Workshop Worksheet Dashboard Card -->
+  <section class="hero-hw-card" style="border-color: rgba(6, 182, 212, 0.4); background: linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(16, 185, 129, 0.08) 100%); margin-bottom: 32px;">
+    <div class="hero-hw-info">
+      <h2>📊 แดชบอร์ดสรุปผลการทดลองและบันทึกใบงานทุกกิจกรรม (Worksheet Dashboard) <span class="badge-live" style="background:#0891b2;">COMPLETED 73/73</span></h2>
+      <p>
+        ประมวลผลข้อมูลจากไฟล์ JSON ของทุกกิจกรรม (1–11): ข้อมูลเซนเซอร์จริง, กฎ IF-THEN, Hysteresis ลด Chattering เหลือ 0, 4 สถานการณ์ Fail-safe, แผนบำรุงรักษา, กราฟเหตุการณ์ย้อนหลัง, ผังระบบแปลงยาว 400 ม. (Scenario B), และการถอดรหัสแพ็กเก็ต ESP-NOW
+      </p>
+    </div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <a class="btn btn-primary" href="../dashboard/" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);">
+        🚀 เปิด Worksheet Dashboard →
+      </a>
+    </div>
+  </section>
+
+  <!-- Pre-Workshop -->
+  <h2 class="section-title">🛠️ ก่อนเริ่มการอบรม</h2>
+  <div class="grid">
+    <a class="act-card" href="install.html">
+      <div>
+        <div class="act-tag">คู่มือเตรียมความพร้อม</div>
+        <div class="act-title">เตรียมแล็ปท็อป (Installation Guide)</div>
+        <div class="act-desc">ติดตั้งไดรเวอร์ CH340, CP2102, Web Serial, Home Assistant และเครื่องมือที่จำเป็น</div>
+      </div>
+      <div class="act-meta">
+        <span>ทำก่อนวันอบรม ~20 นาที</span>
+        <span class="act-arrow">›</span>
+      </div>
+    </a>
+
+    <a class="act-card" href="session-1-start.html">
+      <div>
+        <div class="act-tag">การเริ่มต้น</div>
+        <div class="act-title">ช่วงที่ 1: เตรียมพร้อมก่อนเริ่ม</div>
+        <div class="act-desc">ตรวจสอบอุปกรณ์ในกล่อง ตรวจเช็กฮาร์ดแวร์บอร์ดเซนเซอร์และบอร์ดรีเลย์</div>
+      </div>
+      <div class="act-meta">
+        <span>เริ่มต้นช่วงที่ 1</span>
+        <span class="act-arrow">›</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- Session 1: Sense, Act, Logic -->
+  <h2 class="section-title">🌾 ช่วงที่ 1: รับรู้ ตัดสินใจ สั่งการ (Sense, Act, Logic)</h2>
+  <div class="grid">
+    <a class="act-card" href="activity-1.html">
+      <div>
+        <div class="act-tag">กิจกรรมที่ 1</div>
+        <div class="act-title">1. อ่านค่าเซนเซอร์ (Sense)</div>
+        <div class="act-desc">ต่อสวิตช์ลูกลอย อ่านค่าอุณหภูมิ ความชื้น สว่าง ความกดอากาศ และความสั่นสะเทือน</div>
+      </div>
+      <div class="act-meta">
+        <span>บอร์ด GoGo-IoT 10.10.31.65</span>
+        <span class="act-arrow">›</span>
+      </div>
+    </a>
+
+    <a class="act-card" href="activity-2.html">
+      <div>
+        <div class="act-tag">กิจกรรมที่ 2</div>
+        <div class="act-title">2. ต่อวงจรและสั่งงานหลอดไฟ (Act)</div>
+        <div class="act-desc">ต่อวงจรไฟ DC 12V เข้ากับบอร์ดรีเลย์ สั่งเปิด-ปิดไฟผ่านเว็บและแอปพลิเคชัน</div>
+      </div>
+      <div class="act-meta">
+        <span>บอร์ดรีเลย์ 10.10.29.103</span>
+        <span class="act-arrow">›</span>
+      </div>
+    </a>
+
+    <a class="act-card" href="activity-3.html">
+      <div>
+        <div class="act-tag">กิจกรรมที่ 3</div>
+        <div class="act-title">3. สร้างกฎควบคุมระบบ (Logic)</div>
+        <div class="act-desc">สร้างกฎ IF-THEN เชื่อมเซนเซอร์เข้ากับรีเลย์ เช่น น้ำลดให้ตัดปั๊ม มืดให้เปิดไฟ</div>
+      </div>
+      <div class="act-meta">
+        <span>Automation & Safety</span>
+        <span class="act-arrow">›</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- Session 2: Automation & Fail-safe -->
+  <h2 class="section-title">⚙️ ช่วงที่ 2: ควบคุมอัตโนมัติและ Fail-safe (Think & Protect)</h2>
+  <div class="grid">
+    <a class="act-card" href="activity-4.html">
+      <div>
+        <div class="act-tag">กิจกรรมที่ 4</div>
+        <div class="act-title">4. ตั้งกฎอัตโนมัติ (Think)</div>
+        <div class="act-desc">เปิดไฟเองเมื่อมืด รดน้ำเองเมื่ออากาศแห้ง โดยใช้ค่า Hysteresis ป้องกันการกระตุก</div>
+      </div>
+      <div class="act-meta">
+        <span>Smart Hysteresis Logic</span>
+        <span class="act-arrow">›</span>
+      </div>
+    </a>
+
+    <a class="act-card" href="activity-5.html">
+      <div>
+        <div class="act-tag">กิจกรรมที่ 5</div>
+        <div class="act-title">5. จำลองปัญหาและป้องกัน (Failure Lab)</div>
+        <div class="act-desc">ทดสอบกรณีเซนเซอร์หลุด เน็ตดับ หรือปั๊มน้ำแห้ง ระบบ Fail-safe จะทำงานอย่างไร</div>
+      </div>
+      <div class="act-meta">
+        <span>Fail-safe Engineering</span>
+        <span class="act-arrow">›</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- Session 3: Dashboard & System Design -->
+  <h2 class="section-title">📊 ช่วงที่ 3: แดชบอร์ดและออกแบบระบบ (Dashboard & Design)</h2>
+  <div class="grid">
+    <a class="act-card" href="activity-6.html">
+      <div>
+        <div class="act-tag">กิจกรรมที่ 6</div>
+        <div class="act-title">6. อ่านข้อมูลย้อนหลัง (History)</div>
+        <div class="act-desc">วิเคราะห์กราฟแนวโน้มอุณหภูมิ ความชื้น และการทำงานของรีเลย์ในแต่ละช่วงเวลา</div>
+      </div>
+      <div class="act-meta">
+        <span>Data Trends Analysis</span>
+        <span class="act-arrow">›</span>
+      </div>
+    </a>
+
+    <a class="act-card" href="activity-7.html" style="border-color: rgba(16, 185, 129, 0.4); background: linear-gradient(to bottom, var(--card), var(--accent-light));">
+      <div>
+        <div class="act-tag" style="color: #10b981;">กิจกรรมที่ 7 (แนะนำ)</div>
+        <div class="act-title">7. สร้างแดชบอร์ด (Dashboard)</div>
+        <div class="act-desc">สร้างหน้าจอแสดงผล Gauge, Tile ลูกลอย, สวิตช์ปั๊ม และเลือกข้อมูลให้ตรงกับผู้ใช้</div>
+      </div>
+      <div class="act-meta">
+        <span>UI / UX แดชบอร์ดฟาร์ม</span>
+        <span class="act-arrow">›</span>
+      </div>
+    </a>
+
+    <a class="act-card" href="activity-8.html">
+      <div>
+        <div class="act-tag">กิจกรรมที่ 8</div>
+        <div class="act-title">8. ออกแบบระบบฟาร์ม (Design)</div>
+        <div class="act-desc">วางผังระบบ AIoT สำหรับแปลงปลูกจริง คำนวณงบประมาณและจุดติดตั้งอุปกรณ์</div>
+      </div>
+      <div class="act-meta">
+        <span>System Architecture</span>
+        <span class="act-arrow">›</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- Session 4: Wireless Communication & Long-Range Mesh -->
+  <h2 class="section-title">📡 ช่วงที่ 4: การสื่อสารไร้สาย ESP-NOW (Wireless Bridge)</h2>
+  <div class="grid">
+    <a class="act-card" href="activity-9.html">
+      <div>
+        <div class="act-tag">กิจกรรมที่ 9</div>
+        <div class="act-title">9. ส่งข้อมูลด้วย ESP-NOW (Send)</div>
+        <div class="act-desc">ส่งข้อมูลเซนเซอร์ผ่านคลื่นวิทยุ 2.4 GHz โดยไม่ต้องพึ่งเร้าเตอร์หรืออินเทอร์เน็ต</div>
+      </div>
+      <div class="act-meta">
+        <span>Direct Radio Packet</span>
+        <span class="act-arrow">›</span>
+      </div>
+    </a>
+
+    <a class="act-card" href="activity-10.html">
+      <div>
+        <div class="act-tag">กิจกรรมที่ 10</div>
+        <div class="act-title">10. เพิ่มบอร์ดตัวรับ (Receive)</div>
+        <div class="act-desc">รับข้อมูลจากบอร์ดเซนเซอร์แปลงไกล นำมาแสดงผลและสั่งงานอุปกรณ์อัตโนมัติ</div>
+      </div>
+      <div class="act-meta">
+        <span>Receiver Gateway</span>
+        <span class="act-arrow">›</span>
+      </div>
+    </a>
+
+    <a class="act-card" href="activity-11.html">
+      <div>
+        <div class="act-tag">กิจกรรมที่ 11</div>
+        <div class="act-title">11. แดชบอร์ดแปลงไกล (Bridge)</div>
+        <div class="act-desc">รวมข้อมูลทุกแปลงเข้าสู่แดชบอร์ดศูนย์กลาง แสดงผลแบบ Real-time ข้ามแปลง</div>
+      </div>
+      <div class="act-meta">
+        <span>Long-range Central Hub</span>
+        <span class="act-arrow">›</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- Reference & Extra Resources -->
+  <h2 class="section-title">📚 เอกสารอ้างอิงและบันทึกผล</h2>
+  <div class="grid">
+    <a class="act-card" href="record-sheet.html">
+      <div>
+        <div class="act-tag">เอกสารกลุ่ม</div>
+        <div class="act-title">ใบบันทึกของกลุ่ม (Record Sheet)</div>
+        <div class="act-desc">แบบฟอร์มบันทึกผลการทดลอง ข้อมูลเซนเซอร์ และคะแนนการประเมินกิจกรรม</div>
+      </div>
+      <div class="act-meta">
+        <span>Group Evaluation Sheet</span>
+        <span class="act-arrow">›</span>
+      </div>
+    </a>
+
+    <a class="act-card" href="reference.html">
+      <div>
+        <div class="act-tag">คู่มืออ้างอิง</div>
+        <div class="act-title">เมนูและวิธีแก้ปัญหา (Reference & Troubleshooting)</div>
+        <div class="act-desc">รวมคำสั่งที่ใช้บ่อย แนวทางแก้ไขเมื่อเชื่อมต่อบอร์ดไม่ได้ หรือรีเลย์ไม่ตอบสนอง</div>
+      </div>
+      <div class="act-meta">
+        <span>Troubleshooting & Pinout</span>
+        <span class="act-arrow">›</span>
+      </div>
+    </a>
+
+    <a class="act-card" href="resources.html">
+      <div>
+        <div class="act-tag">ทรัพยากร</div>
+        <div class="act-title">รวมไฟล์และลิงก์ (Download Resources)</div>
+        <div class="act-desc">ไฟล์เฟิร์มแวร์ .bin, ไฟล์ YAML, รูปแบบวงจร และซอร์สโค้ดตัวอย่าง</div>
+      </div>
+      <div class="act-meta">
+        <span>Firmware & Schematics</span>
+        <span class="act-arrow">›</span>
+      </div>
+    </a>
+  </div>
+
+  <footer class="portal-footer">
+    <p>หลักสูตรนวัตกรเกษตรอัจฉริยะ AIoT สำหรับเกษตรแม่นยำ · CMU AIoT 2027 & SciRBRU Digital Agriphysics</p>
+    <p style="margin-top: 6px;">โหนดเซนเซอร์ 10.10.31.65 · โหนดรีเลย์ 10.10.29.103</p>
+  </footer>
+
+</div>
+
+</body>
+</html>

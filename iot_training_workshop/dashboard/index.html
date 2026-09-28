@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Farm AIoT - ใบงานและผลการทดลองทุกกิจกรรม (Workshop Dashboard)</title>
+  <link rel="stylesheet" href="style.css?v=1.0">
+</head>
+<body>
+
+  <div class="dashboard-container">
+    
+    <!-- Top Header -->
+    <header class="dash-header">
+      <div class="dash-brand">
+        <div class="dash-logo-icon">🌱</div>
+        <div class="dash-titles">
+          <h1>Smart Farm Workshop Dashboard</h1>
+          <p>
+            <span>ผลการทดลองและบันทึกใบงานครบทุกกิจกรรม (Activities 1 – 11)</span>
+            <span>•</span>
+            <span id="headerTeamBadge" class="badge-team">👥 กลุ่มที่ 3</span>
+            <span id="headerExportBadge" class="badge-export">🕒 กำลังโหลด...</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="dash-header-controls">
+        <label for="jsonFileInput" class="btn btn-secondary" title="เลือกไฟล์ JSON ของกลุ่มอื่นเพื่อดูผลการทดลอง">
+          📥 นำเข้าไฟล์ JSON
+        </label>
+        <input type="file" id="jsonFileInput" accept=".json" style="display:none;">
+
+        <button class="btn btn-secondary" onclick="window.print()" title="พิมพ์หรือส่งออก PDF">
+          🖨️ พิมพ์รายงาน
+        </button>
+
+        <a href="../../smart_farm_dashboard/" class="btn btn-cyan" target="_blank" title="เปิดแดชบอร์ดเซนเซอร์บอร์ดจริง">
+          📡 Live Telemetry
+        </a>
+
+        <a href="../renders/" class="btn btn-primary" title="กลับสู่คลังใบงาน">
+          📑 รวมใบงาน (Renders)
+        </a>
+      </div>
+    </header>
+
+    <!-- Top Key Stats -->
+    <section class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">
+          <span>ทีมผู้บันทึก</span>
+          <span>👥</span>
+        </div>
+        <div class="stat-value" id="statTeam">กลุ่มที่ 3</div>
+        <div class="stat-foot">สมาร์ทฟาร์มรุ่นพิเศษ CMU AIoT 2027</div>
+      </div>
+
+      <div class="stat-card" style="cursor:pointer;" id="openChecklistBtn" title="คลิกเพื่อดูรายการตรวจสอบทั้งหมด 73 ข้อ">
+        <div class="stat-label">
+          <span>ความสมบูรณ์ของใบงาน</span>
+          <span>📋</span>
+        </div>
+        <div class="stat-value" id="statChecks" style="color:var(--emerald-400);">73 <span class="stat-unit">/ 73 (100%)</span></div>
+        <div class="stat-foot pass" id="statChecksFoot">✅ ผ่านครบทุกเกณฑ์ 100% (คลิกเพื่อดู)</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">
+          <span>โหนดฮาร์ดแวร์ที่เชื่อมต่อ</span>
+          <span>🌐</span>
+        </div>
+        <div class="stat-value" id="statNodes">2 <span class="stat-unit">บอร์ด</span></div>
+        <div class="stat-foot" id="statNodesFoot">IoT 10.10.31.65 / Relay 10.10.29.103</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">
+          <span>การตัดปัญหา Chattering</span>
+          <span>⚡</span>
+        </div>
+        <div class="stat-value" id="statChatter" style="color:var(--cyan-400);">0 <span class="stat-unit">ครั้ง (เดิม 12)</span></div>
+        <div class="stat-foot" id="statChatterFoot">🛡️ Hysteresis สมบูรณ์ ลดตัดต่อ 100%</div>
+      </div>
+    </section>
+
+    <!-- Navigation Toolbar & Filters -->
+    <nav class="nav-toolbar">
+      <div class="tab-group">
+        <button class="tab-btn active" data-tab="all">🌟 ทุกกิจกรรม (1–11)</button>
+        <button class="tab-btn" data-tab="s1">🌾 ช่วง 1: Sense & Act</button>
+        <button class="tab-btn" data-tab="s2">🛡️ ช่วง 2: Think & Fail-safe</button>
+        <button class="tab-btn" data-tab="s3">📊 ช่วง 3: Dashboard & History</button>
+        <button class="tab-btn" data-tab="blueprint">📐 ผังฟาร์ม 400 ม. (Blueprint)</button>
+        <button class="tab-btn" data-tab="s4">📡 ช่วง 4: ESP-NOW Wireless</button>
+        <button class="tab-btn" data-tab="raw">📦 ข้อมูลดิบ (JSON)</button>
+      </div>
+
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="ค้นหาค่า, คำถาม, คำตอบ หรืออุปกรณ์...">
+      </div>
+    </nav>
+
+    <!-- Main Activities Grid Container -->
+    <main id="activitiesContainer" class="activities-grid"></main>
+
+    <!-- Raw JSON Inspector (Hidden by default, shown via Tab) -->
+    <div id="jsonContainer" style="display:none; margin-top:20px;">
+      <h3 style="color:#ffffff; margin-bottom:12px; font-size:1.1rem;">📦 โครงสร้างข้อมูลดิบไฟล์ JSON (Worksheet Raw Data)</h3>
+      <pre id="jsonViewer" class="json-viewer"></pre>
+    </div>
+
+    <!-- Footer -->
+    <footer class="dash-footer">
+      <p>ระบบรายงานผลการทดลองและประเมินผลใบงาน IoT ในฟาร์มอัจฉริยะ (Smart Farm AIoT System)</p>
+      <p style="margin-top:6px; color:var(--text-dim);">
+        พัฒนาสำหรับ คณะวิทยาศาสตร์และเทคโนโลยี มหาวิทยาลัยราชภัฏรำไพพรรณี (RBRU) ร่วมกับ โครงการ CMU AIoT 2027
+      </p>
+    </footer>
+
+  </div>
+
+  <!-- Checklist Modal Dialog -->
+  <div id="checklistModal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 style="color:#ffffff; font-size:1.15rem; display:flex; align-items:center; gap:8px;">
+          <span>✅</span> รายการตรวจสอบความสมบูรณ์ของใบงาน (73 รายการ)
+        </h3>
+        <button id="closeChecklistBtn" class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:16px;">
+          รายการ Checkpoint จากระบบบันทึกผลการปฏิบัติการ ทุกข้อได้รับการยืนยันสถานะเรียบร้อย (Passed 100%)
+        </p>
+        <div id="checklistGrid" class="check-list-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js?v=1.0"></script>
+  <script>
+    // Tab switching for Raw JSON
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tab = btn.getAttribute('data-tab');
+        const actCont = document.getElementById('activitiesContainer');
+        const jsonCont = document.getElementById('jsonContainer');
+        if (tab === 'raw') {
+          actCont.style.display = 'none';
+          jsonCont.style.display = 'block';
+        } else {
+          actCont.style.display = 'grid';
+          jsonCont.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
