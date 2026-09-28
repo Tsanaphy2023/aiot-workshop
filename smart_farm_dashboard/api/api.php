@@ -52,11 +52,13 @@ function httpPostEmpty($url, $timeout = 1.0) {
 // Helper: Fetch real-time sensors from 10.10.31.65
 function fetchHardwareSensors($sensorIp) {
     $result = ['online' => false];
-    $tempUrl = "http://$sensorIp/sensor/" . rawurlencode("อุณหภูมิ (temperature)");
-    $humUrl  = "http://$sensorIp/sensor/" . rawurlencode("ความชื้นอากาศ (humidity)");
-    $luxUrl  = "http://$sensorIp/sensor/" . rawurlencode("ความสว่าง (light)");
-    $presUrl = "http://$sensorIp/sensor/" . rawurlencode("ความกดอากาศ (pressure)");
-    $rssiUrl = "http://$sensorIp/sensor/" . rawurlencode("ความแรงสัญญาณ WiFi");
+    $tempUrl  = "http://$sensorIp/sensor/" . rawurlencode("อุณหภูมิ (temperature)");
+    $humUrl   = "http://$sensorIp/sensor/" . rawurlencode("ความชื้นอากาศ (humidity)");
+    $luxUrl   = "http://$sensorIp/sensor/" . rawurlencode("ความสว่าง (light)");
+    $presUrl  = "http://$sensorIp/sensor/" . rawurlencode("ความกดอากาศ (pressure)");
+    $vibUrl   = "http://$sensorIp/sensor/" . rawurlencode("ความสั่นสะเทือน (vibration)");
+    $floatUrl = "http://$sensorIp/binary_sensor/" . rawurlencode("สวิตช์ลูกลอย (float switch)");
+    $rssiUrl  = "http://$sensorIp/sensor/" . rawurlencode("ความแรงสัญญาณ WiFi");
 
     $temp = httpGetJson($tempUrl);
     if ($temp && isset($temp['value'])) {
@@ -75,12 +77,39 @@ function fetchHardwareSensors($sensorIp) {
 
         $pres = httpGetJson($presUrl);
         if ($pres && isset($pres['value'])) {
-            $result['pressure'] = round((float)$pres['value'] / 100, 1); // Pa -> hPa
+            $hpa = round((float)$pres['value'] / 100, 1);
+            $result['pressure'] = $hpa;
+            // Barometric Altimeter formula: h ≈ 44330 * (1 - (P/1013.25)^0.1903)
+            $result['elevation'] = round(44330 * (1 - pow($hpa / 1013.25, 0.1903)), 0);
+        }
+
+        $vib = httpGetJson($vibUrl);
+        if ($vib && isset($vib['value'])) {
+            $result['vibration'] = round((float)$vib['value'], 2);
+        }
+
+        $float = httpGetJson($floatUrl);
+        if ($float && isset($float['value'])) {
+            $result['float_switch'] = (bool)$float['value'];
+            $result['float_state']  = (bool)$float['value'] ? 'ปกติ (ระดับน้ำเพียงพอ)' : 'เตือน (น้ำต่ำกว่าเกณฑ์)';
         }
 
         $rssi = httpGetJson($rssiUrl);
         if ($rssi && isset($rssi['value'])) {
             $result['rssi'] = (int)$rssi['value'];
+        }
+
+        // Calculate Agriphysics VPD & Dew Point
+        if (isset($result['temperature']) && isset($result['humidity'])) {
+            $T = $result['temperature'];
+            $RH = $result['humidity'];
+            $es = 0.61078 * exp((17.27 * $T) / ($T + 237.3));
+            $vpd = round($es * (1 - ($RH / 100)), 2);
+            $result['vpd'] = $vpd;
+
+            $a = 17.27; $b = 237.7;
+            $alpha = (($a * $T) / ($b + $T)) + log($RH / 100.0);
+            $result['dew_point'] = round(($b * $alpha) / ($a - $alpha), 1);
         }
     }
     return $result;
@@ -88,12 +117,25 @@ function fetchHardwareSensors($sensorIp) {
 
 // Helper: Fetch relay status from 10.10.29.103
 function fetchHardwareActuator($actuatorIp) {
-    $result = ['online' => false, 'relay' => false];
+    $result = ['online' => false, 'relay' => false, 'button' => false];
     $relayUrl = "http://$actuatorIp/switch/" . rawurlencode("รีเลย์ (relay)");
+    $btnUrl   = "http://$actuatorIp/binary_sensor/" . rawurlencode("ปุ่มบนบอร์ด (button)");
+    $rssiUrl  = "http://$actuatorIp/sensor/" . rawurlencode("ความแรงสัญญาณ WiFi");
+
     $data = httpGetJson($relayUrl);
     if ($data && isset($data['value'])) {
         $result['online'] = true;
         $result['relay'] = (bool)$data['value'];
+
+        $btn = httpGetJson($btnUrl);
+        if ($btn && isset($btn['value'])) {
+            $result['button'] = (bool)$btn['value'];
+        }
+
+        $rssi = httpGetJson($rssiUrl);
+        if ($rssi && isset($rssi['value'])) {
+            $result['rssi'] = (int)$rssi['value'];
+        }
     }
     return $result;
 }
@@ -171,7 +213,10 @@ if ($action === 'status') {
             'sensor_ip' => $sensorIp,
             'actuator_online' => $actuatorInfo['online'],
             'sensor_online' => $sensorInfo['online'],
-            'relay_state' => $actuatorInfo['relay']
+            'relay_state' => $actuatorInfo['relay'],
+            'button_state' => $actuatorInfo['button'] ?? false,
+            'sensor_data' => $sensorInfo,
+            'actuator_data' => $actuatorInfo
         ];
 
         // If sensor board is online, inject real measurements into Flower Farm

@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>LEQs SciRBRU Digital Precision Farming & Deep AI — ระบบควบคุมและ Deep Learning ฟาร์มอัจฉริยะ</title>
+  <meta name="description" content="โมเดิร์นแดชบอร์ด Smart Farm AIoT เชื่อมต่อบอร์ด ESP32, เซนเซอร์, สมาร์ตโฟน พร้อมระบบ AI & Deep Learning เก็บข้อมูลและเทรนโมเดล">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#10b981">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Top Navigation Bar -->
+    <header class="top-nav">
+      <div class="brand-section">
+        <div class="brand-icon">🌱</div>
+        <div>
+          <div class="brand-title">Smart Farm AIoT</div>
+          <div class="brand-subtitle">LEQs SciRBRU Digital Precision Farming & Deep AI</div>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <!-- Main Navigation Mode Switch -->
+        <div class="nav-tab-group">
+          <button class="nav-tab-btn active" id="tab-btn-overview" onclick="switchMainTab('overview')">📊 แดชบอร์ด</button>
+          <button class="nav-tab-btn" id="tab-btn-hardware" onclick="switchMainTab('hardware')">📡 เซนเซอร์บอร์ดจริง</button>
+          <button class="nav-tab-btn" id="tab-btn-ai" onclick="switchMainTab('ai')">🧠 AI Studio</button>
+        </div>
+
+        <div class="status-pill" id="connection-status">
+          <span class="status-dot"></span>
+          <span id="conn-text">ESP32 Live</span>
+        </div>
+        <button class="btn-icon" id="theme-toggle" title="สลับโหมดมืด/สว่าง">🌓</button>
+        <button class="btn-icon" id="btn-show-docs" title="คู่มือการเชื่อมต่อ ESP32">⚡</button>
+      </div>
+    </header>
+
+    <!-- ==================== VIEW 1: FARM OVERVIEW ==================== -->
+    <main id="view-overview">
+      
+      <!-- Weather & Overview Hero -->
+      <section class="weather-hero">
+        <div class="hero-welcome">
+          <h1>Welcome Farmer 🌾</h1>
+          <p id="hero-subtitle">กำลังติดตามและควบคุมแปลง <strong id="active-area-name" style="color: var(--primary);">Flower Farm (แปลงไม้ดอก)</strong></p>
+        </div>
+        <div class="hero-meta">
+          <div class="meta-badge">
+            <div class="meta-value" id="live-clock">15:30:00</div>
+            <div class="meta-label">เวลาฟาร์มปัจจุบัน</div>
+          </div>
+          <div class="meta-badge">
+            <div class="meta-value" id="system-mode">AI AUTO</div>
+            <div class="meta-label">โหมดการทำงาน</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Live Real Hardware Bar (ESP32 Sensor: 10.10.31.65 & Relay: 10.10.29.103) -->
+      <section class="hw-banner" style="margin-top: 14px;">
+        <div class="hw-banner-left">
+          <span style="font-size: 14px; font-weight: 700; color: var(--primary);">📡 บอร์ดฮาร์ดแวร์จริง:</span>
+          <div class="hw-chip online" id="chip-sensor-node">
+            <span class="dot"></span>
+            <span>เซนเซอร์ (10.10.31.65): <strong id="quick-hw-temp">28.5°C</strong> | <strong id="quick-hw-hum">48.8%</strong> | <strong id="quick-hw-lux">114 lx</strong> | <strong id="quick-hw-pres">973.8 hPa</strong></span>
+          </div>
+          <div class="hw-chip online" id="chip-relay-node">
+            <span class="dot"></span>
+            <span>รีเลย์ (10.10.29.103): <strong id="quick-hw-relay" style="color: #f59e0b;">OFF</strong></span>
+          </div>
+        </div>
+        <div>
+          <button class="hw-btn-action" onclick="switchMainTab('hardware')">
+            🔍 เปิดหน้าจอเซนเซอร์บอร์ดละเอียด →
+          </button>
+        </div>
+      </section>
+
+      <!-- Area Selection Grid -->
+      <section class="area-tabs-container">
+        <div class="area-tabs-header">
+          <div class="section-heading">
+            <span>📍</span>
+            <span>แปลงเกษตรกรรม (Farm Areas)</span>
+          </div>
+          <span style="font-size: 13px; color: var(--text-dim);" id="area-count-label">3 แปลงออนไลน์</span>
+        </div>
+
+        <div class="area-tabs-grid">
+          <div class="area-card active" id="tab-flower" onclick="selectArea('flower')">
+            <div class="area-icon-wrap" style="color: #f43f5e; background: rgba(244,63,94,0.12);">🌸</div>
+            <div class="area-info">
+              <h3>Flower Farm</h3>
+              <span id="badge-flower">ความชื้นดิน: 58% • ปกติ</span>
+            </div>
+          </div>
+
+          <div class="area-card" id="tab-corn" onclick="selectArea('corn')">
+            <div class="area-icon-wrap" style="color: #f59e0b; background: rgba(245,158,11,0.12);">🌽</div>
+            <div class="area-info">
+              <h3>Corn Farm</h3>
+              <span id="badge-corn">ความชื้นดิน: 42% • พอดี</span>
+            </div>
+          </div>
+
+          <div class="area-card" id="tab-grass" onclick="selectArea('grass')">
+            <div class="area-icon-wrap" style="color: #10b981; background: rgba(16,185,129,0.12);">🌿</div>
+            <div class="area-info">
+              <h3>Grass & Lawn</h3>
+              <span id="badge-grass">ความชื้นดิน: 65% • ชุ่มชื้น</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Live Telemetry Metrics Grid -->
+      <section class="metrics-grid">
+        
+        <!-- Soil Moisture -->
+        <div class="metric-card" id="card-soil">
+          <div class="metric-top">
+            <div class="metric-title-group">
+              <div class="metric-badge-icon" style="background: rgba(16,185,129,0.15); color: #10b981;">💧</div>
+              <span class="metric-name">ความชื้นในดิน (Soil Moisture)</span>
+            </div>
+            <span class="metric-status-tag tag-good" id="soil-status">ปกติ</span>
+          </div>
+          <div class="metric-value-wrap">
+            <span class="metric-number" id="val-soil">58</span>
+            <span class="metric-unit">%</span>
+          </div>
+          <div class="metric-bar-bg">
+            <div class="metric-bar-fill" id="bar-soil" style="width: 58%; background: linear-gradient(90deg, #10b981, #06b6d4);"></div>
+          </div>
+          <div class="metric-footer">
+            <span>เป้าหมายแปลง: 50% - 70%</span>
+            <span id="soil-trend">↗ ทรงตัว</span>
+          </div>
+        </div>
+
+        <!-- Temperature -->
+        <div class="metric-card" id="card-temp">
+          <div class="metric-top">
+            <div class="metric-title-group">
+              <div class="metric-badge-icon" style="background: rgba(245,158,11,0.15); color: #f59e0b;">🌡️</div>
+              <span class="metric-name">อุณหภูมิอากาศ (Temperature)</span>
+            </div>
+            <span class="metric-status-tag tag-good" id="temp-status">เหมาะสม</span>
+          </div>
+          <div class="metric-value-wrap">
+            <span class="metric-number" id="val-temp">29.4</span>
+            <span class="metric-unit">°C</span>
+          </div>
+          <div class="metric-bar-bg">
+            <div class="metric-bar-fill" id="bar-temp" style="width: 60%; background: linear-gradient(90deg, #10b981, #f59e0b);"></div>
+          </div>
+          <div class="metric-footer">
+            <span>ค่าเฉลี่ยวันนี้: 28.1°C</span>
+            <span id="temp-trend">เซนเซอร์ DHT22</span>
+          </div>
+        </div>
+
+        <!-- Air Humidity -->
+        <div class="metric-card" id="card-humidity">
+          <div class="metric-top">
+            <div class="metric-title-group">
+              <div class="metric-badge-icon" style="background: rgba(6,182,212,0.15); color: #06b6d4;">🌫️</div>
+              <span class="metric-name">ความชื้นสัมพัทธ์ (Air Humidity)</span>
+            </div>
+            <span class="metric-status-tag tag-good" id="humidity-status">ชุ่มชื้น</span>
+          </div>
+          <div class="metric-value-wrap">
+            <span class="metric-number" id="val-humidity">68.2</span>
+            <span class="metric-unit">%RH</span>
+          </div>
+          <div class="metric-bar-bg">
+            <div class="metric-bar-fill" id="bar-humidity" style="width: 68%; background: linear-gradient(90deg, #06b6d4, #3b82f6);"></div>
+          </div>
+          <div class="metric-footer">
+            <span>จุดน้ำค้าง: 22.8°C</span>
+            <span>เสถียร</span>
+          </div>
+        </div>
+
+        <!-- Solar Light Intensity -->
+        <div class="metric-card" id="card-light">
+          <div class="metric-top">
+            <div class="metric-title-group">
+              <div class="metric-badge-icon" style="background: rgba(234,179,8,0.15); color: #eab308;">☀️</div>
+              <span class="metric-name">ความเข้มแสงแดด (Sunlight)</span>
+            </div>
+            <span class="metric-status-tag tag-good" id="light-status">แดดจัด</span>
+          </div>
+          <div class="metric-value-wrap">
+            <span class="metric-number" id="val-light">42,500</span>
+            <span class="metric-unit">Lux</span>
+          </div>
+          <div class="metric-bar-bg">
+            <div class="metric-bar-fill" id="bar-light" style="width: 72%; background: linear-gradient(90deg, #eab308, #f97316);"></div>
+          </div>
+          <div class="metric-footer">
+            <span>UV Index: 6 (ปานกลาง)</span>
+            <span>BH1750 / LDR</span>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Smart Actuators & Relays Section -->
+      <section class="controls-section">
+        <div class="area-tabs-header">
+          <div class="section-heading">
+            <span>⚡</span>
+            <span>สวิตช์ควบคุมอุปกรณ์และวาล์วน้ำ (Relays & Valves)</span>
+          </div>
+          <span style="font-size: 13px; color: var(--primary);" id="active-actuator-summary">เปิดอยู่ 0 จาก 4 อุปกรณ์</span>
+        </div>
+
+        <div class="controls-grid">
+          
+          <div class="actuator-card" id="card-actuator-valve">
+            <div class="actuator-left">
+              <div class="actuator-icon" id="icon-valve">🚰</div>
+              <div>
+                <div class="actuator-title" id="title-valve">โซลินอยด์วาล์วน้ำ (Main Valve)</div>
+                <div class="actuator-desc" id="desc-valve">GPIO 18 • ปิดอยู่ (Idle)</div>
+              </div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="switch-valve" onchange="toggleActuator('valve', this.checked)">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="actuator-card" id="card-actuator-pump">
+            <div class="actuator-left">
+              <div class="actuator-icon" id="icon-pump">🚀</div>
+              <div>
+                <div class="actuator-title">ปั๊มน้ำแรงดันสูง (Water Pump)</div>
+                <div class="actuator-desc" id="desc-pump">GPIO 19 • ปิดอยู่ (Off)</div>
+              </div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="switch-pump" onchange="toggleActuator('pump', this.checked)">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="actuator-card" id="card-actuator-mist">
+            <div class="actuator-left">
+              <div class="actuator-icon" id="icon-mist">💦</div>
+              <div>
+                <div class="actuator-title">หัวพ่นหมอกลดความร้อน (Mist System)</div>
+                <div class="actuator-desc" id="desc-mist">GPIO 21 • ปิดอยู่ (Off)</div>
+              </div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="switch-mist" onchange="toggleActuator('mist', this.checked)">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="actuator-card" id="card-actuator-fan">
+            <div class="actuator-left">
+              <div class="actuator-icon" id="icon-fan">🌀</div>
+              <div>
+                <div class="actuator-title">พัดลมระบายอากาศ (Exhaust Fan)</div>
+                <div class="actuator-desc" id="desc-fan">GPIO 22 • ปิดอยู่ (Off)</div>
+              </div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="switch-fan" onchange="toggleActuator('fan', this.checked)">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Real-time SVG Dynamic Chart -->
+      <section class="chart-section">
+        <div class="chart-header">
+          <div class="section-heading">
+            <span>📈</span>
+            <span>กราฟแนวโน้มความชื้นและอุณหภูมิแบบเรียลไทม์ (Live Telemetry Trends)</span>
+          </div>
+          <div class="chart-legend">
+            <div class="legend-item">
+              <div class="legend-color" style="background: #10b981;"></div>
+              <span>ความชื้นดิน (%)</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color" style="background: #f59e0b;"></div>
+              <span>อุณหภูมิ (°C)</span>
+            </div>
+          </div>
+        </div>
+        <div class="svg-chart-container" id="chart-container">
+          <!-- SVG injected by app.js -->
+        </div>
+      </section>
+
+      <!-- Integrated Virtual ESP32 Simulator & Live Terminal -->
+      <section class="simulator-panel">
+        <div class="area-tabs-header">
+          <div class="section-heading">
+            <span>🧪</span>
+            <span>เครื่องจำลองสัญญาณ ESP32 & Live Logs (Virtual Farm Simulator)</span>
+          </div>
+          <span class="status-pill" style="background: rgba(6,182,212,0.12); color: #06b6d4; border-color: rgba(6,182,212,0.3);">
+            Simulator Ready
+          </span>
+        </div>
+
+        <p style="font-size: 14px; color: var(--text-muted);">
+          ทดลองจำลองสภาพแวดล้อมเสมือนจริง เช่น ฝนตก แดดร้อนจัด หรือจำลองดินแห้ง เพื่อดูปฏิกิริยาของระบบควบคุมอัตโนมัติได้ทันที
+        </p>
+
+        <div class="sim-controls">
+          <button class="btn-action" onclick="simulateEnvironment('rain')">🌧️ จำลองฝนตกหนัก</button>
+          <button class="btn-action btn-secondary" onclick="simulateEnvironment('dry')">🏜️ จำลองดินแห้งแล้ง</button>
+          <button class="btn-action btn-secondary" onclick="simulateEnvironment('heat')">☀️ จำลองแดดจัด</button>
+          <button class="btn-action btn-secondary" onclick="simulateEnvironment('reset')">🔄 รีเซ็ตค่ามาตรฐาน</button>
+        </div>
+
+        <div class="live-log-box" id="live-logs">
+          <!-- Live logs injected by app.js -->
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ==================== VIEW 2: LIVE HARDWARE SENSORS & INSPECTOR ==================== -->
+    <main id="view-hardware" style="display: none;">
+      
+      <!-- Hardware Hero -->
+      <section class="weather-hero" style="background: linear-gradient(135deg, rgba(16,185,129,0.15) 0%, rgba(56,189,248,0.1) 100%);">
+        <div class="hero-welcome">
+          <h1 style="background: linear-gradient(135deg, #34d399 0%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            📡 Live Hardware Telemetry & Sensor Inspector
+          </h1>
+          <p>หน้าจอแสดงผลและตรวจสอบค่าที่วัดได้จริงจากบอร์ดเซนเซอร์และบอร์ดควบคุมรีเลย์ (Real-Time Multi-Sensor Stream)</p>
+        </div>
+        <div class="hero-meta">
+          <div class="meta-badge">
+            <div class="meta-value" style="color: #34d399;" id="hw-active-boards">2 / 2 บอร์ด</div>
+            <div class="meta-label">สถานะออนไลน์</div>
+          </div>
+          <div class="meta-badge">
+            <div class="meta-value" id="hw-ping-latency">&lt; 15 ms</div>
+            <div class="meta-label">ความเร็วการตอบสนอง</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Board Health & Topology Overview -->
+      <section class="hw-node-card-grid">
+        
+        <!-- Sensor Node Card -->
+        <div class="hw-node-card" style="border-left: 4px solid #10b981;">
+          <div class="hw-node-header">
+            <div>
+              <div class="hw-node-title">
+                <span>🌡️</span>
+                <span>บอร์ดเซนเซอร์สิ่งแวดล้อม (Sensor Node)</span>
+              </div>
+              <div style="font-size: 13px; color: var(--text-dim); margin-top: 4px; font-family: 'JetBrains Mono', monospace;">
+                Device: <strong>gogo-iot-red-242dcc</strong> • IP: <strong>10.10.31.65</strong>
+              </div>
+            </div>
+            <span class="metric-status-tag tag-good" id="hw-sensor-badge">🟢 ONLINE</span>
+          </div>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
+            <div class="hw-chip online">
+              <span class="dot"></span>
+              <span>Wi-Fi RSSI: <strong id="hw-sensor-rssi">-58 dBm</strong></span>
+            </div>
+            <div class="hw-chip">
+              <span>เซนเซอร์พร้อมใช้งาน: <strong>6 รายการ</strong></span>
+            </div>
+          </div>
+          <div style="margin-top: 14px; display: flex; gap: 8px;">
+            <a href="http://10.10.31.65" target="_blank" class="btn-action" style="font-size: 12px; padding: 6px 12px; text-decoration: none;">
+              🌐 เปิดเว็บ ESPHome (10.10.31.65) ↗
+            </a>
+            <button class="btn-action btn-secondary" onclick="forceSyncHardware()" style="font-size: 12px; padding: 6px 12px;">
+              🔄 รีเฟรชค่าเดี๋ยวนี้
+            </button>
+          </div>
+        </div>
+
+        <!-- Actuator / Relay Node Card -->
+        <div class="hw-node-card" style="border-left: 4px solid #f59e0b;">
+          <div class="hw-node-header">
+            <div>
+              <div class="hw-node-title">
+                <span>💡</span>
+                <span>บอร์ดควบคุมไฟและปั๊มน้ำ (Actuator Node)</span>
+              </div>
+              <div style="font-size: 13px; color: var(--text-dim); margin-top: 4px; font-family: 'JetBrains Mono', monospace;">
+                Device: <strong>gogo-relay-red-b97df0</strong> • IP: <strong>10.10.29.103</strong>
+              </div>
+            </div>
+            <span class="metric-status-tag tag-good" id="hw-relay-badge">🟢 ONLINE</span>
+          </div>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
+            <div class="hw-chip online">
+              <span class="dot"></span>
+              <span>รีเลย์หลัก (Relay): <strong id="hw-relay-state-label" style="color: #f59e0b;">OFF (ปิด)</strong></span>
+            </div>
+            <div class="hw-chip">
+              <span>ปุ่มบนบอร์ด: <strong id="hw-btn-state-label">OFF (ปล่อย)</strong></span>
+            </div>
+          </div>
+          <div style="margin-top: 14px; display: flex; gap: 8px;">
+            <button class="btn-action" id="btn-toggle-hw-relay" onclick="togglePhysicalRelay()" style="font-size: 12px; padding: 6px 14px; background: linear-gradient(135deg, #f59e0b, #d97706);">
+              ⚡ สลับสถานะรีเลย์ (Toggle Relay)
+            </button>
+            <a href="http://10.10.29.103" target="_blank" class="btn-action btn-secondary" style="font-size: 12px; padding: 6px 12px; text-decoration: none;">
+              🌐 หน้าบอร์ด (10.10.29.103) ↗
+            </a>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Multi-Sensor Live Cards Grid (10 Physical & Agriphysics Metrics) -->
+      <section class="area-tabs-header" style="margin-top: 10px;">
+        <div class="section-heading">
+          <span>📊</span>
+          <span>ค่าที่วัดได้จากเซนเซอร์บนบอร์ดทั้งหมด (Physical Sensors & Agriphysics Metrics)</span>
+        </div>
+        <span style="font-size: 13px; color: var(--primary);" id="hw-last-sync-time">อัปเดตสดทุก 1.5 วินาที</span>
+      </section>
+
+      <section class="metrics-grid">
+        
+        <!-- 1. Temperature -->
+        <div class="metric-card" style="border-top: 3px solid #f59e0b;">
+          <div class="metric-top">
+            <div class="metric-title-group">
+              <div class="metric-badge-icon" style="background: rgba(245,158,11,0.15); color: #f59e0b;">🌡️</div>
+              <span class="metric-name">อุณหภูมิอากาศ (Air Temp)</span>
+            </div>
+            <span class="metric-status-tag tag-good" id="hw-card-temp-status">เหมาะสม</span>
+          </div>
+          <div class="metric-value-wrap">
+            <span class="metric-number" id="hw-card-temp">28.5</span>
+            <span class="metric-unit">°C</span>
+          </div>
+          <div class="metric-bar-bg">
+            <div class="metric-bar-fill" id="hw-bar-temp" style="width: 57%; background: linear-gradient(90deg, #10b981, #f59e0b);"></div>
+          </div>
+          <div class="metric-footer">
+            <span>เซนเซอร์ DHT22/SHT31 (10.10.31.65)</span>
+            <span id="hw-card-temp-f">83.3 °F</span>
+          </div>
+        </div>
+
+        <!-- 2. Humidity -->
+        <div class="metric-card" style="border-top: 3px solid #06b6d4;">
+          <div class="metric-top">
+            <div class="metric-title-group">
+              <div class="metric-badge-icon" style="background: rgba(6,182,212,0.15); color: #06b6d4;">🌫️</div>
+              <span class="metric-name">ความชื้นสัมพัทธ์ (Relative Humidity)</span>
+            </div>
+            <span class="metric-status-tag tag-good" id="hw-card-hum-status">ปกติ</span>
+          </div>
+          <div class="metric-value-wrap">
+            <span class="metric-number" id="hw-card-hum">48.8</span>
+            <span class="metric-unit">%RH</span>
+          </div>
+          <div class="metric-bar-bg">
+            <div class="metric-bar-fill" id="hw-bar-hum" style="width: 49%; background: linear-gradient(90deg, #06b6d4, #3b82f6);"></div>
+          </div>
+          <div class="metric-footer">
+            <span>เกณฑ์เหมาะสม: 45% - 75%</span>
+            <span id="hw-card-dew">จุดน้ำค้าง: 16.9°C</span>
+          </div>
+        </div>
+
+        <!-- 3. Ambient Light -->
+        <div class="metric-card" style="border-top: 3px solid #eab308;">
+          <div class="metric-top">
+            <div class="metric-title-group">
+              <div class="metric-badge-icon" style="background: rgba(234,179,8,0.15); color: #eab308;">☀️</div>
+              <span class="metric-name">ความสว่างรอบข้าง (Ambient Light)</span>
+            </div>
+            <span class="metric-status-tag tag-good" id="hw-card-lux-status">ในร่ม/แปลง</span>
+          </div>
+          <div class="metric-value-wrap">
+            <span class="metric-number" id="hw-card-lux">114</span>
+            <span class="metric-unit">Lux</span>
+          </div>
+          <div class="metric-bar-bg">
+            <div class="metric-bar-fill" id="hw-bar-lux" style="width: 25%; background: linear-gradient(90deg, #eab308, #f97316);"></div>
+          </div>
+          <div class="metric-footer">
+            <span>เซนเซอร์ BH1750 (lx)</span>
+            <span>ระดับแสงเพียงพอ</span>
+          </div>
+        </div>
+
+        <!-- 4. Barometric Pressure -->
+        <div class="metric-card" style="border-top: 3px solid #8b5cf6;">
+          <div class="metric-top">
+            <div class="metric-title-group">
+              <div class="metric-badge-icon" style="background: rgba(139,92,246,0.15); color: #a78bfa;">🌀</div>
+              <span class="metric-name">ความกดอากาศ (Barometric Pressure)</span>
+            </div>
+            <span class="metric-status-tag tag-good">เสถียร</span>
+          </div>
+          <div class="metric-value-wrap">
+            <span class="metric-number" id="hw-card-pres">973.8</span>
+            <span class="metric-unit">hPa</span>
+          </div>
+          <div class="metric-bar-bg">
+            <div class="metric-bar-fill" id="hw-bar-pres" style="width: 96%; background: linear-gradient(90deg, #8b5cf6, #ec4899);"></div>
+          </div>
+          <div class="metric-footer">
+            <span>ความสูงจำลอง: <strong id="hw-card-elevation">~334</strong> ม. เหนือระดับน้ำทะเล</span>
+            <span>BMP280</span>
+          </div>
+        </div>
+
+        <!-- 5. Vibration / Motion -->
+        <div class="metric-card" style="border-top: 3px solid #ec4899;">
+          <div class="metric-top">
+            <div class="metric-title-group">
+              <div class="metric-badge-icon" style="background: rgba(236,72,153,0.15); color: #ec4899;">📳</div>
+              <span class="metric-name">แรงสั่นสะเทือน (Vibration / Tilt)</span>
+            </div>
+            <span class="metric-status-tag tag-good" id="hw-card-vib-status">นิ่งสนิท</span>
+          </div>
+          <div class="metric-value-wrap">
+            <span class="metric-number" id="hw-card-vib">2.2</span>
+            <span class="metric-unit">mg</span>
+          </div>
+          <div class="metric-bar-bg">
+            <div class="metric-bar-fill" id="hw-bar-vib" style="width: 15%; background: linear-gradient(90deg, #10b981, #ec4899);"></div>
+          </div>
+          <div class="metric-footer">
+            <span>ตรวจจับลมพัด / การทำงานของปั๊ม</span>
+            <span>Motion Sensor</span>
+          </div>
+        </div>
+
+        <!-- 6. Water Tank Float Switch -->
+        <div class="metric-card" style="border-top: 3px solid #10b981;">
+          <div class="metric-top">
+            <div class="metric-title-group">
+              <div class="metric-badge-icon" style="background: rgba(16,185,129,0.15); color: #10b981;">🌊</div>
+              <span class="metric-name">สวิตช์ลูกลอยระดับน้ำ (Float Switch)</span>
+            </div>
+            <span class="metric-status-tag tag-good" id="hw-card-float-badge">ปกติ</span>
+          </div>
+          <div class="metric-value-wrap">
+            <span class="metric-number" id="hw-card-float-text" style="font-size: 24px;">น้ำเพียงพอ</span>
+          </div>
+          <div class="metric-bar-bg">
+            <div class="metric-bar-fill" id="hw-bar-float" style="width: 100%; background: #10b981;"></div>
+          </div>
+          <div class="metric-footer">
+            <span>สวิตช์ลูกลอยถังพักน้ำโรงเรือน</span>
+            <span id="hw-card-float-contact">Contact: CLOSED</span>
+          </div>
+        </div>
+
+        <!-- 7. Agriphysics VPD -->
+        <div class="metric-card" style="border-top: 3px solid #38bdf8;">
+          <div class="metric-top">
+            <div class="metric-title-group">
+              <div class="metric-badge-icon" style="background: rgba(56,189,248,0.15); color: #38bdf8;">🍃</div>
+              <span class="metric-name">ดัชนี VPD (Vapor Pressure Deficit)</span>
+            </div>
+            <span class="metric-status-tag tag-good" id="hw-card-vpd-status">คายน้ำปกติ</span>
+          </div>
+          <div class="metric-value-wrap">
+            <span class="metric-number" id="hw-card-vpd">2.03</span>
+            <span class="metric-unit">kPa</span>
+          </div>
+          <div class="metric-bar-bg">
+            <div class="metric-bar-fill" id="hw-bar-vpd" style="width: 65%; background: linear-gradient(90deg, #10b981, #38bdf8);"></div>
+          </div>
+          <div class="metric-footer">
+            <span>สูตร Tetens Agriphysics Equation</span>
+            <span>เหมาะสำหรับพืชผัก/ไม้ดอก</span>
+          </div>
+        </div>
+
+        <!-- 8. Physical Relay Output -->
+        <div class="metric-card" style="border-top: 3px solid #f59e0b;">
+          <div class="metric-top">
+            <div class="metric-title-group">
+              <div class="metric-badge-icon" style="background: rgba(245,158,11,0.15); color: #f59e0b;">⚡</div>
+              <span class="metric-name">รีเลย์เอาต์พุต (Relay 10.10.29.103)</span>
+            </div>
+            <span class="metric-status-tag" id="hw-card-relay-status" style="background: rgba(148,163,184,0.2); color: #94a3b8;">IDLE</span>
+          </div>
+          <div class="metric-value-wrap">
+            <span class="metric-number" id="hw-card-relay-val" style="font-size: 26px;">OFF (ปิด)</span>
+          </div>
+          <div class="metric-bar-bg">
+            <div class="metric-bar-fill" id="hw-bar-relay" style="width: 0%; background: #f59e0b;"></div>
+          </div>
+          <div class="metric-footer">
+            <span>ควบคุมวาล์วรดน้ำ / ปั๊มหลัก</span>
+            <span>หน้าสัมผัส 10A 250VAC</span>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Section: Raw Telemetry Stream Table -->
+      <section class="automation-panel" style="margin-top: 24px;">
+        <div class="area-tabs-header">
+          <div class="section-heading">
+            <span>📋</span>
+            <span>ตารางสรุปค่าเซนเซอร์ดิบจากบอร์ด (Live Raw Hardware Telemetry Table)</span>
+          </div>
+          <button class="btn-action btn-secondary" onclick="forceSyncHardware()" style="font-size: 12px; padding: 6px 12px;">
+            🔄 บังคับดึงข้อมูลสด
+          </button>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table class="hw-raw-table">
+            <thead>
+              <tr>
+                <th>พารามิเตอร์ (Parameter)</th>
+                <th>ไอดีเซนเซอร์ (Entity ID)</th>
+                <th>โหนดฮาร์ดแวร์ (Node IP)</th>
+                <th>ค่าที่วัดได้สด (Live Value)</th>
+                <th>หน่วย (Unit)</th>
+                <th>สถานะการประเมิน (Health)</th>
+              </tr>
+            </thead>
+            <tbody id="hw-raw-tbody">
+              <!-- Dynamically populated by app.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ==================== VIEW 2: AI & DEEP LEARNING STUDIO ==================== -->
+    <main id="view-ai" style="display: none;">
+      
+      <!-- AI Studio Hero -->
+      <section class="weather-hero" style="background: linear-gradient(135deg, rgba(139,92,246,0.15) 0%, rgba(6,182,212,0.1) 100%);">
+        <div class="hero-welcome">
+          <h1 style="background: linear-gradient(135deg, #a78bfa 0%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            🧠 Smart Farm AI & Deep Learning Studio
+          </h1>
+          <p>ระบบเก็บรวบรวมข้อมูลเซนเซอร์ (Dataset Gathering), ฝึกอบรมโมเดลโครงข่ายประสาทเทียม (Deep Learning Training), และพยากรณ์ความชื้นล่วงหน้า</p>
+        </div>
+        <div class="hero-meta">
+          <div class="meta-badge">
+            <div class="meta-value" id="ai-model-acc">97.4%</div>
+            <div class="meta-label">Model Accuracy</div>
+          </div>
+          <div class="meta-badge">
+            <div class="meta-value" style="color: #a78bfa;" id="ai-status-pill">READY</div>
+            <div class="meta-label">AI Engine Status</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. Dataset Collection Hub -->
+      <section class="automation-panel">
+        <div class="area-tabs-header">
+          <div class="section-heading">
+            <span>📦</span>
+            <span>1. ศูนย์รวมและจัดเก็บข้อมูลชุดฝึกสอน (Dataset Collection Hub)</span>
+          </div>
+          <span class="status-pill" style="background: rgba(16,185,129,0.12); color: #10b981;">
+            Live Auto-Collector Active
+          </span>
+        </div>
+
+        <div class="ai-stats-grid">
+          <div class="ai-stat-card">
+            <div class="ai-stat-num" id="stat-samples-count">628</div>
+            <div class="ai-stat-label">ชุดข้อมูลที่บันทึกแล้ว (Samples)</div>
+          </div>
+          <div class="ai-stat-card">
+            <div class="ai-stat-num">5 ฟีเจอร์</div>
+            <div class="ai-stat-label">Soil, Temp, Humidity, Light, Valve</div>
+          </div>
+          <div class="ai-stat-card">
+            <div class="ai-stat-num">3 วินาที</div>
+            <div class="ai-stat-label">ความถี่การเก็บข้อมูล (Sampling Rate)</div>
+          </div>
+          <div class="ai-stat-card">
+            <div class="ai-stat-num" style="color: #38bdf8;">Time-Series</div>
+            <div class="ai-stat-label">โครงสร้างข้อมูลสำหรับการทำนาย</div>
+          </div>
+        </div>
+
+        <div class="sim-controls" style="margin-top: 18px;">
+          <button class="btn-action" onclick="exportDataset('csv')">📥 ดาวน์โหลด Dataset (CSV)</button>
+          <button class="btn-action btn-secondary" onclick="exportDataset('json')">📥 ดาวน์โหลด Dataset (JSON)</button>
+          <button class="btn-action btn-secondary" onclick="addSampleRecord()">➕ บันทึกข้อมูลสดทันที (Snapshot)</button>
+        </div>
+      </section>
+
+      <!-- 2. Interactive Deep Learning Training Bench -->
+      <section class="chart-section" style="border-color: rgba(139,92,246,0.3);">
+        <div class="area-tabs-header">
+          <div class="section-heading">
+            <span>⚡</span>
+            <span>2. สตูดิโอฝึกสอนโมเดล (Deep Learning Training Studio)</span>
+          </div>
+          <span class="status-pill" id="training-badge" style="background: rgba(139,92,246,0.15); color: #a78bfa; border-color: rgba(139,92,246,0.3);">
+            Ready to Train
+          </span>
+        </div>
+
+        <!-- Hyperparameter Controls -->
+        <div class="ai-hyperparams-grid">
+          <div class="param-box">
+            <label class="param-label">สถาปัตยกรรมโมเดล (Model Architecture)</label>
+            <select class="param-select" id="model-type">
+              <option value="lstm">LSTM Time-Series Soil Forecaster (Deep RNN)</option>
+              <option value="mlp">Multi-Layer Perceptron (2 Hidden Layers)</option>
+              <option value="anomaly">Autoencoder Plant Stress Detector</option>
+            </select>
+          </div>
+
+          <div class="param-box">
+            <label class="param-label">จำนวนรอบการเทรน (Epochs): <strong id="epoch-val-label" style="color: var(--primary);">30</strong></label>
+            <input type="range" class="param-slider" id="param-epochs" min="10" max="100" value="30" oninput="document.getElementById('epoch-val-label').textContent = this.value">
+          </div>
+
+          <div class="param-box">
+            <label class="param-label">Learning Rate (อัตราการเรียนรู้)</label>
+            <select class="param-select" id="param-lr">
+              <option value="0.001">0.001 (Recommended)</option>
+              <option value="0.01">0.01 (Fast)</option>
+              <option value="0.0001">0.0001 (Fine-tuning)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-top: 18px; margin-bottom: 20px;">
+          <button class="btn-action" id="btn-start-train" onclick="startModelTraining()" style="background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);">
+            🚀 เริ่มต้นเทรนโมเดล (Start Deep Learning Training)
+          </button>
+        </div>
+
+        <!-- Training Progress Bar -->
+        <div class="metric-bar-bg" style="height: 10px; margin-bottom: 14px;">
+          <div class="metric-bar-fill" id="training-progress-bar" style="width: 0%; background: linear-gradient(90deg, #8b5cf6, #38bdf8);"></div>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 13px; color: var(--text-muted); margin-bottom: 18px;">
+          <span id="train-epoch-text">ความคืบหน้า: Epoch 0 / 30</span>
+          <span id="train-loss-text">Loss: 0.0000 | Validation Accuracy: 0.0%</span>
+        </div>
+
+        <!-- Live Loss & Accuracy Curve SVG -->
+        <div class="svg-chart-container" id="ai-chart-container" style="height: 200px;">
+          <!-- SVG injected by app.js -->
+        </div>
+      </section>
+
+      <!-- 3. Live AI Forecasting & Edge Inference -->
+      <section class="metrics-grid">
+        
+        <!-- Predicted Moisture 1h -->
+        <div class="metric-card" style="border-color: rgba(6,182,212,0.3);">
+          <div class="metric-top">
+            <div class="metric-title-group">
+              <div class="metric-badge-icon" style="background: rgba(6,182,212,0.15); color: #06b6d4;">🔮</div>
+              <span class="metric-name">AI พยากรณ์ความชื้น (อีก 1 ชม.)</span>
+            </div>
+            <span class="metric-status-tag tag-good">Confidence 98%</span>
+          </div>
+          <div class="metric-value-wrap">
+            <span class="metric-number" id="ai-pred-1h">56.4</span>
+            <span class="metric-unit">%</span>
+          </div>
+          <div class="metric-footer">
+            <span>คาดการณ์: ลดลง 1.6% ตามแดด</span>
+            <span>LSTM Forecast</span>
+          </div>
+        </div>
+
+        <!-- Predicted Moisture 3h -->
+        <div class="metric-card" style="border-color: rgba(139,92,246,0.3);">
+          <div class="metric-top">
+            <div class="metric-title-group">
+              <div class="metric-badge-icon" style="background: rgba(139,92,246,0.15); color: #a78bfa;">⏱️</div>
+              <span class="metric-name">AI พยากรณ์ความชื้น (อีก 3 ชม.)</span>
+            </div>
+            <span class="metric-status-tag tag-good" id="ai-pred-3h-tag">พอเหมาะ</span>
+          </div>
+          <div class="metric-value-wrap">
+            <span class="metric-number" id="ai-pred-3h">51.8</span>
+            <span class="metric-unit">%</span>
+          </div>
+          <div class="metric-footer">
+            <span>คาดการณ์: ยังอยู่ในเกณฑ์ดี</span>
+            <span>Next 3 Hours</span>
+          </div>
+        </div>
+
+        <!-- Plant Stress Index -->
+        <div class="metric-card">
+          <div class="metric-top">
+            <div class="metric-title-group">
+              <div class="metric-badge-icon" style="background: rgba(245,158,11,0.15); color: #f59e0b;">🌡️</div>
+              <span class="metric-name">ดัชนีความเครียดพืช (Stress Index)</span>
+            </div>
+            <span class="metric-status-tag tag-good" id="ai-stress-tag">ต่ำ (Low)</span>
+          </div>
+          <div class="metric-value-wrap">
+            <span class="metric-number" id="ai-stress-val">1.2</span>
+            <span class="metric-unit">/ 10</span>
+          </div>
+          <div class="metric-footer">
+            <span>เกณฑ์ปลอดภัย: &lt; 4.0</span>
+            <span>Vapor Pressure Deficit</span>
+          </div>
+        </div>
+
+        <!-- Autonomous Decision -->
+        <div class="metric-card" style="border-color: rgba(16,185,129,0.3);">
+          <div class="metric-top">
+            <div class="metric-title-group">
+              <div class="metric-badge-icon" style="background: rgba(16,185,129,0.15); color: #10b981;">💡</div>
+              <span class="metric-name">คำสั่งตัดสินใจอัจฉริยะ (AI Decision)</span>
+            </div>
+            <span class="metric-status-tag tag-good">Optimal</span>
+          </div>
+          <p style="font-size: 14px; margin-top: 6px; line-height: 1.5; color: var(--text-main);" id="ai-decision-text">
+            🌿 <strong>สภาพแปลงปกติ:</strong> ความชื้นดินและอุณหภูมิอยู่ในเกณฑ์เหมาะสม ยังไม่ต้องรดน้ำใน 2 ชั่วโมงนี้
+          </p>
+          <div class="metric-footer" style="margin-top: 14px;">
+            <span>AI Autonomous Engine</span>
+            <span>อัปเดตอัตโนมัติ</span>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- 4. Export & Edge AI Deployment -->
+      <section class="automation-panel">
+        <div class="area-tabs-header">
+          <div class="section-heading">
+            <span>📲</span>
+            <span>4. ส่งออกโมเดลสำหรับบอร์ด ESP32 (Edge AI Deployment)</span>
+          </div>
+        </div>
+        <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 16px;">
+          นำโมเดลที่ผ่านการเทรนแล้วไปคอมไพล์ใส่บอร์ด ESP32 เพื่อให้บอร์ดสามารถประมวลผล Deep Learning Inference ได้เองโดยไม่ต้องต่อเน็ตตลอดเวลา
+        </p>
+        <div class="sim-controls">
+          <button class="btn-action" onclick="downloadEsp32Weights()">📥 ดาวน์โหลด C Header สำหรับ ESP32 (.h)</button>
+          <button class="btn-action btn-secondary" onclick="syncWithHomeAssistant()">☁️ ส่งค่าพยากรณ์ไป Home Assistant</button>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

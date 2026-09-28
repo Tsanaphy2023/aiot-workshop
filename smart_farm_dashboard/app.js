@@ -173,21 +173,26 @@ function switchMainTab(tab) {
   farmState.activeView = tab;
 
   const btnOverview = document.getElementById('tab-btn-overview');
+  const btnHardware = document.getElementById('tab-btn-hardware');
   const btnAi = document.getElementById('tab-btn-ai');
   const viewOverview = document.getElementById('view-overview');
+  const viewHardware = document.getElementById('view-hardware');
   const viewAi = document.getElementById('view-ai');
 
+  [btnOverview, btnHardware, btnAi].forEach(b => b && b.classList.remove('active'));
+  [viewOverview, viewHardware, viewAi].forEach(v => v && (v.style.display = 'none'));
+
   if (tab === 'overview') {
-    btnOverview.classList.add('active');
-    btnAi.classList.remove('active');
-    viewOverview.style.display = 'block';
-    viewAi.style.display = 'none';
+    if (btnOverview) btnOverview.classList.add('active');
+    if (viewOverview) viewOverview.style.display = 'block';
     renderDashboard();
+  } else if (tab === 'hardware') {
+    if (btnHardware) btnHardware.classList.add('active');
+    if (viewHardware) viewHardware.style.display = 'block';
+    renderHardwareView();
   } else {
-    btnAi.classList.add('active');
-    btnOverview.classList.remove('active');
-    viewOverview.style.display = 'none';
-    viewAi.style.display = 'block';
+    if (btnAi) btnAi.classList.add('active');
+    if (viewAi) viewAi.style.display = 'block';
     renderAiStudio();
   }
 }
@@ -701,34 +706,59 @@ async function syncWithBackend() {
     const res = await fetch('api/api.php?action=status');
     if (!res.ok) return;
     const json = await res.json();
-    if (json.status === 'success' && json.data && json.data.areas) {
-      let hasStateChanged = false;
-      const backendAreas = json.data.areas;
-
-      for (const [key, bArea] of Object.entries(backendAreas)) {
-        if (farmState.areas[key]) {
-          const locArea = farmState.areas[key];
-          ['valve', 'pump', 'mist', 'fan'].forEach(dev => {
-            if (bArea[dev] !== undefined && bArea[dev] !== locArea[dev]) {
-              locArea[dev] = bArea[dev];
-              hasStateChanged = true;
-              if (key === farmState.activeArea) {
-                updateActuatorUI(dev, bArea[dev]);
-                addLog(`📲 [ซิงค์จากโมบายแอป/บอร์ด] อุปกรณ์ ${dev.toUpperCase()} เปลี่ยนสถานะเป็น ${bArea[dev] ? 'เปิด (ON)' : 'ปิด (OFF)'}`);
-              }
-            }
-          });
-        }
+    if (json.status === 'success' && json.data) {
+      // 1. Sync Hardware Sensors
+      if (json.data.hardware) {
+        updateHardwareUI(json.data.hardware);
       }
 
-      if (hasStateChanged) {
-        const activeCurr = farmState.areas[farmState.activeArea];
-        let activeCount = (activeCurr.valve ? 1 : 0) +
-                          (activeCurr.pump ? 1 : 0) +
-                          (activeCurr.mist ? 1 : 0) +
-                          (activeCurr.fan ? 1 : 0);
-        elActuatorSummary.textContent = `เปิดอยู่ ${activeCount} จาก 4 อุปกรณ์`;
-        calculateAiInference();
+      // 2. Sync Area Controls & Live Metrics
+      if (json.data.areas) {
+        let hasStateChanged = false;
+        const backendAreas = json.data.areas;
+
+        for (const [key, bArea] of Object.entries(backendAreas)) {
+          if (farmState.areas[key]) {
+            const locArea = farmState.areas[key];
+            
+            // Sync live telemetry into active area if coming from hardware
+            if (bArea.temp !== undefined && Math.abs(bArea.temp - locArea.temp) > 0.05) {
+              locArea.temp = bArea.temp;
+              hasStateChanged = true;
+            }
+            if (bArea.humidity !== undefined && Math.abs(bArea.humidity - locArea.humidity) > 0.05) {
+              locArea.humidity = bArea.humidity;
+              hasStateChanged = true;
+            }
+            if (bArea.light !== undefined && bArea.light !== locArea.light) {
+              locArea.light = bArea.light;
+              hasStateChanged = true;
+            }
+
+            // Sync actuators
+            ['valve', 'pump', 'mist', 'fan'].forEach(dev => {
+              if (bArea[dev] !== undefined && bArea[dev] !== locArea[dev]) {
+                locArea[dev] = bArea[dev];
+                hasStateChanged = true;
+                if (key === farmState.activeArea) {
+                  updateActuatorUI(dev, bArea[dev]);
+                  addLog(`📲 [ซิงค์จากโมบายแอป/บอร์ด] อุปกรณ์ ${dev.toUpperCase()} เปลี่ยนสถานะเป็น ${bArea[dev] ? 'เปิด (ON)' : 'ปิด (OFF)'}`);
+                }
+              }
+            });
+          }
+        }
+
+        if (hasStateChanged) {
+          const activeCurr = farmState.areas[farmState.activeArea];
+          let activeCount = (activeCurr.valve ? 1 : 0) +
+                            (activeCurr.pump ? 1 : 0) +
+                            (activeCurr.mist ? 1 : 0) +
+                            (activeCurr.fan ? 1 : 0);
+          elActuatorSummary.textContent = `เปิดอยู่ ${activeCount} จาก 4 อุปกรณ์`;
+          renderDashboard();
+          calculateAiInference();
+        }
       }
     }
   } catch (_) {
@@ -737,4 +767,241 @@ async function syncWithBackend() {
     isSyncingBackend = false;
   }
 }
+
+// --- Live Hardware Telemetry State & UI Handlers ---
+farmState.hardware = {
+  actuator_ip: '10.10.29.103',
+  sensor_ip: '10.10.31.65',
+  actuator_online: true,
+  sensor_online: true,
+  relay_state: false,
+  button_state: false,
+  sensor_data: {
+    temperature: 28.5,
+    humidity: 48.8,
+    light: 114,
+    pressure: 973.8,
+    elevation: 334,
+    vibration: 2.2,
+    float_switch: true,
+    float_state: 'ปกติ (ระดับน้ำเพียงพอ)',
+    rssi: -58,
+    vpd: 2.03,
+    dew_point: 16.9
+  }
+};
+
+function updateHardwareUI(hw) {
+  if (!hw) return;
+  farmState.hardware = hw;
+  const sData = hw.sensor_data || {};
+  const aData = hw.actuator_data || {};
+
+  // Quick Bar on Overview Screen
+  const qTemp = document.getElementById('quick-hw-temp');
+  const qHum = document.getElementById('quick-hw-hum');
+  const qLux = document.getElementById('quick-hw-lux');
+  const qPres = document.getElementById('quick-hw-pres');
+  const qRelay = document.getElementById('quick-hw-relay');
+  const chipSensor = document.getElementById('chip-sensor-node');
+  const chipRelay = document.getElementById('chip-relay-node');
+
+  if (sData.temperature !== undefined && qTemp) qTemp.textContent = `${sData.temperature.toFixed(1)}°C`;
+  if (sData.humidity !== undefined && qHum) qHum.textContent = `${sData.humidity.toFixed(1)}%`;
+  if (sData.light !== undefined && qLux) qLux.textContent = `${sData.light} lx`;
+  if (sData.pressure !== undefined && qPres) qPres.textContent = `${sData.pressure.toFixed(1)} hPa`;
+  if (qRelay) {
+    qRelay.textContent = hw.relay_state ? 'ON (เปิด)' : 'OFF (ปิด)';
+    qRelay.style.color = hw.relay_state ? '#10b981' : '#f59e0b';
+  }
+  if (chipSensor) chipSensor.className = hw.sensor_online ? 'hw-chip online' : 'hw-chip';
+  if (chipRelay) chipRelay.className = hw.actuator_online ? 'hw-chip online' : 'hw-chip';
+
+  // Hardware View Screen Cards
+  const cTemp = document.getElementById('hw-card-temp');
+  const bTemp = document.getElementById('hw-bar-temp');
+  const cTempF = document.getElementById('hw-card-temp-f');
+  if (sData.temperature !== undefined && cTemp) {
+    cTemp.textContent = sData.temperature.toFixed(1);
+    if (bTemp) bTemp.style.width = `${Math.min(100, Math.max(0, (sData.temperature / 50) * 100))}%`;
+    if (cTempF) cTempF.textContent = `${((sData.temperature * 9/5) + 32).toFixed(1)} °F`;
+  }
+
+  const cHum = document.getElementById('hw-card-hum');
+  const bHum = document.getElementById('hw-bar-hum');
+  const cDew = document.getElementById('hw-card-dew');
+  if (sData.humidity !== undefined && cHum) {
+    cHum.textContent = sData.humidity.toFixed(1);
+    if (bHum) bHum.style.width = `${Math.min(100, Math.max(0, sData.humidity))}%`;
+    if (sData.dew_point !== undefined && cDew) cDew.textContent = `จุดน้ำค้าง: ${sData.dew_point.toFixed(1)}°C`;
+  }
+
+  const cLux = document.getElementById('hw-card-lux');
+  const bLux = document.getElementById('hw-bar-lux');
+  if (sData.light !== undefined && cLux) {
+    cLux.textContent = sData.light.toLocaleString();
+    if (bLux) bLux.style.width = `${Math.min(100, Math.max(5, (sData.light / 2000) * 100))}%`;
+  }
+
+  const cPres = document.getElementById('hw-card-pres');
+  const bPres = document.getElementById('hw-bar-pres');
+  const cElev = document.getElementById('hw-card-elevation');
+  if (sData.pressure !== undefined && cPres) {
+    cPres.textContent = sData.pressure.toFixed(1);
+    if (bPres) bPres.style.width = `${Math.min(100, Math.max(20, (sData.pressure / 1050) * 100))}%`;
+    if (sData.elevation !== undefined && cElev) cElev.textContent = `~${sData.elevation}`;
+  }
+
+  const cVib = document.getElementById('hw-card-vib');
+  const bVib = document.getElementById('hw-bar-vib');
+  if (sData.vibration !== undefined && cVib) {
+    cVib.textContent = sData.vibration.toFixed(2);
+    if (bVib) bVib.style.width = `${Math.min(100, Math.max(10, sData.vibration * 10))}%`;
+  }
+
+  const cFloat = document.getElementById('hw-card-float-text');
+  const bFloat = document.getElementById('hw-bar-float');
+  const badgeFloat = document.getElementById('hw-card-float-badge');
+  const contactFloat = document.getElementById('hw-card-float-contact');
+  if (sData.float_switch !== undefined) {
+    const isWaterOk = sData.float_switch;
+    if (cFloat) cFloat.textContent = isWaterOk ? 'น้ำเพียงพอ' : 'เตือนระดับน้ำต่ำ';
+    if (bFloat) {
+      bFloat.style.width = isWaterOk ? '100%' : '20%';
+      bFloat.style.background = isWaterOk ? '#10b981' : '#f43f5e';
+    }
+    if (badgeFloat) {
+      badgeFloat.className = isWaterOk ? 'metric-status-tag tag-good' : 'metric-status-tag tag-danger';
+      badgeFloat.textContent = isWaterOk ? 'ปกติ' : 'ระดับน้ำต่ำ';
+    }
+    if (contactFloat) contactFloat.textContent = isWaterOk ? 'Contact: CLOSED' : 'Contact: OPEN';
+  }
+
+  const cVpd = document.getElementById('hw-card-vpd');
+  const bVpd = document.getElementById('hw-bar-vpd');
+  if (sData.vpd !== undefined && cVpd) {
+    cVpd.textContent = sData.vpd.toFixed(2);
+    if (bVpd) bVpd.style.width = `${Math.min(100, Math.max(15, (sData.vpd / 3.0) * 100))}%`;
+  }
+
+  const cRelayVal = document.getElementById('hw-card-relay-val');
+  const bRelay = document.getElementById('hw-bar-relay');
+  const cRelayStatus = document.getElementById('hw-card-relay-status');
+  const lRelayState = document.getElementById('hw-relay-state-label');
+  const isRelayOn = hw.relay_state;
+
+  if (cRelayVal) {
+    cRelayVal.textContent = isRelayOn ? 'ON (เปิดทำงาน)' : 'OFF (ปิดพัก)';
+    cRelayVal.style.color = isRelayOn ? '#10b981' : 'var(--text-main)';
+  }
+  if (bRelay) {
+    bRelay.style.width = isRelayOn ? '100%' : '0%';
+    bRelay.style.background = isRelayOn ? '#10b981' : '#f59e0b';
+  }
+  if (cRelayStatus) {
+    cRelayStatus.className = isRelayOn ? 'metric-status-tag tag-good' : 'metric-status-tag';
+    cRelayStatus.textContent = isRelayOn ? 'ACTIVE' : 'IDLE';
+  }
+  if (lRelayState) {
+    lRelayState.textContent = isRelayOn ? 'ON (เปิด)' : 'OFF (ปิด)';
+    lRelayState.style.color = isRelayOn ? '#10b981' : '#f59e0b';
+  }
+
+  const sRssi = document.getElementById('hw-sensor-rssi');
+  if (sData.rssi !== undefined && sRssi) sRssi.textContent = `${sData.rssi} dBm`;
+
+  const sBadge = document.getElementById('hw-sensor-badge');
+  if (sBadge) {
+    sBadge.className = hw.sensor_online ? 'metric-status-tag tag-good' : 'metric-status-tag tag-danger';
+    sBadge.textContent = hw.sensor_online ? '🟢 ONLINE' : '🔴 OFFLINE';
+  }
+  const rBadge = document.getElementById('hw-relay-badge');
+  if (rBadge) {
+    rBadge.className = hw.actuator_online ? 'metric-status-tag tag-good' : 'metric-status-tag tag-danger';
+    rBadge.textContent = hw.actuator_online ? '🟢 ONLINE' : '🔴 OFFLINE';
+  }
+
+  const syncTime = document.getElementById('hw-last-sync-time');
+  if (syncTime) syncTime.textContent = `อัปเดตล่าสุด: ${new Date().toLocaleTimeString('th-TH')}`;
+
+  // Populate Raw Table
+  renderRawTelemetryTable(hw);
+}
+
+function renderRawTelemetryTable(hw) {
+  const tbody = document.getElementById('hw-raw-tbody');
+  if (!tbody) return;
+  const s = hw.sensor_data || {};
+  const a = hw.actuator_data || {};
+
+  const rows = [
+    { name: 'อุณหภูมิอากาศ (Temperature)', id: 'sensor/อุณหภูมิ (temperature)', node: hw.sensor_ip, val: s.temperature ?? 'N/A', unit: '°C', health: 'Normal' },
+    { name: 'ความชื้นสัมพัทธ์ (Humidity)', id: 'sensor/ความชื้นอากาศ (humidity)', node: hw.sensor_ip, val: s.humidity ?? 'N/A', unit: '%RH', health: 'Normal' },
+    { name: 'ความสว่างรอบข้าง (Illuminance)', id: 'sensor/ความสว่าง (light)', node: hw.sensor_ip, val: s.light ?? 'N/A', unit: 'Lux', health: 'Normal' },
+    { name: 'ความกดอากาศ (Barometric Pressure)', id: 'sensor/ความกดอากาศ (pressure)', node: hw.sensor_ip, val: s.pressure ?? 'N/A', unit: 'hPa', health: 'Normal' },
+    { name: 'ความสูงเหนือระดับน้ำทะเลประเมิน', id: 'math/altimeter_formula', node: 'Computed', val: s.elevation ?? 'N/A', unit: 'm MSL', health: 'Calculated' },
+    { name: 'แรงสั่นสะเทือน / ความเอียง (Vibration)', id: 'sensor/ความสั่นสะเทือน (vibration)', node: hw.sensor_ip, val: s.vibration ?? 'N/A', unit: 'mg', health: 'Normal' },
+    { name: 'สวิตช์ลูกลอยระดับน้ำ (Float Switch)', id: 'binary_sensor/สวิตช์ลูกลอย (float switch)', node: hw.sensor_ip, val: s.float_state ?? (s.float_switch ? 'ON' : 'OFF'), unit: 'State', health: s.float_switch ? 'OK' : 'Warning' },
+    { name: 'แรงดันไอขาดดุล (Vapor Pressure Deficit)', id: 'agriphysics/tetens_vpd', node: 'TinyML Engine', val: s.vpd ?? 'N/A', unit: 'kPa', health: 'Transpiration Normal' },
+    { name: 'จุดน้ำค้าง (Dew Point)', id: 'agriphysics/magnus_dew_point', node: 'Agri Formula', val: s.dew_point ?? 'N/A', unit: '°C', health: 'No Condensation' },
+    { name: 'รีเลย์ปั๊ม/ไฟ (Physical Relay)', id: 'switch/รีเลย์ (relay)', node: hw.actuator_ip, val: hw.relay_state ? 'ON' : 'OFF', unit: 'Contact', health: hw.relay_state ? 'Active' : 'Idle' },
+    { name: 'ปุ่มกดบนบอร์ด (Push Button)', id: 'binary_sensor/ปุ่มบนบอร์ด (button)', node: hw.actuator_ip, val: hw.button_state ? 'PRESSED' : 'RELEASED', unit: 'Input', health: 'Ready' },
+    { name: 'Wi-Fi RSSI โหนดเซนเซอร์', id: 'sensor/ความแรงสัญญาณ WiFi', node: hw.sensor_ip, val: s.rssi ?? 'N/A', unit: 'dBm', health: (s.rssi && s.rssi > -70) ? 'Strong' : 'Fair' },
+    { name: 'Wi-Fi RSSI โหนดรีเลย์', id: 'sensor/ความแรงสัญญาณ WiFi', node: hw.actuator_ip, val: a.rssi ?? -61, unit: 'dBm', health: 'Strong' },
+  ];
+
+  tbody.innerHTML = rows.map(r => `
+    <tr>
+      <td style="font-weight: 600;">${r.name}</td>
+      <td style="color: var(--text-dim); font-size: 12px;">${r.id}</td>
+      <td><span class="hw-chip" style="font-size: 11px; padding: 2px 8px;">${r.node}</span></td>
+      <td style="color: var(--primary); font-weight: 700; font-size: 14px;">${r.val}</td>
+      <td>${r.unit}</td>
+      <td><span class="metric-status-tag ${r.health === 'OK' || r.health === 'Normal' || r.health === 'Strong' || r.health === 'Active' ? 'tag-good' : ''}">${r.health}</span></td>
+    </tr>
+  `).join('');
+}
+
+function renderHardwareView() {
+  if (farmState.hardware) {
+    updateHardwareUI(farmState.hardware);
+  } else {
+    forceSyncHardware();
+  }
+}
+
+async function forceSyncHardware() {
+  try {
+    const res = await fetch('api/api.php?action=status&sync_hw=1');
+    if (!res.ok) return;
+    const json = await res.json();
+    if (json.status === 'success' && json.data && json.data.hardware) {
+      updateHardwareUI(json.data.hardware);
+      addLog(`📡 [เซนเซอร์บอร์ด] ดึงข้อมูลสดสำเร็จ อุณหภูมิ: ${json.data.hardware.sensor_data.temperature}°C, ชื้น: ${json.data.hardware.sensor_data.humidity}%`);
+    }
+  } catch (err) {
+    console.error('forceSyncHardware error:', err);
+  }
+}
+
+async function togglePhysicalRelay() {
+  const currentState = farmState.hardware?.relay_state || false;
+  const newState = !currentState;
+  try {
+    const res = await fetch('api/api.php?action=control', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ area: 'flower', device: 'valve', state: newState })
+    });
+    const json = await res.json();
+    if (json.status === 'success') {
+      if (farmState.hardware) farmState.hardware.relay_state = newState;
+      updateHardwareUI(farmState.hardware);
+      addLog(`⚡ [คำสั่งรีเลย์ 10.10.29.103] สลับเป็น ${newState ? 'เปิด (ON)' : 'ปิด (OFF)'} สำเร็จ`);
+    }
+  } catch (err) {
+    console.error('togglePhysicalRelay error:', err);
+  }
+}
+
 
