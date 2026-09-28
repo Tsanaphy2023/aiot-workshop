@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>แบบทดสอบก่อนเรียน (Master Pre-test 45 ข้อ) - หลักสูตร AIoT & เกษตรดิจิทัล</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Prompt:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 12mm 14mm 12mm 14mm;
+    }
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    body {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10.5pt;
+      line-height: 1.4;
+      color: #1e293b;
+      background: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+    .no-print-bar {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .btn-print {
+      background: #10b981;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-family: 'Prompt', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+    .btn-print:hover {
+      background: #059669;
+    }
+    @media print {
+      .no-print-bar {
+        display: none !important;
+      }
+      body {
+        font-size: 9.8pt;
+        line-height: 1.32;
+      }
+      .page-break {
+        page-break-before: always;
+      }
+    }
+    .header-sheet {
+      border-bottom: 2px solid #0284c7;
+      padding-bottom: 6px;
+      margin-bottom: 10px;
+    }
+    .org-title {
+      font-family: 'Prompt', sans-serif;
+      font-size: 13.5pt;
+      font-weight: 700;
+      color: #0369a1;
+      text-align: center;
+      margin: 0;
+    }
+    .sub-org {
+      font-size: 10pt;
+      color: #475569;
+      text-align: center;
+      margin: 2px 0 6px 0;
+    }
+    .exam-badge {
+      display: inline-block;
+      background: #e0f2fe;
+      color: #0369a1;
+      padding: 2px 10px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 9.5pt;
+    }
+    .student-info-box {
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 8px 12px;
+      background: #f8fafc;
+      margin-bottom: 10px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 6px 10px;
+      font-size: 9.5pt;
+    }
+    .info-line {
+      border-bottom: 1px dotted #94a3b8;
+      display: inline-block;
+      min-width: 90px;
+    }
+    .instructions {
+      font-size: 9pt;
+      color: #475569;
+      margin-bottom: 10px;
+      background: #fffbeb;
+      border-left: 3px solid #f59e0b;
+      padding: 5px 8px;
+    }
+    .module-banner {
+      background: #f1f5f9;
+      border-left: 3px solid #0284c7;
+      padding: 3px 8px;
+      font-family: 'Prompt', sans-serif;
+      font-size: 10pt;
+      font-weight: 600;
+      color: #0f172a;
+      margin: 10px 0 6px 0;
+    }
+    .question-block {
+      margin-bottom: 8px;
+      break-inside: avoid;
+    }
+    .q-text {
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 3px;
+    }
+    .choices-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px 12px;
+      padding-left: 12px;
+    }
+    .choice-item {
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+      font-size: 9.5pt;
+    }
+    .choice-bullet {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 1px solid #64748b;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 12px;
+      font-size: 7.5pt;
+      color: #475569;
+      flex-shrink: 0;
+    }
+    .answer-key-section {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 10px;
+      margin-top: 14px;
+    }
+    .key-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.5pt;
+    }
+    .key-table th, .key-table td {
+      border: 1px solid #cbd5e1;
+      padding: 4px 6px;
+      text-align: left;
+    }
+    .key-table th {
+      background: #0284c7;
+      color: white;
+      text-align: center;
+    }
+    .key-badge {
+      font-weight: 600;
+      color: #047857;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="no-print-bar">
+    <div style="font-family:'Prompt',sans-serif; font-size:14px; font-weight:600;">
+      📘 ใบงานแบบทดสอบก่อนเรียน (Master Pre-test 45 ข้อ ฉบับอัปเดตล่าสุด) - LEQs AIoT
+    </div>
+    <div style="display:flex; gap:10px;">
+      <a href="./worksheet_pretest_45.pdf" download class="btn-print" style="background:#0284c7;">
+        📥 ดาวน์โหลด PDF (45 ข้อ)
+      </a>
+      <button class="btn-print" onclick="window.print()">
+        🖨️ สั่งพิมพ์เอกสาร (Print / Save as PDF)
+      </button>
+    </div>
+  </div>
+
+  <div style="max-width: 210mm; margin: 0 auto; padding: 12px 18px;">
+    
+    <!-- HEADER -->
+    <div class="header-sheet">
+      <div style="text-align:center; margin-bottom:2px;">
+        <span class="exam-badge">แบบทดสอบวัดความรู้พื้นฐานก่อนเรียน (Pre-test Assessment Master 45 ข้อ)</span>
+      </div>
+      <h1 class="org-title">หลักสูตรเกษตรดิจิทัลและปัญญาประดิษฐ์ฝังตัว (AIoT & Digital Agriculture)</h1>
+      <p class="sub-org">คณะวิทยาศาสตร์และเทคโนโลยี มหาวิทยาลัยราชภัฏรำไพพรรณี ร่วมกับ มหาวิทยาลัยเชียงใหม่ (CMU Lifelong)</p>
+    </div>
+
+    <!-- STUDENT INFO BOX -->
+    <div class="student-info-box">
+      <div><b>ชื่อ-นามสกุล:</b> <span class="info-line" style="min-width:160px;"></span></div>
+      <div><b>เลขที่ / กลุ่ม:</b> <span class="info-line" style="min-width:50px;"></span></div>
+      <div><b>คะแนนที่ได้:</b> <span class="info-line" style="min-width:50px;"></span> / 45</div>
+      <div><b>สถานศึกษา / หน่วยงาน:</b> <span class="info-line" style="min-width:160px;"></span></div>
+      <div><b>วันที่สอบ:</b> <span class="info-line" style="min-width:80px;"></span></div>
+      <div><b>ผลการประเมิน:</b> [ &nbsp; ] ผ่าน [ &nbsp; ] ปรับปรุง</div>
+    </div>
+
+    <!-- INSTRUCTIONS -->
+    <div class="instructions">
+      <b>📌 คำชี้แจง:</b> แบบทดสอบมีทั้งหมด 45 ข้อ (ข้อละ 1 คะแนน รวม 45 คะแนน) ให้ผู้เรียนอ่านโจทย์และเลือกกากบาท (X) หรือระบายคำตอบที่ถูกต้องที่สุดเพียงข้อเดียวลงในช่องตัวเลือก
+    </div>
+
+    <div class="module-banner">📖 โมดูล 1: วิทยาการเกษตรดิจิทัลและการตรวจวัดสภาพแวดล้อม</div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 1. ตามสมการทางพันธุกรรม P=G+E+(G×E) ตัวแปร G×E หมายถึงอะไร?</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>ปฏิสัมพันธ์ระหว่างพันธุกรรมกับสิ่งแวดล้อม</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>ผลรวมของคุณภาพอาหารและน้ำ</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>การเติบโตของจีโนไทป์ในอุดมคติ</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>การกลายพันธุ์ของลักษณะที่ปรากฏ</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 2. อุปกรณ์ชนิดใดทำหน้าที่วัดปริมาณรังสีดวงอาทิตย์หรือความเข้มแสงที่พืชได้รับ</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>Pyranometer</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>Hygrometer</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>Anemometer</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>Anemometry</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 3. ข้อใดคือข้อดีเด่นของเครื่องวัดความเร็วลมแบบคลื่นเสียงอัลตราโซนิก (Ultrasonic Anemometer) เมื่อเทียบกับแบบถ้วยหมุน?</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>สามารถวัดความเร็วลมได้แม่นยำโดยเฉพาะในช่วงลมแรงจัด</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>ไม่ต้องใช้พลังงานไฟฟ้าในการทำงาน</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>มีราคาถูกกว่าและติดตั้งได้ง่ายกว่ามาก</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>ไม่มีชิ้นส่วนที่เคลื่อนที่ทำให้ลดปัญหาการสึกหรอ</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 4. ความชื้นสัมพัทธ์ในอากาศ มีความสัมพันธ์อย่างใกล้ชิดกับค่าใดที่ใช้ควบคุมการคายน้ำของพืช</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>ความจุในการแลกเปลี่ยนประจุบวก (CEC)</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>ค่าการนำไฟฟ้า (EC)</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>ค่าความเป็นกรด-ด่าง (pH)</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>ค่าแรงดึงระเหยน้ำของอากาศ (VPD)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 5. ก๊าซชนิดใดที่มีความสำคัญอย่างยิ่งต่อกระบวนการ "หายใจ" ของรากพืชและจุลินทรีย์ในดิน</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>ก๊าซมีเทน</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>ก๊าซคาร์บอนไดออกไซด์</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>ก๊าซไนโตรเจน</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>ก๊าซออกซิเจน</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-banner">📖 โมดูล 3: ชลศาสตร์และการจัดการน้ำอัตโนมัติในฟาร์ม</div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 6. เหตุใด​ฟาร์ม​ขนาดใหญ่​ใน​ปัจจุบัน​จึง​จำเป็นต้อง​ใช้​ระบบ​ให้น้ำ​และ​ระบบ​ควบคุม​อัตโนมัติ</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>พื้นที่​แปลง​กว้าง ต้อง​ดูแล​ต่อเนื่อง​ตลอด 24 ชั่วโมง และ​พืช​บาง​ชนิด​อ่อนไหว​ต่อ​การ​ขาด​น้ำ</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>กฎหมาย​กำหนดให้​ฟาร์ม​ทุกแห่ง​ต้อง​ติดตั้ง​ระบบ​อัตโนมัติ</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>ระบบ​อัตโนมัติ​ทำให้​ผลผลิต​มี​ราคาขาย​สูง​ขึ้น​โดยอัตโนมัติ</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>แรงงาน​คน​ไม่​สามารถ​เปิด-ปิด​วาล์ว​น้ำ​ได้</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 7. ใน​สูตร​คำนวณ​อัตรา​การ​ไหล Q = (A × ETc) / (T × Eff) ค่า ETc หมายถึง​อะไร</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>พื้นที่เพาะปลูก​ทั้งหมด</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>อัตรา​การคายน้ำ​ของ​พืช หน่วย​เป็น​มิลลิเมตร​ต่อ​วัน</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>ประสิทธิภาพ​ของ​หัว​จ่าย​น้ำ</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>ระยะเวลา​การ​ให้น้ำ​ใน​แต่ละวัน</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 8. ความเร็ว​ของ​น้ำ​ใน​ท่อ​เมน​และ​ท่อ​ย่อย​ที่​เหมาะสม ควร​อยู่​ใน​ช่วง​ใด</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>0.1 – 0.5 เมตร​ต่อ​วินาที</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>1.0 – 2.0 เมตร​ต่อ​วินาที</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>2.5 – 3.5 เมตร​ต่อ​วินาที</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>4.0 – 5.0 เมตร​ต่อ​วินาที</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 9. หาก​ออกแบบ​ท่อ​เล็ก​เกินไป​จน​น้ำ​ไหล​เร็ว​กว่า 2.5 เมตร​ต่อ​วินาที จะ​เกิดผล​อย่างไร</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>ประหยัด​ค่า​ท่อ​โดย​ไม่​มี​ผลเสีย​ต่อ​ระบบ</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>แรงดัน​ที่​ปลายทาง​เพิ่ม​สูง​ขึ้น</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>เกิด​แรงดัน​ค้อน (Water Hammer) และ​ความต้านทาน​การ​ไหล​สูง​ขึ้น</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>ปั๊ม​น้ำ​จะ​ทำงาน​ที่​จุด BEP พอดี</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 10. เฮด​รวม​ของ​ระบบ (Total Dynamic Head: TDH) ประกอบด้วย​องค์ประกอบ​ใด​บ้าง</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>ความสูง​ฝั่ง​ดูด + ความสูง​ฝั่ง​จ่าย + แรงดัน​สูญเสีย​ใน​ท่อ + แรงดัน​ใช้งาน​ของ​หัว​จ่าย</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>ความสูง​ฝั่ง​ดูด + ความสูง​ฝั่ง​จ่าย เท่านั้น</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>แรงดัน​สูญเสีย​ใน​ท่อ + กำลัง​มอเตอร์</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>อัตรา​การ​ไหล + ความเร็ว​น้ำ​ใน​ท่อ</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 11. สายไฟ​ชนิด​ใด​เหมาะสำหรับ​ร้อย​ท่อ​ฝังดิน​เดิน​ไป​ยัง​ปั๊ม​น้ำ​ใน​สวน</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>สาย THW เพราะ​ราคา​ถูก​ที่สุด</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>สาย NYY เพราะ​มี​ฉนวน​หลาย​ชั้น ทน​ความชื้น​และ​ฝังดิน​ได้</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>สาย​ลำโพง​สอง​แกน เพราะ​อ่อนตัว​และ​เดิน​ง่าย</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>วางแผง​ราบ​กับ​พื้น​เสมอ​เพื่อ​รับ​แสง​รอบ​ทิศ</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 12. การ​ติดตั้ง​แผง​โซลาร์​ในประเทศ​ไทย ควร​วางแผง​อย่างไร</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>หัน​แผง​ไป​ทาง​ทิศเหนือ เอียง 45 องศา</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>หัน​แผง​ไป​ทางทิศใต้ เอียง 15 องศา</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>หัน​แผง​ไป​ทาง​ทิศตะวันตก เอียง 30 องศา</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>วางแผง​ราบ​กับ​พื้น​เสมอ​เพื่อ​รับ​แสง​รอบ​ทิศ</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 13. แผง​ชนิด Polycrystalline มี​ข้อได้เปรียบ​ใด​เมื่อ​เทียบ​กับ Monocrystalline</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>มีประสิทธิภาพ​สูง​กว่า​ใน​ทุก​สภาพ​แสง</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>ให้​แรงดัน​ขาออก​สูง​กว่า​มาก</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>มีราคา​ถูก​กว่า</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>ไม่​จำเป็นต้อง​ใช้​อุปกรณ์ควบคุม​การ​ชาร์จ</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 14. ปุ่ม​ปรับ CV (Constant Voltage) บน​บอร์ด XL4015 ใช้​ตั้งค่า​อะไร</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>แรงดัน​ไฟฟ้า​สูงสุด​ที่​จ่าย​ออก​ไป​ชาร์จ​แบตเตอรี่</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>กระแส​ชาร์จ​สูงสุด​ที่​ไหล​เข้า​แบตเตอรี่</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>แรงดัน​ใช้งาน​ของ​แผง​โซลาร์</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>อุณหภูมิ​ที่​บอร์ด​จะ​ตัด​การทำงาน</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 15. ปุ่ม​ปรับ CC (Constant Current) ทำหน้าที่​ใด</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>ตั้ง​แรงดัน​ขาออก​ให้​คงที่</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>จำกัด​กระแส​ชาร์จ​สูงสุด เพื่อ​ไม่​ให้​แบตเตอรี่​เสียหาย​หรือ BMS ตัด​การทำงาน</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>เลือก​ชนิด​ของ​แบตเตอรี่​ที่​ใช้งาน</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>ปรับ​ความสว่าง​ของ​ไฟ LED บน​บอร์ด</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-banner">📖 โมดูล 4: เครือข่ายการสื่อสาร LoRa และ ESP-NOW</div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 16. LoRa ถูก​ออกแบบ​มา​เพื่อ​รอง​รับงาน​ประเภท​ใด</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>งาน Telemetry คือ​ส่ง​ค่า​ที่วัด​ได้​จาก​เซนเซอร์​เป็นครั้งคราว</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>การ​สตรีม​ข้อมูล​อย่าง​ต่อเนื่อง​ตลอดเวลา</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>การ​ใช้​แทน Wi-Fi ภายใน​อาคาร​ทั้งหมด</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>การ​โอน​ไฟล์​ขนาดใหญ่​ระหว่าง​เครื่องคอมพิวเตอร์</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 17. ขนาด​ข้อมูล (Payload) ที่ LoRa ส่ง​ได้​ใน​แต่ละ​แพ็ก​เก​ต​โดยทั่วไป​อยู่​ใน​ระดับ​ใด</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>ระดับ​หลัก​สิบ​ไบต์</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>ระดับ​หลัก​สิบ​กิโลไบต์</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>ระดับ​หลัก​เมกะ​ไบต์</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>ไม่​จำกัด​ขนาด ขึ้นกับ​สายอากาศ</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 18. ข้อกำหนด Duty Cycle ตามกฎหมาย​ไทย​สำหรับ​การ​ส่งสัญญาณ LoRa อยู่​ที่​เท่าใด</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>1 เปอร์เซ็นต์</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>10 เปอร์เซ็นต์</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>50 เปอร์เซ็นต์</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>ไม่​มี​ข้อกำหนด ส่ง​ต่อเนื่อง​ได้</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 19. ข้อ​ใด​อธิบาย​ความแตกต่าง​ระหว่าง LoRaWAN กับ Custom LoRa ได้​ถูกต้อง</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>LoRaWAN ส่ง​ข้อมูล​ได้​ไกล​กว่า Custom LoRa เสมอ</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>Custom LoRa ต้อง​เสีย​ค่าบริการ​เครือข่าย​รายเดือน</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>LoRaWAN ใช้ Gateway และ Network Server บน​คลาวด์ ส่วน Custom LoRa ควบคุม​คลื่นวิทยุ​โดยตรง​โดย​ไม่ต้อง​พึ่ง​คลาวด์</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>ทั้งสอง​รูปแบบ​ใช้​ย่าน​ความถี่​ต่างกัน​โดยสิ้นเชิง</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 20. แนวทาง​ใด​ช่วย​เพิ่ม​ระยะ​การสื่อสาร​ของ​โมดูล LoRa ได้</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>เพิ่ม​แรงดัน​ไฟ​เลี้ยง​ของ​โมดูล​เป็น 5 โวลต์</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>ต่อหัว u.fl ผ่าน​สาย​แปลง​เป็น SMA เข้ากับ​สายอากาศ​เกน​สูง</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>เพิ่มค่า baudrate ของ​บัส SPI</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>ลด​ขนาด payload ให้​เหลือ​เพียง 1 ไบต์</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 21. ใน​ระบบ​นี้ ESP-NOW ถูก​ใช้​เพื่อ​วัตถุประสงค์​ใด</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>ส่ง​ข้อมูล​ขึ้น​เซิร์ฟเวอร์​บน​คลาวด์​โดยตรง</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>สื่อสาร​ระหว่าง​บอร์ด ESP32 สอง​ตัว​โดยตรง โดย​ไม่ต้อง​ผ่าน WiFi Route</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>แสดงผล​กราฟ​ข้อมูล​บน​หน้า​เว็บ</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>จ่ายไฟ​ให้​เซนเซอร์​ใน​สวน</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 22. บอร์ด​ที่​ติด​ตั้งอยู่​ใน​สวน (บอร์ด 1) ทำหน้าที่​ใด</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>ต่อ WiFi เพื่อ​คุย​กับ​เซิร์ฟเวอร์​บน​คลาวด์</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>รัน​เว็บ​เซิร์ฟเวอร์ Flask และ​บันทึก​ไฟล์ CSV</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>อ่าน​ค่า​เซนเซอร์​แล้ว​ส่งออก​ไป และ​รับ​คำสั่ง​มา​สั่ง​เปิด-ปิด​รีเลย์​ควบคุม​วาล์ว​น้ำ</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>แสดง​แด​ช​บอร์ด​ให้​ผู้ใช้​กดปุ่ม​สั่งงาน</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 23. บอร์ด​ที่​ติด​ตั้งอยู่​ใน​บ้าน (บอร์ด 2) มีบทบาท​อย่างไร</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>เป็น​สะพาน​เชื่อม รับ​ข้อมูล​จาก​บอร์ด​ใน​สวน​ผ่าน ESP-NOW แล้ว​ส่งต่อ​ขึ้น​คลาวด์​ผ่าน WiFi</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>อ่าน​ค่า​อุณหภูมิ​และ​ความชื้น​ใน​สวน​โดยตรง</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>ควบคุม​วาล์ว​น้ำ​ใน​แปลง​ด้วยตัวเอง</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>ทำหน้าที่​ชาร์จ​แบตเตอรี่​ให้​บอร์ด​ใน​สวน</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 24. การ​ตั้งค่า​อุปกรณ์​ด้วย​เฟิร์มแวร์ ESPHome ใช้​การเขียน​ไฟล์​รูปแบบ​ใด</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>ไฟล์ YAML</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>ไฟล์ CSV</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>ไฟล์ HTML</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>ไฟล์​ภาษาซี​ล้วน</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 25. การ​เปิด​หน้า​แด​ช​บอร์ด​ของ Home Assistant ที่​ติดตั้ง​บน Raspberry Pi ใช้​ที่อยู่​ใด</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>https://web.esphome.io/</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>http://127.0.0.1:5000</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>http://homeassistant.local:8123</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>http://localhost:80</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-banner">📖 โมดูล 6: ปัญญาประดิษฐ์ตรวจจับวัตถุและจำแนกพืชผล</div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 26. ข้อใดคือความแตกต่างสำคัญระหว่าง Classification กับ Object Detection ในการตรวจสอบผลผลิต?</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>Classification ทำงานได้เฉพาะกับผลไม้สีเขียวเท่านั้น</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>Classification ทายผลลัพธ์ภาพรวมทั้งภาพ ส่วน Object Detection สามารถตีกรอบชี้พิกัดตำแหน่งของวัตถุแต่ละชิ้นบนสายพานได้</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>Object Detection ใช้สำหรับรูปถ่ายเดี่ยวๆ ที่วางกลางจอเท่านั้น</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>ไม่มีข้อแตกต่างกัน เป็นวิธีเดียวกันแต่คนละชื่อ</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 27. เครื่องมือออนไลน์ชื่อใดที่ถูกนำมาใช้สำหรับบริหารจัดการข้อมูลภาพ และช่วยวาดกรอบวัตถุ (Bounding Box) บนเว็บเบราว์เซอร์?</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>Google Colab</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>Roboflow</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>Microsoft Excel</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>Ultralytics Studio</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 28. ในกระบวนการสอน AI ให้รู้จักสิ่งของ สิ่งสำคัญอันดับแรกในการตั้งชื่อกลุ่ม (Class Name) ให้ถูกต้องคือข้อใด?</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>ใช้คำสั้น สื่อความหมาย และสะกดให้เหมือนกันทุกรูป เช่น healthy หรือ rotten</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>เปลี่ยนการสะกดคำและสลับตัวพิมพ์ใหญ่-เล็กในแต่ละรูปเพื่อความหลากหลาย</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>ใช้ประโยคยาวๆ อธิบายรายละเอียดทุกรูปเพื่อความแม่นยำ</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>ตั้งชื่อเป็นภาษาไทยปนอังกฤษตามความสะดวกของผู้ใช้งาน</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 29. จำนวนรูปถ่ายขั้นต่ำที่แนะนำต่อ 1 Class ในการเริ่มต้นเตรียมข้อมูลเพื่อฝึกสอน AI คือข้อใด?</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>อย่างน้อย 1 รูปต่อ Class</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>อย่างน้อย 5 รูปต่อ Class</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>อย่างน้อย 20 รูปต่อ Class</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>อย่างน้อย 1,000 รูปต่อ Class</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 30. ในการตรวจสอบรูปทรงผลไม้ (Shape Inspection) หากคอมพิวเตอร์พบว่าผลผลิตมีพื้นที่ (Area) เท่ากัน แต่ต้องการคัดแยก "ทรงกลม" ออกจาก "ทรงเบี้ยวหรือบิดรูป" ควรใช้เกณฑ์ทางเทคนิคข้อใดมาช่วยพิจารณา</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>ใช้เกณฑ์วัดสัดส่วนความกว้างต่อความยาว (Aspect Ratio) และความกลม (Roundness)</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>ใช้เกณฑ์การนับจำนวนตัวอักษรบนเปลือกผลไม้</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>ใช้เกณฑ์การชั่งน้ำหนักผ่านตาสั่งการของพนักงาน</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>ใช้เกณฑ์การวัดอุณหภูมิผิวของผลผลิต</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-banner">📖 โมดูล 5 & 7: การประมวลผลภาพดิจิทัลและ TinyML สมองกลฝังตัว</div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 31. คอมพิวเตอร์หรือสมองกลมองเห็นภาพถ่ายดิจิทัลในรูปแบบใดเป็นหลัก</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>มองเห็นเป็นภาพสีสันสวยงามเหมือนที่มนุษย์เห็น</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>มองเห็นเป็น "ตารางตัวเลข" (พิกเซล) ที่มีค่าตัวเลขกำกับอยู่ในแต่ละช่อง</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>มองเห็นเป็นข้อความตัวหนังสือภาษาอังกฤษ</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>มองเห็นเป็นกระดาษวาดเขียนขนาดใหญ่</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 32. อุปกรณ์ชิ้นใดทำหน้าที่เปรียบเสมือน "สมองกลขนาดจิ๋ว" ที่ติดตั้งหน้างานเพื่อรันระบบ AI ประมวลผลแบบ Edge Computing โดยไม่ต้องพึ่งพาอินเทอร์เน็ต</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>คอมพิวเตอร์บอร์ดเดี่ยว (เช่น Raspberry Pi)</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>โทรศัพท์มือถือรุ่นเก่า</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>เราเตอร์ไวไฟบ้าน</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>เครื่องปริ้นเตอร์เอกสาร</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 33. กฎเหล็กข้อแรกในการติดตั้งกล้องและจัดสภาพแวดล้อมหน้างานให้ระบบ Vision ทำงานได้อย่างแม่นยำคือข้อใด</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>ต้องใช้แสงธรรมชาติจากดวงอาทิตย์ที่ส่องผ่านหน้าต่างเท่านั้น</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>ต้องควบคุมแสงสว่างให้คงที่ (เช่น ใช้ตู้คุมแสงหรือไฟวงแหวน LED) ห้ามใช้แสงธรรมชาติที่เปลี่ยนไปมา</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>ปล่อยให้แสงในโรงงานมืดสนิทเพื่อให้กล้องมองเห็นชัดขึ้น</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>ขยับตำแหน่งกล้องขึ้นลงทุกๆ 1 ชั่วโมง</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 34. หากเราต้องการสอน AI ให้รู้จักตรวจหารอยโรค รอยช้ำ หรือแผลขรุขระที่มีรูปร่างไม่แน่นอน วิธีการทำงานของ AI จะมีลักษณะอย่างไร</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>ต้องใช้สูตรทางคณิตศาสตร์คำนวณเส้นรอบวงทุกครั้ง</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>เหมือนการสอนงานพนักงานใหม่ โดยการป้อนรูปตัวอย่างของดีและมีตำหนิให้ AI จดจำแพทเทิร์นได้เอง</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>ให้คอมพิวเตอร์สุ่มเดาภาพเอาเองโดยไม่ต้องมีข้อมูลตัวอย่าง</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>ใช้การพิมพ์ชุดคำสั่งโค้ดภาษาซีร้อยบรรทัด</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 35. ทำไมการใช้ค่าสีแบบ RGB อย่างเดียวในการตรวจจับสีของผลไม้ ถึงมีโอกาสเกิดความผิดพลาดได้ง่ายเมื่อเจอแสงเงา</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>เพราะ RGB ไม่รองรับภาพถ่ายสี</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>เพราะค่า RGB วัดค่าสีรวมกับความสว่าง ทำให้เมื่อโดนเงามาบัง คอมพิวเตอร์จะสับสนคิดว่าเป็นสีดำหรือรอยตำหนิ</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>เพราะ RGB ทำให้คอมพิวเตอร์ทำงานเร็วเกินไป</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>เพราะค่า RGB มีตัวเลขน้อยเกินไป</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 36. คอมพิวเตอร์หรือสมองกลมองเห็นภาพถ่ายดิจิทัลในรูปแบบใดเป็นหลัก</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>มองเห็นเป็นภาพสีสันสวยงามเหมือนที่มนุษย์เห็น</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>มองเห็นเป็น "ตารางตัวเลข" (พิกเซล) ที่มีค่าตัวเลขกำกับอยู่ในแต่ละช่อง</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>คมองเห็นเป็นข้อความตัวหนังสือภาษาอังกฤษ</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>มองเห็นเป็นกระดาษวาดเขียนขนาดใหญ่</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 37. อุปกรณ์ชิ้นใดทำหน้าที่เปรียบเสมือน "สมองกลขนาดจิ๋ว" ที่ติดตั้งหน้างานเพื่อรันระบบ AI ประมวลผลแบบ Edge Computing โดยไม่ต้องพึ่งพาอินเทอร์เน็ต</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>คอมพิวเตอร์บอร์ดเดี่ยว (เช่น Raspberry Pi)</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>โทรศัพท์มือถือรุ่นเก่า</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>เราเตอร์ไวไฟบ้าน</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>เครื่องปริ้นเตอร์เอกสาร</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 38. ข้อใดคือเป้าหมายหลักของการใช้เทคโนโลยี Image Processing (Rule-based) ในระบบคัดแยกผลผลิต</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>สำหรับการวัดขนาด (S-M-L), นับพื้นที่ และคัดกรองรูปทรงพื้นฐานอย่างรวดเร็วโดยไม่ต้องใช้ AI ซับซ้อน</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>สำหรับการวาดรูปการ์ตูนลงบนผลไม้</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>สำหรับการส่งข้อความแจ้งเตือนผ่านไลน์</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>สำหรับการควบคุมอุณหภูมิความชื้นในดิน</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 39. หากนักพัฒนาแนะนำให้ใช้สถาปัตยกรรมแบบ Edge AI สำหรับโรงงานชุมชน เหตุผลทางธุรกิจและวิศวกรรมข้อใดอธิบายได้ถูกต้องที่สุด</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>เพราะต้องใช้อินเทอร์เน็ตความเร็วสูงระดับ 10 Gbps เชื่อมต่อไปยังเซิร์ฟเวอร์ต่างประเทศตลอดเวลา</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>เพราะช่วยประหยัดต้นทุนฮาร์ดแวร์ กินไฟต่ำ(~5W), ประมวลผลรวดเร็วที่หน้างานทันที และทำงานได้แม้อินเทอร์เน็ตล่ม</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>เพราะเป็นระบบที่ไม่ต้องใช้กล้องถ่ายภาพและไม่มีการเขียนโปรแกรมใดๆ ทั้งสิ้น</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>เพราะทำให้คอมพิวเตอร์ตั้งโต๊ะขนาดใหญ่ทำงานได้ช้าลง</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 40. ทำไมการใช้ค่าสีแบบ RGB อย่างเดียวในการตรวจจับสีของผลไม้ ถึงมีโอกาสเกิดความผิดพลาดได้ง่ายเมื่อเจอแสงเงา</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>เพราะ RGB ไม่รองรับภาพถ่ายสี</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>เพราะค่า RGB วัดค่าสีรวมกับความสว่าง ทำให้เมื่อโดนเงามาบัง คอมพิวเตอร์จะสับสนคิดว่าเป็นสีดำหรือรอยตำหนิ</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>เพราะ RGB ทำให้คอมพิวเตอร์ทำงานเร็วเกินไป</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>เพราะค่า RGB มีตัวเลขน้อยเกินไป</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-banner">📖 โมดูล 2: ตรรกะระบบควบคุมอัตโนมัติและเซนเซอร์ IoT (State & Rule Engine)</div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 41. สมมุติว่าระบบ A ให้คนดูค่าแสงแล้วกดเปิดไฟ ส่วนระบบ B ให้โปรแกรมอ่านค่าแสงแล้วเปิดไฟเอง ถ้าทั้งสองระบบใช้เซนเซอร์และหลอดไฟแบบเดียวกัน แล้วความแตกต่างของสองระบบนี้อยู่ที่อะไร</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>ระบบ A ไม่มีส่วนรับข้อมูล (Input) แต่ระบบ B มี</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>ระบบ A ไม่มีส่วนสั่งงาน (Output) แต่ระบบ B มี</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>ระบบ A ใช้คนตัดสินใจ ส่วนระบบ B ใช้เงื่อนไขในโปรแกรม</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>ระบบ A ใช้สัญญาณแอนะล็อก ส่วนระบบ B ใช้สัญญาณดิจิทัลเสมอ</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 42. ถ้าติดสวิตช์ลูกลอยแบบสองสถานะไว้ในถังน้ำสองใบที่ระดับเดียวกัน โดยใช้เพียงถังละหนึ่งตัว แล้วถังแรกมีน้ำสูงกว่าลูกลอยเล็กน้อย ส่วนอีกถังมีน้ำสูงกว่าลูกลอยมาก ระบบจะแยกระดับน้ำของสองถังนี้ได้หรือไม่</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>ได้ เพราะค่า Wet เพิ่มตามระดับน้ำ</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>ได้ เพราะการอ่านถี่ขึ้นบอกระดับได้ละเอียดขึ้น</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>ไม่ได้ เพราะต้องส่งค่าผ่านอินเทอร์เน็ตก่อน</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>ไม่ได้ เพราะลูกลอยส่งสถานะเดียวกัน</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 43. สมมุติว่ากฎเปิดปั๊มกำหนดเงื่อนไข (Condition) ว่าลูกลอยต้องเป็น Wet (น้ำถึงลูกลอย) และปั๊มเริ่มทำงานไปแล้ว หากต่อมาน้ำลดลงจนลูกลอยเป็น Dry (น้ำไม่ถึงลูกลอย) แต่ยังไม่มีกฎสั่งหยุด แล้วปั๊มจะเป็นอย่างไร</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>ปั๊มจะหยุด เพราะเงื่อนไขน้ำไม่ผ่านแล้ว</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>ปั๊มอาจทำงานต่อ เพราะยังไม่มีคำสั่งหยุด</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>ปั๊มจะหยุดรอ แล้วเปิดใหม่เมื่อน้ำเป็น Wet</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>ปั๊มจะเริ่มรอบใหม่ทุกครั้งที่อ่านค่าได้เป็น Dry</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 44. ถ้าตั้ง Trigger ให้เริ่มกฎเปิดปั๊มเมื่อค่าความชื้นลดจาก 50% หรือมากกว่า ลงมาต่ำกว่า 50% แล้วระหว่างทดลองค่าความชื้นเปลี่ยนเป็น 55%, 45%, 40% และ 35% ตามลำดับ โดยไม่มี Trigger อื่น กฎจะเริ่มทำงานกี่ครั้ง</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>0 ครั้ง</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>1 ครั้ง</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>3 ครั้ง</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>4 ครั้ง</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-text">ข้อ 45. หากเราเปิดหน้าประวัติ (History) แล้วเห็นว่ารีเลย์เป็น On นาน 10 นาที แต่ไม่มีข้อมูลการสั่นของปั๊มหรือการไหลของน้ำ ข้อใดต่อไปนี้เป็นจริง</div>
+      <div class="choices-grid">
+        <div class="choice-item">
+          <span class="choice-bullet">ก</span>
+          <span>ปั๊มทำงานต่อเนื่องตลอดช่วง 10 นาที</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ข</span>
+          <span>น้ำไหลถึงแปลงตลอดช่วงที่รีเลย์เปิด</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ค</span>
+          <span>รีเลย์มีสถานะ On ต่อเนื่อง 10 นาที</span>
+        </div>
+        <div class="choice-item">
+          <span class="choice-bullet">ง</span>
+          <span>ระบบรดน้ำครบตามที่แปลงต้องการแล้ว</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="header-sheet" style="margin-top:14px;">
+      <h2 class="org-title" style="font-size:12.5pt;">📋 กระดาษคำตอบและตารางสรุปเฉลยแบบทดสอบ (Master Key 45 ข้อ)</h2>
+      <p class="sub-org">สำหรับคณะกรรมการผู้ตรวจข้อสอบและวิทยากรประจำกลุ่ม</p>
+    </div>
+
+    <div class="answer-key-section">
+      <table class="key-table">
+        <thead>
+          <tr>
+            <th style="width:6%;">ข้อ</th>
+            <th style="width:28%;">หัวข้อข้อสอบ</th>
+            <th style="width:48%;">คำตอบที่ถูกต้อง</th>
+            <th style="width:18%;">โมดูล</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align:center; font-weight:700;">1</td>
+            <td>สมการพันธุกรรม P=G+E+(G×E)</td>
+            <td class="key-badge">✅ ปฏิสัมพันธ์ระหว่างพันธุกรรมกับสิ่งแวดล้อม</td>
+            <td style="text-align:center; color:#64748b;">Module 1</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">2</td>
+            <td>อุปกรณ์วัดปริมาณรังสีดวงอาทิตย์</td>
+            <td class="key-badge">✅ Pyranometer</td>
+            <td style="text-align:center; color:#64748b;">Module 1</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">3</td>
+            <td>ข้อดีเด่นของ Ultrasonic Anemometer</td>
+            <td class="key-badge">✅ ไม่มีชิ้นส่วนที่เคลื่อนที่ทำให้ลดปัญหาการสึกหรอ</td>
+            <td style="text-align:center; color:#64748b;">Module 1</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">4</td>
+            <td>ความชื้นสัมพัทธ์สัมพันธ์กับการระเหยน้ำ</td>
+            <td class="key-badge">✅ ค่าแรงดึงระเหยน้ำของอากาศ (VPD)</td>
+            <td style="text-align:center; color:#64748b;">Module 1</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">5</td>
+            <td>ก๊าซสำคัญต่อการหายใจของรากพืช</td>
+            <td class="key-badge">✅ ก๊าซออกซิเจน</td>
+            <td style="text-align:center; color:#64748b;">Module 1</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">6</td>
+            <td>เหตุผลที่ฟาร์มใหญ่ต้องใช้ระบบน้ำอัตโนมัติ</td>
+            <td class="key-badge">✅ พื้นที่แปลงกว้าง ต้องดูแลต่อเนื่องตลอด 24 ชั่วโมง และพืชบางชนิดอ่อนไหวต่อการขาดน้ำ</td>
+            <td style="text-align:center; color:#64748b;">Module 3</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">7</td>
+            <td>สูตรคำนวณอัตราการไหล Q = (A × ETc)/(T × Eff)</td>
+            <td class="key-badge">✅ อัตราการคายน้ำของพืช หน่วยเป็นมิลลิเมตรต่อวัน</td>
+            <td style="text-align:center; color:#64748b;">Module 3</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">8</td>
+            <td>ความเร็วของน้ำในท่อเมนและท่อย่อยที่เหมาะสม</td>
+            <td class="key-badge">✅ 1.0 – 2.0 เมตรต่อวินาที</td>
+            <td style="text-align:center; color:#64748b;">Module 3</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">9</td>
+            <td>น้ำไหลในท่อเร็วกว่า 2.5 m/s</td>
+            <td class="key-badge">✅ เกิดแรงดันค้อน (Water Hammer) และความต้านทานการไหลสูงขึ้น</td>
+            <td style="text-align:center; color:#64748b;">Module 3</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">10</td>
+            <td>เฮดรวมของระบบ (TDH)</td>
+            <td class="key-badge">✅ ความสูงฝั่งดูด + ความสูงฝั่งจ่าย + แรงดันสูญเสียในท่อ + แรงดันใช้งานของหัวจ่าย</td>
+            <td style="text-align:center; color:#64748b;">Module 3</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">11</td>
+            <td>สายไฟร้อยท่อฝังดินไปปั๊มน้ำ</td>
+            <td class="key-badge">✅ สาย NYY เพราะมีฉนวนหลายชั้น ทนความชื้นและฝังดินได้</td>
+            <td style="text-align:center; color:#64748b;">Module 3</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">12</td>
+            <td>การติดตั้งแผงโซลาร์เซลล์ในไทย</td>
+            <td class="key-badge">✅ หันแผงไปทางทิศใต้ เอียง 15 องศา</td>
+            <td style="text-align:center; color:#64748b;">Module 3</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">13</td>
+            <td>ข้อได้เปรียบแผง Polycrystalline</td>
+            <td class="key-badge">✅ มีราคาถูกกว่า</td>
+            <td style="text-align:center; color:#64748b;">Module 3</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">14</td>
+            <td>ปุ่มปรับ CV บนบอร์ด XL4015</td>
+            <td class="key-badge">✅ แรงดันไฟฟ้าสูงสุดที่จ่ายออกไปชาร์จแบตเตอรี่</td>
+            <td style="text-align:center; color:#64748b;">Module 3</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">15</td>
+            <td>ปุ่มปรับ CC บนบอร์ด XL4015</td>
+            <td class="key-badge">✅ จำกัดกระแสชาร์จสูงสุด เพื่อไม่ให้แบตเตอรี่เสียหายหรือ BMS ตัดการทำงาน</td>
+            <td style="text-align:center; color:#64748b;">Module 3</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">16</td>
+            <td>LoRa ออกแบบเพื่อรองรับงานประเภทใด</td>
+            <td class="key-badge">✅ งาน Telemetry คือส่งค่าที่วัดได้จากเซนเซอร์เป็นครั้งคราว</td>
+            <td style="text-align:center; color:#64748b;">Module 4</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">17</td>
+            <td>ขนาด Payload ของ LoRa ต่อแพ็กเกต</td>
+            <td class="key-badge">✅ ระดับหลักสิบไบต์</td>
+            <td style="text-align:center; color:#64748b;">Module 4</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">18</td>
+            <td>Duty Cycle สัญญาณ LoRa ตามกฎหมายไทย</td>
+            <td class="key-badge">✅ 1 เปอร์เซ็นต์</td>
+            <td style="text-align:center; color:#64748b;">Module 4</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">19</td>
+            <td>LoRaWAN vs Custom LoRa</td>
+            <td class="key-badge">✅ LoRaWAN ใช้ Gateway และ Network Server บนคลาวด์ ส่วน Custom LoRa ควบคุมคลื่นวิทยุโดยตรงโดยไม่ต้องพึ่งคลาวด์</td>
+            <td style="text-align:center; color:#64748b;">Module 4</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">20</td>
+            <td>แนวทางเพิ่มระยะสื่อสารของ LoRa</td>
+            <td class="key-badge">✅ ต่อหัว u.fl ผ่านสายแปลงเป็น SMA เข้ากับสายอากาศเกนสูง</td>
+            <td style="text-align:center; color:#64748b;">Module 4</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">21</td>
+            <td>บทบาทของ ESP-NOW ในระบบสองบอร์ด</td>
+            <td class="key-badge">✅ สื่อสารระหว่างบอร์ด ESP32 สองตัวโดยตรง โดยไม่ต้องผ่าน WiFi Route</td>
+            <td style="text-align:center; color:#64748b;">Module 4</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">22</td>
+            <td>หน้าที่ของบอร์ด 1 ที่ติดตั้งในสวน</td>
+            <td class="key-badge">✅ อ่านค่าเซนเซอร์แล้วส่งออกไป และรับคำสั่งมาสั่งเปิด-ปิดรีเลย์ควบคุมวาล์วน้ำ</td>
+            <td style="text-align:center; color:#64748b;">Module 4</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">23</td>
+            <td>หน้าที่ของบอร์ด 2 ที่ติดตั้งในบ้าน</td>
+            <td class="key-badge">✅ เป็นสะพานเชื่อม รับข้อมูลจากบอร์ดในสวนผ่าน ESP-NOW แล้วส่งต่อขึ้นคลาวด์ผ่าน WiFi</td>
+            <td style="text-align:center; color:#64748b;">Module 4</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">24</td>
+            <td>รูปแบบไฟล์ตั้งค่า ESPHome</td>
+            <td class="key-badge">✅ ไฟล์ YAML</td>
+            <td style="text-align:center; color:#64748b;">Module 4</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">25</td>
+            <td>URL หน้าแดชบอร์ด Home Assistant</td>
+            <td class="key-badge">✅ http://homeassistant.local:8123</td>
+            <td style="text-align:center; color:#64748b;">Module 4</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">26</td>
+            <td>Classification vs Object Detection</td>
+            <td class="key-badge">✅ Classification ทายผลลัพธ์ภาพรวมทั้งภาพ ส่วน Object Detection สามารถตีกรอบชี้พิกัดตำแหน่งของวัตถุแต่ละชิ้นบนสายพานได้</td>
+            <td style="text-align:center; color:#64748b;">Module 6</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">27</td>
+            <td>เครื่องมือออนไลน์จัดการข้อมูลและวาดกรอบ Bounding Box</td>
+            <td class="key-badge">✅ Roboflow</td>
+            <td style="text-align:center; color:#64748b;">Module 6</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">28</td>
+            <td>การตั้งชื่อ Class Name ให้ AI</td>
+            <td class="key-badge">✅ ใช้คำสั้น สื่อความหมาย และสะกดให้เหมือนกันทุกรูป เช่น healthy หรือ rotten</td>
+            <td style="text-align:center; color:#64748b;">Module 6</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">29</td>
+            <td>จำนวนรูปถ่ายขั้นต่ำต่อ 1 Class</td>
+            <td class="key-badge">✅ อย่างน้อย 20 รูปต่อ Class</td>
+            <td style="text-align:center; color:#64748b;">Module 6</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">30</td>
+            <td>ตรวจสอบรูปทรงผลไม้ (Shape Inspection)</td>
+            <td class="key-badge">✅ ใช้เกณฑ์วัดสัดส่วนความกว้างต่อความยาว (Aspect Ratio) และความกลม (Roundness)</td>
+            <td style="text-align:center; color:#64748b;">Module 6</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">31</td>
+            <td>คอมพิวเตอร์มองเห็นภาพถ่ายดิจิทัลอย่างไร</td>
+            <td class="key-badge">✅ มองเห็นเป็น 'ตารางตัวเลข' (พิกเซล) ที่มีค่าตัวเลขกำกับอยู่ในแต่ละช่อง</td>
+            <td style="text-align:center; color:#64748b;">Module 5</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">32</td>
+            <td>สมองกลขนาดจิ๋ว Edge AI ไม่พึ่งพาเน็ต</td>
+            <td class="key-badge">✅ คอมพิวเตอร์บอร์ดเดี่ยว (เช่น Raspberry Pi)</td>
+            <td style="text-align:center; color:#64748b;">Module 7</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">33</td>
+            <td>กฎเหล็กข้อแรกในการติดตั้งกล้อง Vision</td>
+            <td class="key-badge">✅ ต้องควบคุมแสงสว่างให้คงที่ (เช่น ใช้ตู้คุมแสงหรือไฟวงแหวน LED) ห้ามใช้แสงธรรมชาติที่เปลี่ยนไปมา</td>
+            <td style="text-align:center; color:#64748b;">Module 7</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">34</td>
+            <td>วิธีการทำงานของ AI ในการตรวจหารอยโรค</td>
+            <td class="key-badge">✅ เหมือนการสอนงานพนักงานใหม่ โดยการป้อนรูปตัวอย่างของดีและมีตำหนิให้ AI จดจำแพทเทิร์นได้เอง</td>
+            <td style="text-align:center; color:#64748b;">Module 7</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">35</td>
+            <td>สาเหตุที่ค่าสี RGB ผิดพลาดเมื่อเจอแสงเงา</td>
+            <td class="key-badge">✅ เพราะค่า RGB วัดค่าสีรวมกับความสว่าง ทำให้เมื่อโดนเงามาบัง คอมพิวเตอร์จะสับสนคิดว่าเป็นสีดำหรือรอยตำหนิ</td>
+            <td style="text-align:center; color:#64748b;">Module 5</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">36</td>
+            <td>คอมพิวเตอร์มองเห็นภาพถ่ายดิจิทัล</td>
+            <td class="key-badge">✅ มองเห็นเป็น 'ตารางตัวเลข' (พิกเซล) ที่มีค่าตัวเลขกำกับอยู่ในแต่ละช่อง</td>
+            <td style="text-align:center; color:#64748b;">Module 5</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">37</td>
+            <td>สมองกลขนาดจิ๋ว Edge Computing</td>
+            <td class="key-badge">✅ คอมพิวเตอร์บอร์ดเดี่ยว (เช่น Raspberry Pi)</td>
+            <td style="text-align:center; color:#64748b;">Module 7</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">38</td>
+            <td>เป้าหมายหลักของ Image Processing Rule-based</td>
+            <td class="key-badge">✅ สำหรับการวัดขนาด (S-M-L), นับพื้นที่ และคัดกรองรูปทรงพื้นฐานอย่างรวดเร็วโดยไม่ต้องใช้ AI ซับซ้อน</td>
+            <td style="text-align:center; color:#64748b;">Module 7</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">39</td>
+            <td>Edge AI สำหรับโรงงานชุมชน</td>
+            <td class="key-badge">✅ เพราะช่วยประหยัดต้นทุนฮาร์ดแวร์ กินไฟต่ำ(~5W), ประมวลผลรวดเร็วที่หน้างานทันที และทำงานได้แม้อินเทอร์เน็ตล่ม</td>
+            <td style="text-align:center; color:#64748b;">Module 7</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">40</td>
+            <td>สาเหตุที่ค่าสี RGB ผิดพลาดเมื่อเจอแสงเงา</td>
+            <td class="key-badge">✅ เพราะค่า RGB วัดค่าสีรวมกับความสว่าง ทำให้เมื่อโดนเงามาบัง คอมพิวเตอร์จะสับสนคิดว่าเป็นสีดำหรือรอยตำหนิ</td>
+            <td style="text-align:center; color:#64748b;">Module 5</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">41</td>
+            <td>ระบบคนกดเปิดไฟ vs ระบบโปรแกรมเปิดไฟอัตโนมัติ</td>
+            <td class="key-badge">✅ ระบบ A ใช้คนตัดสินใจ ส่วนระบบ B ใช้เงื่อนไขในโปรแกรม</td>
+            <td style="text-align:center; color:#64748b;">Module 2</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">42</td>
+            <td>สวิตช์ลูกลอยสองสถานะวัดระดับน้ำในสองถัง</td>
+            <td class="key-badge">✅ ไม่ได้ เพราะลูกลอยส่งสถานะเดียวกัน (บอกได้แค่ถึงหรือไม่ถึงระดับลูกลอย)</td>
+            <td style="text-align:center; color:#64748b;">Module 2</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">43</td>
+            <td>ตรรกะเงื่อนไขปั๊มน้ำเมื่อลูกลอยเปลี่ยนเป็น Dry</td>
+            <td class="key-badge">✅ ปั๊มอาจทำงานต่อ เพราะยังไม่มีคำสั่งหยุด (Condition ไม่ตัดจนกว่าจะมี Stop Rule)</td>
+            <td style="text-align:center; color:#64748b;">Module 2</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">44</td>
+            <td>ทริกเกอร์เงื่อนไขข้าม Threshold ความชื้น < 50%</td>
+            <td class="key-badge">✅ 1 ครั้ง (เกิด Transition ข้ามขอบเขตเพียงรอบเดียวจาก 55% เป็น 45%)</td>
+            <td style="text-align:center; color:#64748b;">Module 2</td>
+          </tr>
+          <tr>
+            <td style="text-align:center; font-weight:700;">45</td>
+            <td>การตีความสถานะรีเลย์ ON จากหน้าประวัติ History</td>
+            <td class="key-badge">✅ รีเลย์มีสถานะ On ต่อเนื่อง 10 นาที (Telemetry ยืนยันเฉพาะสวิตช์สั่งงาน)</td>
+            <td style="text-align:center; color:#64748b;">Module 2</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</body>
+</html>

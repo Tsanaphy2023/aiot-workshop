@@ -1,0 +1,205 @@
+% ============================================================
+% บทที่ 3: เกตเวย์โครงข่ายและการบูรณาการระบบอัตโนมัติ Zigbee2MQTT
+% ============================================================
+\chapter[เกตเวย์โครงข่ายและการบูรณาการระบบอัตโนมัติ Zigbee2MQTT]{เกตเวย์โครงข่าย\\และการบูรณาการระบบอัตโนมัติ Zigbee2MQTT}
+\label{chap:ch03}
+
+% ------------------------------------------------------------
+% แผนบริหารการสอนประจำบทที่ 3 (หน้า 1/2)
+% ------------------------------------------------------------
+\section*{แผนบริหารการสอนประจำบทที่ 3}
+\addcontentsline{toc}{section}{แผนบริหารการสอนประจำบทที่ 3}
+
+\begin{planbox}{หัวข้อเนื้อหาประจำบท}
+\begin{enumerate}[topsep=1pt, itemsep=0.5pt, partopsep=0pt, parsep=0pt, leftmargin=1.5em]
+    \item สถาปัตยกรรมตัวประสานงานโครงข่ายฮาร์ดแวร์ CC2652P และ EFR32MG21
+    \item สถาปัตยกรรมซอฟต์แวร์สะพานข้อมูล Zigbee2MQTT และการบริหารจัดการเครือข่าย
+    \item โครงสร้างหัวข้อข้อมูล MQTT และข้อกำหนดโครงสร้างเพย์โหลดแบบ JSON Telemetry
+    \item การเชื่อมโยงข้อมูลสู่แพลตฟอร์มบริหารจัดการฟาร์มอัจฉริยะ Home Assistant และ Node-RED
+    \item ความปลอดภัยของเครือข่าย กุญแจรหัสผ่าน และการป้องกันการแทรกแซงสัญญาณ
+\end{enumerate}
+\end{planbox}
+
+\begin{planbox}{วัตถุประสงค์เชิงพฤติกรรม}
+\begin{enumerate}[topsep=1pt, itemsep=0.5pt, partopsep=0pt, parsep=0pt, leftmargin=1.5em]
+    \item ติดตั้งและตั้งค่าเฟิร์มแวร์ตัวประสานงาน CC2652P ได้อย่างถูกต้อง
+    \item กำหนดค่าคอนฟิกูเรชันของโปรแกรม Zigbee2MQTT ให้สื่อสารกับโหนดในฟาร์มได้
+    \item ออกแบบผังโครงสร้างหัวข้อ MQTT สำหรับข้อมูลโทรมาตรและคำสั่งควบคุมได้อย่างมีมาตรฐาน
+    \item สร้างระบบอัตโนมัติเปิดปิดวาล์วน้ำตามเงื่อนไขของเซนเซอร์ใน Home Assistant ได้
+    \item กำหนดค่าความปลอดภัยและการเข้ารหัส AES-128 บนเครือข่าย Zigbee ได้อย่างรัดกุม
+\end{enumerate}
+\end{planbox}
+
+\newpage
+
+% ------------------------------------------------------------
+% แผนบริหารการสอนประจำบทที่ 3 (หน้า 2/2)
+% ------------------------------------------------------------
+\begin{planbox}{วิธีสอนและกิจกรรมการเรียนการสอน}
+\begin{enumerate}[topsep=1pt, itemsep=0.5pt, partopsep=0pt, parsep=0pt, leftmargin=1.5em]
+    \item การบรรยายหลักการทำงานของเกตเวย์และการแปลงโพรโทคอลระดับบริดจ์
+    \item การสาธิตการแฟลชเฟิร์มแวร์ Z-Stack และการตั้งค่า Zigbee2MQTT บน Raspberry Pi
+    \item การทดลองจับคู่โหนดเซนเซอร์ใหม่เข้าสู่โครงข่ายและการตรวจสอบแดชบอร์ดผังเมช
+    \item การฝึกปฏิบัติการเขียน Automation Script สั่งงานรีเลย์ควบคุมน้ำใน Node-RED
+    \item การทดสอบจำลองเหตุการณ์ขาดการเชื่อมต่ออินเทอร์เน็ตเพื่อประเมินเสถียรภาพระดับโลคอล
+\end{enumerate}
+\end{planbox}
+
+\begin{planbox}{สื่อการเรียนการสอน}
+\begin{enumerate}[topsep=1pt, itemsep=0.5pt, partopsep=0pt, parsep=0pt, leftmargin=1.5em]
+    \item บอร์ดคอมพิวเตอร์แม่ข่าย Raspberry Pi 4 หรือ Single Board Computer
+    \item ตัวประสานงาน USB Zigbee 3.0 Coordinator (ชิปเซต TI CC2652P) พร้อมเสา 5dBi
+    \item ซอฟต์แวร์ Zigbee2MQTT, Eclipse Mosquitto MQTT Broker และ Home Assistant OS
+    \item โปรแกรมเครื่องมือทดสอบ MQTT Explorer สำหรับตรวจสอบข้อความ JSON
+    \item ผังโครงสร้างเครือข่ายและสเปกการตั้งค่าพารามิเตอร์ด้านความปลอดภัย
+\end{enumerate}
+\end{planbox}
+
+\begin{planbox}{การวัดและประเมินผล}
+\begin{enumerate}[topsep=1pt, itemsep=0.5pt, partopsep=0pt, parsep=0pt, leftmargin=1.5em]
+    \item การประเมินผลการติดตั้งและตั้งค่าเกตเวย์ให้สามารถจับคู่อุปกรณ์ได้อย่างสมบูรณ์
+    \item การตรวจความถูกต้องของโครงสร้าง JSON Telemetry Payload ที่ส่งขึ้น MQTT Broker
+    \item การประเมินผลการทำงานของระบบอัตโนมัติในการสั่งงานอุปกรณ์ขับโหลด
+    \item การทดสอบความเข้าใจเกี่ยวกับกลไกความปลอดภัยและการเข้ารหัสข้อมูลในโครงข่าย
+\end{enumerate}
+\end{planbox}
+
+\clearpage
+
+% ------------------------------------------------------------
+% เนื้อหาบทที่ 3
+% ------------------------------------------------------------
+\section{สถาปัตยกรรมฮาร์ดแวร์ตัวประสานงานเครือข่าย}
+
+หัวใจสำคัญของการควบคุมและบริหารจัดการโครงข่าย Zigbee คือ \textbf{ตัวประสานงานโครงข่าย (Zigbee Coordinator)}\index{Coordinator@Coordinator (ตัวประสานงาน)} ซึ่งทำหน้าที่เป็นสะพานเชื่อมต่อระหว่างคลื่นวิทยุ IEEE 802.15.4 เข้ากับระบบเครือข่ายคอมพิวเตอร์ไอพี (Ethernet / Wi-Fi) ชิปเซตที่ได้รับการยอมรับในระดับอุตสาหกรรมสูงสุดในปัจจุบัน ได้แก่
+
+\begin{protocolbox}[การเลือกชิปเซตสำหรับเกตเวย์เกษตรกรรม]
+คุณลักษณะเชิงเปรียบเทียบของชิปเซต Coordinator
+\begin{enumerate}
+    \item \textbf{Texas Instruments CC2652P}\index{CC2652P@CC2652P (ชิปเซตตัวประสานงาน)} ไมโครคอนโทรลเลอร์แกน ARM Cortex-M4F พร้อมภาคขยายกำลังส่งในตัว (Power Amplifier หรือ PA) ให้กำลังส่งสูงสุดถึง $+20$ dBm รองรับการเชื่อมต่อโหนดโดยตรงได้มากกว่า 100 โหนด และรองรับโครงข่ายเมชรวมมากกว่า 200 โหนด มีเสถียรภาพสูงสุดกับระบบ Z-Stack
+    \item \textbf{Silicon Labs EFR32MG21}\index{EFR32MG21@EFR32MG21} สถาปัตยกรรม ARM Cortex-M33 กำลังส่ง $+20$ dBm มีจุดเด่นด้านประสิทธิภาพการประมวลผลและการรองรับโพรโทคอล Thread และ Matter ในอนาคต
+\end{enumerate}
+\end{protocolbox}
+
+สำหรับสภาพแวดล้อมฟาร์มเกษตรกรรม แนะนำให้ใช้ตัวประสานงานแบบเชื่อมต่อผ่านสายแลนพร้อมระบบจ่ายไฟผ่านสายสัญญาณ (Power over Ethernet หรือ PoE) มากกว่าแบบต่อตรงผ่านพอร์ต USB เข้ากับคอมพิวเตอร์ เนื่องจากสามารถติดตั้งเกตเวย์ไว้ในตำแหน่งเสาสูงกึ่งกลางแปลงปลูกเพื่อรับสัญญาณรอบทิศทางได้ดีที่สุด และลดสัญญาณรบกวนความถี่สูงจากพอร์ต USB 3.0
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.90\textwidth]{figures/zigbee_greenhouse_ghibli.jpg}
+    \caption{ระบบควบคุมอัตโนมัติภายในโรงเรือนเกษตรกรรมอัจฉริยะที่บูรณาการเกตเวย์ Zigbee และเซนเซอร์สิ่งแวดล้อม}
+    \label{fig:zigbee_greenhouse}
+\end{figure}
+
+\section{สถาปัตยกรรมซอฟต์แวร์ Zigbee2MQTT}
+
+โปรแกรม \textbf{ซิกบีทูเอ็มคิวทีที (Zigbee2MQTT)}\index{Zigbee2MQTT@Zigbee2MQTT} เป็นสะพานซอฟต์แวร์โอเพนซอร์สที่ทำหน้าที่แปลชุดข้อมูลและคำสั่งจากเฟรม ZCL (Zigbee Cluster Library)\index{ZCL@ZCL (Zigbee Cluster Library)} บนคลื่นวิทยุ ให้กลายเป็นข้อความ JSON บนโพรโทคอล MQTT\index{MQTT@MQTT} โดยตรง ทำให้ระบบไอโอทีสามารถสื่อสารกับอุปกรณ์ Zigbee จากผู้ผลิตต่างยี่ห้อกันได้มากกว่า 3,000 รุ่นอย่างไร้รอยต่อ
+
+\begin{codebox}[ตัวอย่างไฟล์คอนฟิกูเรชัน configuration.yaml ของ Zigbee2MQTT]{yaml}
+# Zigbee2MQTT configuration for smart farm
+homeassistant: true
+permit_join: false # Disabled after pairing for security
+
+mqtt:
+  base_topic: cmu_aiot/zigbee
+  server: mqtt://10.0.0.1:1883
+  user: farm_admin
+  password: secure_farm_password_2027
+
+serial:
+  port: /dev/ttyUSB0
+  adapter: zstack
+  baudrate: 115200
+
+advanced:
+  pan_id: 0x1a62
+  channel: 25 # Channel 25 avoids Wi-Fi channel 1, 6, 11 interference
+  network_key:
+    - 0x01
+    - 0x03
+    - 0x05
+    - 0x07
+    - 0x09
+    - 0x0B
+    - 0x0D
+    - 0x0F
+    - 0x02
+    - 0x04
+    - 0x06
+    - 0x08
+    - 0x0A
+    - 0x0C
+    - 0x0E
+    - 0x10
+\end{codebox}
+
+\section{ข้อกำหนดหัวข้อและโครงสร้างข้อมูล JSON Telemetry}
+
+การกำหนดโครงสร้าง \textbf{หัวข้อข้อมูล (MQTT Topics)} และเพย์โหลด ต้องสอดคล้องกับมาตรฐานการจัดการข้อมูลไอโอที เพื่อให้ระบบแสดงผล แดชบอร์ด และฐานข้อมูล Time-Series สามารถสืบค้นข้อมูลได้อย่างรวดเร็ว
+
+\begin{protocolbox}[มาตรฐานโครงสร้าง MQTT Topic สำหรับฟาร์มเกษตรแม่นยำ]
+โครงสร้างหัวข้อแบ่งออกเป็น 3 ระดับหลัก
+\begin{enumerate}
+    \item \textbf{Telemetry Stream} ส่งข้อมูลพารามิเตอร์เซนเซอร์จากโหนดขึ้นสู่โบรกเกอร์
+    \begin{quote}
+        \texttt{cmu\_aiot/zigbee/zone1/greenhouseA/soil\_node\_01}
+    \end{quote}
+    \item \textbf{Command Topic} รับคำสั่งจากระบบอัตโนมัติไปยังอุปกรณ์ขับโหลด (Actuator)
+    \begin{quote}
+        \texttt{cmu\_aiot/zigbee/zone1/greenhouseA/valve\_01/set}
+    \end{quote}
+    \item \textbf{Device State Topic} รายงานสถานะปัจจุบันของอุปกรณ์ขับโหลด
+    \begin{quote}
+        \texttt{cmu\_aiot/zigbee/zone1/greenhouseA/valve\_01}
+    \end{quote}
+\end{enumerate}
+\end{protocolbox}
+
+\begin{codebox}[ตัวอย่างเพย์โหลด JSON Telemetry จากโหนดตรวจวัดสภาพดินและบรรยากาศ]{json}
+{
+  "device_id": "ZB_SOIL_NODE_07",
+  "zone": "zone1",
+  "battery_voltage": 3.62,
+  "battery_percent": 94,
+  "linkquality": 142,
+  "soil_moisture": 42.8,
+  "soil_temperature": 27.4,
+  "soil_ec": 1150,
+  "soil_ph": 6.45,
+  "air_temperature": 29.8,
+  "air_humidity": 68.2,
+  "vpd_kpa": 1.34,
+  "valve_status": "CLOSED",
+  "timestamp": 1790156000
+}
+\end{codebox}
+
+\section{การบูรณาการระบบอัตโนมัติด้วย Home Assistant และ Node-RED}
+
+เมื่อข้อมูลเซนเซอร์ถูกส่งผ่านเกตเวย์เข้าสู่ระบบ MQTT Broker แพลตฟอร์มบริหารจัดการกลาง \textbf{โฮมแอสซิสแทนท์ (Home Assistant)} จะตรวจพบอุปกรณ์โดยอัตโนมัติ (MQTT Auto Discovery) ผู้ดูแลระบบสามารถเขียนกฎการควบคุมอัตโนมัติ (Automation Rules) เช่น
+
+\begin{agribox}[ตัวอย่างตรรกะควบคุมการให้น้ำอัตโนมัติ]
+การควบคุมโซลินอยด์วาล์วให้น้ำอัตโนมัติตามความต้องการของพืช
+\begin{enumerate}
+    \item \textbf{เงื่อนไขเริ่มต้นการให้น้ำ} หากความชื้นดินลดลงต่ำกว่าร้อยละ 35 และเวลาอยู่ในช่วง 06.00--08.00 น. หรือ 16.00--18.00 น. ให้สั่งเปิดโซลินอยด์วาล์วน้ำ
+    \item \textbf{เงื่อนไขหยุดการให้น้ำ} เมื่อความชื้นดินเพิ่มขึ้นถึงร้อยละ 55 หรือระยะเวลาเปิดวาล์วต่อเนื่องครบ 15 นาที ให้สั่งปิดวาล์วทันทีเพื่อความปลอดภัย (Fail-safe Timer)
+    \item \textbf{เงื่อนไขระงับการทำงาน} หากเซนเซอร์น้ำฝนตรวจพบฝนตก หรือค่า VPD ต่ำกว่า 0.4 kPa ให้ระงับการให้น้ำเพื่อป้องกันรากพืชเน่า
+\end{enumerate}
+\end{agribox}
+
+\clearpage
+
+% ------------------------------------------------------------
+% คำถามทบทวนท้ายบทที่ 3
+% ------------------------------------------------------------
+\section*{คำถามทบทวนท้ายบทที่ 3}
+\addcontentsline{toc}{section}{คำถามทบทวนท้ายบทที่ 3}
+
+\begin{enumerate}
+    \item เพราะเหตุใดการเลือกช่องสัญญาณความถี่ (Channel) ในเครือข่าย Zigbee 3.0 จึงแนะนำให้ใช้ช่องที่ 15, 20 หรือ 25 เมื่อมีการใช้งานโครงข่าย Wi-Fi 2.4 GHz ในพื้นที่เดียวกัน
+    \item จงอธิบายบทบาทและประโยชน์ของการใช้โปรแกรม Zigbee2MQTT ในการเชื่อมโยงโหนดเซนเซอร์เข้ากับระบบฐานข้อมูลของฟาร์มเกษตรกรรม
+    \item ออกแบบโครงสร้างหัวข้อข้อมูล MQTT (Topic Architecture) สำหรับแปลงผลไม้ขนาด 5 โซน โดยแต่ละโซนประกอบด้วยโหนดเซนเซอร์ดิน 10 ตัว และวาล์วน้ำ 4 ตัว
+    \item หากเกตเวย์ขาดการเชื่อมต่ออินเทอร์เน็ตภายนอก ระบบควบคุมอัตโนมัติที่ทำงานบนเซิร์ฟเวอร์โลคอลจะยังคงทำงานได้หรือไม่ เพราะเหตุใด
+    \item อธิบายความสำคัญของการเปลี่ยนรหัสกุญแจเครือข่าย (Network Key) เริ่มต้นจากโรงงานในการติดตั้งเครือข่ายไร้สายในแปลงเกษตรขนาดใหญ่
+\end{enumerate}
+
+\clearpage

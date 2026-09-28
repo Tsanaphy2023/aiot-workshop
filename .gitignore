@@ -61,3 +61,10 @@ env/
 scirbru_aiot207
 Flutter AIoT
 leaf workshop/
+
+# ============================================================
+# Large binary / release files (GitHub 100 MB limit)
+# ============================================================
+*.apk
+*.aab
+*.ipa

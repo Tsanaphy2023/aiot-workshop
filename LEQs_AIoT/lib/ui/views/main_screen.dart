@@ -8,6 +8,7 @@ import 'tabs/espnow_tab.dart';
 import 'tabs/history_tab.dart';
 import 'tabs/leaf_doctor_tab.dart';
 import 'dialogs/connection_settings_dialog.dart';
+import 'tabs/remote_control_tab.dart';
 
 class MainScreen extends StatefulWidget {
   final VoidCallback onToggleTheme;
@@ -30,6 +31,7 @@ class _MainScreenState extends State<MainScreen> {
     DashboardTab(),
     LeafDoctorTab(),
     ControlTab(),
+    RemoteControlTab(),
     AutomationTab(),
     EspNowTab(),
     HistoryTab(),
@@ -238,6 +240,11 @@ class _MainScreenState extends State<MainScreen> {
             icon: Icon(Icons.power_settings_new),
             activeIcon: Icon(Icons.power),
             label: 'ควบคุม',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.cloud_sync_outlined),
+            activeIcon: Icon(Icons.cloud_sync),
+            label: 'รีโมต',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.tune),

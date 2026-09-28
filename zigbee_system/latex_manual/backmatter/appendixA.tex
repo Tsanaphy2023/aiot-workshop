@@ -1,0 +1,31 @@
+% ============================================================
+% ภาคผนวก ก: มาตรฐาน Zigbee Cluster Library (ZCL) สำหรับงานเกษตรแม่นยำ
+% ============================================================
+\chapter{มาตรฐาน Zigbee Cluster Library สำหรับงานเกษตรแม่นยำ}
+\label{app:zcl_standard}
+
+มาตรฐาน \textbf{ซิกบีคลัสเตอร์ไลบรารี (Zigbee Cluster Library หรือ ZCL)} กำหนดกลุ่มคุณลักษณะ (Attributes) และชุดคำสั่ง (Commands) สำหรับอุปกรณ์ต่างๆ ไว้อย่างเป็นสากล เพื่อให้อุปกรณ์ที่ผลิตจากต่างผู้ผลิตสามารถทำงานร่วมกันได้อย่างสมบูรณ์
+
+\begin{table}[H]
+\caption{รหัสคลัสเตอร์และแอตทริบิวต์ ZCL สำหรับเซนเซอร์และอุปกรณ์ควบคุมทางการเกษตร}
+\label{tab:zcl_clusters_agri}
+\centering
+\small
+\begin{tabularx}{\textwidth}{c p{4.2cm} c c >{\raggedright\arraybackslash}X}
+\toprule
+\textbf{Cluster ID} & \textbf{ชื่อคลัสเตอร์ (Cluster Name)} & \textbf{Attribute ID} & \textbf{ชนิดข้อมูล} & \textbf{คำอธิบายและการใช้งาน} \\
+\midrule
+0x0400 & Illuminance Measurement & 0x0000 & 16-bit Uint & ค่าความสว่างแสง ($10000 \times \log_{10}(\text{Lux}) + 1$) \\
+0x0402 & Temperature Measurement & 0x0000 & 16-bit Int & อุณหภูมิ มีหน่วยเป็น $0.01\ ^\circ\text{C}$ \\
+0x0403 & Pressure Measurement & 0x0000 & 16-bit Int & ความกดอากาศ มีหน่วยเป็น $0.1\text{ hPa}$ \\
+0x0405 & Relative Humidity Measurement & 0x0000 & 16-bit Uint & ความชื้นสัมพัทธ์ มีหน่วยเป็น $0.01\ \%$ \\
+0x0406 & Occupancy Sensing & 0x0000 & 8-bit Bitmap & เซนเซอร์ตรวจจับการเคลื่อนไหวของศัตรูพืช \\
+0x0006 & On/Off Cluster & 0x0000 & Boolean & ควบคุมโซลินอยด์วาล์วน้ำ หรือพัดลมระบาย \\
+0x0008 & Level Control Cluster & 0x0000 & 8-bit Uint & หรี่ไฟปลูกพืช LED Grow Light หรือวาล์วปรับ \\
+0x0001 & Power Configuration & 0x0020 & 8-bit Uint & แรงดันแบตเตอรี่ มีหน่วยเป็น $0.1\text{ V}$ \\
+0x040C & Carbon Dioxide (CO2) Measurement & 0x0000 & Single Float & ความเข้มข้นก๊าซ CO2 ในหน่วย ppm \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\clearpage

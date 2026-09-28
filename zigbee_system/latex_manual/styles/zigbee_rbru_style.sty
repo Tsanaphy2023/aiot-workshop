@@ -1,0 +1,345 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{styles/zigbee_rbru_style}[2026/09/26 RBRU Zigbee AIoT Academic Manual Style Standard]
+
+% ============================================================
+% 1. Page Geometry (มาตรฐาน มรภ.รำไพพรรณี: บน 1.5", ซ้าย 1.5", ล่าง 1", ขวา 1")
+% ============================================================
+\RequirePackage{geometry}
+\geometry{
+    a4paper,
+    top=1.5in,
+    bottom=1.0in,
+    left=1.5in,
+    right=1.0in,
+    headheight=43pt,
+    headsep=12pt,
+    footskip=0.5in
+}
+
+% 1.1 Thai Linebreak & Hyphenation for XeLaTeX
+\XeTeXlinebreaklocale "th"
+\XeTeXlinebreakskip = 0pt plus 2pt minus 0.5pt
+\setlength{\emergencystretch}{2.5em}
+
+% 1.2 Paragraph Indentation (1 Tab = 1.25cm)
+\RequirePackage{indentfirst}
+\setlength{\parindent}{1.25cm}
+\setlength{\parskip}{5pt plus 2pt minus 1pt}
+
+% 1.3 Thai Academic Terminology
+\renewcommand{\chaptername}{บทที่}
+\renewcommand{\figurename}{\mbox{ภาพที่}}
+\renewcommand{\tablename}{\mbox{ตารางที่}}
+\renewcommand{\contentsname}{สารบัญ}
+\renewcommand{\listfigurename}{สารบัญภาพ}
+\renewcommand{\listtablename}{สารบัญตาราง}
+\renewcommand{\appendixname}{ภาคผนวก}
+\renewcommand{\bibname}{บรรณานุกรม}
+\renewcommand{\indexname}{ดัชนีสืบค้นคำสำคัญ}
+
+% ============================================================
+% 2. Math & Science Packages
+% ============================================================
+\RequirePackage{amsmath,amssymb,amsfonts,mathtools}
+\RequirePackage{bm}
+\RequirePackage{siunitx}
+\RequirePackage{enumitem}
+\RequirePackage{hanging}
+\RequirePackage{tikz}
+\usetikzlibrary{shapes,arrows,positioning,calc}
+
+% ============================================================
+% 3. Graphics, Tables, & Floats
+% ============================================================
+\RequirePackage{graphicx}
+\RequirePackage{float}
+\RequirePackage{booktabs}
+\RequirePackage{tabularx}
+\RequirePackage{array}
+\RequirePackage{colortbl}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{Z}{>{\centering\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+
+\RequirePackage{caption}
+\DeclareCaptionLabelSeparator{thaisep}{\quad}
+\captionsetup{labelsep=thaisep}
+\captionsetup[table]{position=top, skip=6pt, labelfont={bf,color=rbruNavy}, textfont={normalfont}, labelsep=thaisep, justification=raggedleft, singlelinecheck=false}
+\captionsetup[figure]{position=bottom, skip=8pt, labelfont={bf,color=rbruNavy}, textfont={normalfont}, labelsep=thaisep}
+
+\AtBeginDocument{
+    \gdef\figurename{\mbox{ภาพที่}}
+    \gdef\tablename{\mbox{ตารางที่}}
+    \captionsetup[figure]{name={\mbox{ภาพที่}}}
+    \captionsetup[table]{name={\mbox{ตารางที่}}}
+}
+
+% ============================================================
+% 4. Color Palette (RBRU Identity, Zigbee 3.0 & Smart Agriculture)
+% ============================================================
+\RequirePackage[table,xcdraw]{xcolor}
+\definecolor{rbruNavy}{HTML}{0A1931}
+\definecolor{rbruGold}{HTML}{F4B41A}
+\definecolor{rbruSlate}{HTML}{4A5568}
+\definecolor{agriForest}{HTML}{064E3B}
+\definecolor{agriEmerald}{HTML}{047857}
+\definecolor{zigbeeOrange}{HTML}{EA580C}
+\definecolor{zigbeeAmber}{HTML}{D97706}
+\definecolor{meshCyan}{HTML}{0284C7}
+\definecolor{softMist}{HTML}{F8FAFC}
+\definecolor{leafSoft}{HTML}{ECFDF5}
+\definecolor{meshSoft}{HTML}{F0F9FF}
+\definecolor{orangeSoft}{HTML}{FFF7ED}
+\definecolor{charcoal}{HTML}{1E293B}
+\definecolor{slateGrey}{HTML}{475569}
+\definecolor{rbruCodeBg}{HTML}{F1F5F9}
+
+% ============================================================
+% 5. Modern TColorBox Environments
+% ============================================================
+\RequirePackage[many]{tcolorbox}
+\tcbuselibrary{skins,breakable,listings}
+
+% 5.1 Chapter Banner Box (กล่องหัวบทวิชาการหรูหรา)
+\newtcolorbox{chapterbannerbox}{
+    enhanced,
+    width=\textwidth,
+    arc=2.5mm,
+    boxrule=0pt,
+    leftrule=0pt,
+    rightrule=0pt,
+    toprule=0pt,
+    bottomrule=0pt,
+    borderline east={4.5pt}{0pt}{rbruGold},
+    interior style={left color=rbruNavy!98!black, right color=rbruNavy!85!rbruSlate},
+    coltext=white,
+    top=10pt, bottom=10pt, left=16pt, right=16pt,
+    before skip=0pt, after skip=8pt,
+    drop shadow=black!20
+}
+
+\newcommand{\rbruchapterbanner}[1]{%
+    \begin{chapterbannerbox}
+        \raggedleft
+        {\fontsize{38}{44}\selectfont\bfseries\color{white} \chaptertitlename\ \thechapter\par}
+        \vspace{4pt}
+        {\color{rbruGold}\rule{0.50\textwidth}{2pt}\par}
+        \vspace{4pt}
+        {\fontsize{22}{28}\selectfont\bfseries\color{white} #1\par}
+    \end{chapterbannerbox}
+}
+
+\newcommand{\rbruunnumberedchapterbanner}[1]{%
+    \begin{chapterbannerbox}
+        \raggedleft
+        {\fontsize{26}{32}\selectfont\bfseries\color{white} #1\par}
+    \end{chapterbannerbox}
+}
+
+% 5.2 Modular Lesson Plan Box (กล่องแผนบริหารการสอนประจำบท)
+\newtcolorbox{planbox}[2][]{
+    enhanced,
+    breakable,
+    colback=white,
+    colframe=rbruNavy,
+    fonttitle=\bfseries\fontsize{10}{13}\selectfont\color{white},
+    coltitle=white,
+    colbacktitle=rbruNavy,
+    title={#2},
+    arc=1.5mm,
+    boxrule=0.8pt,
+    leftrule=3.5mm,
+    top=1.5pt, bottom=1.5pt, left=8pt, right=8pt,
+    titlerule=0pt,
+    toptitle=1.5pt, bottomtitle=1.5pt,
+    drop shadow=black!5,
+    before skip=1.5pt,
+    after skip=1.5pt,
+    #1
+}
+
+% 5.3 Protocol Architecture Box (กล่องโพรโทคอลและสถาปัตยกรรมโครงข่าย)
+\newtcolorbox{protocolbox}[1][สถาปัตยกรรมโพรโทคอล Zigbee 3.0]{
+    enhanced,
+    breakable,
+    colback=meshSoft,
+    colframe=meshCyan,
+    coltitle=white,
+    fonttitle=\bfseries\normalsize\color{white},
+    title={#1},
+    arc=2mm,
+    boxrule=0.8pt,
+    leftrule=4mm,
+    top=8pt, bottom=8pt, left=10pt, right=10pt,
+    before skip=8pt, after skip=8pt,
+    drop shadow=black!10
+}
+
+% 5.4 Agriculture Sensor Application Box (กล่องประยุกต์เซนเซอร์เกษตร)
+\newtcolorbox{agribox}[1][การประยุกต์ในแปลงเกษตรอัจฉริยะ]{
+    enhanced,
+    breakable,
+    colback=leafSoft,
+    colframe=agriForest,
+    coltitle=white,
+    fonttitle=\bfseries\normalsize\color{white},
+    title={#1},
+    arc=2mm,
+    boxrule=0.8pt,
+    leftrule=4mm,
+    top=8pt, bottom=8pt, left=10pt, right=10pt,
+    before skip=8pt, after skip=8pt,
+    drop shadow=black!10
+}
+
+% 5.5 Hardware Warning & Best Practice Box (กล่องข้อควรระวังฮาร์ดแวร์)
+\newtcolorbox{warningbox}[1][ข้อควรระวังในการติดตั้งและบำรุงรักษา]{
+    enhanced,
+    breakable,
+    colback=orangeSoft,
+    colframe=zigbeeOrange,
+    coltitle=white,
+    fonttitle=\bfseries\normalsize\color{white},
+    title={#1},
+    arc=2mm,
+    boxrule=0.8pt,
+    leftrule=4mm,
+    top=8pt, bottom=8pt, left=10pt, right=10pt,
+    before skip=8pt, after skip=8pt,
+    drop shadow=black!10
+}
+
+% Define yaml and json language for listings
+\lstdefinelanguage{yaml}{
+    keywords={true, false, null, esphome, esp32, framework, type, zigbee, role, channel, power_save_mode, i2c, sda, scl, scan, sensor, platform, temperature, humidity, address, update_interval, deep_sleep, run_duration, sleep_duration, homeassistant, permit_join, mqtt, base_topic, server, user, password, serial, port, adapter, baudrate, advanced, pan_id, network_key},
+    keywordstyle=\bfseries\color{agriForest},
+    sensitive=false,
+    comment=[l]{\#},
+    commentstyle=\itshape\color{slateGrey},
+    stringstyle=\color{zigbeeAmber},
+    morestring=[b]',
+    morestring=[b]"
+}
+
+\lstdefinelanguage{json}{
+    stringstyle=\color{agriForest},
+    morestring=[b]",
+    commentstyle=\itshape\color{slateGrey}
+}
+
+% 5.6 Code Box (YAML / C++ / Python / JSON)
+\newtcblisting{codebox}[2][Configuration]{
+    enhanced,
+    breakable,
+    colback=rbruCodeBg,
+    colframe=rbruNavy!85!black,
+    coltitle=white,
+    fonttitle=\bfseries\fontsize{10}{13}\selectfont\color{white},
+    title={#1},
+    arc=1.5mm,
+    boxrule=0.8pt,
+    leftrule=3.5mm,
+    top=4pt, bottom=4pt, left=8pt, right=8pt,
+    pad at break=2mm,
+    drop shadow=black!5,
+    before skip=6pt, after skip=6pt,
+    listing only,
+    listing options={
+        language=#2,
+        basicstyle=\ttfamily\fontsize{8.5}{11}\selectfont\color{charcoal},
+        keywordstyle=\bfseries\color{agriForest},
+        stringstyle=\color{zigbeeAmber},
+        commentstyle=\itshape\color{slateGrey},
+        numbers=left,
+        numberstyle=\tiny\color{slateGrey!80},
+        numbersep=6pt,
+        breaklines=true,
+        showstringspaces=false,
+        tabsize=2,
+        mathescape=false
+    }
+}
+
+% ============================================================
+% 6. Titlesec & Hierarchical Indentation (มาตรฐาน มรภ.รำไพพรรณี)
+% ============================================================
+\RequirePackage{titlesec}
+\RequirePackage{needspace}
+\RequirePackage[section]{placeins}
+
+\titleformat{\chapter}[block]{\normalfont}{}{0pt}{\rbruchapterbanner}
+\titleformat{name=\chapter,numberless}[block]{\normalfont}{}{0pt}{\rbruunnumberedchapterbanner}
+\titlespacing*{\chapter}{0pt}{0pt}{20pt}
+
+% Section (ชิดซ้าย หัวข้อเริ่มที่ 1.25cm)
+\titleformat{\section}
+    {\normalfont\Large\bfseries\color{rbruNavy}}
+    {\makebox[1.25cm][l]{\thesection}}
+    {0pt}
+    {}
+\titlespacing*{\section}{0pt}{16pt plus 3pt minus 2pt}{6pt plus 1pt minus 1pt}
+
+% Subsection (ย่อหน้า 1.25cm หัวข้อเริ่มที่ 2.50cm)
+\titleformat{\subsection}
+    {\normalfont\large\bfseries\color{agriForest}}
+    {\makebox[1.25cm][l]{\thesubsection}}
+    {0pt}
+    {}
+\titlespacing*{\subsection}{1.25cm}{12pt plus 2pt minus 2pt}{5pt plus 1pt minus 1pt}
+
+% Subsubsection (ย่อหน้า 2.50cm หัวข้อเริ่มที่ 3.75cm)
+\titleformat{\subsubsection}
+    {\normalfont\normalsize\bfseries\color{zigbeeAmber}}
+    {\makebox[1.25cm][l]{\thesubsubsection}}
+    {0pt}
+    {}
+\titlespacing*{\subsubsection}{2.50cm}{9pt plus 2pt minus 1pt}{4pt plus 1pt minus 1pt}
+
+% Dynamic Parindent Wrappers
+\let\rbruorigchapter\chapter
+\renewcommand{\chapter}{\global\setlength{\parindent}{1.25cm}\rbruorigchapter}
+
+\let\rbruorigsection\section
+\renewcommand{\section}{\Needspace*{8\baselineskip}\global\setlength{\parindent}{1.25cm}\rbruorigsection}
+
+\let\rbruorigsubsection\subsection
+\renewcommand{\subsection}{\Needspace*{5\baselineskip}\global\setlength{\parindent}{2.50cm}\rbruorigsubsection}
+
+\let\rbruorigsubsubsection\subsubsection
+\renewcommand{\subsubsection}{\Needspace*{3\baselineskip}\global\setlength{\parindent}{3.75cm}\rbruorigsubsubsection}
+
+% ============================================================
+% 7. Running Headers & Footers (fancyhdr)
+% ============================================================
+\RequirePackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.8pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{rbruGold}\leaders\hrule height \headrulewidth\hfill}}
+
+\fancyhead[LE]{\small\bfseries\color{rbruNavy} \thepage \quad \textbar \quad คู่มือระบบสื่อสารไร้สาย Zigbee 3.0 สำหรับการเกษตรแม่นยำ}
+\fancyhead[RO]{\small\bfseries\color{rbruNavy} \leftmark \quad \textbar \quad \thepage}
+\fancyfoot[C]{\small\color{slateGrey} คณะวิทยาศาสตร์และเทคโนโลยี มหาวิทยาลัยราชภัฏรำไพพรรณี}
+
+\renewcommand{\chaptermark}[1]{%
+    \markboth{%
+        \ifnum \c@secnumdepth >\m@ne
+            \if@mainmatter
+                \chaptertitlename\ \thechapter\quad
+            \fi
+        \fi
+        #1%
+    }{}%
+}
+
+% ============================================================
+% 8. Penalties & Indexing
+% ============================================================
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+
+\RequirePackage{imakeidx}
+\makeindex[columns=2, title=\indexname, intoc]
+
+\endinput

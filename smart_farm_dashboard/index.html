@@ -7,7 +7,7 @@
   <meta name="description" content="โมเดิร์นแดชบอร์ด Smart Farm AIoT เชื่อมต่อบอร์ด ESP32, เซนเซอร์, สมาร์ตโฟน พร้อมระบบ AI & Deep Learning เก็บข้อมูลและเทรนโมเดล">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#10b981">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=2.2">
 </head>
 <body>
 
@@ -27,7 +27,7 @@
         <!-- Main Navigation Mode Switch -->
         <div class="nav-tab-group">
           <button class="nav-tab-btn active" id="tab-btn-overview" onclick="switchMainTab('overview')">📊 แดชบอร์ด</button>
-          <button class="nav-tab-btn" id="tab-btn-hardware" onclick="switchMainTab('hardware')">📡 เซนเซอร์บอร์ดจริง</button>
+          <button class="nav-tab-btn nav-tab-btn-hw" id="tab-btn-hardware" onclick="switchMainTab('hardware')">📡 เซนเซอร์บอร์ดจริง <span class="badge-hw-live">ONLINE</span></button>
           <button class="nav-tab-btn" id="tab-btn-ai" onclick="switchMainTab('ai')">🧠 AI Studio</button>
         </div>
 
@@ -614,6 +614,90 @@
           </div>
         </div>
 
+        <!-- 9. Pump Running (ปั๊มกำลังทำงาน) -->
+        <div class="metric-card" style="border-top: 3px solid #06b6d4;">
+          <div class="metric-top">
+            <div class="metric-title-group">
+              <div class="metric-badge-icon" style="background: rgba(6,182,212,0.15); color: #06b6d4;">⚙️</div>
+              <span class="metric-name">ปั๊มกำลังทำงาน (pump running)</span>
+            </div>
+            <span class="metric-status-tag" id="hw-card-pump-running-badge" style="background: rgba(148,163,184,0.2); color: #94a3b8;">IDLE</span>
+          </div>
+          <div class="metric-value-wrap">
+            <span class="metric-number" id="hw-card-pump-running-text" style="font-size: 26px;">OFF (หยุดหมุน)</span>
+          </div>
+          <div class="metric-bar-bg">
+            <div class="metric-bar-fill" id="hw-bar-pump-running" style="width: 0%; background: #06b6d4;"></div>
+          </div>
+          <div class="metric-footer">
+            <span>ตรวจจับจากแรงสั่นสะเทือนปั๊ม</span>
+            <span id="hw-card-pump-running-sub">SW-420 Piezo Sensor</span>
+          </div>
+        </div>
+
+        <!-- 10. Pump Sensitivity (ความไวตรวจจับปั๊ม) -->
+        <div class="metric-card" style="border-top: 3px solid #8b5cf6;">
+          <div class="metric-top">
+            <div class="metric-title-group">
+              <div class="metric-badge-icon" style="background: rgba(139,92,246,0.15); color: #8b5cf6;">🎯</div>
+              <span class="metric-name">ความไวตรวจจับปั๊ม (pump sensitivity)</span>
+            </div>
+            <span class="metric-status-tag tag-good" id="hw-card-pump-sens-badge">ACTIVE</span>
+          </div>
+          <div class="metric-value-wrap">
+            <span class="metric-number" id="hw-card-pump-sens-text" style="font-size: 22px;">กลาง (medium)</span>
+          </div>
+          <div class="metric-bar-bg">
+            <div class="metric-bar-fill" id="hw-bar-pump-sens" style="width: 60%; background: #8b5cf6;"></div>
+          </div>
+          <div class="metric-footer">
+            <span>เกณฑ์ตรวจจับ: ต่ำ / กลาง / สูง</span>
+            <span>Threshold Calibrated</span>
+          </div>
+        </div>
+
+        <!-- 11. WiFi Signal & IP (ความแรงสัญญาณ WiFi & หมายเลข IP) -->
+        <div class="metric-card" style="border-top: 3px solid #10b981;">
+          <div class="metric-top">
+            <div class="metric-title-group">
+              <div class="metric-badge-icon" style="background: rgba(16,185,129,0.15); color: #10b981;">📶</div>
+              <span class="metric-name">สัญญาณ WiFi & หมายเลข IP</span>
+            </div>
+            <span class="metric-status-tag tag-good" id="hw-card-ip-badge">EXCELLENT</span>
+          </div>
+          <div class="metric-value-wrap">
+            <span class="metric-number" id="hw-card-ip-text" style="font-size: 22px; font-family: monospace;">10.10.31.65</span>
+          </div>
+          <div class="metric-bar-bg">
+            <div class="metric-bar-fill" id="hw-bar-ip" style="width: 85%; background: #10b981;"></div>
+          </div>
+          <div class="metric-footer">
+            <span>ความแรง: <strong id="hw-card-rssi-val">-58 dBm</strong></span>
+            <span>2.4 GHz Farm WLAN</span>
+          </div>
+        </div>
+
+        <!-- 12. Uptime (เวลาทำงาน) -->
+        <div class="metric-card" style="border-top: 3px solid #ec4899;">
+          <div class="metric-top">
+            <div class="metric-title-group">
+              <div class="metric-badge-icon" style="background: rgba(236,72,153,0.15); color: #ec4899;">⏱️</div>
+              <span class="metric-name">เวลาทำงาน (uptime)</span>
+            </div>
+            <span class="metric-status-tag tag-good" id="hw-card-uptime-badge">STABLE</span>
+          </div>
+          <div class="metric-value-wrap">
+            <span class="metric-number" id="hw-card-uptime-text" style="font-size: 22px;">1 ชม. 39 นาที</span>
+          </div>
+          <div class="metric-bar-bg">
+            <div class="metric-bar-fill" id="hw-bar-uptime" style="width: 95%; background: #ec4899;"></div>
+          </div>
+          <div class="metric-footer">
+            <span>เปิดทำงานต่อเนื่องของบอร์ด</span>
+            <span id="hw-card-uptime-sec">5,944 วินาที</span>
+          </div>
+        </div>
+
       </section>
 
       <!-- Section: Raw Telemetry Stream Table -->
@@ -621,23 +705,27 @@
         <div class="area-tabs-header">
           <div class="section-heading">
             <span>📋</span>
-            <span>ตารางสรุปค่าเซนเซอร์ดิบจากบอร์ด (Live Raw Hardware Telemetry Table)</span>
+            <span>ตารางข้อมูลเซนเซอร์และอุปกรณ์ฮาร์ดแวร์ ESPHome (ESPHome Entity Telemetry Table)</span>
           </div>
-          <button class="btn-action btn-secondary" onclick="forceSyncHardware()" style="font-size: 12px; padding: 6px 12px;">
-            🔄 บังคับดึงข้อมูลสด
-          </button>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn-action btn-secondary" onclick="forceSyncHardware()" style="font-size: 12px; padding: 6px 12px;">
+              🔄 บังคับดึงข้อมูลสด
+            </button>
+            <a href="http://10.10.31.65" target="_blank" class="btn-action btn-secondary" style="font-size: 12px; padding: 6px 12px; text-decoration: none;">
+              🌐 เปิดเว็บเซิร์ฟเวอร์บอร์ด (10.10.31.65)
+            </a>
+          </div>
         </div>
 
         <div style="overflow-x: auto;">
           <table class="hw-raw-table">
             <thead>
               <tr>
-                <th>พารามิเตอร์ (Parameter)</th>
-                <th>ไอดีเซนเซอร์ (Entity ID)</th>
-                <th>โหนดฮาร์ดแวร์ (Node IP)</th>
-                <th>ค่าที่วัดได้สด (Live Value)</th>
-                <th>หน่วย (Unit)</th>
-                <th>สถานะการประเมิน (Health)</th>
+                <th style="width: 25%;">ชื่อพารามิเตอร์ (Name)</th>
+                <th style="width: 18%;">ค่าที่วัดได้ (Value)</th>
+                <th style="width: 15%;">หน่วย / สถานะ (Unit / State)</th>
+                <th style="width: 27%;">ไอดีเซนเซอร์ (Entity ID)</th>
+                <th style="width: 15%;">สถานะการทำงาน (Status)</th>
               </tr>
             </thead>
             <tbody id="hw-raw-tbody">
@@ -870,6 +958,6 @@
 
   </div>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=2.2"></script>
 </body>
 </html>

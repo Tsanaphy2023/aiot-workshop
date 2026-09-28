@@ -672,6 +672,14 @@
         <div class="section-badge">Virtual Laboratory</div>
         <h2 class="section-title">ห้องปฏิบัติการเสมือนจริง (Interactive Smart Farm Simulator)</h2>
         <p class="section-desc">ทดลองปรับค่าสภาพแวดล้อม และสังเกตการตัดสินใจของ AI และระบบอัตโนมัติได้แบบเรียลไทม์บนหน้าเว็บ</p>
+        <div style="margin-top: 1rem; display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+          <a href="../module2/simulator/index.html" target="_blank" class="hero-btn" style="background: linear-gradient(135deg, #0284c7, #0d9488); border: none; box-shadow: 0 0 20px rgba(2, 132, 199, 0.4); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.65rem 1.4rem; font-size: 0.92rem;">
+            <span>🚀 เปิดตัวจำลองฮาร์ดแวร์เสมือนจริง GoGo-IoT v.2B (Virtual Lab & REPL)</span>
+          </a>
+          <a href="../module2/gogo_iot_pinout.jpg" target="_blank" class="hero-btn" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.2); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.65rem 1.2rem; font-size: 0.92rem;">
+            <span>📐 ดูภาพผังวงจร Schematic & Pinout</span>
+          </a>
+        </div>
       </div>
 
       <div class="lab-container">
@@ -1011,6 +1019,29 @@
       </div>
 
       <div class="quiz-wrapper">
+        <!-- Quiz Control Toolbar & Mode Selector -->
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.8rem; background:rgba(30,41,59,0.7); padding:1rem 1.4rem; border-radius:12px; border:1px solid rgba(255,255,255,0.08);">
+          <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+            <button id="btn-quiz-mode-45" class="btn-cta active" style="padding:0.6rem 1.2rem; font-size:0.9rem;" onclick="switchQuizMode('pretest45')">
+              <span>⭐ ชุดที่ 1: แบบทดสอบก่อนเรียน (Master 45 ข้อ (อัปเดตล่าสุด))</span>
+            </button>
+            <button id="btn-quiz-mode-10" class="btn-cta" style="padding:0.6rem 1.2rem; font-size:0.9rem; background:transparent; border:1px solid rgba(255,255,255,0.2);" onclick="switchQuizMode('scenario')">
+              <span>⚡ ชุดที่ 2: แบบทดสอบปฏิบัติการ Smart Farm (10 ข้อ)</span>
+            </button>
+            <button id="btn-quiz-mode-m4" class="btn-cta" style="padding:0.6rem 1.2rem; font-size:0.9rem; background:transparent; border:1px solid rgba(255,255,255,0.2);" onclick="switchQuizMode('module4')">
+              <span>☁️ ชุดที่ 3: แบบทดสอบ Cloud & ESP-NOW (10 ข้อ)</span>
+            </button>
+          </div>
+          <div style="display:flex; gap:0.6rem; align-items:center; flex-wrap:wrap;">
+            <a href="./worksheet_pretest_45.pdf" download class="btn-cta" style="padding:0.6rem 1.2rem; font-size:0.9rem; background:#0284c7; text-decoration:none;">
+              <span>📥 ดาวน์โหลดใบงาน PDF (45 ข้อ)</span>
+            </a>
+            <a href="./worksheet_pretest_45.html" target="_blank" class="btn-cta" style="padding:0.6rem 1.2rem; font-size:0.9rem; background:#059669; text-decoration:none;">
+              <span>🖨️ เปิดใบงาน A4 / สั่งพิมพ์</span>
+            </a>
+          </div>
+        </div>
+
         <div id="quiz-questions-list"></div>
 
         <div style="text-align:center; margin-top:2rem;">

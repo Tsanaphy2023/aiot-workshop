@@ -1,0 +1,217 @@
+% ============================================================
+% บทที่ 4: การพัฒนาเฟิร์มแวร์ ESP32-C6 และการจัดการพลังงานโหนดเซนเซอร์
+% ============================================================
+\chapter[การพัฒนาเฟิร์มแวร์ ESP32-C6 และการจัดการพลังงานโหนดเซนเซอร์]{การพัฒนาเฟิร์มแวร์ ESP32-C6\\และการจัดการพลังงานโหนดเซนเซอร์}
+\label{chap:ch04}
+
+% ------------------------------------------------------------
+% แผนบริหารการสอนประจำบทที่ 4 (หน้า 1/2)
+% ------------------------------------------------------------
+\section*{แผนบริหารการสอนประจำบทที่ 4}
+\addcontentsline{toc}{section}{แผนบริหารการสอนประจำบทที่ 4}
+
+\begin{planbox}{หัวข้อเนื้อหาประจำบท}
+\begin{enumerate}[topsep=1pt, itemsep=0.5pt, partopsep=0pt, parsep=0pt, leftmargin=1.5em]
+    \item สถาปัตยกรรมระบบบนชิป ESP32-C6 RISC-V 32 บิตและภาควิทยุ IEEE 802.15.4
+    \item การพัฒนาเฟิร์มแวร์อุปกรณ์ปลายทางด้วย ESP-IDF Zigbee SDK
+    \item การสร้างโหนดเซนเซอร์แบบไร้โค้ดด้วย ESPHome Zigbee Framework
+    \item กลยุทธ์การบริหารพลังงาน โหมดสลีประดับลึก และการคำนวณวงรอบการทำงาน Duty Cycle
+    \item การออกแบบระบบเก็บเกี่ยวพลังงานแสงอาทิตย์และการคำนวณอายุการใช้งานแบตเตอรี่
+\end{enumerate}
+\end{planbox}
+
+\begin{planbox}{วัตถุประสงค์เชิงพฤติกรรม}
+\begin{enumerate}[topsep=1pt, itemsep=0.5pt, partopsep=0pt, parsep=0pt, leftmargin=1.5em]
+    \item อธิบายโครงสร้างฮาร์ดแวร์และคุณสมบัติทางวิทยุของไมโครคอนโทรลเลอร์ ESP32-C6 ได้
+    \item เขียนโปรแกรมอ่านเซนเซอร์และส่งข้อมูลผ่านโครงสร้างคลัสเตอร์ Zigbee ZCL ได้
+    \item ปรับแต่งและคอมไพล์เฟิร์มแวร์ด้วย ESPHome สำหรับโหนดวัดสภาพแวดล้อมได้
+    \item คำนวณค่ากระแสไฟฟ้าเฉลี่ยและประมาณการอายุการใช้งานแบตเตอรี่ได้อย่างแม่นยำ
+    \item ออกแบบแผงโซลาร์เซลล์และวงจรชาร์จแบตเตอรี่รองรับการทำงานต่อเนื่อง 365 วันได้
+\end{enumerate}
+\end{planbox}
+
+\newpage
+
+% ------------------------------------------------------------
+% แผนบริหารการสอนประจำบทที่ 4 (หน้า 2/2)
+% ------------------------------------------------------------
+\begin{planbox}{วิธีสอนและกิจกรรมการเรียนการสอน}
+\begin{enumerate}[topsep=1pt, itemsep=0.5pt, partopsep=0pt, parsep=0pt, leftmargin=1.5em]
+    \item การบรรยายเชิงลึกเกี่ยวกับสถาปัตยกรรมประมวลผล RISC-V และโหมดพลังงาน
+    \item การสาธิตการติดตั้งเครื่องมือพัฒนา ESP-IDF และการคอมไพล์ตัวอย่าง Zigbee End Device
+    \item การฝึกปฏิบัติการเขียนโค้ดอ่านเซนเซอร์ I2C และส่งแพ็กเก็ตรายงานสถานะ
+    \item การทดลองวัดกระแสไฟฟ้าระหว่างโหมดตื่นส่งสัญญาณและโหมด Deep Sleep ด้วยเครื่องมือวัด
+    \item การคำนวณขนาดความจุแบตเตอรี่และขนาดแผงโซลาร์เซลล์สำหรับแปลงเกษตรจริง
+\end{enumerate}
+\end{planbox}
+
+\begin{planbox}{สื่อการเรียนการสอน}
+\begin{enumerate}[topsep=1pt, itemsep=0.5pt, partopsep=0pt, parsep=0pt, leftmargin=1.5em]
+    \item บอร์ดทดลองพัฒนา ESP32-C6-DevKitC-1 พร้อมพอร์ต Type-C และเสาอากาศบนบอร์ด
+    \item เซนเซอร์วัดอุณหภูมิและความชื้น SHT31 และเซนเซอร์วัดแสง BH1750
+    \item ออสซิลโลสโคปหรือเครื่องวัดกระแสไฟฟ้าละเอียด (Power Profiler Kit)
+    \item แบตเตอรี่ชนิด LiFePO4 ขนาด 3.2V 3200mAh และแผงโซลาร์เซลล์ 5V 2W
+    \item ซอฟต์แวร์เครื่องมือคอมไพเลอร์ VS Code, ESP-IDF และ ESPHome CLI
+\end{enumerate}
+\end{planbox}
+
+\begin{planbox}{การวัดและประเมินผล}
+\begin{enumerate}[topsep=1pt, itemsep=0.5pt, partopsep=0pt, parsep=0pt, leftmargin=1.5em]
+    \item การประเมินผลการคอมไพล์และแฟลชเฟิร์มแวร์เข้าสู่บอร์ด ESP32-C6
+    \item การตรวจความถูกต้องในการส่งข้อมูลขึ้นสู่เกตเวย์ Zigbee2MQTT
+    \item การประเมินผลการวัดและคำนวณอัตราการกินกระแสไฟฟ้าของโหนด
+    \item ความถูกต้องในการคำนวณและออกแบบระบบพลังงานแสงอาทิตย์ภาคสนาม
+\end{enumerate}
+\end{planbox}
+
+\clearpage
+
+% ------------------------------------------------------------
+% เนื้อหาบทที่ 4
+% ------------------------------------------------------------
+\section{สถาปัตยกรรมระบบบนชิป ESP32-C6 RISC-V}
+
+การเปิดตัวชิป \textbf{อีเอสพี 32 ซีหก (ESP32-C6)}\index{ESP32-C6@ESP32-C6} โดยบริษัท Espressif Systems ถือเป็นก้าวกระโดดสำคัญของวงการไอโอที เนื่องจากเป็นไมโครคอนโทรลเลอร์ที่รวมเอาความสามารถของคลื่นวิทยุ 2.4 GHz หลายโพรโทคอลไว้ในชิปเดี่ยว ประกอบด้วย Wi-Fi 6 (802.11ax), Bluetooth 5 (LE) และสำคัญที่สุดคือภาควิทยุ IEEE 802.15.4 ซึ่งรองรับทั้ง Zigbee 3.0 และ Thread
+
+\begin{protocolbox}[คุณสมบัติทางวิศวกรรมของ ESP32-C6]
+สเปกฮาร์ดแวร์หลักของชิป ESP32-C6
+\begin{enumerate}
+    \item \textbf{แกนประมวลผลหลัก} High-Performance 32-bit RISC-V Single-core ความถี่สัญญาณนาฬิกาสูงสุด 160 MHz\index{RISC-V@RISC-V}
+    \item \textbf{แกนประมวลผลพลังงานต่ำพิเศษ (Low-Power Core)} 32-bit RISC-V ความถี่ 20 MHz สำหรับควบคุมเซนเซอร์ในระหว่างสลีป
+    \item \textbf{หน่วยความจำ} 512 KB SRAM, 320 KB ROM และ 16 KB LP SRAM สำหรับเก็บข้อมูลสถานะขณะหลับ
+    \item \textbf{ภาควิทยุ 802.15.4} กำลังส่งสัญญาณสูงสุด $+21$ dBm และความไวในการรับสัญญาณ $-101$ dBm ให้ระยะการสื่อสารที่ไกลและเสถียร
+    \item \textbf{วงจรเข้ารหัสฮาร์ดแวร์} รองรับ AES-128/256, SHA, RSA, ECC และ Random Number Generator (RNG)
+\end{enumerate}
+\end{protocolbox}
+
+\section{การพัฒนาเฟิร์มแวร์ด้วย ESP-IDF Zigbee SDK}
+
+ชุดพัฒนา \textbf{อีเอสพี-ไอดีเอฟ (ESP-IDF)}\index{ESP-IDF@ESP-IDF} มีไลบรารีมาตรฐาน \texttt{esp-zigbee-lib} ซึ่งผ่านการรับรองตามมาตรฐาน Zigbee 3.0 การพัฒนาโหนดเซนเซอร์ ZED ทำได้โดยการลงทะเบียนอุปกรณ์เป็น Zigbee End Device และกำหนดเอนด์พอยต์ตามสเปก ZCL
+
+\begin{codebox}[ตัวอย่างโค้ดภาษา C สำหรับการส่งข้อมูลเซนเซอร์ผ่าน Zigbee Cluster Library]{c}
+#include "esp_zigbee_core.h"
+#include "esp_log.h"
+#include "driver/i2c.h"
+
+#define SENSOR_ENDPOINT 1
+#define TAG "ZIGBEE_NODE"
+
+void report_soil_telemetry(float moisture, float temp) {
+    // Convert temperature to ZCL Temperature Measurement format (0.01 C)
+    int16_t zcl_temp = (int16_t)(temp * 100);
+    
+    // Convert humidity to ZCL Relative Humidity format (0.01 %)
+    uint16_t zcl_humidity = (uint16_t)(moisture * 100);
+
+    // Update attribute values in ZCL Cluster
+    esp_zb_zcl_set_attribute_val(
+        SENSOR_ENDPOINT,
+        ESP_ZB_ZCL_CLUSTER_ID_TEMP_MEASUREMENT,
+        ESP_ZB_ZCL_CLUSTER_SERVER_ROLE,
+        ESP_ZB_ZCL_ATTR_TEMP_MEASUREMENT_VALUE_ID,
+        &zcl_temp,
+        false
+    );
+
+    esp_zb_zcl_set_attribute_val(
+        SENSOR_ENDPOINT,
+        ESP_ZB_ZCL_CLUSTER_ID_REL_HUMIDITY_MEASUREMENT,
+        ESP_ZB_ZCL_CLUSTER_SERVER_ROLE,
+        ESP_ZB_ZCL_ATTR_REL_HUMIDITY_MEASUREMENT_VALUE_ID,
+        &zcl_humidity,
+        false
+    );
+
+    // Send attribute report to Coordinator
+    esp_zb_zcl_report_attribute_cmd_t report_cmd;
+    report_cmd.cluster_id = ESP_ZB_ZCL_CLUSTER_ID_TEMP_MEASUREMENT;
+    report_cmd.attribute_id = ESP_ZB_ZCL_ATTR_TEMP_MEASUREMENT_VALUE_ID;
+    esp_zb_zcl_report_attribute_cmd_req(&report_cmd);
+    
+    ESP_LOGI(TAG, "Sent Telemetry: Temp=%.2f C, Moisture=%.2f %%", temp, moisture);
+}
+\end{codebox}
+
+\section{การสร้างโหนดเซนเซอร์ด้วย ESPHome Zigbee Framework}
+
+สำหรับผู้พัฒนาที่ต้องการความรวดเร็วในการสร้างโหนดโดยไม่ต้องเขียนภาษา C \textbf{อีเอสพีโฮม (ESPHome)}\index{ESPHome@ESPHome} รองรับการคอมไพล์เฟิร์มแวร์ Zigbee บนบอร์ด ESP32-C6 ได้โดยตรงผ่านการประกาศไฟล์ YAML
+
+\begin{codebox}[ESPHome YAML Configuration]{yaml}
+esphome:
+  name: farm-soil-node-c6
+  friendly_name: "Farm Soil Node C6"
+
+esp32:
+  board: esp32-c6-devkitc-1
+  framework:
+    type: esp-idf
+
+zigbee:
+  role: end_device
+  channel: 25
+  power_save_mode: deep_sleep
+
+i2c:
+  sda: GPIO21
+  scl: GPIO22
+  scan: true
+
+sensor:
+  - platform: sht3xd
+    temperature:
+      name: "Air Temperature"
+    humidity:
+      name: "Air Humidity"
+    address: 0x44
+    update_interval: 60s
+
+deep_sleep:
+  run_duration: 5s
+  sleep_duration: 300s # Sleep 5 minutes
+\end{codebox}
+
+\section{การคำนวณการใช้พลังงานและอายุการใช้งานแบตเตอรี่}
+
+ปัจจัยสำคัญที่สุดของโหนดเซนเซอร์ภาคสนามคือการบริหารพลังงาน \textbf{วงรอบการทำงาน (Duty Cycle)}\index{Duty Cycle@Duty Cycle (วงรอบการทำงาน)} การคำนวณการใช้กระแสไฟฟ้าเฉลี่ย $I_{\text{avg}}$ เกิดจากการถ่วงน้ำหนักเวลาระหว่างช่วงตื่นทำงาน ($t_{\text{active}}$) และช่วงหลับลึก ($t_{\text{sleep}}$)\index{Deep Sleep@Deep Sleep (โหมดหลับลึก)}
+
+\begin{equation}
+    I_{\text{avg}} = \frac{(I_{\text{active}} \times t_{\text{active}}) + (I_{\text{sleep}} \times t_{\text{sleep}})}{t_{\text{active}} + t_{\text{sleep}}}
+\end{equation}
+
+กำหนดให้
+\begin{itemize}
+    \item $I_{\text{active}} = 65\text{ mA}$ (กระแสขณะเปิดวิทยุ 802.15.4 อ่านค่าเซนเซอร์ และส่งข้อมูล)
+    \item $t_{\text{active}} = 0.5\text{ วินาที}$
+    \item $I_{\text{sleep}} = 5\ \mu\text{A} = 0.005\text{ mA}$ (กระแสขณะเข้าสู่โหมด Deep Sleep ของ ESP32-C6)
+    \item $t_{\text{sleep}} = 300\text{ วินาที}$ (ระยะเวลาหลับ 5 นาที)
+\end{itemize}
+
+แทนค่าในสมการ
+\begin{equation}
+    I_{\text{avg}} = \frac{(65 \times 0.5) + (0.005 \times 300)}{0.5 + 300} = \frac{32.5 + 1.5}{300.5} \approx 0.113\text{ mA}
+\end{equation}
+
+เมื่อใช้แบตเตอรี่ชนิด \textbf{ลิเธียมไอออนฟอสเฟต (LiFePO4)} ขนาดแรงดัน 3.2V ความจุ $C = 3200\text{ mAh}$ โดยคิดค่าประสิทธิภาพความปลอดภัยที่ร้อยละ 85 ($C_{\text{eff}} = 2720\text{ mAh}$) อายุการใช้งานของแบตเตอรี่โดยไม่ต้องชาร์จเลย ($T_{\text{life}}$) สามารถคำนวณได้ดังนี้
+\begin{equation}
+    T_{\text{life}} = \frac{2720\text{ mAh}}{0.113\text{ mA}} \approx 24,070\text{ ชั่วโมง} \approx 1,002\text{ วัน} \quad (\approx 2.75\text{ ปี})
+\end{equation}
+
+การนำแผงโซลาร์เซลล์ขนาดเล็กเพียง 5V 1W ร่วมกับไอซีจัดการพลังงาน TP4056 หรือ CN3791 ชาร์จเติมแบตเตอรี่ จะทำให้โหนดสามารถทำงานได้ตลอดอายุการใช้งานของเซนเซอร์โดยไม่ต้องเปลี่ยนแบตเตอรี่
+
+\clearpage
+
+% ------------------------------------------------------------
+% คำถามทบทวนท้ายบทที่ 4
+% ------------------------------------------------------------
+\section*{คำถามทบทวนท้ายบทที่ 4}
+\addcontentsline{toc}{section}{คำถามทบทวนท้ายบทที่ 4}
+
+\begin{enumerate}
+    \item จงอธิบายจุดเด่นของสถาปัตยกรรม RISC-V ในชิป ESP32-C6 เมื่อเปรียบเทียบกับสถาปัตยกรรม Tensilica Xtensa ใน ESP32 รุ่นดั้งเดิม
+    \item เหตุใดโหนดเซนเซอร์ที่ใช้แบตเตอรี่จึงต้องถูกกำหนดบทบาทเป็น Zigbee End Device (ZED) และห้ามกำหนดเป็น Zigbee Router (ZR)
+    \item จงแสดงวิธีการคำนวณอายุการใช้งานแบตเตอรี่ หากเปลี่ยนคาบเวลาการหลับ (Sleep Duration) จาก 5 นาที เป็น 15 นาที กระแสไฟฟ้าเฉลี่ยและอายุการใช้งานจะเปลี่ยนแปลงไปอย่างไร
+    \item ในการออกแบบวงจรจ่ายไฟสำหรับโหนดวัดดินที่มีเซนเซอร์ RS485 จงอธิบายเหตุผลว่าทำไมจึงต้องใช้วงจรทรานซิสเตอร์แบบ High-Side Switch ในการตัดไฟเลี้ยงเซนเซอร์ระหว่างการ Deep Sleep
+    \item จงอธิบายข้อดีและข้อจำกัดของการพัฒนาเฟิร์มแวร์ด้วย ESPHome เปรียบเทียบกับการเขียนโปรแกรมด้วย ESP-IDF ในโครงการติดตั้งระบบเซนเซอร์ 120 จุดในแปลงเกษตรจริง
+\end{enumerate}
+
+\clearpage

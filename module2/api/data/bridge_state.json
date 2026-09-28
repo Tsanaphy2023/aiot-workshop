@@ -1,0 +1,39 @@
+{
+    "device": "GoGo-IoT Sensor & Relay System",
+    "board_ip": "Sensor: 10.10.31.65 | Relay: 10.10.29.103",
+    "last_seen": 1790561553,
+    "last_seen_human": "ออนไลน์สด (วินาทีนี้)",
+    "board_online": true,
+    "telemetry": {
+        "temp": 28.5,
+        "humidity": 47.2999999999999971578290569595992565155029296875,
+        "pressure": 973.700000000000045474735088646411895751953125,
+        "light": 113,
+        "soil_tension": 40.2999999999999971578290569595992565155029296875,
+        "soil_vwc": 26.800000000000000710542735760100185871124267578125,
+        "vpd": 2.04999999999999982236431605997495353221893310546875,
+        "co2": 697,
+        "tank_pct": 82.5
+    },
+    "commands": {
+        "valve": 0,
+        "fan": 1,
+        "mist": 0,
+        "light": 0,
+        "alarm": 0
+    },
+    "modes": {
+        "valve": "auto",
+        "fan": "manual_on",
+        "mist": "manual_off",
+        "light": "auto",
+        "alarm": "auto"
+    },
+    "hardware_actuator_feedback": {
+        "valve": 0,
+        "fan": 0,
+        "mist": 0,
+        "light": 0,
+        "alarm": 0
+    }
+}

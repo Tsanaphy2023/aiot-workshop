@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IoT ในฟาร์มอัจฉริยะ</title>
+<meta name="description" content="ใบงานและไฟล์ทั้งหมดสำหรับการอบรม IoT ในฟาร์มอัจฉริยะ">
+<!--
+  The published site's front door. Hand-written, not generated: edit this file directly.
+
+  Design notes, so the next edit does not undo them:
+  - ONE decorative accent (--accent, field green). --warn and --danger are semantic
+    state only, never a section colour. The red/green/blue firmware swatches are the
+    documented exception: they encode the physical sticker on the board and the kit.
+  - Radius lock: --r-container 10px for cards and panels, --r-control 8px for buttons
+    and inputs, --r-pill only for pills. Nothing else.
+  - Elevation is hairline and ground-shift. No drop shadows.
+  - Type is self-hosted from fonts/. Do not add a fonts.googleapis.com link: the
+    workshop runs on venue WiFi and a webfont that fails to load takes the Thai
+    text with it.
+  - The palette mirrors docs/stylesheets/extra.css in intent, not in variable names;
+    the worksheet site still uses its own --ag-* tokens.
+-->
+<style>
+  /* Self-hosted Prompt + IBM Plex Mono, thai+latin subsets (SIL OFL).
+     The workshop runs on venue WiFi; a webfont that fails to load takes the
+     Thai text with it. Files in docs/fonts/, no external request. */
+  @font-face {
+    font-family: 'Prompt';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url(fonts/prompt-300-thai.woff2) format('woff2');
+    unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+  }
+
+  @font-face {
+    font-family: 'Prompt';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url(fonts/prompt-300-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+
+  @font-face {
+    font-family: 'Prompt';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(fonts/prompt-400-thai.woff2) format('woff2');
+    unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+  }
+
+  @font-face {
+    font-family: 'Prompt';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(fonts/prompt-400-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+
+  @font-face {
+    font-family: 'Prompt';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url(fonts/prompt-500-thai.woff2) format('woff2');
+    unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+  }
+
+  @font-face {
+    font-family: 'Prompt';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url(fonts/prompt-500-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+
+  @font-face {
+    font-family: 'Prompt';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url(fonts/prompt-600-thai.woff2) format('woff2');
+    unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+  }
+
+  @font-face {
+    font-family: 'Prompt';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url(fonts/prompt-600-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+
+  @font-face {
+    font-family: 'Prompt';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(fonts/prompt-700-thai.woff2) format('woff2');
+    unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+  }
+
+  @font-face {
+    font-family: 'Prompt';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(fonts/prompt-700-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+
+  @font-face {
+    font-family: 'IBM Plex Mono';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(fonts/ibm-plex-mono-400-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+
+  @font-face {
+    font-family: 'IBM Plex Mono';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url(fonts/ibm-plex-mono-600-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+
+
+
+/* ONE palette for the whole project. These --ag-* values are copied from
+   docs/stylesheets/extra.css and match docs/progress.html exactly: the front
+   door, the worksheet site and the instructor board are the same brand and
+   must not drift. The semantic aliases below are derived from them, never
+   set independently - change a colour here and change it in extra.css too. */
+:root {
+  --ag-green:       #2e7d32;
+  --ag-green-deep:  #1b5e20;
+  --ag-leaf:        #7cb342;
+  --ag-marigold:    #f5a524;
+  --ag-tomato:      #d84a2a;
+  --ag-ink:         #1e2a1f;
+  --bg:             #fafcf7;
+  --card:           #ffffff;
+  --muted:          #4b5a4d;
+  --lighter:        #637061;   /* extra.css ships #8a968b: 3.0:1. 5.06:1 on --bg,
+                                  4.74:1 on the sunk instructor band. */
+  --rule:           rgba(30, 42, 31, 0.12);
+
+  /* --- semantic aliases, all derived from the palette above ------------- */
+  --ground:        var(--bg);
+  --ground-sunk:   #f0f6ea;   /* extra.css --ag-panel */
+  --surface:       var(--card);
+  --ink:           var(--ag-ink);
+  --ink-muted:     var(--muted);
+  --ink-faint:     var(--lighter);
+  --hairline:      var(--rule);
+  --hairline-firm: rgba(30, 42, 31, 0.26);
+
+  /* the one decorative accent */
+  --accent:        var(--ag-green);
+  --accent-deep:   var(--ag-green-deep);
+  --accent-soft:   rgba(46, 125, 50, 0.09);
+  --on-accent:     #ffffff;
+
+  /* semantic state only, never a section colour */
+  --warn:          #a76a00;            /* marigold darkened to pass AA as text */
+  --warn-ground:   rgba(245, 165, 36, 0.10);
+  --danger:        var(--ag-tomato);
+  --danger-ground: rgba(216, 74, 42, 0.08);
+  --ok:            var(--ag-green);
+  /* focus ring is ink, same rule as progress.html: it must stay visible on
+     the green bar, on cards and on the marigold callout */
+  --focus:         var(--ag-ink);
+  /* --- radius lock ------------------------------------------------------ */
+  --r-container: 10px;
+  --r-control:    8px;
+  --r-swatch:     3px;
+  --r-pill:      999px;
+
+  /* --- type ------------------------------------------------------------- */
+  --font-sans: "Prompt", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+
+  /* Thai needs more leading than Latin: tone marks stack above the x-height. */
+  --lh-tight: 1.28;
+  --lh-body:  1.72;
+
+  /* --- spacing rhythm (VISUAL_DENSITY 4-5: this is a working document, not
+         an art gallery - people read it standing up with a screwdriver) ---- */
+  --gap-xs: .4rem;  --gap-sm: .7rem;  --gap-md: 1.1rem;
+  --gap-lg: 1.8rem; --gap-xl: 3rem;   --gap-2xl: 4.5rem;
+
+  --measure: 65ch;
+  --wrap: 76rem;   /* matches .ws-shell in the renders and .wrap on the board */
+
+  color-scheme: light;
+}
+
+/* --- dark. Same hierarchy, same accent identity, AA maintained. ---------- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ag-green:      #4a9e50;
+    --ag-green-deep: #7cb342;
+    --ag-ink:        #e6efe3;
+    --bg:            #14201a;
+    --card:          #1b2b22;
+    --muted:         #b7c7b5;
+    --lighter:       #8a9a8b;
+    --rule:          rgba(230, 239, 227, 0.16);
+
+    --ground-sunk:   #172219;   /* extra.css --ag-nav-bg */
+    --hairline-firm: rgba(230, 239, 227, 0.32);
+    --accent-soft:   rgba(124, 179, 66, 0.14);
+    --on-accent:     #10190f;
+
+    --warn:          #f5b84a;
+    --warn-ground:   rgba(245, 184, 74, 0.14);
+    --danger:        #ef7a5c;
+    --danger-ground: rgba(216, 74, 42, 0.16);
+    --focus:         #e6efe3;
+
+    color-scheme: dark;
+  }
+}
+
+/* ============================================================================
+   Shared primitives. Every preview page pulls from here so the three
+   surfaces cannot drift apart.
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 16px;
+  line-height: var(--lh-body);
+  text-rendering: optimizeLegibility;
+}
+
+.wrap { max-width: var(--wrap); margin-inline: auto; padding-inline: 20px; }
+
+h1, h2, h3 { font-weight: 600; line-height: var(--lh-tight); margin: 0; }
+
+a { color: var(--accent-deep); text-underline-offset: 2px; }
+
+code, kbd, .mono { font-family: var(--font-mono); font-size: .88em; }
+
+/* Section head: headline stacked over body, never the banned split-header
+   (big left headline + small floating right paragraph). */
+.sec { margin-top: var(--gap-2xl); }
+.sec > h2 { font-size: 1.35rem; letter-spacing: -0.01em; }
+.sec > .lede {
+  margin: var(--gap-xs) 0 var(--gap-md);
+  color: var(--ink-muted);
+  font-size: .96rem;
+  max-width: var(--measure);
+}
+
+/* Focus: one ring everywhere, visible on both grounds. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--r-control);
+}
+
+/* Tactile press (taste-skill 4.5). Collapses under reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .press { transition: transform .12s cubic-bezier(.16,1,.3,1), border-color .12s, background .12s; }
+  .press:active { transform: scale(.985); }
+}
+
+/* ---------- page ---------- */
+  /* ---------- site brand bar -------------------------------------------
+     Same chrome as docs/progress.html header.top and .ws-top in the
+     renders, so the three surfaces read as one site. Gradient kept here on
+     purpose: it is the established brand bar, not a hero background. */
+  .sitebar {
+    background: linear-gradient(135deg, var(--ag-green-deep), var(--ag-green) 60%, var(--ag-leaf));
+    color: #fff;
+    padding-block: 0.75rem;
+  }
+  .sitebar .wrap { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3rem 1.2rem; }
+  .sitebar .brand { font-weight: 600; font-size: 1.05rem; letter-spacing: 0.01em; }
+  .sitebar .course { font-size: 0.8rem; opacity: 0.9; letter-spacing: 0.04em; }
+  .sitebar a { color: #fff; text-decoration: none; }
+  .sitebar a:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+/* ---------- hero ---------------------------------------------------- */
+  .hero {
+    border-bottom: 1px solid var(--hairline);
+    background: var(--ground);
+  }
+  .hero__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: var(--gap-xl);
+    align-items: center;
+    padding-block: var(--gap-xl) var(--gap-xl);
+  }
+  .hero__kicker {
+    margin: 0 0 var(--gap-sm);
+    font-size: .78rem;
+    font-weight: 500;
+    letter-spacing: .04em;
+    color: var(--ink-faint);
+  }
+  .hero h1 {
+    font-size: clamp(1.9rem, 4.4vw, 3rem);
+    letter-spacing: -0.015em;
+    /* Thai tone marks need headroom; leading-none would clip them. */
+    line-height: 1.22;
+    margin-bottom: var(--gap-md);
+  }
+  .hero__sub {
+    margin: 0 0 var(--gap-lg);
+    max-width: 34ch;
+    color: var(--ink-muted);
+    font-size: 1.04rem;
+  }
+  .hero__cta { display: flex; flex-wrap: wrap; gap: var(--gap-sm); }
+
+  /* Belongs to the primary CTA, not to the page. It used to sit in its own
+     full-width band below the hero, where it read as an unrelated strip:
+     nothing tied "20 นาที / 2.6 GB" to เตรียมแล็ปท็อป. Indented under the
+     button row and tied by a rule, it is unmistakably that button's detail. */
+  .hero__meta {
+    margin: var(--gap-md) 0 0;
+    padding-left: .85rem;
+    border-left: 2px solid var(--accent);
+    color: var(--ink-muted);
+    font-size: .92rem;
+    line-height: 1.6;
+  }
+  .hero__meta b { font-weight: 500; color: var(--ink); }
+  .hero__meta .num { font-family: var(--font-mono); font-weight: 600; color: var(--ink); }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    /* one line at desktop, always: no wrapped CTAs */
+    white-space: nowrap;
+    min-height: 46px;
+    padding: 0 1.15rem;
+    border-radius: var(--r-control);
+    font-family: inherit;
+    font-size: .97rem;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1px solid transparent;
+  }
+  /* contrast: --on-accent on --accent = 7.4:1 light, 9.1:1 dark */
+  .btn--primary { background: var(--accent); color: var(--on-accent); }
+  .btn--primary:hover { background: var(--accent-deep); }
+  .btn--ghost {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--hairline-firm);
+  }
+  .btn--ghost:hover { background: var(--accent-soft); border-color: var(--accent); }
+
+  .hero__figure { margin: 0; }
+  .hero__figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 11;
+    object-fit: cover;
+    border-radius: var(--r-container);
+    border: 1px solid var(--hairline);
+  }
+  .hero__figure figcaption {
+    margin-top: var(--gap-sm);
+    color: var(--ink-faint);
+    font-size: .84rem;
+  }
+
+  /* ---------- session rail --------------------------------------------- */
+  .rail { border-top: 1px solid var(--hairline-firm); }
+  .rail__item {
+    display: grid;
+    grid-template-columns: 5.5rem minmax(0, 1fr) auto;
+    gap: var(--gap-md);
+    align-items: start;
+    padding-block: var(--gap-md);
+    border-bottom: 1px solid var(--hairline);
+    text-decoration: none;
+    color: inherit;
+  }
+  .rail__item:hover { background: var(--accent-soft); }
+  .rail__n {
+    font-family: var(--font-mono);
+    font-size: .8rem;
+    font-weight: 600;
+    color: var(--accent-deep);
+    padding-top: .25rem;
+    white-space: nowrap;
+  }
+  .rail__name { display: block; font-weight: 500; font-size: 1.1rem; line-height: 1.35; }
+  .rail__what {
+    display: block;
+    margin-top: .2rem;
+    color: var(--ink-muted);
+    font-size: .92rem;
+    max-width: var(--measure);
+  }
+  .rail__go {
+    align-self: center;
+    color: var(--ink-faint);
+    font-size: 1.1rem;
+    padding-top: .1rem;
+  }
+  .rail__item:hover .rail__go { color: var(--accent-deep); }
+
+  /* ---------- hairline list (different family from the rail) -----------
+     Same click indicator as .rail__item on purpose: a row that navigates
+     must look like it navigates. Without the chevron and the accent title
+     these read as static definition text. */
+  .rows { border-top: 1px solid var(--hairline-firm); }
+  .rows a {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: .15rem var(--gap-md);
+    align-items: baseline;
+    padding: var(--gap-sm) .6rem var(--gap-sm) 0;
+    min-height: 44px;
+    border-bottom: 1px solid var(--hairline);
+    text-decoration: none;
+    color: inherit;
+  }
+  .rows a:hover,
+  .rows a:focus-visible { background: var(--accent-soft); }
+  .rows b {
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--accent-deep);
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 3px;
+  }
+  .rows a:hover b,
+  .rows a:focus-visible b { text-decoration-color: currentColor; }
+  .rows span { color: var(--ink-muted); font-size: .92rem; }
+  .rows .go {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    align-self: center;
+    color: var(--ink-faint);
+    font-size: 1.1rem;
+  }
+  .rows a:hover .go,
+  .rows a:focus-visible .go { color: var(--accent-deep); }
+
+  /* ---------- caution callout: the one legitimate use of --warn -------- */
+  .callout {
+    margin-top: var(--gap-xl);
+    padding: var(--gap-md) var(--gap-md) var(--gap-md) 1.2rem;
+    background: var(--warn-ground);
+    border: 1px solid var(--hairline);
+    border-left: 3px solid var(--warn);
+    border-radius: var(--r-container);
+    font-size: .95rem;
+  }
+  .callout h3 {
+    margin: 0 0 .3rem;
+    font-size: .95rem;
+    font-weight: 600;
+    color: var(--warn);
+  }
+  .callout p { margin: 0; max-width: var(--measure); }
+  .callout b { font-weight: 500; }
+
+  /* ---------- instructor band: ground shift, not a third hue ----------- */
+  .staff {
+    margin-top: var(--gap-2xl);
+    padding-block: var(--gap-xl) var(--gap-lg);
+    background: var(--ground-sunk);
+    border-top: 1px solid var(--hairline-firm);
+    border-bottom: 1px solid var(--hairline-firm);
+  }
+  .staff .sec { margin-top: 0; }
+  .staff .sec + .sec { margin-top: var(--gap-xl); }
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--gap-sm);
+  }
+  .cards a {
+    display: block;
+    padding: var(--gap-md);
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--r-container);
+    text-decoration: none;
+    color: inherit;
+  }
+  .cards a:hover { border-color: var(--accent); }
+  .cards b { display: block; font-weight: 500; font-size: 1rem; margin-bottom: .2rem; }
+  .cards span { color: var(--ink-muted); font-size: .89rem; line-height: 1.55; }
+  .cards em { font-family: var(--font-mono); font-style: normal; font-size: .85em; }
+
+  /* ---------- firmware table ------------------------------------------- */
+  .tablewrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+  th, td {
+    text-align: left;
+    padding: .6rem .8rem .6rem 0;
+    border-bottom: 1px solid var(--hairline);
+    vertical-align: top;
+  }
+  th {
+    font-size: .76rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+  td:first-child { color: var(--ink); padding-right: var(--gap-md); }
+  td a { font-family: var(--font-mono); font-size: .85rem; }
+  /* Zone swatch. Semantic, not decorative: this colour is physically on the
+     board, the kit box and the team card, and mismatching it flashes the
+     wrong firmware. Paired with the text label so it never relies on hue. */
+  .zone { display: inline-flex; align-items: center; gap: .4rem; }
+  .zone::before {
+    content: "";
+    width: .6rem; height: .6rem;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--hairline-firm);
+    background: var(--zone);
+  }
+  .z-red   { --zone: #c0392b; }
+  .z-green { --zone: #2c6e33; }
+  .z-blue  { --zone: #2b6ca3; }
+  /* Lifted on dark: the kit colours are dark pigments and vanish against a
+     dark ground. Hue identity is preserved, luminance is not. */
+  @media (prefers-color-scheme: dark) {
+    .z-red   { --zone: #e2705c; }
+    .z-green { --zone: #74b95c; }
+    .z-blue  { --zone: #64a9dd; }
+  }
+
+  footer.foot {
+    padding-block: var(--gap-lg) var(--gap-xl);
+    color: var(--ink-faint);
+    font-size: .86rem;
+  }
+  footer.foot p { margin: 0; max-width: var(--measure); }
+
+
+  @media (prefers-reduced-motion: no-preference) {
+    .btn, .cards a, .rail__item, .rows a { transition: background .13s ease, border-color .13s ease, color .13s ease; }
+    .btn:active { transform: scale(.985); }
+  }
+
+  /* ---------- explicit mobile collapse --------------------------------- */
+  @media (max-width: 900px) {
+    .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 767px) {
+    .hero__inner {
+      grid-template-columns: 1fr;
+      gap: var(--gap-lg);
+      padding-block: var(--gap-lg);
+    }
+    /* photo first on mobile: it says what this is faster than the headline */
+    .hero__figure { order: -1; }
+    .hero__sub { max-width: none; }
+    .btn { flex: 1 1 auto; justify-content: center; }
+    .rail__item { grid-template-columns: 3.6rem minmax(0, 1fr); }
+    /* the chevron stays on phones: that is where the affordance matters most */
+    .cards { grid-template-columns: 1fr; }
+    th, td { padding-right: .6rem; }
+  }
+</style>
+</head>
+<body>
+<header class="sitebar">
+  <div class="wrap">
+    <span class="brand">IoT ในฟาร์มอัจฉริยะ</span>
+    <span class="course">หลักสูตรนวัตกรเกษตรอัจฉริยะ AIoT สำหรับเกษตรแม่นยำ</span>
+  </div>
+</header>
+
+<header class="hero">
+  <div class="wrap hero__inner">
+    <div>
+      <h1>IoT ในฟาร์มอัจฉริยะ</h1>
+      <p class="hero__sub">ใบงานและไฟล์ทั้งหมดสำหรับการอบรมสี่ช่วง เปิดได้ทั้งบนโทรศัพท์และแล็ปท็อป</p>
+      <div class="hero__cta">
+        <a class="btn btn--primary press" href="renders/install.html">เตรียมแล็ปท็อป</a>
+        <a class="btn btn--ghost press" href="renders/resources.html">รวมไฟล์และลิงก์</a>
+      </div>
+      <p class="hero__meta">
+        <b>ทำที่บ้านให้เสร็จก่อนวันอบรม</b><br>
+        ใช้เวลาราว <span class="num">20</span> นาที ไม่รวมเวลาดาวน์โหลด
+        ไฟล์ขนาดประมาณ <span class="num">2.6 GB</span>
+      </p>
+    </div>
+    <figure class="hero__figure">
+      <img src="images/session2-relay-led-wiring.jpg"
+           alt="ชุดอุปกรณ์ของการอบรม: โซลาร์ชาร์จคอนโทรลเลอร์แสดง 12.0V ต่อกับบอร์ดรีเลย์และหลอด LED">
+      <figcaption>ชุดอุปกรณ์ที่ใช้จริงในห้องอบรม</figcaption>
+    </figure>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="sec">
+    <h2>ใบงานระหว่างการอบรม</h2>
+    <p class="lede">แต่ละช่วงต่อยอดจากช่วงก่อนหน้า และใช้ชุดอุปกรณ์ชุดเดิมตลอด</p>
+    <div class="rail">
+      <a class="rail__item" href="renders/session-1-start.html">
+        <span class="rail__n">ช่วงที่ 1</span>
+        <span>
+          <span class="rail__name">รับรู้ ตัดสินใจ สั่งการ</span>
+          <span class="rail__what">อ่านค่าเซนเซอร์บนแดชบอร์ด ต่อวงจร 12V และสั่งปั๊มน้ำจากแล็ปท็อปและโทรศัพท์</span>
+        </span>
+        <span class="rail__go" aria-hidden="true">›</span>
+      </a>
+      <a class="rail__item" href="renders/activity-4.html">
+        <span class="rail__n">ช่วงที่ 2</span>
+        <span>
+          <span class="rail__name">ควบคุมอัตโนมัติและ Fail-safe</span>
+          <span class="rail__what">เปิดไฟเองเมื่อมืดโดยไม่กะพริบ รดน้ำเองเมื่ออากาศแห้ง และหยุดเองเมื่อน้ำหมด</span>
+        </span>
+        <span class="rail__go" aria-hidden="true">›</span>
+      </a>
+      <a class="rail__item" href="renders/activity-6.html">
+        <span class="rail__n">ช่วงที่ 3</span>
+        <span>
+          <span class="rail__name">แดชบอร์ดและออกแบบระบบ</span>
+          <span class="rail__what">อ่านกราฟย้อนหลัง สร้างแดชบอร์ดสำหรับผู้ใช้จริง และร่างระบบของฟาร์มเราเอง</span>
+        </span>
+        <span class="rail__go" aria-hidden="true">›</span>
+      </a>
+      <a class="rail__item" href="renders/activity-9.html">
+        <span class="rail__n">ช่วงที่ 4</span>
+        <span>
+          <span class="rail__name">ขยายระบบไปแปลงที่ WiFi ไม่ถึง</span>
+          <span class="rail__what">บอร์ดที่แปลงส่งค่าด้วย ESP-NOW บอร์ดตัวรับที่บ้านเปิดดูด้วย IP แล้วขึ้นแดชบอร์ด Home Assistant</span>
+        </span>
+        <span class="rail__go" aria-hidden="true">›</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>ใช้ระหว่างทำกิจกรรม</h2>
+    <div class="rows">
+      <a href="renders/reference.html">
+        <b>เมนูและวิธีแก้ปัญหา</b>
+        <span>เมนู Home Assistant ที่ใช้บ่อย และอาการที่เจอบ่อยพร้อมวิธีแก้</span>
+        <span class="go" aria-hidden="true">›</span>
+      </a>
+      <a href="renders/record-sheet.html">
+        <b>ใบบันทึกของกลุ่ม</b>
+        <span>รวมคำตอบทุกช่องและแบบร่างระบบ พิมพ์ไว้ล่วงหน้า หรือกรอกบนเว็บแล้วดาวน์โหลด</span>
+        <span class="go" aria-hidden="true">›</span>
+      </a>
+    </div>
+
+    <div class="callout">
+      <h3>ก่อนจบการอบรม</h3>
+      <p>ให้ผู้บันทึกเปิดใบบันทึกของกลุ่ม แล้วเลือก <b>เครื่องมือ → ดาวน์โหลดคำตอบ (ไฟล์ JSON)</b>
+        ส่งไฟล์ผ่านช่องทางที่ผู้สอนแจ้ง และตรวจว่าผู้สอนได้รับไฟล์ของกลุ่มแล้ว จากนั้นเก็บไฟล์ไว้ในเครื่อง
+        และเลือก <b>พิมพ์ / บันทึก PDF</b> ไว้อ้างอิง แดชบอร์ดของผู้สอนรับเฉพาะความคืบหน้า ไม่ได้รับคำตอบที่กรอก</p>
+    </div>
+  </section>
+
+</main>
+
+<div class="staff">
+  <div class="wrap">
+    <section class="sec">
+      <h2>For instructors and TAs</h2>
+      <p class="lede">Not needed by participants. Everything required to prepare for and run the workshop.</p>
+      <div class="cards">
+        <a class="press" href="instructor-resources.html">
+          <b>Instructor &amp; TA resources</b>
+          <span>Firmware downloads, the VM image, worksheets, kit prep, and what is still missing</span>
+        </a>
+        <a class="press" href="progress.html">
+          <b>กระดานความคืบหน้าของกลุ่ม</b>
+          <span>Which activity every team is on, ticks per step, help requests and messages, live during the workshop. Open it on every TA phone; no login</span>
+        </a>
+        <a class="press" href="network-setup.html">
+          <b>Network setup</b>
+          <span>The current design: three Flint routers we configure ourselves plus NT's internet WiFi, with the ask for NT, the router checklist and the acceptance test</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="sec">
+      <h2>Board firmware</h2>
+      <p class="lede">Flash at <a href="https://web.esphome.io">web.esphome.io</a> over USB-C, in Chrome or Edge.
+        The colour on the board must match the colour on the kit and on the team card.</p>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Board</th>
+              <th><span class="zone z-red">Red zone</span></th>
+              <th><span class="zone z-green">Green zone</span></th>
+              <th><span class="zone z-blue">Blue zone</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>GoGo-IoT sensor (ESP32-C3)</td>
+              <td><a href="firmware/gogo-iot-red.factory.bin">gogo-iot-red</a></td>
+              <td><a href="firmware/gogo-iot-green.factory.bin">gogo-iot-green</a></td>
+              <td><a href="firmware/gogo-iot-blue.factory.bin">gogo-iot-blue</a></td>
+            </tr>
+            <tr>
+              <td>Relay board (ESP32-C6)</td>
+              <td><a href="firmware/gogo-relay-red.factory.bin">gogo-relay-red</a></td>
+              <td><a href="firmware/gogo-relay-green.factory.bin">gogo-relay-green</a></td>
+              <td><a href="firmware/gogo-relay-blue.factory.bin">gogo-relay-blue</a></td>
+            </tr>
+            <tr>
+              <td>GoGo-IoT sensor with ESP-NOW, Session 4 (same board, flashed by the team in Activity 9)</td>
+              <td><a href="firmware/gogo-iot-espnow-red.factory.bin">gogo-iot-espnow-red</a></td>
+              <td><a href="firmware/gogo-iot-espnow-green.factory.bin">gogo-iot-espnow-green</a></td>
+              <td><a href="firmware/gogo-iot-espnow-blue.factory.bin">gogo-iot-espnow-blue</a></td>
+            </tr>
+            <tr>
+              <td>Receiver, Session 4 (plain ESP32-C3)</td>
+              <td><a href="firmware/farm-receiver-red.factory.bin">farm-receiver-red</a></td>
+              <td><a href="firmware/farm-receiver-green.factory.bin">farm-receiver-green</a></td>
+              <td><a href="firmware/farm-receiver-blue.factory.bin">farm-receiver-blue</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</div>
+
+<footer class="foot wrap">
+  <p>IoT ในฟาร์มอัจฉริยะ · เอกสารชุดนี้สร้างจากคลัง <code>iot-training</code>
+    แก้ไขที่ไฟล์ต้นทางแล้วสร้างใหม่ ไม่แก้ที่ไฟล์ HTML</p>
+</footer>
+</body>
+</html>

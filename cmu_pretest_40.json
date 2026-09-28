@@ -1,0 +1,1391 @@
+{
+  "status": 200,
+  "data": {
+    "questions": [
+      {
+        "id": "3f198bc7e8d4aa3d33bdecf243208368",
+        "exam_name_th": "ตามสมการทางพันธุกรรม P=G+E+(G×E) ตัวแปร G×E หมายถึงอะไร?",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "1",
+        "exam_choice": [
+          {
+            "id": "2b7b251ea45129000064c0491e75d07d",
+            "choice_name_th": "ปฏิสัมพันธ์ระหว่างพันธุกรรมกับสิ่งแวดล้อม",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "85959d45ed70f18d895e918f5e973c25",
+            "choice_name_th": "ผลรวมของคุณภาพอาหารและน้ำ",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "10563e401f8abe89757e6d55003ddab2",
+            "choice_name_th": "การเติบโตของจีโนไทป์ในอุดมคติ",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "acda0ed02fba4df5f4227328058e98ba",
+            "choice_name_th": "การกลายพันธุ์ของลักษณะที่ปรากฏ",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "1c56de38eb64c027d244ad714ab78c81",
+        "exam_name_th": "อุปกรณ์ชนิดใดทำหน้าที่วัดปริมาณรังสีดวงอาทิตย์หรือความเข้มแสงที่พืชได้รับ",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "2",
+        "exam_choice": [
+          {
+            "id": "0a5164c390a1aba9a963a94849fa67a9",
+            "choice_name_th": "Pyranometer",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "1bb3f329230f2d7a350d7ca830d9ecd0",
+            "choice_name_th": "Hygrometer",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "60988c23a84c3bd57d471cfc4b422272",
+            "choice_name_th": "Anemometer",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "746367d8139383e2aa564e4bb36eb12f",
+            "choice_name_th": "Anemometry",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "ff3158acc825ffc4c153d11c437b0e67",
+        "exam_name_th": "ข้อใดคือข้อดีเด่นของเครื่องวัดความเร็วลมแบบคลื่นเสียงอัลตราโซนิก (Ultrasonic Anemometer) เมื่อเทียบกับแบบถ้วยหมุน?",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "3",
+        "exam_choice": [
+          {
+            "id": "e7890a92433034254ddb28c750b9d93c",
+            "choice_name_th": "สามารถวัดความเร็วลมได้แม่นยำโดยเฉพาะในช่วงลมแรงจัด",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "8ef06d3c7506f4b2e5acec46e742e071",
+            "choice_name_th": "ไม่ต้องใช้พลังงานไฟฟ้าในการทำงาน",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "90ada025cb5fd222231fe34e954e7a22",
+            "choice_name_th": "มีราคาถูกกว่าและติดตั้งได้ง่ายกว่ามาก",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "1dbd4350968458a93516b386dd34b8ef",
+            "choice_name_th": "ไม่มีชิ้นส่วนที่เคลื่อนที่ทำให้ลดปัญหาการสึกหรอ",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "f705ae587f032a0391b83aff2bff78a9",
+        "exam_name_th": "ความชื้นสัมพัทธ์ในอากาศ มีความสัมพันธ์อย่างใกล้ชิดกับค่าใดที่ใช้ควบคุมการคายน้ำของพืช",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "4",
+        "exam_choice": [
+          {
+            "id": "cc68765102bc3466fb7aaa586965897a",
+            "choice_name_th": "ความจุในการแลกเปลี่ยนประจุบวก (CEC)",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "02ae23f1281a937065f670cdd582e543",
+            "choice_name_th": "ค่าการนำไฟฟ้า (EC)",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "1af7cabc58b2ee25e77a9f9db152fd3f",
+            "choice_name_th": "ค่าความเป็นกรด-ด่าง (pH)",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "0b5bc96a881abceec74dc1d3b9031590",
+            "choice_name_th": "ค่าแรงดึงระเหยน้ำของอากาศ (VPD)",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "d436cff82f5292cd7e019376147610e7",
+        "exam_name_th": "ก๊าซชนิดใดที่มีความสำคัญอย่างยิ่งต่อกระบวนการ \"หายใจ\" ของรากพืชและจุลินทรีย์ในดิน",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "5",
+        "exam_choice": [
+          {
+            "id": "4c6ff678302d216f1ebf47912cd61dea",
+            "choice_name_th": "ก๊าซมีเทน ",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "621e14c06c0a3064c4c189647eb2cb82",
+            "choice_name_th": "ก๊าซคาร์บอนไดออกไซด์",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "f0574e24a7b5095ffe0b63a5e70bcbee",
+            "choice_name_th": " ก๊าซไนโตรเจน",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "ecf8b2f58dccd6b3d4b5856237e7b609",
+            "choice_name_th": "ก๊าซออกซิเจน ",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "482e9aa0013f9ce3e4ee7e3d74f463c2",
+        "exam_name_th": "เหตุใด​ฟาร์ม​ขนาดใหญ่​ใน​ปัจจุบัน​จึง​จำเป็นต้อง​ใช้​ระบบ​ให้น้ำ​และ​ระบบ​ควบคุม​อัตโนมัติ",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "6",
+        "exam_choice": [
+          {
+            "id": "594bd4ef1720c9b2ab8d158843ad4d9a",
+            "choice_name_th": "พื้นที่​แปลง​กว้าง ต้อง​ดูแล​ต่อเนื่อง​ตลอด 24 ชั่วโมง และ​พืช​บาง​ชนิด​อ่อนไหว​ต่อ​การ​ขาด​น้ำ",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "a2cfd097b66c696cfdbaf4613db65e3d",
+            "choice_name_th": "กฎหมาย​กำหนดให้​ฟาร์ม​ทุกแห่ง​ต้อง​ติดตั้ง​ระบบ​อัตโนมัติ",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "01b1b453ad37d3ce5122d92f9399c3ee",
+            "choice_name_th": "ระบบ​อัตโนมัติ​ทำให้​ผลผลิต​มี​ราคาขาย​สูง​ขึ้น​โดยอัตโนมัติ",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "ed66d800d84d37f694f0af7e00226b8f",
+            "choice_name_th": "แรงงาน​คน​ไม่​สามารถ​เปิด-ปิด​วาล์ว​น้ำ​ได้",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "497b4fded252fca4bed04b6bf74cfcd4",
+        "exam_name_th": "ใน​สูตร​คำนวณ​อัตรา​การ​ไหล Q = (A × ETc) / (T × Eff) ค่า ETc หมายถึง​อะไร",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "7",
+        "exam_choice": [
+          {
+            "id": "ab6a619a8a13653ea7f241965b955ae7",
+            "choice_name_th": "พื้นที่เพาะปลูก​ทั้งหมด",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "45ac969802fa9c33d6ddded1412ff01a",
+            "choice_name_th": "อัตรา​การคายน้ำ​ของ​พืช หน่วย​เป็น​มิลลิเมตร​ต่อ​วัน",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "4118fff524ec4dce3d8660040c180636",
+            "choice_name_th": "ประสิทธิภาพ​ของ​หัว​จ่าย​น้ำ",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "b7b9e848dffd119969e1b9340cb681fb",
+            "choice_name_th": "ระยะเวลา​การ​ให้น้ำ​ใน​แต่ละวัน",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "d2183991f4ca70062fba8f93dc897f4a",
+        "exam_name_th": "ความเร็ว​ของ​น้ำ​ใน​ท่อ​เมน​และ​ท่อ​ย่อย​ที่​เหมาะสม ควร​อยู่​ใน​ช่วง​ใด",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "8",
+        "exam_choice": [
+          {
+            "id": "c8708a529e78ca399a66755787a79054",
+            "choice_name_th": "0.1 – 0.5 เมตร​ต่อ​วินาที",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "4b0e2db8217a1120fb6b190645238514",
+            "choice_name_th": "1.0 – 2.0 เมตร​ต่อ​วินาที",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "2e1290fb87faddc9a4e4745ced423581",
+            "choice_name_th": "2.5 – 3.5 เมตร​ต่อ​วินาที",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "14ca8eb9a2b113a364e122b099750b2e",
+            "choice_name_th": "4.0 – 5.0 เมตร​ต่อ​วินาที",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "6a13bb641f19d3e6dcdb30f66a2871a9",
+        "exam_name_th": "หาก​ออกแบบ​ท่อ​เล็ก​เกินไป​จน​น้ำ​ไหล​เร็ว​กว่า 2.5 เมตร​ต่อ​วินาที จะ​เกิดผล​อย่างไร",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "9",
+        "exam_choice": [
+          {
+            "id": "a61de05a61e5a2b5e9a2e026ac64a1cb",
+            "choice_name_th": "ประหยัด​ค่า​ท่อ​โดย​ไม่​มี​ผลเสีย​ต่อ​ระบบ",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "e7a8619942915bd35a4d3e6946652b76",
+            "choice_name_th": "แรงดัน​ที่​ปลายทาง​เพิ่ม​สูง​ขึ้น",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "7e661bbc4be6806b63c52f0fc377d3dd",
+            "choice_name_th": "เกิด​แรงดัน​ค้อน (Water Hammer) และ​ความต้านทาน​การ​ไหล​สูง​ขึ้น",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "1e1668473779c6a518e02244837a5e7b",
+            "choice_name_th": "ปั๊ม​น้ำ​จะ​ทำงาน​ที่​จุด BEP พอดี",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "c5c7968db91c21577d8af5d97f6d2117",
+        "exam_name_th": "เฮด​รวม​ของ​ระบบ (Total Dynamic Head: TDH) ประกอบด้วย​องค์ประกอบ​ใด​บ้าง",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "10",
+        "exam_choice": [
+          {
+            "id": "78c8e7398787d2117faae9100b7f9d0a",
+            "choice_name_th": "ความสูง​ฝั่ง​ดูด + ความสูง​ฝั่ง​จ่าย + แรงดัน​สูญเสีย​ใน​ท่อ + แรงดัน​ใช้งาน​ของ​หัว​จ่าย",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "1c86e1d4ec8db77fbc1e962af1a38252",
+            "choice_name_th": "ความสูง​ฝั่ง​ดูด + ความสูง​ฝั่ง​จ่าย เท่านั้น",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "470eae937cdb299401cdecb2c7224121",
+            "choice_name_th": "แรงดัน​สูญเสีย​ใน​ท่อ + กำลัง​มอเตอร์",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "f00a8107ac46e4dae9fab8e383122270",
+            "choice_name_th": "อัตรา​การ​ไหล + ความเร็ว​น้ำ​ใน​ท่อ",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "46d1440130d5af56a3b738b64cabc69e",
+        "exam_name_th": "สายไฟ​ชนิด​ใด​เหมาะสำหรับ​ร้อย​ท่อ​ฝังดิน​เดิน​ไป​ยัง​ปั๊ม​น้ำ​ใน​สวน",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "11",
+        "exam_choice": [
+          {
+            "id": "8d15783a71da13a31281dd16ddaafbe6",
+            "choice_name_th": "สาย THW เพราะ​ราคา​ถูก​ที่สุด",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "e880742986912090a8665d6f5d582415",
+            "choice_name_th": "สาย NYY เพราะ​มี​ฉนวน​หลาย​ชั้น ทน​ความชื้น​และ​ฝังดิน​ได้",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "1e81efd096ea0a455205ad83e7b22b5f",
+            "choice_name_th": "สาย​ลำโพง​สอง​แกน เพราะ​อ่อนตัว​และ​เดิน​ง่าย",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "5b7505558eccf9eee2f27865257e0953",
+            "choice_name_th": "วางแผง​ราบ​กับ​พื้น​เสมอ​เพื่อ​รับ​แสง​รอบ​ทิศ",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "6a73a97e0b79c794f997d142370a86b7",
+        "exam_name_th": "การ​ติดตั้ง​แผง​โซลาร์​ในประเทศ​ไทย ควร​วางแผง​อย่างไร",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "12",
+        "exam_choice": [
+          {
+            "id": "f91a54d816166d964a6788321fef7624",
+            "choice_name_th": "หัน​แผง​ไป​ทาง​ทิศเหนือ เอียง 45 องศา",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "d6042e7fe79390a86acbb78c70043544",
+            "choice_name_th": "หัน​แผง​ไป​ทางทิศใต้ เอียง 15 องศา",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "5ea9cf214772167c3a2cd2ec48e87f50",
+            "choice_name_th": " หัน​แผง​ไป​ทาง​ทิศตะวันตก เอียง 30 องศา",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "d81bfd7014e3cdac319cea87acc0b621",
+            "choice_name_th": "วางแผง​ราบ​กับ​พื้น​เสมอ​เพื่อ​รับ​แสง​รอบ​ทิศ",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "933609045da667168f110964a54d5f9d",
+        "exam_name_th": "แผง​ชนิด Polycrystalline มี​ข้อได้เปรียบ​ใด​เมื่อ​เทียบ​กับ Monocrystalline",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "13",
+        "exam_choice": [
+          {
+            "id": "d142c8bc0c6b63d26de7777939844d12",
+            "choice_name_th": "มีประสิทธิภาพ​สูง​กว่า​ใน​ทุก​สภาพ​แสง",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "21a5fa1b7985a465d4d72871cdfecbd5",
+            "choice_name_th": "ให้​แรงดัน​ขาออก​สูง​กว่า​มาก",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "7a80d15d1fbbfb77a472aa0e4b4b6e44",
+            "choice_name_th": "มีราคา​ถูก​กว่า",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "7f54dc385e070744ccf986316bd9726e",
+            "choice_name_th": "ไม่​จำเป็นต้อง​ใช้​อุปกรณ์ควบคุม​การ​ชาร์จ",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "308ff3834878043b502503d4788f7ccd",
+        "exam_name_th": "ปุ่ม​ปรับ CV (Constant Voltage) บน​บอร์ด XL4015 ใช้​ตั้งค่า​อะไร",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "14",
+        "exam_choice": [
+          {
+            "id": "aeae9d2b9087ed709dd747b89e88dcce",
+            "choice_name_th": "แรงดัน​ไฟฟ้า​สูงสุด​ที่​จ่าย​ออก​ไป​ชาร์จ​แบตเตอรี่",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "22f95114f0b8b2de19a5f577c67297d1",
+            "choice_name_th": "กระแส​ชาร์จ​สูงสุด​ที่​ไหล​เข้า​แบตเตอรี่",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "2d2b422b621fb5bc3fc3cb2a93dac0d2",
+            "choice_name_th": "แรงดัน​ใช้งาน​ของ​แผง​โซลาร์",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "6409707896611d8b98721b1cd9ff03f8",
+            "choice_name_th": "อุณหภูมิ​ที่​บอร์ด​จะ​ตัด​การทำงาน",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "8647387d5845c6809cf812ffbdfca564",
+        "exam_name_th": "ปุ่ม​ปรับ CC (Constant Current) ทำหน้าที่​ใด",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "15",
+        "exam_choice": [
+          {
+            "id": "da354e795c230baee44761fac8c14c5a",
+            "choice_name_th": "ตั้ง​แรงดัน​ขาออก​ให้​คงที่",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "502ac36350f0179fbbd98b9640d69838",
+            "choice_name_th": "จำกัด​กระแส​ชาร์จ​สูงสุด เพื่อ​ไม่​ให้​แบตเตอรี่​เสียหาย​หรือ BMS ตัด​การทำงาน",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "dba57478ecaeb1300352266f69605a2b",
+            "choice_name_th": "เลือก​ชนิด​ของ​แบตเตอรี่​ที่​ใช้งาน",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "d0f4840743705e9a684a8420fbac9dcb",
+            "choice_name_th": "ปรับ​ความสว่าง​ของ​ไฟ LED บน​บอร์ด",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "3c0c5cd0cf311d81bab912fad362b8e7",
+        "exam_name_th": "LoRa ถูก​ออกแบบ​มา​เพื่อ​รอง​รับงาน​ประเภท​ใด",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "16",
+        "exam_choice": [
+          {
+            "id": "65329d99e2bd57cf6d3662a7b33e3a36",
+            "choice_name_th": "งาน Telemetry คือ​ส่ง​ค่า​ที่วัด​ได้​จาก​เซนเซอร์​เป็นครั้งคราว",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "7e9978df7f8f50474772e99d7220fb0a",
+            "choice_name_th": "การ​สตรีม​ข้อมูล​อย่าง​ต่อเนื่อง​ตลอดเวลา",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "46ef3ea0ad011583c2f4e2bc8e8307b7",
+            "choice_name_th": "การ​ใช้​แทน Wi-Fi ภายใน​อาคาร​ทั้งหมด",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "ed6748bacae902a4d267f1aa19c8882a",
+            "choice_name_th": "การ​โอน​ไฟล์​ขนาดใหญ่​ระหว่าง​เครื่องคอมพิวเตอร์",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "61b45a4ea17de7f397a6c3fb36b43279",
+        "exam_name_th": "ขนาด​ข้อมูล (Payload) ที่ LoRa ส่ง​ได้​ใน​แต่ละ​แพ็ก​เก​ต​โดยทั่วไป​อยู่​ใน​ระดับ​ใด",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "17",
+        "exam_choice": [
+          {
+            "id": "ee52274c282e696eb1d3ba9ce9c1537a",
+            "choice_name_th": "ระดับ​หลัก​สิบ​ไบต์",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "26f8fa884f4acf76acd93d1e496a20ed",
+            "choice_name_th": "ระดับ​หลัก​สิบ​กิโลไบต์",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "5d95d988ad290b728d129d95e85c7d4c",
+            "choice_name_th": "ระดับ​หลัก​เมกะ​ไบต์",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "b1b3bd477aef4cd991ea2d15a0736a04",
+            "choice_name_th": "ไม่​จำกัด​ขนาด ขึ้นกับ​สายอากาศ",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "b35f3498aca02fe9489cf6f17e151552",
+        "exam_name_th": "ข้อกำหนด Duty Cycle ตามกฎหมาย​ไทย​สำหรับ​การ​ส่งสัญญาณ LoRa อยู่​ที่​เท่าใด",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "18",
+        "exam_choice": [
+          {
+            "id": "e6f1b43b9610081f8e282708167d0ab6",
+            "choice_name_th": "1 เปอร์เซ็นต์",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "cfa951de2a0c8160df2f872e731c8de9",
+            "choice_name_th": "10 เปอร์เซ็นต์",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "7c3443b3f57eb493d46e7caffede265d",
+            "choice_name_th": "50 เปอร์เซ็นต์",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "4456bab3d9c4390dcaefbef54e473629",
+            "choice_name_th": "ไม่​มี​ข้อกำหนด ส่ง​ต่อเนื่อง​ได้",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "0d1f9e6b75abb717c48d9d68ab24317b",
+        "exam_name_th": "ข้อ​ใด​อธิบาย​ความแตกต่าง​ระหว่าง LoRaWAN กับ Custom LoRa ได้​ถูกต้อง",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "19",
+        "exam_choice": [
+          {
+            "id": "13637190676ec0351a8421fa6b0ffd50",
+            "choice_name_th": "LoRaWAN ส่ง​ข้อมูล​ได้​ไกล​กว่า Custom LoRa เสมอ",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "8b81e7cde3f14f0060aebaca6cd8546b",
+            "choice_name_th": "Custom LoRa ต้อง​เสีย​ค่าบริการ​เครือข่าย​รายเดือน",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "ef4c1c52725f731640acf1430fde39c0",
+            "choice_name_th": " LoRaWAN ใช้ Gateway และ Network Server บน​คลาวด์ ส่วน Custom LoRa ควบคุม​คลื่นวิทยุ​โดยตรง​โดย​ไม่ต้อง​พึ่ง​คลาวด์",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "61c008357d50a4cad8662ad1b381de97",
+            "choice_name_th": "ทั้งสอง​รูปแบบ​ใช้​ย่าน​ความถี่​ต่างกัน​โดยสิ้นเชิง",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "8e39b76592177c048da9cdf5d136ed2b",
+        "exam_name_th": "แนวทาง​ใด​ช่วย​เพิ่ม​ระยะ​การสื่อสาร​ของ​โมดูล LoRa ได้",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "20",
+        "exam_choice": [
+          {
+            "id": "c2df7bdce5a0ac24a0ef07b418a913b8",
+            "choice_name_th": "เพิ่ม​แรงดัน​ไฟ​เลี้ยง​ของ​โมดูล​เป็น 5 โวลต์",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "3f4196b564b904cc01db30829b98fd57",
+            "choice_name_th": "ต่อหัว u.fl ผ่าน​สาย​แปลง​เป็น SMA เข้ากับ​สายอากาศ​เกน​สูง",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "de53a530bf36ae43218f6af5efa29e8b",
+            "choice_name_th": "เพิ่มค่า baudrate ของ​บัส SPI",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "5843d3a92de03b1b193a128cfb11934b",
+            "choice_name_th": "ลด​ขนาด payload ให้​เหลือ​เพียง 1 ไบต์",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "515a17e36fc76378952c81ae9aa23ea4",
+        "exam_name_th": "ใน​ระบบ​นี้ ESP-NOW ถูก​ใช้​เพื่อ​วัตถุประสงค์​ใด",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "21",
+        "exam_choice": [
+          {
+            "id": "3b872d126092a0056548c76f565c0bf1",
+            "choice_name_th": "ส่ง​ข้อมูล​ขึ้น​เซิร์ฟเวอร์​บน​คลาวด์​โดยตรง",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "db93994285f8c41038c5130a0198bc14",
+            "choice_name_th": "สื่อสาร​ระหว่าง​บอร์ด ESP32 สอง​ตัว​โดยตรง โดย​ไม่ต้อง​ผ่าน WiFi Route",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "819b2da7bdc0ec5c9e28a9d0425feb4a",
+            "choice_name_th": "แสดงผล​กราฟ​ข้อมูล​บน​หน้า​เว็บ",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "d8181c8e31518e0cbbf595641562024d",
+            "choice_name_th": "จ่ายไฟ​ให้​เซนเซอร์​ใน​สวน",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "0873615a5a2d430ebe555f914df7049a",
+        "exam_name_th": "บอร์ด​ที่​ติด​ตั้งอยู่​ใน​สวน (บอร์ด 1) ทำหน้าที่​ใด",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "22",
+        "exam_choice": [
+          {
+            "id": "4687960ee7e065a8601c051c5088749f",
+            "choice_name_th": " ต่อ WiFi เพื่อ​คุย​กับ​เซิร์ฟเวอร์​บน​คลาวด์",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "c8c313bf2016ca73c3a7e85b35639262",
+            "choice_name_th": "รัน​เว็บ​เซิร์ฟเวอร์ Flask และ​บันทึก​ไฟล์ CSV",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "c50fee1f77c14970edc1f8e01561b6ba",
+            "choice_name_th": "อ่าน​ค่า​เซนเซอร์​แล้ว​ส่งออก​ไป และ​รับ​คำสั่ง​มา​สั่ง​เปิด-ปิด​รีเลย์​ควบคุม​วาล์ว​น้ำ",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "3748278f54e9009317d8b33d0bbfd31a",
+            "choice_name_th": "แสดง​แด​ช​บอร์ด​ให้​ผู้ใช้​กดปุ่ม​สั่งงาน",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "c4dfb1b5106706e854d0ceebd6e82d13",
+        "exam_name_th": "บอร์ด​ที่​ติด​ตั้งอยู่​ใน​บ้าน (บอร์ด 2) มีบทบาท​อย่างไร",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "23",
+        "exam_choice": [
+          {
+            "id": "03fe9ac3f37d8ebb278946c5ee5e9686",
+            "choice_name_th": "เป็น​สะพาน​เชื่อม รับ​ข้อมูล​จาก​บอร์ด​ใน​สวน​ผ่าน ESP-NOW แล้ว​ส่งต่อ​ขึ้น​คลาวด์​ผ่าน WiFi",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "b7cd9757316be1ef3cff84c7644cdc8e",
+            "choice_name_th": "อ่าน​ค่า​อุณหภูมิ​และ​ความชื้น​ใน​สวน​โดยตรง",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "5b5eb5ffe3d118af2600594637279586",
+            "choice_name_th": "ควบคุม​วาล์ว​น้ำ​ใน​แปลง​ด้วยตัวเอง",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "a7fd54e8e2f8f5f86825c4af672d0e4f",
+            "choice_name_th": "ทำหน้าที่​ชาร์จ​แบตเตอรี่​ให้​บอร์ด​ใน​สวน",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "3a84fc2b1f3c73ac57d60fd6c0e54b1a",
+        "exam_name_th": "การ​ตั้งค่า​อุปกรณ์​ด้วย​เฟิร์มแวร์ ESPHome ใช้​การเขียน​ไฟล์​รูปแบบ​ใด",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "24",
+        "exam_choice": [
+          {
+            "id": "93ba8c58a9feb09f30cd6fd4fc64a8c2",
+            "choice_name_th": "ไฟล์ YAML",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "511d21976e21b8ef8e7fafb4beccdaf1",
+            "choice_name_th": "ไฟล์ CSV",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "1f6e19b24da28bd994cbdab14da9dc67",
+            "choice_name_th": "ไฟล์ HTML",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "828efb1817c1bc500a1cd303e7b50139",
+            "choice_name_th": "ไฟล์​ภาษาซี​ล้วน",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "c0a528909628a71d9c9cec1a4f919fdf",
+        "exam_name_th": "การ​เปิด​หน้า​แด​ช​บอร์ด​ของ Home Assistant ที่​ติดตั้ง​บน Raspberry Pi ใช้​ที่อยู่​ใด",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "25",
+        "exam_choice": [
+          {
+            "id": "efe831e9b1464908f2091b053149ec78",
+            "choice_name_th": "https://web.esphome.io/",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "c6a435214ae9f4a6b26cb578cd1c6b5f",
+            "choice_name_th": " http://127.0.0.1:5000",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "2b3fbeeea8cc5a1be091a15faf1e0d94",
+            "choice_name_th": "http://homeassistant.local:8123",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "cc90faeabe322e2cf3d708964a540634",
+            "choice_name_th": " http://localhost:80",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "0d43b54c8633dd71c98bab603cac1e37",
+        "exam_name_th": "ข้อใดคือความแตกต่างสำคัญระหว่าง Classification กับ Object Detection ในการตรวจสอบผลผลิต? ",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "26",
+        "exam_choice": [
+          {
+            "id": "ed6beb91eb7bfdab3c508b4a7b7512fb",
+            "choice_name_th": "Classification ทำงานได้เฉพาะกับผลไม้สีเขียวเท่านั้น",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "4df329970c3fb8e776f80d2e0ecdacc0",
+            "choice_name_th": "Classification ทายผลลัพธ์ภาพรวมทั้งภาพ ส่วน Object Detection สามารถตีกรอบชี้พิกัดตำแหน่งของวัตถุแต่ละชิ้นบนสายพานได้ ",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "e8f3b2cc723ae53fe180a69941ef7d00",
+            "choice_name_th": "Object Detection ใช้สำหรับรูปถ่ายเดี่ยวๆ ที่วางกลางจอเท่านั้น",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "67fb17e04301bc0f16f5e10599bdfeb7",
+            "choice_name_th": "ไม่มีข้อแตกต่างกัน เป็นวิธีเดียวกันแต่คนละชื่อ",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "c283b2d48a6c16c8b3e8f5ac9a5dbc2b",
+        "exam_name_th": "เครื่องมือออนไลน์ชื่อใดที่ถูกนำมาใช้สำหรับบริหารจัดการข้อมูลภาพ และช่วยวาดกรอบวัตถุ (Bounding Box) บนเว็บเบราว์เซอร์? ",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "27",
+        "exam_choice": [
+          {
+            "id": "edff68826244dbe8b3f05e5f713368cc",
+            "choice_name_th": "Google Colab",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "ca6567a46fee1b3ac1791385ddb95730",
+            "choice_name_th": "Roboflow ",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "c3bdf36352532d9963082428552c8cdc",
+            "choice_name_th": "Microsoft Excel",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "a398feba04744f59d0eda93842fdaf2d",
+            "choice_name_th": "Ultralytics Studio",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "0bd1d16125aa77cd51626aa1303d119b",
+        "exam_name_th": "ในกระบวนการสอน AI ให้รู้จักสิ่งของ สิ่งสำคัญอันดับแรกในการตั้งชื่อกลุ่ม (Class Name) ให้ถูกต้องคือข้อใด? ",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "28",
+        "exam_choice": [
+          {
+            "id": "8033e2c63847613aa1a0595610638f75",
+            "choice_name_th": "ใช้คำสั้น สื่อความหมาย และสะกดให้เหมือนกันทุกรูป เช่น healthy หรือ rotten",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "2ae28d0ac69cf9b242c8f43dd40b2c44",
+            "choice_name_th": "เปลี่ยนการสะกดคำและสลับตัวพิมพ์ใหญ่-เล็กในแต่ละรูปเพื่อความหลากหลาย",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "b4a816477ace435641932296dc52abda",
+            "choice_name_th": "ใช้ประโยคยาวๆ อธิบายรายละเอียดทุกรูปเพื่อความแม่นยำ",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "0edddda75b135188d7e14c7ccd82b0c2",
+            "choice_name_th": "ตั้งชื่อเป็นภาษาไทยปนอังกฤษตามความสะดวกของผู้ใช้งาน",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "408c886d2da3f9ce7e98d4bf6bf8d98f",
+        "exam_name_th": "จำนวนรูปถ่ายขั้นต่ำที่แนะนำต่อ 1 Class ในการเริ่มต้นเตรียมข้อมูลเพื่อฝึกสอน AI คือข้อใด? ",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "29",
+        "exam_choice": [
+          {
+            "id": "d39462caaba6b5bbf2ef7f91efeb9c6e",
+            "choice_name_th": "อย่างน้อย 1 รูปต่อ Class",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "5c878a79749a0bceaf0191540e0a0c39",
+            "choice_name_th": "อย่างน้อย 5 รูปต่อ Class",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "e1a50d9ce683ed45da4a28263041d13c",
+            "choice_name_th": "อย่างน้อย 20 รูปต่อ Class ",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "c3f4092bc0a0380bfb7d5d85458007a8",
+            "choice_name_th": "อย่างน้อย 1,000 รูปต่อ Class",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "755667107720114ccd89b13b2767539c",
+        "exam_name_th": "การถ่ายภาพผลไม้เพื่อนำมาเตรียมข้อมูลสอน AI ควรมีลักษณะอย่างไร จึงจะช่วยให้ AI เรียนรู้ได้ดีที่สุด? ",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "30",
+        "exam_choice": [
+          {
+            "id": "8216e301410d478d2fef0766a295d62a",
+            "choice_name_th": "ถ่ายในสตูดิโอที่มีแสงเท่ากันทุกรูป และมีฉากหลังเป็นสีขาวล้วน",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "a200b7b1fe029439210b3fd68ba98fb8",
+            "choice_name_th": "คละมุมมอง (ด้านบน/ข้าง/เอียง), คละสภาพแสง (เช้า/บ่าย/หลอดไฟ) และมีฉากหลังเป็นสายพานจริง ",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "4355cde2a325d52d641138e745f48640",
+            "choice_name_th": "ถ่ายเฉพาะตอนกลางคืนเพื่อหลีกเลี่ยงแสงสะท้อนจากดวงอาทิตย์",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "6a34011dfa92d09524103ab466e210c5",
+            "choice_name_th": "เน้นภาพที่เบลอเล็กน้อยเพื่อให้ AI ฝึกความทนทาน",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "580d3f23cb166d36d7d5ac58dff6ffa6",
+        "exam_name_th": "1.\tคอมพิวเตอร์หรือสมองกลมองเห็นภาพถ่ายดิจิทัลในรูปแบบใดเป็นหลัก ",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "31",
+        "exam_choice": [
+          {
+            "id": "fb76ca57a10010b1d5a8584db439d2d6",
+            "choice_name_th": "มองเห็นเป็นภาพสีสันสวยงามเหมือนที่มนุษย์เห็น",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "81bb226cf00e2f96cb8cd7605bdab9e8",
+            "choice_name_th": "มองเห็นเป็น \"ตารางตัวเลข\" (พิกเซล) ที่มีค่าตัวเลขกำกับอยู่ในแต่ละช่อง ",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "f43bf83bff97099a5f56a99e47b95968",
+            "choice_name_th": "ค.\tมองเห็นเป็นข้อความตัวหนังสือภาษาอังกฤษ",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "af4c9d9dc17d7edf67761846cc6194ad",
+            "choice_name_th": "ง.\tมองเห็นเป็นกระดาษวาดเขียนขนาดใหญ่",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "9ab6382b3b7e2b105ae2a8a034f3b417",
+        "exam_name_th": "อุปกรณ์ชิ้นใดทำหน้าที่เปรียบเสมือน \"สมองกลขนาดจิ๋ว\" ที่ติดตั้งหน้างานเพื่อรันระบบ AI ประมวลผลแบบ Edge Computing โดยไม่ต้องพึ่งพาอินเทอร์เน็ต ",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "32",
+        "exam_choice": [
+          {
+            "id": "b3302e90f9d7f5f818faf2ad9b9f66d6",
+            "choice_name_th": "คอมพิวเตอร์บอร์ดเดี่ยว (เช่น Raspberry Pi) ",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "2ea7fb5b5da50bf123a3fe9a15105e03",
+            "choice_name_th": "โทรศัพท์มือถือรุ่นเก่า",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "96248317222610469a6d720184232cf7",
+            "choice_name_th": "เราเตอร์ไวไฟบ้าน",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "fe8c7492a747575296d92376aab09f27",
+            "choice_name_th": "เครื่องปริ้นเตอร์เอกสาร",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "f5134803eb8b10d06bbb4883aab6560b",
+        "exam_name_th": "ข้อใดคือเป้าหมายหลักของการใช้เทคโนโลยี Image Processing (Rule-based) ในระบบคัดแยกผลผลิต ",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "33",
+        "exam_choice": [
+          {
+            "id": "20ecc508e007a634d39b72928ea6247c",
+            "choice_name_th": "สำหรับการวัดขนาด (S-M-L), นับพื้นที่ และคัดกรองรูปทรงพื้นฐานอย่างรวดเร็วโดยไม่ต้องใช้ AI ซับซ้อน ",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "192ccf65e3873d185da6b964bb9608ec",
+            "choice_name_th": "สำหรับการวาดรูปการ์ตูนลงบนผลไม้",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "7ae6293b201403963d37df292b1398b8",
+            "choice_name_th": "สำหรับการส่งข้อความแจ้งเตือนผ่านไลน์",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "07eddb476d31e6f3049f57b8b3439a76",
+            "choice_name_th": "สำหรับการควบคุมอุณหภูมิความชื้นในดิน",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "7e98cf7789ed177369c9a7333f0db7c0",
+        "exam_name_th": "หากเราต้องการสอน AI ให้รู้จักตรวจหารอยโรค รอยช้ำ หรือแผลขรุขระที่มีรูปร่างไม่แน่นอน วิธีการทำงานของ AI จะมีลักษณะอย่างไร ",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "34",
+        "exam_choice": [
+          {
+            "id": "f63d8a5ef4ade86f85e9c0d6b6736b84",
+            "choice_name_th": "ต้องใช้สูตรทางคณิตศาสตร์คำนวณเส้นรอบวงทุกครั้ง",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "82328d8d0584c66a7394b8784948b9ec",
+            "choice_name_th": "เหมือนการสอนงานพนักงานใหม่ โดยการป้อนรูปตัวอย่างของดีและมีตำหนิให้ AI จดจำแพทเทิร์นได้เอง",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "aa875326533b5ec6a8d08e68bbbae285",
+            "choice_name_th": "ให้คอมพิวเตอร์สุ่มเดาภาพเอาเองโดยไม่ต้องมีข้อมูลตัวอย่าง",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "301e21a19529d92097554b28a5ec3bc9",
+            "choice_name_th": "ใช้การพิมพ์ชุดคำสั่งโค้ดภาษาซีร้อยบรรทัด",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "8e844e4b3fb0a8e3a36383e00e564334",
+        "exam_name_th": "ทำไมการใช้ค่าสีแบบ RGB อย่างเดียวในการตรวจจับสีของผลไม้ ถึงมีโอกาสเกิดความผิดพลาดได้ง่ายเมื่อเจอแสงเงา ",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "35",
+        "exam_choice": [
+          {
+            "id": "6c3005a3b5452727dc8053053ff714db",
+            "choice_name_th": "เพราะ RGB ไม่รองรับภาพถ่ายสี",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "717a3168a52edb55ef72db24786ace2a",
+            "choice_name_th": "เพราะค่า RGB วัดค่าสีรวมกับความสว่าง ทำให้เมื่อโดนเงามาบัง คอมพิวเตอร์จะสับสนคิดว่าเป็นสีดำหรือรอยตำหนิ ",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "51f6af842189c83f943efc1eeb0ccc98",
+            "choice_name_th": "เพราะ RGB ทำให้คอมพิวเตอร์ทำงานเร็วเกินไป",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "f53a8f38921136b3ca0d67e5923747ab",
+            "choice_name_th": "เพราะค่า RGB มีตัวเลขน้อยเกินไป",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "8cdd908287110553c268d18fe68220c1",
+        "exam_name_th": "คอมพิวเตอร์หรือสมองกลมองเห็นภาพถ่ายดิจิทัลในรูปแบบใดเป็นหลัก ",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "36",
+        "exam_choice": [
+          {
+            "id": "5f1748768b05592913d06abfeb7eb604",
+            "choice_name_th": "มองเห็นเป็นภาพสีสันสวยงามเหมือนที่มนุษย์เห็น",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "4f69d2066ab086bf339709e5a3be8be3",
+            "choice_name_th": "มองเห็นเป็น \"ตารางตัวเลข\" (พิกเซล) ที่มีค่าตัวเลขกำกับอยู่ในแต่ละช่อง ",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "13b3db2eb5f09f652d4aff257f7c6a53",
+            "choice_name_th": "คมองเห็นเป็นข้อความตัวหนังสือภาษาอังกฤษ",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "36873ab092ac3e7f047fe463c73f1e17",
+            "choice_name_th": "มองเห็นเป็นกระดาษวาดเขียนขนาดใหญ่",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "5a239c54cd6771c4e0ffd33eef62e560",
+        "exam_name_th": "อุปกรณ์ชิ้นใดทำหน้าที่เปรียบเสมือน \"สมองกลขนาดจิ๋ว\" ที่ติดตั้งหน้างานเพื่อรันระบบ AI ประมวลผลแบบ Edge Computing โดยไม่ต้องพึ่งพาอินเทอร์เน็ต ",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "37",
+        "exam_choice": [
+          {
+            "id": "f5d24b4ff9ee7d836c2cd74a54c0ce41",
+            "choice_name_th": "คอมพิวเตอร์บอร์ดเดี่ยว (เช่น Raspberry Pi) ",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "079b5ee632f94f9b743e5d9f845928ce",
+            "choice_name_th": "โทรศัพท์มือถือรุ่นเก่า",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "df73e76c3351c4813e6fd562eedf7437",
+            "choice_name_th": "เราเตอร์ไวไฟบ้าน",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "6e914bf04bc777220cb1fda82b3e2bf8",
+            "choice_name_th": "เครื่องปริ้นเตอร์เอกสาร",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "80c19c4cc2f3e3a804c097d8a7d350ca",
+        "exam_name_th": "ข้อใดคือเป้าหมายหลักของการใช้เทคโนโลยี Image Processing (Rule-based) ในระบบคัดแยกผลผลิต ",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "38",
+        "exam_choice": [
+          {
+            "id": "00326e44956d0a8d70e63a5f9c5ecaaf",
+            "choice_name_th": "สำหรับการวัดขนาด (S-M-L), นับพื้นที่ และคัดกรองรูปทรงพื้นฐานอย่างรวดเร็วโดยไม่ต้องใช้ AI ซับซ้อน ",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "3eb11503ead516e6f1a58a89beeeefd9",
+            "choice_name_th": "สำหรับการวาดรูปการ์ตูนลงบนผลไม้",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "d5367e0434d61eea0140bf78e8e16e7c",
+            "choice_name_th": "สำหรับการส่งข้อความแจ้งเตือนผ่านไลน์",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "447c91b16999937bc5801a45815684d6",
+            "choice_name_th": "สำหรับการควบคุมอุณหภูมิความชื้นในดิน",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "f6b8711c480ad058a410b1e21a42cc44",
+        "exam_name_th": "หากเราต้องการสอน AI ให้รู้จักตรวจหารอยโรค รอยช้ำ หรือแผลขรุขระที่มีรูปร่างไม่แน่นอน วิธีการทำงานของ AI จะมีลักษณะอย่างไร ",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "39",
+        "exam_choice": [
+          {
+            "id": "2f91c58834d02259b70f22657164890a",
+            "choice_name_th": "ต้องใช้สูตรทางคณิตศาสตร์คำนวณเส้นรอบวงทุกครั้ง",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "5cc9bf1593421d2a31bc599031b8e382",
+            "choice_name_th": "เหมือนการสอนงานพนักงานใหม่ โดยการป้อนรูปตัวอย่างของดีและมีตำหนิให้ AI จดจำแพทเทิร์นได้เอง ",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "03934968a0c2c55bebfeb25ec4ffe682",
+            "choice_name_th": "ให้คอมพิวเตอร์สุ่มเดาภาพเอาเองโดยไม่ต้องมีข้อมูลตัวอย่าง",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "aed1326a7e14addc17084890db72fe24",
+            "choice_name_th": "ใช้การพิมพ์ชุดคำสั่งโค้ดภาษาซีร้อยบรรทัด",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      },
+      {
+        "id": "18bbe9179ab5ce45387df94aa7260083",
+        "exam_name_th": "ทำไมการใช้ค่าสีแบบ RGB อย่างเดียวในการตรวจจับสีของผลไม้ ถึงมีโอกาสเกิดความผิดพลาดได้ง่ายเมื่อเจอแสงเงา ",
+        "exam_name_en": null,
+        "exam_type": "1",
+        "rand_answer": "1",
+        "order": "40",
+        "exam_choice": [
+          {
+            "id": "17116755d47e6fe908758a153a10ce43",
+            "choice_name_th": "เพราะ RGB ไม่รองรับภาพถ่ายสี",
+            "choice_name_en": null,
+            "order": "1"
+          },
+          {
+            "id": "d0124b4e460a0b38bee9f6d150d7ab99",
+            "choice_name_th": "เพราะค่า RGB วัดค่าสีรวมกับความสว่าง ทำให้เมื่อโดนเงามาบัง คอมพิวเตอร์จะสับสนคิดว่าเป็นสีดำหรือรอยตำหนิ ",
+            "choice_name_en": null,
+            "order": "2"
+          },
+          {
+            "id": "30a472e5727b46c8879eee69cd20d939",
+            "choice_name_th": "เพราะ RGB ทำให้คอมพิวเตอร์ทำงานเร็วเกินไป",
+            "choice_name_en": null,
+            "order": "3"
+          },
+          {
+            "id": "7aed94dffd12e5230b33413abe52eb50",
+            "choice_name_th": "เพราะค่า RGB มีตัวเลขน้อยเกินไป",
+            "choice_name_en": null,
+            "order": "4"
+          }
+        ]
+      }
+    ],
+    "config": {
+      "courseId": "e5d1b14e7a47450c1f6afbba2512aac2",
+      "examId": "59699f9a400367706bb02924e7c612ea",
+      "isPretest": 1,
+      "courseName": "นวัตกรเกษตรอัจฉริยะ AIoT สำหรับเกษตรแม่นยำ (รุ่นที่ 1)",
+      "courseCover": "https://www.lifelong.cmu.ac.th/video/assets/files/lms/courseimg//e5d1b14e7a47450c1f6afbba2512aac2/messageImage_1789615682136.jpg",
+      "baseUrl": "https://www.lifelong.cmu.ac.th",
+      "learnerId": "699557326",
+      "csrfToken": "c71ce284bb466d2618e8fbfa5b0099e9",
+      "fullScore": 100,
+      "passingScore": 70,
+      "certBlocked": false,
+      "maxAttempts": 0,
+      "attemptsUsed": 1,
+      "canRetake": true
+    },
+    "existingScore": 97.5,
+    "examCompleted": true,
+    "showResultsDirectly": true,
+    "latestResult": {
+      "isCompleted": true,
+      "score": 97.5,
+      "correctCount": 39
+    }
+  }
+}

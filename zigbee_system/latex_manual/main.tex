@@ -1,0 +1,88 @@
+\documentclass[12pt,a4paper,oneside]{book}
+
+% 1. Master Style for RBRU Zigbee AIoT Academic Manual (RBRU Masterclass Standard)
+\usepackage{styles/zigbee_rbru_style}
+
+% 2. Font configuration for XeLaTeX (Thai Unicode Sarabun)
+\usepackage{fontspec}
+\setmainfont{Sarabun}
+\setsansfont{Sarabun}
+\setmonofont{Sarabun}[Scale=0.9]
+
+% 3. Hyperref Setup
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=rbruNavy,
+    citecolor=agriForest,
+    urlcolor=meshCyan,
+    filecolor=zigbeeAmber,
+    pdftitle={คู่มือระบบสื่อสารไร้สาย Zigbee 3.0 สำหรับการเกษตรแม่นยำสูง - มหาวิทยาลัยราชภัฏรำไพพรรณี},
+    pdfauthor={ผู้ช่วยศาสตราจารย์ ดร.ชีวะ ทัศนา}
+}
+
+\begin{document}
+
+% ==========================================
+% ส่วนนำ (Frontmatter)
+% ==========================================
+\frontmatter
+\input{frontmatter/cover}
+\input{frontmatter/title}
+\input{frontmatter/preface}
+\input{frontmatter/syllabus}
+
+% สารบัญหลัก สารบัญภาพ และสารบัญตาราง
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{\contentsname}
+\tableofcontents
+
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{\listfigurename}
+\listoffigures
+
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{\listtablename}
+\listoftables
+
+% ==========================================
+% ส่วนเนื้อหา (Mainmatter)
+% ==========================================
+\mainmatter
+
+% บทที่ 1: สถาปัตยกรรมและโพรโทคอลเครือข่าย Zigbee 3.0
+\input{chapters/ch01_architecture_mesh}
+
+% บทที่ 2: ระบบนิเวศเซนเซอร์เกษตรและสะพานเชื่อมต่ออุตสาหกรรม RS485 Modbus
+\input{chapters/ch02_sensor_ecosystem}
+
+% บทที่ 3: เกตเวย์โครงข่ายและการบูรณาการระบบอัตโนมัติ Zigbee2MQTT
+\input{chapters/ch03_gateway_integration}
+
+% บทที่ 4: การพัฒนาเฟิร์มแวร์ ESP32-C6 และการจัดการพลังงานโหนดเซนเซอร์
+\input{chapters/ch04_firmware_hardware_esp32c6}
+
+% ==========================================
+% ภาคผนวก (Appendix - ก่อน backmatter เพื่อรักษาระบบเลข ก, ข)
+% ==========================================
+\appendix
+\input{backmatter/appendixA}
+\input{backmatter/appendixB}
+
+% ==========================================
+% ส่วนท้าย (Backmatter)
+% ==========================================
+\backmatter
+\input{backmatter/references}
+
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{\indexname}
+\printindex
+
+\input{backmatter/biography}
+
+\end{document}

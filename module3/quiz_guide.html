@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>คู่มือเฉลยและสรุปองค์ความรู้: วิศวกรรมชลประทานและระบบควบคุมอัจฉริยะ (Module 3)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Sarabun:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    :root {
+      --bg: #0b1120;
+      --card-bg: rgba(15, 23, 42, 0.85);
+      --card-border: rgba(56, 189, 248, 0.2);
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent-cyan: #38bdf8;
+      --accent-amber: #f59e0b;
+      --accent-green: #10b981;
+      --accent-purple: #c084fc;
+      --font-body: 'Sarabun', sans-serif;
+      --font-head: 'Chakra Petch', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(at 15% 15%, rgba(56, 189, 248, 0.12) 0px, transparent 50%),
+        radial-gradient(at 85% 85%, rgba(245, 158, 11, 0.08) 0px, transparent 50%);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.7;
+      padding: 2.5rem 1.5rem;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .header-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 2rem 2.2rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .header-title h1 {
+      font-family: var(--font-head);
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.4rem;
+      background: linear-gradient(135deg, #38bdf8, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: var(--font-head);
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+    }
+    .btn-print {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent-cyan);
+      border: 1px solid var(--accent-cyan);
+      padding: 0.5rem 1.2rem;
+      border-radius: 8px;
+      font-family: var(--font-head);
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .btn-print:hover {
+      background: var(--accent-cyan);
+      color: #0f172a;
+    }
+    .summary-table-wrap {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow-x: auto;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.92rem;
+    }
+    th {
+      background: rgba(30, 41, 59, 0.9);
+      color: var(--accent-cyan);
+      font-family: var(--font-head);
+      font-weight: 600;
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+    td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(56, 189, 248, 0.05); }
+    .q-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.5rem 1.8rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s ease;
+    }
+    .q-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+    .q-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    .q-num {
+      font-family: var(--font-head);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+    }
+    .q-tag {
+      font-size: 0.75rem;
+      background: rgba(168, 85, 247, 0.15);
+      color: var(--accent-purple);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+    }
+    .q-question {
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: #fff;
+      margin-bottom: 0.85rem;
+      padding-left: 0.75rem;
+      border-left: 3px solid var(--accent-amber);
+    }
+    .q-answer-box {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 8px;
+      padding: 0.85rem 1.1rem;
+      margin-bottom: 1rem;
+    }
+    .q-answer-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-green);
+      margin-bottom: 0.25rem;
+    }
+    .q-answer-text {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #34d399;
+    }
+    .q-calc-steps {
+      background: rgba(15, 23, 42, 0.5);
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+      font-size: 0.95rem;
+      color: #cbd5e1;
+    }
+    .q-calc-steps h4 {
+      font-family: var(--font-head);
+      color: var(--accent-amber);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    .formula-highlight {
+      background: rgba(2, 6, 23, 0.6);
+      padding: 0.5rem 0.85rem;
+      border-radius: 6px;
+      margin: 0.5rem 0;
+      border-left: 2px solid var(--accent-cyan);
+    }
+    @media print {
+      body { background: #fff !important; color: #000 !important; padding: 0; }
+      .header-card, .summary-table-wrap, .q-card {
+        background: #fff !important;
+        border: 1px solid #ccc !important;
+        box-shadow: none !important;
+        color: #000 !important;
+      }
+      .btn-print { display: none !important; }
+      .q-question { color: #000 !important; border-left-color: #0284c7 !important; }
+      .q-answer-box { background: #ecfdf5 !important; border-color: #059669 !important; }
+      .q-answer-text { color: #065f46 !important; }
+      .q-calc-steps { background: #f8fafc !important; color: #334155 !important; }
+      th { background: #f1f5f9 !important; color: #0f172a !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Header -->
+    <div class="header-card">
+      <div class="header-title">
+        <span class="badge">RED G3 • CMU AIoT 2026</span>
+        <h1>คู่มือเฉลยและสรุปองค์ความรู้: ชลประทานและระบบควบคุม</h1>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">
+          การคำนวณไฮดรอลิกส์, ปั๊มน้ำ, ท่อส่งน้ำ, การใช้น้ำของพืช และระบบควบคุม IoT ในแปลงจริง (Module 3)
+        </p>
+      </div>
+      <div>
+        <button class="btn-print" onclick="window.print()">
+          🖨️ พิมพ์เอกสาร / บันทึกเป็น PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- Summary Table -->
+    <h2 style="font-family: var(--font-head); font-size: 1.25rem; margin-bottom: 0.85rem; color: #fff;">
+      📊 ตารางสรุปเฉลยข้อสอบทั้ง 10 ข้อ
+    </h2>
+    <div class="summary-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 8%;">ข้อ</th>
+            <th style="width: 32%;">หัวข้อการประเมิน</th>
+            <th style="width: 38%;">คำตอบที่ถูกต้อง</th>
+            <th style="width: 22%;">ผลลัพธ์ / สูตรหลัก</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>1</b></td>
+            <td>คำนวณขนาดเส้นผ่านศูนย์กลางท่อเมน</td>
+            <td><b style="color: #34d399;">50 มิลลิเมตร</b></td>
+            <td>\(D \approx 50.46\text{ mm}\)</td>
+          </tr>
+          <tr>
+            <td><b>2</b></td>
+            <td>การบันทึกข้อมูลบน Flash ESP32-C3</td>
+            <td><b style="color: #34d399;">จำกัดไม่เกิน 31 ไฟล์ วนเขียนทับรายเดือน</b></td>
+            <td>Circular Ring Buffer</td>
+          </tr>
+          <tr>
+            <td><b>3</b></td>
+            <td>คำนวณหากำลังของมอเตอร์ปั๊มน้ำ</td>
+            <td><b style="color: #34d399;">ประมาณ 1.7 กิโลวัตต์</b></td>
+            <td>\(P \approx 1.68\text{ kW}\) (2.25 HP)</td>
+          </tr>
+          <tr>
+            <td><b>4</b></td>
+            <td>การเผื่อแรงดันสูญเสียข้อต่อ/วาล์ว (Minor Loss)</td>
+            <td><b style="color: #34d399;">ประมาณ 10 – 20 เปอร์เซ็นต์</b></td>
+            <td>เผื่อเพิ่มจาก \(h_f\)</td>
+          </tr>
+          <tr>
+            <td><b>5</b></td>
+            <td>คำนวณอัตราการไหลสปริงเกลอร์จาก \(ET_c\)</td>
+            <td><b style="color: #34d399;">3.00 ลูกบาศก์เมตรต่อชั่วโมง</b></td>
+            <td>\(Q = 3.00\text{ m}^3\text{/hr}\)</td>
+          </tr>
+          <tr>
+            <td><b>6</b></td>
+            <td>ผลกระทบความยาวท่อตาม Hazen-Williams</td>
+            <td><b style="color: #34d399;">เพิ่มขึ้นเป็น 2 เท่า</b></td>
+            <td>\(h_f \propto L\)</td>
+          </tr>
+          <tr>
+            <td><b>7</b></td>
+            <td>การทำงานของ Smart Scenes เมื่อเน็ตหลุด</td>
+            <td><b style="color: #34d399;">รองรับ LAN Control ทำงานในวงแลนได้</b></td>
+            <td>Local Automation</td>
+          </tr>
+          <tr>
+            <td><b>8</b></td>
+            <td>ลำดับขั้นตอนออกแบบระบบให้น้ำ 5 ขั้นตอน</td>
+            <td><b style="color: #34d399;">สังเกตพื้นที่ → เลือกหัวจ่าย → ขนาดท่อ → TDH → ปั๊ม/ตู้ควบคุม</b></td>
+            <td>5-Step Workflow</td>
+          </tr>
+          <tr>
+            <td><b>9</b></td>
+            <td>คำนวณระยะส่งน้ำรวม (TDH)</td>
+            <td><b style="color: #34d399;">43 เมตร</b></td>
+            <td>\(3 + 12 + 8 + 20 = 43\text{ m}\)</td>
+          </tr>
+          <tr>
+            <td><b>10</b></td>
+            <td>แนวทางติดตั้งเร็ว ไม่โค้ด ไม่บัดกรี</td>
+            <td><b style="color: #34d399;">กล่องสำเร็จรูป Sonoff + เซนเซอร์ RJ11</b></td>
+            <td>COTS Plug-and-Play</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Question 1 -->
+    <div class="q-card">
+      <div class="q-header">
+        <span class="q-num">ข้อที่ 1: การคำนวณขนาดเส้นผ่านศูนย์กลางท่อเมน (Pipe Sizing)</span>
+        <span class="q-tag">ไฮดรอลิกส์</span>
+      </div>
+      <div class="q-question">
+        ท่อเมนต้องส่งน้ำ 10.8 ลูกบาศก์เมตรต่อชั่วโมง โดยกำหนดความเร็วน้ำในท่อที่ 1.5 เมตรต่อวินาที ควรเลือกท่อที่มีเส้นผ่านศูนย์กลางภายในใกล้เคียงค่าใดมากที่สุด?
+      </div>
+      <div class="q-answer-box">
+        <div class="q-answer-label">คำตอบที่ถูกต้อง</div>
+        <div class="q-answer-text">50 มิลลิเมตร (ท่อขนาดประมาณ 2 นิ้ว)</div>
+      </div>
+      <div class="q-calc-steps">
+        <h4>วิธีคำนวณ:</h4>
+        <p>1. แปลงอัตราการไหลเป็น \(\text{m}^3\text{/s}\): \(Q = \frac{10.8}{3600} = 0.003\text{ m}^3\text{/s}\)</p>
+        <p>2. จากสมการความต่อเนื่อง \(Q = A \times v\) จะได้พื้นที่หน้าตัด: \(A = \frac{0.003}{1.5} = 0.002\text{ m}^2\)</p>
+        <p>3. หาเส้นผ่านศูนย์กลาง: \(D = \sqrt{\frac{4A}{\pi}} = \sqrt{\frac{4 \times 0.002}{3.1416}} \approx 0.05046\text{ m} \approx 50.46\text{ mm}\)</p>
+      </div>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="q-card">
+      <div class="q-header">
+        <span class="q-num">ข้อที่ 2: การออกแบบหน่วยความจำบันทึกข้อมูล (Circular Logging)</span>
+        <span class="q-tag">ระบบสมองกลฝังตัว</span>
+      </div>
+      <div class="q-question">
+        โปรแกรมบันทึกข้อมูลบน ESP32-C3 ตั้งชื่อไฟล์ CSV ตามเลขวันที่ (01.csv – 31.csv) และเขียนทับไฟล์เดิมเมื่อพบว่าเป็นข้อมูลของเดือนก่อน การออกแบบเช่นนี้มีจุดประสงค์ใด?
+      </div>
+      <div class="q-answer-box">
+        <div class="q-answer-label">คำตอบที่ถูกต้อง</div>
+        <div class="q-answer-text">เพื่อจำกัดจำนวนไฟล์ไว้ไม่เกิน 31 ไฟล์ และวนเขียนทับรายเดือน ไม่ให้หน่วยความจำบนบอร์ดเต็ม</div>
+      </div>
+      <div class="q-calc-steps">
+        <h4>หลักการทำงาน:</h4>
+        <p>Flash Memory ของ ESP32-C3 ที่แบ่งเป็น LittleFS มีขนาดจำกัด (1.5 - 3 MB) การตั้งชื่อ 01.csv ถึง 31.csv เป็นรูปแบบ Ring Buffer ช่วยให้เก็บข้อมูลย้อนหลังได้ 1 เดือนเต็ม และวนเขียนทับอัตโนมัติ ป้องกันไม่ให้หน่วยความจำเต็มจนบอร์ดเกิดข้อผิดพลาด</p>
+      </div>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="q-card">
+      <div class="q-header">
+        <span class="q-num">ข้อที่ 3: การคำนวณหากำลังของมอเตอร์ปั๊มน้ำ (Pump Motor Power)</span>
+        <span class="q-tag">วิศวกรรมปั๊มน้ำ</span>
+      </div>
+      <div class="q-question">
+        ปั๊มต้องส่งน้ำ 10 ลูกบาศก์เมตรต่อชั่วโมง ที่ TDH 40 เมตร โดยปั๊มมีประสิทธิภาพรวม 0.65 กำลังของมอเตอร์ที่ต้องใช้มีค่าประมาณเท่าใด (ยังไม่รวม Service Factor)?
+      </div>
+      <div class="q-answer-box">
+        <div class="q-answer-label">คำตอบที่ถูกต้อง</div>
+        <div class="q-answer-text">ประมาณ 1.7 กิโลวัตต์ (kW)</div>
+      </div>
+      <div class="q-calc-steps">
+        <h4>วิธีคำนวณ:</h4>
+        <div class="formula-highlight">
+          $$P = \frac{\rho \cdot g \cdot Q \cdot H}{3600 \cdot \eta} = \frac{1000 \times 9.81 \times 10 \times 40}{3600 \times 0.65} = \frac{3,924,000}{2340} \approx 1,676.9\text{ W} \approx 1.68\text{ kW}$$
+        </div>
+        <p>ดังนั้น กำลังมอเตอร์ที่ต้องใช้มีค่าประมาณ <b>1.7 kW</b> (ประมาณ 2.25 แรงม้า)</p>
+      </div>
+    </div>
+
+    <!-- Question 4 -->
+    <div class="q-card">
+      <div class="q-header">
+        <span class="q-num">ข้อที่ 4: การเผื่อแรงดันสูญเสียในข้อต่อและวาล์ว (Minor Loss)</span>
+        <span class="q-tag">การออกแบบระบบท่อ</span>
+      </div>
+      <div class="q-question">
+        ในการออกแบบจริง ควรเผื่อค่าการสูญเสียแรงดันจากข้อต่อและวาล์ว (Minor Loss) เพิ่มจากค่าที่คำนวณได้เท่าใด?
+      </div>
+      <div class="q-answer-box">
+        <div class="q-answer-label">คำตอบที่ถูกต้อง</div>
+        <div class="q-answer-text">ประมาณ 10 – 20 เปอร์เซ็นต์</div>
+      </div>
+      <div class="q-calc-steps">
+        <h4>หลักการวิศวกรรม:</h4>
+        <p>เมื่อน้ำไหลผ่านข้องอ ข้องอ 90 องศา วาล์ว และชุดกรองน้ำ จะเกิดความปั่นป่วนและสูญเสียแรงดันรอง ในทางวิศวกรรมชลประทานจึงเผื่อเพิ่มอีก <b>10 – 20%</b> ของแรงดันสูญเสียในเส้นท่อตรง (\(h_f\))</p>
+      </div>
+    </div>
+
+    <!-- Question 5 -->
+    <div class="q-card">
+      <div class="q-header">
+        <span class="q-num">ข้อที่ 5: การคำนวณอัตราการไหลระบบสปริงเกลอร์ (Crop Water Requirement)</span>
+        <span class="q-tag">การให้น้ำพืช</span>
+      </div>
+      <div class="q-question">
+        แปลงผักพื้นที่ 1,800 ตารางเมตร พืชมีค่า ETc = 5 มิลลิเมตรต่อวัน ใช้ระบบสปริงเกลอร์ (ประสิทธิภาพ 75%) และให้น้ำวันละ 4 ชั่วโมง อัตราการไหลที่ระบบต้องการมีค่าเท่าใด?
+      </div>
+      <div class="q-answer-box">
+        <div class="q-answer-label">คำตอบที่ถูกต้อง</div>
+        <div class="q-answer-text">3.00 ลูกบาศก์เมตรต่อชั่วโมง (m³/hr)</div>
+      </div>
+      <div class="q-calc-steps">
+        <h4>วิธีคำนวณ:</h4>
+        <p>1. น้ำสุทธิที่พืชต้องการต่อวัน: \(V_{net} = 1,800\text{ m}^2 \times 0.005\text{ m} = 9.0\text{ m}^3\text{/วัน}\)</p>
+        <p>2. น้ำรวมที่ต้องจ่ายจริงเมื่อคิดประสิทธิภาพ 75%: \(V_{gross} = \frac{9.0}{0.75} = 12.0\text{ m}^3\text{/วัน}\)</p>
+        <p>3. อัตราการไหลที่ต้องจ่ายในเวลา 4 ชม.: \(Q = \frac{12.0\text{ m}^3}{4\text{ hr}} = 3.00\text{ m}^3\text{/hr}\)</p>
+      </div>
+    </div>
+
+    <!-- Question 6 -->
+    <div class="q-card">
+      <div class="q-header">
+        <span class="q-num">ข้อที่ 6: ผลกระทบความยาวท่อตาม Hazen-Williams</span>
+        <span class="q-tag">สมการชลศาสตร์</span>
+      </div>
+      <div class="q-question">
+        ตามสมการ Hazen-Williams หากเดินท่อขนาดเดิมและอัตราการไหลเท่าเดิม แต่ความยาวท่อเพิ่มขึ้นเป็น 2 เท่า ค่าการสูญเสียแรงดัน (hf) จะเปลี่ยนแปลงอย่างไร?
+      </div>
+      <div class="q-answer-box">
+        <div class="q-answer-label">คำตอบที่ถูกต้อง</div>
+        <div class="q-answer-text">เพิ่มขึ้นเป็น 2 เท่า</div>
+      </div>
+      <div class="q-calc-steps">
+        <h4>หลักการสมการ Hazen-Williams:</h4>
+        <div class="formula-highlight">
+          $$h_f = 10.67 \times \frac{L \cdot Q^{1.852}}{C^{1.852} \cdot D^{4.87}}$$
+        </div>
+        <p>เนื่องจาก \(h_f\) แปรผันตรงกับความยาวท่อ (\(h_f \propto L\)) เมื่อความยาวเพิ่มขึ้น 2 เท่า แรงดันสูญเสียจะเพิ่มขึ้นเป็น 2 เท่าเช่นกัน</p>
+      </div>
+    </div>
+
+    <!-- Question 7 -->
+    <div class="q-card">
+      <div class="q-header">
+        <span class="q-num">ข้อที่ 7: ความพร้อมทำงานของ Smart Scenes เมื่อเน็ตหลุด (LAN Control)</span>
+        <span class="q-tag">ระบบเครือข่าย AIoT</span>
+      </div>
+      <div class="q-question">
+        ระบบควบคุมที่ติดตั้งไว้ยังคงทำงานตามเงื่อนไขอัตโนมัติ (Smart Scenes) ได้ แม้อินเทอร์เน็ตของฟาร์มจะหลุด เป็นเพราะเหตุใด?
+      </div>
+      <div class="q-answer-box">
+        <div class="q-answer-label">คำตอบที่ถูกต้อง</div>
+        <div class="q-answer-text">อุปกรณ์รองรับ LAN Control จึงทำงานตามเงื่อนไขที่บันทึกไว้ภายในเครือข่ายได้</div>
+      </div>
+      <div class="q-calc-steps">
+        <h4>หลักการทำงาน:</h4>
+        <p>ฟังก์ชัน LAN Control ช่วยให้อุปกรณ์ในวงแลนเดียวกันสื่อสารและสั่งการระหว่างกันได้โดยตรงโดยไม่ต้องส่งข้อมูลผ่านคลาวด์ภายนอก ทำให้เงื่อนไขการรดน้ำอัตโนมัติยังคงทำงานต่อเนื่องได้แม้อินเทอร์เน็ตจะตัดขาด</p>
+      </div>
+    </div>
+
+    <!-- Question 8 -->
+    <div class="q-card">
+      <div class="q-header">
+        <span class="q-num">ข้อที่ 8: ลำดับขั้นตอนการออกแบบระบบให้น้ำ 5 ขั้นตอน</span>
+        <span class="q-tag">กระบวนการวิศวกรรม</span>
+      </div>
+      <div class="q-question">
+        ลำดับขั้นตอนการออกแบบระบบให้น้ำ 5 ขั้นตอนที่ถูกต้องคือข้อใด?
+      </div>
+      <div class="q-answer-box">
+        <div class="q-answer-label">คำตอบที่ถูกต้อง</div>
+        <div class="q-answer-text">สังเกตพื้นที่และแบ่งโซน → เลือกหัวจ่าย → คำนวณขนาดท่อ → คำนวณ TDH → เลือกปั๊มและตู้ควบคุม</div>
+      </div>
+      <div class="q-calc-steps">
+        <h4>5-Step Irrigation System Engineering Workflow:</h4>
+        <p>1. <b>สังเกตพื้นที่ (Survey):</b> สำรวจแปลง พืช และแบ่งโซนเพื่อลดขนาดปั๊ม</p>
+        <p>2. <b>เลือกหัวจ่าย (Emitters):</b> กำหนดชนิดหัวจ่าย แรงดัน และอัตราไหล</p>
+        <p>3. <b>คำนวณขนาดท่อ (Pipe Sizing):</b> กำหนดขนาดท่อเมน/ย่อย ควบคุมความเร็วไม่เกิน 2 m/s</p>
+        <p>4. <b>คำนวณ TDH (Head Calculation):</b> รวมความสูง แรงดันใช้งาน และ Friction loss</p>
+        <p>5. <b>เลือกปั๊มและตู้ควบคุม (Pump & Control):</b> เลือกปั๊มจาก Performance Curve และติดตั้งตู้ IoT</p>
+      </div>
+    </div>
+
+    <!-- Question 9 -->
+    <div class="q-card">
+      <div class="q-header">
+        <span class="q-num">ข้อที่ 9: การคำนวณระยะส่งน้ำรวม (Total Dynamic Head: TDH)</span>
+        <span class="q-tag">การคำนวณแรงดัน</span>
+      </div>
+      <div class="q-question">
+        ระบบหนึ่งมีระยะดูดน้ำ 3 เมตร ระยะส่งขึ้นที่สูง 12 เมตร แรงดันสูญเสียรวมในท่อ 8 เมตร และหัวสปริงเกลอร์ต้องการแรงดันใช้งาน 20 เมตร ค่า TDH ของระบบเท่ากับเท่าใด?
+      </div>
+      <div class="q-answer-box">
+        <div class="q-answer-label">คำตอบที่ถูกต้อง</div>
+        <div class="q-answer-text">43 เมตร (หรือประมาณ 4.3 บาร์)</div>
+      </div>
+      <div class="q-calc-steps">
+        <h4>วิธีคำนวณ:</h4>
+        <div class="formula-highlight">
+          $$TDH = H_{\text{ดูด}} + H_{\text{ส่ง}} + H_f + H_{op} = 3 + 12 + 8 + 20 = 43\text{ เมตร}$$
+        </div>
+      </div>
+    </div>
+
+    <!-- Question 10 -->
+    <div class="q-card">
+      <div class="q-header">
+        <span class="q-num">ข้อที่ 10: แนวทางการติดตั้งระบบควบคุมฉบับเร่งด่วนสำหรับเกษตรกร</span>
+        <span class="q-tag">การเลือกอุปกรณ์จริง</span>
+      </div>
+      <div class="q-question">
+        เกษตรกรต้องการติดตั้งระบบควบคุมให้เสร็จเร็ว ไม่ต้องการเขียนโปรแกรม บัดกรี หรือสั่งทำแผงวงจร แนวทางใดเหมาะสมที่สุด?
+      </div>
+      <div class="q-answer-box">
+        <div class="q-answer-label">คำตอบที่ถูกต้อง</div>
+        <div class="q-answer-text">ใช้กล่องสำเร็จรูป Sonoff แล้วเสียบเซนเซอร์ภายนอกผ่านช่อง RJ11</div>
+      </div>
+      <div class="q-calc-steps">
+        <h4>หลักการเลือกอุปกรณ์:</h4>
+        <p>กล่องสำเร็จรูป COTS เช่น Sonoff มีช่องเชื่อมต่อแบบ Quick-connect (RJ11/RJ9) สามารถเสียบเซนเซอร์ความชื้น/อุณหภูมิได้ทันที ไม่ต้องบัดกรี และตั้งค่า Smart Scenes ผ่านแอปบนมือถือได้โดยไม่ต้องเขียนโค้ด ทำให้ติดตั้งเสร็จเร็วและปลอดภัย</p>
+      </div>
+    </div>
+
+    <footer style="text-align: center; margin-top: 2rem; color: var(--text-muted); font-size: 0.85rem;">
+      โครงการอบรมเชิงปฏิบัติการ Smart Agriculture AIoT 2026 • มหาวิทยาลัยเชียงใหม่
+    </footer>
+
+  </div>
+
+</body>
+</html>

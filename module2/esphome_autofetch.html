@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ESPHome Auto-Sync & USB Device Reader | CMU AIoT 2027</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070d17;
+      --card-bg: rgba(15, 23, 42, 0.85);
+      --accent: #22c55e;
+      --accent-glow: rgba(34, 197, 94, 0.35);
+      --primary: #38bdf8;
+      --warning: #f59e0b;
+      --border: rgba(56, 189, 248, 0.2);
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(circle at top, #0f172a, #030712);
+      color: var(--text);
+      font-family: 'Prompt', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 16px;
+    }
+    .wrapper {
+      width: 100%;
+      max-width: 860px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .header-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      text-align: center;
+    }
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    p.sub {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 680px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      font-family: 'Prompt', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 10px;
+      border: 0;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+      width: 100%;
+    }
+    .btn-green {
+      background: linear-gradient(135deg, #16a34a, #15803d);
+      color: #ffffff;
+      box-shadow: 0 4px 15px var(--accent-glow);
+    }
+    .btn-green:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5);
+    }
+    .btn-amber {
+      background: linear-gradient(135deg, #d97706, #b45309);
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(217, 119, 6, 0.35);
+    }
+    .btn-amber:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(217, 119, 6, 0.5);
+    }
+    .bookmark-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fef3c7;
+      color: #92400e;
+      border: 2px dashed #f59e0b;
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: grab;
+      text-decoration: none;
+      margin: 10px 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .data-display {
+      background: #030712;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 16px;
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .data-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.95rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding-bottom: 8px;
+    }
+    .data-row:last-child { border-bottom: 0; padding-bottom: 0; }
+    .data-val {
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 600;
+      color: var(--accent);
+      background: rgba(34,197,94,0.1);
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+    .terminal-box {
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 14px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      height: 180px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <div class="header-card">
+    <h1>⚡ ESPHome Device Name & IP Auto-Sync</h1>
+    <p class="sub">ระบบเชื่อมต่อและดึงข้อมูลชื่อบอร์ด (DEVICE NAME) และหมายเลขไอพี (IP ADDRESS) จาก ESPHome อัตโนมัติ</p>
+  </div>
+
+  <div class="grid-2">
+    <!-- METHOD 1: Direct Web Serial USB Reader -->
+    <div class="card">
+      <div class="card-title">🔌 วิธีที่ 1: ต่อสาย USB ดึงค่าใน 1 คลิก</div>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+        เสียบสาย USB จากบอร์ดเข้าแล็ปท็อป แล้วกดปุ่มนี้ ระบบจะรีเซ็ตและอ่าน Log จากพอร์ต Serial เพื่อสกัด Name และ IP อัตโนมัติ (ไม่ต้องเปิด web.esphome.io)
+      </p>
+      <button class="btn btn-green" id="btnConnectUsb" onclick="runDirectUsbReader()">
+        ⚡ เชื่อมต่อ USB และดึงค่าอัตโนมัติ
+      </button>
+
+      <div class="data-display" id="usbResultBox" style="display: none;">
+        <div class="data-row">
+          <span>ชื่อบอร์ด (Device Name):</span>
+          <span class="data-val" id="resUsbName">-</span>
+        </div>
+        <div class="data-row">
+          <span>หมายเลขไอพี (IP Address):</span>
+          <span class="data-val" id="resUsbIp">-</span>
+        </div>
+        <div class="data-row">
+          <span>เวลาที่ตรวจพบ:</span>
+          <span style="font-size: 0.8rem; color: #94a3b8;" id="resUsbTime">-</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- METHOD 2: Bookmarklet for web.esphome.io -->
+    <div class="card">
+      <div class="card-title">🔗 วิธีที่ 2: ปุ่มลัดสำหรับ web.esphome.io</div>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">
+        สำหรับผู้ที่เปิดหน้าเว็บ <b>web.esphome.io</b> อยู่แล้ว: ลากปุ่มสีส้มนี้ขึ้นไปวางที่ <b>แถบบุ๊กมาร์ก (Bookmarks Bar)</b> ของเบราว์เซอร์
+      </p>
+      
+      <div style="text-align: center;">
+        <a class="bookmark-pill" href="javascript:(function(){function getAllText(root){let t=root.innerText||'';let w=document.createTreeWalker(root,NodeFilter.SHOW_ELEMENT);let n;while(n=w.nextNode()){if(n.shadowRoot)t+='\\n'+getAllText(n.shadowRoot);}return t;}let full=getAllText(document.body);let nm=full.match(/DEVICE NAME:\s*([a-zA-Z0-9_\-]+)/i)||full.match(/(?:Device Name|Hostname):\s*'?([a-zA-Z0-9_\-]+)'?/i)||full.match(/(gogo-(?:relay|iot)-(?:red|green|blue)-[a-zA-Z0-9]+)/i);let ipm=full.match(/IP ADDRESS:\s*([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)/i)||full.match(/IP Address:\s*([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)/i)||full.match(/station IP:\s*([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)/i);let name=nm?nm[1]:'';let ip=ipm?ipm[1]:'';if(!name&&!ip){alert('⚠️ ไม่พบข้อมูล DEVICE NAME หรือ IP ADDRESS ในหน้า web.esphome.io กรุณากด Reset device ในหน้าเว็บแล้วลองกดปุ่มนี้ใหม่');return;}let ch=new BroadcastChannel('esphome_device_sync');ch.postMessage({name:name,ip:ip,time:Date.now()});alert('✅ ดึงข้อมูลสำเร็จ!\\nชื่อบอร์ด: '+name+'\\nIP: '+ip+'\\nข้อมูลถูกส่งเข้าใบงานและ Simulator อัตโนมัติแล้ว!');})();">
+          📌 ลากปุ่มนี้ไปวางที่ Bookmarks Bar
+        </a>
+      </div>
+
+      <p style="font-size: 0.8rem; color: #fbbf24; margin-top: 10px;">
+        💡 <b>วิธีใช้:</b> เมื่อเปิดหน้า <a href="https://web.esphome.io" target="_blank" style="color: #38bdf8;">web.esphome.io</a> และกด Reset device จนเห็น Logs แล้ว ให้คลิกบุ๊กมาร์กนี้ 1 ครั้ง ข้อมูลจะถูกดึงส่งตรงเข้าสู่ใบงาน Activity 1, 2 และหน้า Simulator ทันที!
+      </p>
+    </div>
+  </div>
+
+  <!-- Live Serial Log Box -->
+  <div class="card">
+    <div class="card-title">📜 บันทึกข้อความสดจากบอร์ด (Live Serial Output)</div>
+    <div class="terminal-box" id="serialTerminal">ยังไม่มีการเชื่อมต่อพอร์ต Serial... (คลิกปุ่มเชื่อมต่อ USB ด้านบนเพื่อเริ่มต้น)</div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="card" style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
+    <a href="../iot_training_workshop/renders/activity-1.html" class="btn btn-amber" style="width: auto; padding: 10px 18px; font-size: 0.9rem;">
+      📝 ไปที่ใบงาน กิจกรรมที่ 1
+    </a>
+    <a href="../iot_training_workshop/renders/activity-2.html" class="btn btn-amber" style="width: auto; padding: 10px 18px; font-size: 0.9rem;">
+      📝 ไปที่ใบงาน กิจกรรมที่ 2
+    </a>
+    <a href="simulator/" class="btn btn-green" style="width: auto; padding: 10px 18px; font-size: 0.9rem;">
+      🖥️ เปิดหน้า LEQs-IoT Simulator
+    </a>
+    <a href="javascript:void(0)" id="btnOpenBoardWeb" onclick="openDirectBoard()" class="btn" style="width: auto; padding: 10px 18px; font-size: 0.9rem; background: #0284c7; color: white; display: none;">
+      🌐 เปิดหน้าเว็บของบอร์ดตรง
+    </a>
+  </div>
+</div>
+
+<script src="esphome_sync.js"></script>
+<script>
+  let lastDetectedIp = null;
+  const terminal = document.getElementById('serialTerminal');
+
+  function logTerm(msg, isSuccess = false) {
+    const time = new Date().toLocaleTimeString();
+    terminal.innerHTML += `\n[${time}] ${msg}`;
+    terminal.scrollTop = terminal.scrollHeight;
+  }
+
+  async function runDirectUsbReader() {
+    if (!navigator.serial) {
+      alert("เบราว์เซอร์นี้ยังไม่รองรับ Web Serial API กรุณาเปิดด้วย Chrome หรือ Edge");
+      return;
+    }
+    const btn = document.getElementById('btnConnectUsb');
+    btn.disabled = true;
+    btn.innerText = "⌛ กำลังเลือกพอร์ต USB...";
+
+    try {
+      const port = await navigator.serial.requestPort();
+      btn.innerText = "⚡ กำลังเชื่อมต่อและรีเซ็ตบอร์ด...";
+      logTerm("เชื่อมต่อพอร์ตสำเร็จ กำลังส่งสัญญาณ Reset ผ่าน DTR/RTS...");
+
+      await port.open({ baudRate: 115200 });
+
+      // Hardware reboot trigger
+      await port.setSignals({ dataTerminalReady: false, requestToSend: true });
+      await new Promise(r => setTimeout(r, 120));
+      await port.setSignals({ dataTerminalReady: false, requestToSend: false });
+
+      const textDecoder = new TextDecoderStream();
+      const readableClosed = port.readable.pipeTo(textDecoder.writable);
+      const reader = textDecoder.readable.getReader();
+
+      let logBuffer = "";
+      let detectedName = null;
+      let detectedIp = null;
+      const startTime = Date.now();
+
+      while (Date.now() - startTime < 25000) {
+        const readP = reader.read();
+        const timeoutP = new Promise(r => setTimeout(() => r({ value: null, done: false }), 1500));
+        const res = await Promise.race([readP, timeoutP]);
+
+        if (res && res.value) {
+          logBuffer += res.value;
+          terminal.innerHTML += res.value;
+          terminal.scrollTop = terminal.scrollHeight;
+
+          if (!detectedName) {
+            const m = logBuffer.match(/DEVICE NAME:\s*([a-zA-Z0-9_\-]+)/i)
+              || logBuffer.match(/(?:Device Name|Hostname):\s*'?([a-zA-Z0-9_\-]+)'?/i)
+              || logBuffer.match(/(gogo-(?:relay|iot)-(?:red|green|blue)-[a-zA-Z0-9]+)/i);
+            if (m) {
+              detectedName = m[1];
+              logTerm(`🎯 ตรวจพบ DEVICE NAME: ${detectedName}`, true);
+            }
+          }
+
+          if (!detectedIp) {
+            const m = logBuffer.match(/IP ADDRESS:\s*([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)/i)
+              || logBuffer.match(/IP Address:\s*([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)/i)
+              || logBuffer.match(/station IP:\s*([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)/i);
+            if (m) {
+              detectedIp = m[1];
+              logTerm(`🎯 ตรวจพบ IP ADDRESS: ${detectedIp}`, true);
+            }
+          }
+
+          if (detectedName && detectedIp) break;
+        }
+
+        const elapsed = Math.round((Date.now() - startTime) / 1000);
+        btn.innerText = `⚡ กำลังฟัง Log (${elapsed}s) Name: ${detectedName || '...'} IP: ${detectedIp || '...'}`;
+      }
+
+      try {
+        reader.cancel();
+        await readableClosed.catch(() => {});
+        await port.close();
+      } catch (e) {}
+
+      if (detectedName || detectedIp) {
+        displayResult(detectedName, detectedIp);
+        // Broadcast across tabs
+        const ch = new BroadcastChannel('esphome_device_sync');
+        ch.postMessage({ name: detectedName, ip: detectedIp, time: Date.now() });
+      } else {
+        logTerm("⚠️ ไม่พบข้อมูล Name/IP จาก Log ภายใน 25 วินาที", false);
+      }
+
+    } catch (err) {
+      logTerm("เกิดข้อผิดพลาด: " + (err.message || err));
+    } finally {
+      btn.disabled = false;
+      btn.innerText = "⚡ เชื่อมต่อ USB และดึงค่าอัตโนมัติ";
+    }
+  }
+
+  function displayResult(name, ip) {
+    document.getElementById('usbResultBox').style.display = 'flex';
+    document.getElementById('resUsbName').innerText = name || '(ไม่พบชื่อ)';
+    document.getElementById('resUsbIp').innerText = ip || '(ไม่พบ IP)';
+    document.getElementById('resUsbTime').innerText = new Date().toLocaleTimeString();
+    lastDetectedIp = ip;
+
+    if (ip) {
+      const openBtn = document.getElementById('btnOpenBoardWeb');
+      openBtn.style.display = 'inline-flex';
+      openBtn.innerText = `🌐 เปิดหน้าเว็บ http://${ip}/`;
+    }
+  }
+
+  function openDirectBoard() {
+    if (lastDetectedIp) {
+      window.open(`http://${lastDetectedIp}/`, '_blank');
+    }
+  }
+
+  // Cross-tab broadcast listener
+  const syncChannel = new BroadcastChannel('esphome_device_sync');
+  syncChannel.onmessage = function (e) {
+    if (e.data && (e.data.name || e.data.ip)) {
+      logTerm(`📥 ได้รับข้อมูลจากแท็บอื่น: Name=${e.data.name}, IP=${e.data.ip}`, true);
+      displayResult(e.data.name, e.data.ip);
+    }
+  };
+</script>
+
+</body>
+</html>

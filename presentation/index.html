@@ -1,0 +1,2007 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>หลักสูตรเกษตรดิจิทัลและปัญญาประดิษฐ์ฝังตัว (AIoT 2570) - RBRU Presentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #070F1E;
+      --bg-navy: #0B192C;
+      --bg-surface: #13243B;
+      --bg-card: rgba(19, 36, 59, 0.75);
+      --bg-card-hover: rgba(28, 52, 84, 0.85);
+      --border-subtle: rgba(255, 255, 255, 0.1);
+      --border-accent: rgba(241, 196, 15, 0.4);
+      --gold-primary: #F1C40F;
+      --gold-dark: #C99700;
+      --gold-glow: rgba(241, 196, 15, 0.25);
+      --aqua-cyan: #00ADB5;
+      --aqua-glow: rgba(0, 173, 181, 0.25);
+      --emerald: #10B981;
+      --emerald-glow: rgba(16, 185, 129, 0.25);
+      --ruby: #EF4444;
+      --text-white: #FFFFFF;
+      --text-muted: #94A3B8;
+      --text-dim: #64748B;
+      --font-body: 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Prompt', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-tech: 'Chakra Petch', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      font-family: var(--font-body);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    /* Top Progress Bar */
+    #progress-container {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 100;
+    }
+    #progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--aqua-cyan), var(--gold-primary));
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 0 10px var(--gold-glow);
+    }
+
+    /* Deck Master Viewport */
+    #deck-container {
+      flex: 1;
+      position: relative;
+      width: 100%;
+      height: calc(100vh - 60px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 16px;
+    }
+
+    .slide {
+      width: 100%;
+      max-width: 1560px;
+      aspect-ratio: 16 / 9;
+      background: radial-gradient(circle at 80% 20%, #152B47 0%, var(--bg-navy) 60%, #08111E 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 173, 181, 0.08);
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.96) translateY(20px);
+      transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      padding: 40px 52px;
+      overflow: hidden;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1) translateY(0);
+      z-index: 10;
+    }
+
+    /* Slide Header */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      border-bottom: 2px solid rgba(241, 196, 15, 0.3);
+      padding-bottom: 14px;
+      position: relative;
+    }
+
+    .slide-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: var(--font-tech);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .badge-orchard {
+      background: rgba(241, 196, 15, 0.15);
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-primary);
+    }
+    .badge-aqua {
+      background: rgba(0, 173, 181, 0.15);
+      border: 1px solid var(--aqua-cyan);
+      color: var(--aqua-cyan);
+    }
+    .badge-core {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid var(--emerald);
+      color: var(--emerald);
+    }
+
+    .slide-title-group h2 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text-white);
+      line-height: 1.25;
+    }
+    .slide-title-group .slide-subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .slide-meta {
+      text-align: right;
+      font-family: var(--font-tech);
+      font-size: 13px;
+      color: var(--gold-primary);
+    }
+
+    /* Slide Body Grid */
+    .slide-body {
+      flex: 1;
+      display: grid;
+      gap: 24px;
+      align-items: stretch;
+      overflow: hidden;
+    }
+    .grid-2col { grid-template-columns: 1fr 1fr; }
+    .grid-3col { grid-template-columns: 1fr 1fr 1fr; }
+    .grid-4col { grid-template-columns: repeat(4, 1fr); }
+    .grid-left-wide { grid-template-columns: 1.3fr 0.9fr; }
+    .grid-right-wide { grid-template-columns: 0.9fr 1.3fr; }
+
+    /* Cards */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 20px 22px;
+      display: flex;
+      flex-direction: column;
+      backdrop-filter: blur(10px);
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .card:hover {
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+    .card-gold {
+      border-left: 4px solid var(--gold-primary);
+      background: linear-gradient(135deg, rgba(241, 196, 15, 0.08) 0%, rgba(19, 36, 59, 0.8) 100%);
+    }
+    .card-aqua {
+      border-left: 4px solid var(--aqua-cyan);
+      background: linear-gradient(135deg, rgba(0, 173, 181, 0.08) 0%, rgba(19, 36, 59, 0.8) 100%);
+    }
+    .card-emerald {
+      border-left: 4px solid var(--emerald);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(19, 36, 59, 0.8) 100%);
+    }
+
+    .card h3 {
+      font-family: var(--font-display);
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--text-white);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card h3 svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+    .card-gold h3 { color: var(--gold-primary); }
+    .card-aqua h3 { color: var(--aqua-cyan); }
+    .card-emerald h3 { color: var(--emerald); }
+
+    .card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 15px;
+      line-height: 1.5;
+      color: #CBD5E1;
+    }
+    .card ul li {
+      position: relative;
+      padding-left: 18px;
+    }
+    .card ul li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--gold-primary);
+      font-weight: bold;
+    }
+    .card-aqua ul li::before { color: var(--aqua-cyan); }
+    .card-emerald ul li::before { color: var(--emerald); }
+
+    .highlight-text {
+      color: var(--gold-primary);
+      font-weight: 600;
+    }
+    .highlight-aqua {
+      color: var(--aqua-cyan);
+      font-weight: 600;
+    }
+    .highlight-emerald {
+      color: var(--emerald);
+      font-weight: 600;
+    }
+
+    /* Math and Formula Box */
+    .formula-box {
+      background: rgba(8, 17, 30, 0.8);
+      border: 1px dashed rgba(241, 196, 15, 0.5);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-family: var(--font-tech);
+      font-size: 15px;
+      color: #F8FAFC;
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    /* Bottom Banner Note */
+    .bottom-note {
+      margin-top: 18px;
+      background: rgba(11, 25, 44, 0.9);
+      border: 1px solid rgba(241, 196, 15, 0.3);
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-size: 14px;
+      color: #E2E8F0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .bottom-note strong {
+      color: var(--gold-primary);
+      font-family: var(--font-tech);
+    }
+
+    /* Tables */
+    .tech-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+    .tech-table th {
+      background: rgba(19, 36, 59, 0.9);
+      color: var(--gold-primary);
+      font-family: var(--font-display);
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 2px solid var(--gold-primary);
+      font-size: 14px;
+    }
+    .tech-table td {
+      padding: 9px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      color: #E2E8F0;
+    }
+    .tech-table tr:hover td {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    /* Cover Slide Specific Styles */
+    .slide-cover {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      padding: 0;
+      background: #070F1E;
+      border: none;
+    }
+    .cover-left {
+      background: linear-gradient(135deg, #09172B 0%, #0F223D 60%, #152E52 100%);
+      padding: 48px 52px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 4px solid var(--gold-primary);
+      position: relative;
+    }
+    .cover-header {
+      font-family: var(--font-display);
+      color: var(--gold-primary);
+      font-size: 16px;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+    .cover-header span {
+      display: block;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 400;
+      margin-top: 4px;
+    }
+    .cover-title-box h1 {
+      font-family: var(--font-display);
+      font-size: 38px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--text-white);
+      margin-bottom: 12px;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+    .cover-title-box .subtitle-th {
+      font-size: 21px;
+      font-weight: 600;
+      color: var(--gold-primary);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .cover-title-box .subtitle-en {
+      font-family: var(--font-tech);
+      font-size: 14px;
+      color: var(--text-muted);
+      letter-spacing: 0.8px;
+    }
+    .cover-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      padding-top: 16px;
+    }
+    .cover-footer .author {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-white);
+    }
+    .cover-footer .team {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .cover-footer .publisher {
+      font-size: 12px;
+      color: var(--gold-primary);
+      margin-top: 8px;
+      font-family: var(--font-tech);
+    }
+    .cover-right {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+    }
+    .cover-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.95) contrast(1.05);
+    }
+
+    /* Bottom Controller Bar */
+    #deck-controls {
+      height: 60px;
+      background: rgba(11, 25, 44, 0.95);
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      backdrop-filter: blur(12px);
+      z-index: 90;
+    }
+    .control-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .deck-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--text-white);
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .deck-btn:hover {
+      background: rgba(241, 196, 15, 0.2);
+      border-color: var(--gold-primary);
+      color: var(--gold-primary);
+      transform: translateY(-1px);
+    }
+    .deck-btn:active {
+      transform: translateY(0);
+    }
+    .deck-btn-gold {
+      background: var(--gold-primary);
+      border-color: var(--gold-primary);
+      color: #070F1E;
+      font-weight: 600;
+    }
+    .deck-btn-gold:hover {
+      background: #ffd700;
+      color: #070F1E;
+    }
+    #slide-indicator {
+      font-family: var(--font-tech);
+      font-size: 15px;
+      color: var(--gold-primary);
+      padding: 0 12px;
+      min-width: 90px;
+      text-align: center;
+    }
+
+    /* Drawer / Grid View Modal */
+    #drawer-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(7, 15, 30, 0.94);
+      backdrop-filter: blur(16px);
+      z-index: 200;
+      display: none;
+      flex-direction: column;
+      padding: 40px;
+    }
+    #drawer-modal.open {
+      display: flex;
+    }
+    .drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      border-bottom: 2px solid var(--gold-primary);
+      padding-bottom: 12px;
+    }
+    .drawer-header h3 {
+      font-family: var(--font-display);
+      font-size: 24px;
+      color: var(--gold-primary);
+    }
+    .drawer-grid {
+      flex: 1;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 10px 4px;
+    }
+    .drawer-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 120px;
+    }
+    .drawer-card:hover {
+      border-color: var(--gold-primary);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .drawer-card.active-card {
+      border-color: var(--gold-primary);
+      background: rgba(241, 196, 15, 0.12);
+    }
+    .drawer-card .card-num {
+      font-family: var(--font-tech);
+      font-size: 13px;
+      color: var(--gold-primary);
+      font-weight: 600;
+    }
+    .drawer-card .card-name {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-white);
+      margin: 8px 0;
+      line-height: 1.35;
+    }
+    .drawer-card .card-topic {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* SVG Diagram Utilities */
+    .svg-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .svg-container svg {
+      width: 100%;
+      height: 100%;
+      max-height: 340px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Progress Bar -->
+  <div id="progress-container">
+    <div id="progress-bar"></div>
+  </div>
+
+  <!-- Main Slide Deck Container -->
+  <main id="deck-container">
+
+    <!-- ================= SLIDE 1 : COVER ================= -->
+    <section class="slide slide-cover active" data-slide="1">
+      <div class="cover-left">
+        <div class="cover-header">
+          คณะวิทยาศาสตร์และเทคโนโลยี มหาวิทยาลัยราชภัฏรำไพพรรณี
+          <span>โครงการพัฒนาทักษะวิชาชีพชั้นสูงเพื่อการขับเคลื่อนเศรษฐกิจฐานนวัตกรรม (AIoT 2570)</span>
+        </div>
+        <div class="cover-title-box">
+          <h1>หลักสูตรเกษตรดิจิทัล<br>และปัญญาประดิษฐ์ฝังตัว</h1>
+          <div class="subtitle-th">สวนผลไม้มูลค่าสูงและการเพาะเลี้ยงสัตว์น้ำชายฝั่ง ภาคตะวันออก</div>
+          <div class="subtitle-en">Digital Agriculture and Embedded Artificial Intelligence Curriculum</div>
+        </div>
+        <div class="cover-footer">
+          <div class="author">ผู้ช่วยศาสตราจารย์ ดร.ชีวะ ทัศนา (ผู้นิพนธ์หลัก และบรรณาธิการ)</div>
+          <div class="team">ร่วมกับคณะวิทยากรผู้เชี่ยวชาญ คณะวิทยาศาสตร์และเทคโนโลยี 8 ท่าน</div>
+          <div class="publisher">สำนักพิมพ์มหาวิทยาลัยราชภัฏรำไพพรรณี &bull; พ.ศ. 2570</div>
+        </div>
+      </div>
+      <div class="cover-right">
+        <img src="figures/cover_artwork.jpg" alt="Eastern Agri-Aqua AIoT Master Artwork" onerror="this.src='../latex_textbook/figures/cover_artwork.jpg'">
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 2 : ROADMAP ================= -->
+    <section class="slide" data-slide="2">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-core">โครงสร้างหลักสูตร 60 ชั่วโมง</span>
+          <h2>แผนผังหลักสูตรและ 10 โมดูลการเรียนรู้ภาคสนาม</h2>
+          <div class="slide-subtitle">การบูรณาการองค์ความรู้ฟิสิกส์เกษตร วิศวกรรมไฟฟ้ากำลัง และสมองกลปัญญาประดิษฐ์</div>
+        </div>
+        <div class="slide-meta">CURRICULUM ROADMAP</div>
+      </div>
+      <div class="slide-body grid-2col">
+        <div class="card card-gold">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            ส่วนที่ 1 : สวนผลไม้มูลค่าสูง (ทุเรียน มังคุด สละ)
+          </h3>
+          <ul>
+            <li><strong>บทที่ 1 :</strong> ฟิสิกส์เกษตรและสถาปัตยกรรม Edge AI ฝังตัว</li>
+            <li><strong>บทที่ 2 :</strong> อิเล็กทรอนิกส์กำลังและการขับมอเตอร์ปั๊มน้ำกำลังสูง</li>
+            <li><strong>บทที่ 3 :</strong> ชลศาสตร์ท่อในสวนผลไม้และสมดุลการคายระเหยน้ำ</li>
+            <li><strong>บทที่ 4 :</strong> การประเมินความสุกทุเรียนด้วยเสียงเคาะและคอมพิวเตอร์วิทัศน์</li>
+            <li><strong>บทที่ 5 :</strong> การตรวจจับโรคใบและผลผลิตด้วย Edge AI แบบเรียลไทม์</li>
+          </ul>
+        </div>
+        <div class="card card-aqua">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20M2 12l5-5m-5 5 5 5M22 12l-5-5m5 5-5 5"/></svg>
+            ส่วนที่ 2 : การเพาะเลี้ยงสัตว์น้ำชายฝั่ง (กุ้งขาว ปลากะพง)
+          </h3>
+          <ul>
+            <li><strong>บทที่ 6 :</strong> ฟิสิกส์การละลายของออกซิเจนและเซนเซอร์เคมีน้ำแม่นยำ</li>
+            <li><strong>บทที่ 7 :</strong> การควบคุมเครื่องเติมอากาศด้วยอินเวอร์เตอร์ VFD ประหยัดพลังงาน</li>
+            <li><strong>บทที่ 8 :</strong> การวิเคราะห์พฤติกรรมการกินอาหารกุ้งด้วยเสียงใต้น้ำและ AI</li>
+            <li><strong>บทที่ 9 :</strong> การพัฒนาและ Optimize โมเดล AI บน Edge Device ขนาดเล็ก</li>
+            <li><strong>บทที่ 10 :</strong> ระบบสื่อสาร LoRaWAN พลังงานแสงอาทิตย์ และเกตเวย์อุตสาหกรรม</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>OBE Standard:</strong> ทุกโมดูลมุ่งเน้นการลงมือปฏิบัติการจริง ณ แปลงทดสอบทุเรียนและฟาร์มเพาะเลี้ยงสัตว์น้ำภาคตะวันออก
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 3 : CH1 EDGE AI PARADIGM ================= -->
+    <section class="slide" data-slide="3">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-orchard">บทที่ 1 &bull; ทฤษฎีรากฐาน</span>
+          <h2>ฟิสิกส์เกษตรและการเปลี่ยนผ่านสู่ Edge AI ฝังตัว</h2>
+          <div class="slide-subtitle">การเอาชนะข้อจำกัดของโครงข่ายสัญญาณคลาวด์ด้วยการประมวลผลหน้างาน 100%</div>
+        </div>
+        <div class="slide-meta">CHAPTER 01 : FOUNDATION</div>
+      </div>
+      <div class="slide-body grid-2col">
+        <div class="card">
+          <h3>ความท้าทายของเกษตรกรรมชายฝั่งภาคตะวันออก</h3>
+          <ul>
+            <li>สัญญาณมือถือ 4G/5G ขาดหายในพื้นที่หุบเขาและบ่อเพาะเลี้ยงริมทะเล</li>
+            <li>ค่าหน่วงเวลา (Latency) สูงเกิน 2,000 ms เสี่ยงต่อการสั่งตัดปั๊มน้ำไม่ทัน</li>
+            <li>ค่าเช่าคู่สายและแบนด์วิดท์คลาวด์สะสมสูงถึงหลักหมื่นบาทต่อเดือน</li>
+            <li>ความชื้นสัมพัทธ์สูงกว่า 85% RH และไอน้ำเค็มกัดกร่อนแผงวงจร</li>
+          </ul>
+        </div>
+        <div class="card card-gold">
+          <h3>กระบวนทัศน์ Edge Computing ฝังตัว</h3>
+          <ul>
+            <li><span class="highlight-text">Zero-Cloud Latency :</span> อนุมานผลตรวจวัดหน้างานภายในเวลา &lt; 50 ms</li>
+            <li><span class="highlight-text">Offline Autonomy :</span> ระบบตัดสินใจเปิด-ปิดเครื่องจักรได้แม้เน็ตหลุด 100%</li>
+            <li><span class="highlight-text">Bandwidth Optimization :</span> ส่งเฉพาะ Metadata หรือรหัสเตือนภัยผ่าน LoRaWAN</li>
+            <li><span class="highlight-text">Data Privacy & Sovereignty :</span> ข้อมูลผลผลิตเป็นกรรมสิทธิ์ของเกษตรกรเต็มตัว</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>สถาปัตยกรรม 3 ระดับ:</strong> Sensing Physical Layer &rarr; Edge Embedded Intelligence &rarr; Industrial Action Layer
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 4 : CH1 HARDWARE PLATFORMS ================= -->
+    <section class="slide" data-slide="4">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-orchard">บทที่ 1 &bull; แพลตฟอร์มฮาร์ดแวร์</span>
+          <h2>การคัดเลือกสมองกลฝังตัวและโปรไฟล์พลังงาน</h2>
+          <div class="slide-subtitle">การเปรียบเทียบ MCU, NPU และ Single-Board Computer สำหรับงานฟาร์มสมาร์ท</div>
+        </div>
+        <div class="slide-meta">CHAPTER 01 : HARDWARE SPECS</div>
+      </div>
+      <div class="slide-body grid-left-wide">
+        <div class="card">
+          <h3>ตารางเปรียบเทียบคุณลักษณะทางเทคนิคและสมรรถนะ</h3>
+          <table class="tech-table">
+            <thead>
+              <tr><th>ชิป / บอร์ด</th><th>กำลังคำนวณ (TOPS)</th><th>การใช้พลังงาน</th><th>งานที่เหมาะสม</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>ESP32-S3</strong></td><td>0.01 (Vector Ext)</td><td>0.5 - 1.2 W</td><td>ตรวจวัดสภาพแวดล้อม, FFT เสียงเคาะเบื้องต้น</td></tr>
+              <tr><td><strong>Raspberry Pi 5</strong></td><td>0.1 - 0.2 (CPU)</td><td>5.0 - 12.0 W</td><td>เกตเวย์รวบรวมข้อมูล, โหนดบันทึกภาพแปลง</td></tr>
+              <tr><td><strong>K210 / Luckfox</strong></td><td>0.5 - 1.0 (NPU)</td><td>1.0 - 2.5 W</td><td>จำแนกโรคพืช, ตรวจจับคน/ศัตรูพืชเบื้องต้น</td></tr>
+              <tr><td><strong>Jetson Orin Nano</strong></td><td>20 - 40 (Tensor Core)</td><td>7.0 - 15.0 W</td><td>YOLO Real-time วิเคราะห์กุ้ง 30 FPS</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card card-emerald">
+          <h3>เกณฑ์การตัดสินใจภาคสนาม</h3>
+          <ul>
+            <li><strong>จุดโหนดตรวจวัดในสวน :</strong> ESP32-S3 โซลาร์เซลล์ 10W</li>
+            <li><strong>สถานีตรวจคัดแยกทุเรียน :</strong> Jetson Orin Nano ต่อไฟบ้าน</li>
+            <li><strong>สถานีควบคุมบ่อกุ้ง :</strong> Industrial ESP32 + Modbus RTU</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>ข้อควรจำ:</strong> การใช้พลังงานสัมพันธ์โดยตรงกับขนาดแบตเตอรี่และแผงโซลาร์เซลล์ที่ต้องติดตั้งในสวน
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 5 : CH2 INDUSTRIAL ELECTRONICS ================= -->
+    <section class="slide" data-slide="5">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-orchard">บทที่ 2 &bull; ฮาร์ดแวร์กำลังสูง</span>
+          <h2>อิเล็กทรอนิกส์กำลังและการขับมอเตอร์ปั๊มน้ำขนาดใหญ่</h2>
+          <div class="slide-subtitle">หลักการควบคุม Magnetic Contactor, Solid-State Relay และการป้องกันขดลวดเหนี่ยวนำ</div>
+        </div>
+        <div class="slide-meta">CHAPTER 02 : POWER ELECTRONICS</div>
+      </div>
+      <div class="slide-body grid-2col">
+        <div class="card card-gold">
+          <h3>ปัญหา Back-EMF จากโหลดเหนี่ยวนำ (Inductive Load)</h3>
+          <ul>
+            <li>เมื่อตัดกระแสจากขดลวดรีเลย์หรือคอยล์แมกเนติก จะเกิดแรงดันต้านกลับสูง</li>
+            <li>แรงดันพุ่งสูงตามสมการฟิสิกส์:
+              <div class="formula-box">V_L = - L &times; (di / dt)</div>
+            </li>
+            <li>แรงดันเหนี่ยวนำสามารถพุ่งสูงเกิน <strong>300 - 800 โวลต์</strong></li>
+            <li>ส่งผลให้ทรานซิสเตอร์ขับ (MOSFET / BJT) ทะลุเสียหายในเสี้ยววินาที</li>
+          </ul>
+        </div>
+        <div class="card card-emerald">
+          <h3>วงจรป้องกัน Flyback Diode และ RC Snubber</h3>
+          <ul>
+            <li><strong>Flyback Diode :</strong> ต่อขนานย้อนกลับคร่อมคอยล์รีเลย์ DC (เช่น เบอร์ 1N4007 หรือ Schottky 1N5819)</li>
+            <li><strong>RC Snubber Circuit :</strong> ต่อคร่อมหน้าสัมผัส AC รีเลย์เพื่อดูดซับประกายไฟและสัญญาณรบกวนความถี่สูง (R = 100 &Omega;, C = 0.1 &mu;F 630V)</li>
+            <li><strong>Varistor (MOV) :</strong> ตัดแรงดัน Surge ชั่วขณะที่เกิน 275 VAC</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>คำเตือนความปลอดภัย:</strong> ห้ามต่อขาเอาต์พุต GPIO ของไมโครคอนโทรลเลอร์เข้ากับคอยล์รีเลย์โดยตรงเด็ดขาด
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 6 : CH2 OPTO-ISOLATION & GROUNDING ================= -->
+    <section class="slide" data-slide="6">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-orchard">บทที่ 2 &bull; ความปลอดภัยไฟฟ้า</span>
+          <h2>การแยกกราวด์ Opto-Isolation และระบบต่อลงดินอุตสาหกรรม</h2>
+          <div class="slide-subtitle">เทคนิคการป้องกันไมโครคอนโทรลเลอร์แฮงก์จากคลื่นรบกวน EMI ของมอเตอร์ 3 เฟส</div>
+        </div>
+        <div class="slide-meta">CHAPTER 02 : ISOLATION & GROUND</div>
+      </div>
+      <div class="slide-body grid-3col">
+        <div class="card">
+          <h3>1. Optocoupler Isolation</h3>
+          <ul>
+            <li>แยกวงจรตรรกะ 3.3V ออกจากวงจรกำลัง 24V/220V ด้วยแสง</li>
+            <li>ใช้ชิป PC817 หรือ TLP281 ป้องกันไฟกระชากย้อนเข้า MCU</li>
+            <li>ระยะห่างทางกายภาพ (Creepage Distance) &gt; 6 มม.</li>
+          </ul>
+        </div>
+        <div class="card card-gold">
+          <h3>2. การแยกกราวด์ (Star Ground)</h3>
+          <ul>
+            <li>แยก <strong>Signal Ground (GND_D)</strong> ออกจาก <strong>Power Ground (GND_P)</strong></li>
+            <li>ห้ามลูปสายกราวด์เป็นวงกลม (Ground Loop) เพื่อลดการเหนี่ยวนำ EMI</li>
+            <li>รวมกราวด์ที่จุดเดียว (Single-point grounding)</li>
+          </ul>
+        </div>
+        <div class="card card-aqua">
+          <h3>3. หลักดินมาตรฐาน กฟภ.</h3>
+          <ul>
+            <li>ตอกแท่งหลักดินทองแดงยาว <strong>2.40 เมตร</strong> เส้นผ่านศูนย์กลาง 16 มม.</li>
+            <li>ค่าความต้านทานดินต้องต่ำกว่า <strong>5 โอห์ม (&Omega;)</strong></li>
+            <li>ต่อสายเฟอร์ไรต์บีดและบายพาสแคป 0.1 &mu;F ทุกจุดจ่ายไฟ</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>สรุปหัวใจสำคัญ:</strong> สัญญาณรบกวนมอเตอร์เป็นสาเหตุอันดับหนึ่งที่ทำให้ไมโครคอนโทรลเลอร์รีเซ็ตตัวเองหน้างาน
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 7 : CH3 ORCHARD HYDRAULICS ================= -->
+    <section class="slide" data-slide="7">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-orchard">บทที่ 3 &bull; ชลศาสตร์สวนผลไม้</span>
+          <h2>การคำนวณการสูญเสียแรงดันในท่อและสมการ Darcy-Weisbach</h2>
+          <div class="slide-subtitle">การออกแบบระบบจ่ายน้ำสปริงเกลอร์ทุเรียนบนพื้นที่ลาดชันภูเขาจันทบุรี-ระยอง</div>
+        </div>
+        <div class="slide-meta">CHAPTER 03 : HYDRAULICS</div>
+      </div>
+      <div class="slide-body grid-2col">
+        <div class="card">
+          <h3>สมการการสูญเสียหลัก (Major Friction Loss)</h3>
+          <p style="font-size:14px; margin-bottom:10px;">การสูญเสียเฮดเนื่องจากความเสียดทานผิวท่อ คำนวณจากสมการ Darcy-Weisbach:</p>
+          <div class="formula-box">h_f = f &times; (L / D) &times; (v&sup2; / 2g)</div>
+          <ul>
+            <li><strong>f :</strong> สัมประสิทธิ์ความเสียดทาน (คำนวณจาก Reynolds No. และความขรุขระท่อ)</li>
+            <li><strong>L :</strong> ความยาวท่อเมน (เมตร)</li>
+            <li><strong>D :</strong> เส้นผ่านศูนย์กลางภายในท่อ (เมตร)</li>
+            <li><strong>v :</strong> ความเร็วการไหลของน้ำ (ไม่ควรเกิน 1.5 - 2.0 m/s)</li>
+          </ul>
+        </div>
+        <div class="card card-gold">
+          <h3>การสูญเสียรอง (Minor Losses) และผลต่างระดับ</h3>
+          <p style="font-size:14px; margin-bottom:10px;">การสูญเสียที่เกิดจากข้องอ ข้อแยก และวาล์ว:</p>
+          <div class="formula-box">h_m = &sum; K_L &times; (v&sup2; / 2g) &emsp;|&emsp; H_total = H_static + h_f + h_m + H_nozzle</div>
+          <ul>
+            <li>สวนทุเรียนเนินเขาต้องบวก <strong>Static Head</strong> ตามความชันภูมิประเทศ (10 ม. = 1 บาร์)</li>
+            <li>หัวสปริงเกลอร์ทุเรียนต้องการแรงดันคงที่ <strong>1.5 - 2.0 บาร์</strong> ที่ปลายสาย</li>
+            <li>ถ้าท่อเล็กเกินไป แรงดันตก ปลายสวนจะได้รับน้ำไม่สม่ำเสมอ ผลผลิตร่วง</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>สูตรใช้งานช่าง:</strong> สมการ Hazen-Williams มักใช้คำนวณท่อ PVC สะดวกสำหรับน้ำอุณหภูมิปกติ (C = 150)
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 8 : CH3 PENMAN-MONTEITH & SOIL ================= -->
+    <section class="slide" data-slide="8">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-orchard">บทที่ 3 &bull; การให้น้ำแม่นยำ</span>
+          <h2>การคายระเหยน้ำ Penman-Monteith และเซนเซอร์วัดความชื้นดิน</h2>
+          <div class="slide-subtitle">การให้น้ำตามความต้องการจริงของต้นทุเรียนในแต่ละระยะการพัฒนาของผลผลิต</div>
+        </div>
+        <div class="slide-meta">CHAPTER 03 : EVAPOTRANSPIRATION</div>
+      </div>
+      <div class="slide-body grid-2col">
+        <div class="card card-emerald">
+          <h3>สมการสมดุลน้ำ FAO-56 Penman-Monteith</h3>
+          <div class="formula-box" style="font-size:13px;">
+            ET_c = K_c &times; ET_0
+          </div>
+          <ul>
+            <li><strong>ET_0 :</strong> อัตราการคายระเหยอ้างอิง คำนวณจากรังสีดวงอาทิตย์ อุณหภูมิ ลม และความชื้นสัมพัทธ์</li>
+            <li><strong>K_c :</strong> ค่าสัมประสิทธิ์พืชประจำระยะต้นทุเรียน (ระยะแตกใบอ่อน = 0.85, ระยะขยายผล = 1.05 - 1.15)</li>
+            <li><strong>ปริมาณน้ำที่ต้องให้ (ลิตร/ต้น/วัน) :</strong>
+              <div class="formula-box">Volume = ET_c &times; Canopy Area (m&sup2;) &times; Efficiency</div>
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>การตรวจวัดความชื้นดินด้วยเซนเซอร์ความจุไฟฟ้า (Capacitive)</h3>
+          <ul>
+            <li>หลีกเลี่ยงเซนเซอร์วัดความต้านทานแบบเข็มโลหะเปลือย (เป็นสนิมและสึกกร่อนเร็ว)</li>
+            <li>ใช้เซนเซอร์ <strong>Capacitive Frequency Domain (FDR / TDR)</strong> วัดค่าไดอิเล็กทริกดิน</li>
+            <li>ติดตั้ง 2 ระดับความลึก: <strong>20 ซม.</strong> (รากหากินผิวดิน) และ <strong>50 ซม.</strong> (ความชื้นสะสมลึก)</li>
+            <li>ควบคุมความชื้นให้อยู่ระหว่าง <strong>Field Capacity (FC)</strong> และไม่แตะ <strong>Wilting Point (WP)</strong></li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>เคล็ดลับวิชาการ:</strong> ระยะกักน้ำทำดอกทุเรียน ต้องปล่อยให้ดินแห้งที่แรงดึงน้ำ &gt; 40-50 kPa นาน 10-14 วัน
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 9 : CH4 DURIAN ACOUSTIC RESONANCE ================= -->
+    <section class="slide" data-slide="9">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-orchard">บทที่ 4 &bull; การคัดแยกความสุก</span>
+          <h2>ฟิสิกส์คลื่นเสียงเคาะทุเรียนและการแปลงสัญญาณ FFT</h2>
+          <div class="slide-subtitle">การวิเคราะห์ความถี่ธรรมชาติ (Natural Frequency) เพื่อแยกทุเรียนแก่-ทุเรียนอ่อนอย่างแม่นยำ</div>
+        </div>
+        <div class="slide-meta">CHAPTER 04 : ACOUSTIC PHYSICS</div>
+      </div>
+      <div class="slide-body grid-2col">
+        <div class="card card-gold">
+          <h3>หลักการสั่นพ้องเชิงกลและช่องว่างระหว่างพู</h3>
+          <ul>
+            <li>เมื่อทุเรียนแก่จัด เนื้อจะหดตัวเล็กน้อยและเกิดช่องอากาศระหว่างเปลือกกับเนื้อ</li>
+            <li>ความหนาแน่นและค่ามอดูลัสความยืดหยุ่นยังผล (Effective Elastic Modulus) ลดลง</li>
+            <li>ความถี่สั่นพ้องเรโซแนนซ์หลัก (Fundamental Frequency f_0) จะเลื่อนลงต่ำ:
+              <div class="formula-box">f_0 = (1 / 2&pi;) &times; &radic;( k_eff / m_eff )</div>
+            </li>
+            <li><strong>ทุเรียนอ่อน :</strong> เสียงเคาะแน่นทึบ ความถี่พุ่งสูง <strong>&gt; 450 - 650 Hz</strong></li>
+            <li><strong>ทุเรียนแก่สมบูรณ์ :</strong> เสียงเคาะโปร่งกังวาน ความถี่ลดต่ำลงมาที่ <strong>220 - 320 Hz</strong></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>กระบวนการสกัดคุณลักษณะเสียงเคาะ (Digital Signal Pipeline)</h3>
+          <ul>
+            <li><strong>รับสัญญาณ :</strong> ไมโครโฟนคอนเดนเซอร์ MEMS หรือ Piezo Pickup ความถี่สุ่ม 44.1 kHz</li>
+            <li><strong>Bandpass Filter :</strong> กรองตัดย่านเสียงรบกวนภายนอกคงเหลือ 100 Hz - 1,000 Hz</li>
+            <li><strong>FFT Windowing :</strong> นำสัญญาณ 2,048 จุดคำนวณผ่าน Hanning Window</li>
+            <li><strong>Peak Detection & Damping Ratio :</strong> สกัดค่าความถี่สูงสุดและอัตราการสลายตัวของคลื่น (&zeta;)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>การนำไปใช้:</strong> ผสานค่า Peak Frequency และ Damping เข้ากับ Machine Learning Classifier (SVM / Random Forest)
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 10 : CH4 COMPUTER VISION RIPENESS ================= -->
+    <section class="slide" data-slide="10">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-orchard">บทที่ 4 &bull; การมองเห็นของคอมพิวเตอร์</span>
+          <h2>คอมพิวเตอร์วิทัศน์คัดแยกเกรดและหนามทุเรียน</h2>
+          <div class="slide-subtitle">การวิเคราะห์รูปทรงพู สัณฐานวิทยาหนาม และสีร่องเปลือกด้วย Edge AI Camera</div>
+        </div>
+        <div class="slide-meta">CHAPTER 04 : COMPUTER VISION</div>
+      </div>
+      <div class="slide-body grid-3col">
+        <div class="card">
+          <h3>1. พื้นที่สี HSV / Lab</h3>
+          <ul>
+            <li>แปลงจาก RGB เป็น HSV เพื่อขจัดผลกระทบจากแสงเงาแดดธรรมชาติ</li>
+            <li>วัดค่าสีร่องหนาม: ทุเรียนแก่จะมีร่องสีน้ำตาลแกมเหลืองชัดเจน</li>
+            <li>คำนวณดัชนี Brown-to-Green Ratio</li>
+          </ul>
+        </div>
+        <div class="card card-gold">
+          <h3>2. สัณฐานวิทยาปลายหนาม</h3>
+          <ul>
+            <li>วิเคราะห์ความโค้งงอของปลายหนาม (Thorn Tip Curvature)</li>
+            <li>หนามทุเรียนแก่จะแห้งหดตัว ปลายหนามกางออกและแข็งกรอบ</li>
+            <li>ใช้วิธี Edge Contours & Morphological Skeleton</li>
+          </ul>
+        </div>
+        <div class="card card-emerald">
+          <h3>3. การคัดขนาดเกรดส่งออก</h3>
+          <ul>
+            <li>วัดสัดส่วนพูสมบูรณ์ 4-5 พู เพื่อจัดเกรด A, B, C, โบ้</li>
+            <li>คำนวณปริมาตรผล 3 มิติโดยประมาณจากกล้อง Stereo Depth</li>
+            <li>ความเร็วการคัดแยกบนสายพาน &gt; 1 ผลต่อวินาที</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>ผลลัพธ์การทดสอบ:</strong> โมเดลคอมพิวเตอร์วิทัศน์ผสานเสียงเคาะ (Multimodal Fusion) ให้ความแม่นยำสูงถึง 94.8%
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 11 : CH5 DISEASE DETECTION ================= -->
+    <section class="slide" data-slide="11">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-orchard">บทที่ 5 &bull; สุขภาพพืช</span>
+          <h2>การตรวจจับโรคใบและผลทุเรียนด้วย Edge AI แบบเรียลไทม์</h2>
+          <div class="slide-subtitle">การวินิจฉัยเชื้อราไฟทอปธอรา เพลี้ยไก่แจ้ และโรคใบติดในระยะเริ่มต้น</div>
+        </div>
+        <div class="slide-meta">CHAPTER 05 : PLANT PATHOLOGY</div>
+      </div>
+      <div class="slide-body grid-2col">
+        <div class="card">
+          <h3>โรคพืชสำคัญในสวนทุเรียนภาคตะวันออก</h3>
+          <ul>
+            <li><strong>โรคราเน่าคอดิน/ผลเน่า (Phytophthora palmivora) :</strong> ลุกลามเร็วมาก ทำลายผลผลิตเสียหายทั้งต้น</li>
+            <li><strong>โรคใบติด (Rhizoctonia solani) :</strong> ระบาดหนักช่วงฝนชุก ใบแห้งไหม้ติดกันด้วยเส้นใยรา</li>
+            <li><strong>โรคแอนแทรคโนส (Colletotrichum gloeosporioides) :</strong> แผลจุดสีน้ำตาลไหม้บนใบและผล</li>
+            <li><strong>การเข้าทำลายของเพลี้ยไก่แจ้และเพลี้ยไฟ :</strong> ใบหงิกงอ ยอดแห้ง ชะงักการเจริญเติบโต</li>
+          </ul>
+        </div>
+        <div class="card card-gold">
+          <h3>การทำงานของโมเดล Object Detection หน้างาน</h3>
+          <ul>
+            <li>ภาพจากกล้องส่องตรวจแปลง (Handheld / ติดรถตัดหญ้าอัตโนมัติ)</li>
+            <li>โมเดล <strong>YOLOv8-Nano / MobileNetV3-SSD</strong> ตรวจจับรอยโรค</li>
+            <li>แสดงกล่อง Bounding Box พร้อมระบุชนิดโรคและระดับความรุนแรง</li>
+            <li>แจ้งพิกัด GPS ตำแหน่งต้นที่พบโรคไปยังสมาร์ทโฟนของชาวสวนทันที</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>การระบุโรคระยะเริ่มต้น:</strong> ช่วยลดการฉีดพ่นสารเคมีแบบเหวี่ยงแห ประหยัดค่ายาได้มากกว่า 45%
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 12 : CH5 FIELD METRICS ================= -->
+    <section class="slide" data-slide="12">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-orchard">บทที่ 5 &bull; ประเมินผลโมเดล</span>
+          <h2>เมทริกซ์การวัดผล Confusion Matrix ในสภาพแปลงจริง</h2>
+          <div class="slide-subtitle">การวิเคราะห์ค่า Precision, Recall, F1-Score เมื่อเผชิญแสงแดดและฝุ่นละออง</div>
+        </div>
+        <div class="slide-meta">CHAPTER 05 : AI VALIDATION</div>
+      </div>
+      <div class="slide-body grid-left-wide">
+        <div class="card">
+          <h3>ผลการทดสอบโมเดลคัดแยกโรคบนชุดทดสอบแปลงทุเรียนจันทบุรี (500 ภาพ)</h3>
+          <table class="tech-table">
+            <thead>
+              <tr><th>คลาสโรค</th><th>Precision</th><th>Recall</th><th>F1-Score</th><th>ข้อสังเกตหน้างาน</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>ใบปกติ (Healthy)</strong></td><td>0.96</td><td>0.98</td><td>0.97</td><td>ตรวจจับได้แม่นยำสูงมาก</td></tr>
+              <tr><td><strong>ไฟทอปธอรา (Phytophthora)</strong></td><td>0.93</td><td>0.91</td><td>0.92</td><td>แผลฉ่ำน้ำสีน้ำตาลเข้มจำแนกชัดเจน</td></tr>
+              <tr><td><strong>ใบติด (Rhizoctonia)</strong></td><td>0.89</td><td>0.87</td><td>0.88</td><td>อาจสับสนกับใบไหม้แดดจัดตอนเที่ยง</td></tr>
+              <tr><td><strong>เพลี้ยไฟ (Thrips damage)</strong></td><td>0.86</td><td>0.84</td><td>0.85</td><td>รอยแผลขนาดเล็ก ต้องใช้ความละเอียดภาพสูง</td></tr>
+              <tr><td><strong>เฉลี่ยถ่วงน้ำหนัก (mAP@50)</strong></td><td><strong>0.915</strong></td><td><strong>0.902</strong></td><td><strong>0.908</strong></td><td><strong>ผ่านเกณฑ์มาตรฐานการใช้งานจริง</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card card-emerald">
+          <h3>ข้อพิจารณา Trade-off</h3>
+          <ul>
+            <li><strong>High Recall ในงานโรคระบาด :</strong> ต้องยอมให้ False Alarm เล็กน้อย ดีกว่าหลุดรอดจนเชื้อระบาดข้ามแปลง</li>
+            <li><strong>Data Augmentation :</strong> เพิ่มข้อมูลภาพที่มีแสงแดดส่องย้อน เลนส์เปื้อนละอองน้ำ และมุมเอียงของใบ</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>สูตรการคำนวณ:</strong> F1-Score = 2 &times; (Precision &times; Recall) / (Precision + Recall)
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 13 : CH6 SHRIMP AQUACULTURE PHYSICS ================= -->
+    <section class="slide" data-slide="13">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-aqua">บทที่ 6 &bull; ฟิสิกส์การเพาะเลี้ยงสัตว์น้ำ</span>
+          <h2>พลศาสตร์ออกซิเจนละลายน้ำและอัตราการถ่ายโอน O2</h2>
+          <div class="slide-subtitle">สมดุลการละลายของก๊าซในน้ำเค็ม อุณหภูมิ และค่าสัมประสิทธิ์ K_L a</div>
+        </div>
+        <div class="slide-meta">CHAPTER 06 : WATER DYNAMICS</div>
+      </div>
+      <div class="slide-body grid-2col">
+        <div class="card card-aqua">
+          <h3>สมการอัตราการถ่ายโอนออกซิเจน (Oxygen Transfer Rate)</h3>
+          <p style="font-size:14px; margin-bottom:10px;">การละลายของออกซิเจนจากบรรยากาศลงสู่ผิวน้ำอธิบายโดยกฎของทูฟิล์ม (Two-Film Theory):</p>
+          <div class="formula-box">dC / dt = K_L a &times; (C* - C)</div>
+          <ul>
+            <li><strong>K_L a :</strong> สัมประสิทธิ์การถ่ายโอนมวลรวมเชิงปริมาตร (hr&macr;&sup1;) ขึ้นอยู่กับความเร็วรอบใบพัดตีน้ำ</li>
+            <li><strong>C* :</strong> ความเข้มข้นออกซิเจนอิ่มตัว ณ อุณหภูมิและความเค็มขณะนั้น (mg/L)</li>
+            <li><strong>C :</strong> ความเข้มข้นออกซิเจนละลายจริงในบ่อ (DO)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>ความสัมพันธ์กับอุณหภูมิและความเค็มน้ำทะเล</h3>
+          <ul>
+            <li>เมื่ออุณหภูมิน้ำสูงขึ้น ค่าความอิ่มตัว C* จะ<strong>ลดลงอย่างรวดเร็ว</strong></li>
+            <li>น้ำเค็ม (Salinity 25-30 ppt) ละลายออกซิเจนได้<strong>น้อยกว่าน้ำจืดประมาณ 15-20%</strong></li>
+            <li>ช่วงเวลาวิกฤต: <strong>03:00 - 06:00 น.</strong> แพลงก์ตอนพืชและกุ้งต่างใช้ออกซิเจนหายใจ ค่า DO ตกฮวบ</li>
+            <li>ระดับ DO ต่ำกว่า <strong>3.5 - 4.0 mg/L</strong> กุ้งจะเริ่มเครียด ไม่กินอาหาร เสี่ยงต่อการเกิดโรค</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>โจทย์ความท้าทาย:</strong> ต้องควบคุมเครื่องตีน้ำให้รักษา DO &ge; 5.0 mg/L ตลอด 24 ชม. โดยไม่สิ้นเปลืองค่าไฟเกินจำเป็น
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 14 : CH6 MULTIPARAMETER WATER SENSORS ================= -->
+    <section class="slide" data-slide="14">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-aqua">บทที่ 6 &bull; ตรวจวัดคุณภาพน้ำ</span>
+          <h2>เซนเซอร์วัดคุณภาพน้ำอุตสาหกรรมและการชดเชยค่า</h2>
+          <div class="slide-subtitle">การเลือกใช้ Optical DO, เซนเซอร์ค่าความเค็ม, pH และการสื่อสาร RS485 Modbus RTU</div>
+        </div>
+        <div class="slide-meta">CHAPTER 06 : SENSING SUITE</div>
+      </div>
+      <div class="slide-body grid-3col">
+        <div class="card card-aqua">
+          <h3>1. Optical DO Sensor</h3>
+          <ul>
+            <li>วัดการเรืองแสง (Fluorescence Quenching)</li>
+            <li>ไม่ต้องเปลี่ยนแผ่นเมมเบรนและสารเคมีอิเล็กโทรไลต์</li>
+            <li>ไม่ใช้ออกซิเจนในการวัด ไม่มีผลกระทบแม้น้ำนิ่ง</li>
+            <li>อายุการใช้งานหัววัด &gt; 1-2 ปี</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>2. การชดเชยอุณหภูมิ & ความเค็ม</h3>
+          <ul>
+            <li>ติดตั้งโพรบวัดอุณหภูมิ PT1000 อัตโนมัติ</li>
+            <li>วัดค่าการนำไฟฟ้า (EC) เพื่อคำนวณ Salinity</li>
+            <li>ไมโครคอนโทรลเลอร์คำนวณชดเชยค่า DO ตามสูตร:
+              <div class="formula-box" style="font-size:12px;">DO_corr = DO_raw &times; F(S, T)</div>
+            </li>
+          </ul>
+        </div>
+        <div class="card card-gold">
+          <h3>3. บัสสื่อสาร RS485 Modbus</h3>
+          <ul>
+            <li>ส่งสัญญาณ Differential สู้สัญญาณรบกวนอินเวอร์เตอร์</li>
+            <li>เดินสายสัญญาณยาวได้ถึง <strong>500 - 1,200 เมตร</strong> รอบคันบ่อ</li>
+            <li>อ่านค่า DO, pH, ORP, Temp ผ่านสายคู่ตีเกลียว 1 เส้น</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>การบำรุงรักษา:</strong> ต้องเช็ดทำความสะอาดตะไคร่น้ำและคราบเมือกออกจากหัวเซนเซอร์สัปดาห์ละ 1 ครั้ง
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 15 : CH7 VFD AERATOR AUTOMATION ================= -->
+    <section class="slide" data-slide="15">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-aqua">บทที่ 7 &bull; ระบบประหยัดพลังงาน</span>
+          <h2>การควบคุมเครื่องตีน้ำด้วยอินเวอร์เตอร์ VFD ปรับความเร็วรอบ</h2>
+          <div class="slide-subtitle">การประยุกต์ใช้กฎความคล้ายคลึงของพัดลม/ปั๊ม (Affinity Laws) ลดค่าไฟฟาร์มกุ้ง</div>
+        </div>
+        <div class="slide-meta">CHAPTER 07 : VFD INVERTER</div>
+      </div>
+      <div class="slide-body grid-2col">
+        <div class="card card-gold">
+          <h3>กฎความคล้ายคลึงของอุปกรณ์ใบพัด (Affinity Laws)</h3>
+          <p style="font-size:14px; margin-bottom:10px;">กำลังไฟฟ้าที่มอเตอร์ใช้งาน แปรผันตาม<strong>ความเร็วรอบยกกำลังสาม</strong>:</p>
+          <div class="formula-box">P_2 / P_1 = ( N_2 / N_1 )&sup3;</div>
+          <ul>
+            <li>หากลดความเร็วรอบมอเตอร์ลงเหลือ <strong>80% (40 Hz)</strong>:
+              <div class="formula-box" style="color:var(--emerald);">P_2 = (0.80)&sup3; &times; P_1 = 0.512 &times; P_1</div>
+            </li>
+            <li>ประหยัดพลังงานไฟฟ้าได้เกือบ <strong>50%</strong> ทันที</li>
+            <li>ในขณะที่การกวนกระแสน้ำยังคงเพียงพอให้กุ้งว่ายน้ำและรวมตะกอนกลางบ่อ</li>
+          </ul>
+        </div>
+        <div class="card card-aqua">
+          <h3>ข้อแตกต่างระหว่างขับตรง Direct-On-Line (DOL) กับ VFD</h3>
+          <ul>
+            <li><strong>ระบบเดิม (DOL) :</strong> กระแสสตาร์ตพุ่งสูง 6-8 เท่าของพิกัด มอเตอร์กระชาก เกียร์ทดสึกหรอเร็ว</li>
+            <li><strong>ระบบอัจฉริยะ (VFD) :</strong> Soft Start นุ่มนวล ปรับความถี่ 25 - 50 Hz ตามค่าออกซิเจนจริง</li>
+            <li>สั่งการอัตโนมัติจาก Edge Controller ผ่านโปรโตคอล Modbus RTU</li>
+            <li>ยืดอายุการใช้งานของมอเตอร์และชุดเกียร์ทดรอบได้มากกว่า 2 เท่า</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>จุดคุ้มทุน:</strong> ค่าไฟฟ้าคิดเป็น 50-60% ของต้นทุนการเดินเครื่องฟาร์มกุ้ง การติด VFD คืนทุนภายใน 8-14 เดือน
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 16 : CH7 PID CONTROL RESULTS ================= -->
+    <section class="slide" data-slide="16">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-aqua">บทที่ 7 &bull; ผลการทดลองจริง</span>
+          <h2>อัลกอริทึม PID ควบคุม DO และผลการประหยัดพลังงาน</h2>
+          <div class="slide-subtitle">การเปรียบเทียบระหว่างการเปิดแช่ตลอดเวลากับการคุมลูปปิดอัตโนมัติ</div>
+        </div>
+        <div class="slide-meta">CHAPTER 07 : CLOSED-LOOP PID</div>
+      </div>
+      <div class="slide-body grid-left-wide">
+        <div class="card">
+          <h3>ข้อมูลเปรียบเทียบการใช้พลังงาน ณ บ่อกุ้งทดสอบ อ.ขลุง จ.จันทบุรี (บ่อ 4 ไร่)</h3>
+          <table class="tech-table">
+            <thead>
+              <tr><th>พารามิเตอร์</th><th>ระบบเดิม (เปิดแช่ 100%)</th><th>ระบบ AIoT PID VFD</th><th>ผลต่าง / ประหยัดได้</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>การใช้ไฟฟ้ารายวัน</strong></td><td>184.2 kWh / วัน</td><td>118.6 kWh / วัน</td><td><strong style="color:var(--emerald);">- 35.6%</strong></td></tr>
+              <tr><td><strong>ค่าไฟฟ้าเฉลี่ยต่อเดือน</strong></td><td>24,867 บาท</td><td>16,011 บาท</td><td><strong style="color:var(--gold-primary);">ประหยัด 8,856 บาท</strong></td></tr>
+              <tr><td><strong>ระดับ DO ต่ำสุดกลางคืน</strong></td><td>3.8 mg/L (ช่วงพายุนิ่ง)</td><td>5.1 mg/L (เร่งรอบทันที)</td><td>ปลอดภัยจากกุ้งลอยหัว</td></tr>
+              <tr><td><strong>ค่าความเสถียรของ DO</strong></td><td>แกว่ง 3.8 - 9.4 mg/L</td><td>คงที่ 5.0 &plusmn; 0.4 mg/L</td><td>กุ้งเครียดลดลง อัตราโตดีขึ้น</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card card-emerald">
+          <h3>สมการควบคุม PID ในไมโครคอนโทรลเลอร์</h3>
+          <div class="formula-box" style="font-size:12px;">
+            u(t) = K_p e(t) + K_i &int; e(t)dt + K_d (de/dt)
+          </div>
+          <ul>
+            <li>เซตพอยต์ DO: <strong>5.2 mg/L</strong></li>
+            <li>มีฟังก์ชัน Anti-Windup ป้องกันรอบค้าง</li>
+            <li>ระบบเร่งรอบฉุกเฉิน 100% หากเซนเซอร์ตรวจพบ DO &lt; 4.0 mg/L</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>สรุปความคุ้มค่า:</strong> ฟาร์มขนาด 10 บ่อ สามารถประหยัดค่าไฟฟ้ารวมได้มากกว่า 1,000,000 บาทต่อปี
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 17 : CH8 SHRIMP FEEDING ACOUSTICS ================= -->
+    <section class="slide" data-slide="17">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-aqua">บทที่ 8 &bull; การให้อาหารแม่นยำ</span>
+          <h2>การตรวจจับเสียงแทะอาหารกุ้งใต้น้ำ (Passive Acoustics)</h2>
+          <div class="slide-subtitle">การดักฟังคลื่นเสียง Click Sound ของกุ้งขาวแวนนาไมด้วย Hydrophone และ Edge AI</div>
+        </div>
+        <div class="slide-meta">CHAPTER 08 : UNDERWATER SOUND</div>
+      </div>
+      <div class="slide-body grid-2col">
+        <div class="card card-aqua">
+          <h3>สเปกตรัมเสียงเคี้ยวอาหารของกุ้ง (Click Signals)</h3>
+          <ul>
+            <li>เมื่อกุ้งใช้กรามฟัน (Mandibles) บดเม็ดอาหาร จะเกิดคลื่นเสียงกระแทกความถี่สูง</li>
+            <li>ย่านความถี่เฉพาะตัว: <strong>20 kHz ถึง 45 kHz</strong> (สูงกว่าเสียงใบพัดตีน้ำ)</li>
+            <li>เสียงใบพัดตีน้ำบ่อกุ้งมีพลังงานหนาแน่นที่ย่านความถี่ต่ำ <strong>&lt; 5 kHz</strong></li>
+            <li>สามารถใช้ตัวกรอง High-pass Analog Filter ตัดเสียงกวนจากเครื่องยนต์และมอเตอร์ทิ้งได้อย่างหมดจด</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>การติดตั้งไฮโดรโฟนและอัลกอริทึมนับจำนวนคลิก</h3>
+          <ul>
+            <li>ติดตั้ง <strong>Piezoelectric Hydrophone</strong> บริเวณถาดอาหารหรือรัศมีเครื่องหว่านอาหาร 3-5 เมตร</li>
+            <li>Sampling Rate 96 - 192 kHz ส่งเข้าชิปประมวลผล DSP / Edge AI</li>
+            <li>อัลกอริทึมนับอัตราการคลิกต่อนาที (Clicks Per Minute: CPM)</li>
+            <li><strong>CPM สูง :</strong> กุ้งกำลังรุมกินอาหารอย่างหิวกระหาย &rarr; สั่งจ่ายอาหารต่อ</li>
+            <li><strong>CPM ต่ำลง :</strong> กุ้งเริ่มอิ่ม อาหารเหลือ &rarr; สั่งหยุดเครื่องจ่ายอาหารทันที</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>ข้อดีเหนือกว่าการยกยอ:</strong> รู้พฤติกรรมกุ้งได้ตลอด 24 ชั่วโมง โดยไม่ต้องใช้แรงงานคนพายเรือไปยกยอ
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 18 : CH8 FCR MINIMIZATION ================= -->
+    <section class="slide" data-slide="18">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-aqua">บทที่ 8 &bull; ควบคุมต้นทุนอาหาร</span>
+          <h2>การลดอัตราแลกเนื้อ FCR และป้องกันน้ำเสียก้นบ่อ</h2>
+          <div class="slide-subtitle">การบูรณาการระบบหว่านอาหารอัตโนมัติลูปปิดกับสภาวะออกซิเจนและอุณหภูมิน้ำ</div>
+        </div>
+        <div class="slide-meta">CHAPTER 08 : FCR OPTIMIZATION</div>
+      </div>
+      <div class="slide-body grid-3col">
+        <div class="card">
+          <h3>1. ลดค่า FCR ลงเหลือ 1.18</h3>
+          <ul>
+            <li>เดิมค่า Feed Conversion Ratio อยู่ที่ 1.45 - 1.60</li>
+            <li>การให้อาหารแม่นยำช่วยลด FCR ลงเหลือ <strong>1.15 - 1.22</strong></li>
+            <li>ประหยัดอาหารเม็ดได้ถึง <strong>15 - 20%</strong> ตลอดรุ่นการเลี้ยง</li>
+          </ul>
+        </div>
+        <div class="card card-emerald">
+          <h3>2. คุณภาพน้ำและก้นบ่อสะอาด</h3>
+          <ul>
+            <li>อาหารเหลือเน่าก้นบ่อลดลงกว่า 65%</li>
+            <li>ลดการสะสมของก๊าซพิษแอมโมเนีย (NH3) และไนไตรท์ (NO2-)</li>
+            <li>ลดปริมาณแบคทีเรีย Vibrio ในน้ำและตับกุ้ง</li>
+          </ul>
+        </div>
+        <div class="card card-gold">
+          <h3>3. Interlock ป้องกันอัจฉริยะ</h3>
+          <ul>
+            <li>ล็อกการทำงานอัตโนมัติหาก <strong>DO &lt; 4.5 mg/L</strong></li>
+            <li>ล็อกหากอุณหภูมิน้ำลดต่ำกว่า <strong>26 &deg;C</strong> (กุ้งชะงักการกิน)</li>
+            <li>ป้องกันการเทอาหารทิ้งสูญเปล่าในยามวิกฤต</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>ประโยชน์เชิงเศรษฐกิจ:</strong> ค่าอาหารคิดเป็น 50-70% ของต้นทุนเลี้ยงกุ้ง การลด FCR สร้างกำไรเพิ่มขึ้นชัดเจนที่สุด
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 19 : CH9 EDGE AI ARCHITECTURE ================= -->
+    <section class="slide" data-slide="19">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-core">บทที่ 9 &bull; สถาปัตยกรรม AI ฝังตัว</span>
+          <h2>โครงสร้างโครงข่ายประสาทเทียมประสิทธิภาพสูง MobileNetV3 และ YOLO-Nano</h2>
+          <div class="slide-subtitle">การออกแบบชั้นเครือข่ายสำหรับอุปกรณ์ขอบสเปกจำกัด (Resource-Constrained Devices)</div>
+        </div>
+        <div class="slide-meta">CHAPTER 09 : AI ARCHITECTURE</div>
+      </div>
+      <div class="slide-body grid-2col">
+        <div class="card">
+          <h3>Depthwise Separable Convolution</h3>
+          <p style="font-size:14px; margin-bottom:8px;">เทคนิคการแยกชั้นคอนโวลูชันเพื่อลดภาระการคำนวณทางคณิตศาสตร์:</p>
+          <ul>
+            <li>แยกการคำนวณออกเป็น 2 ชั้น: <strong>Depthwise</strong> (กรองมิติเชิงพื้นที่) และ <strong>Pointwise 1&times;1</strong> (รวมมิติเชิงช่องสัญญาณ)</li>
+            <li>ลดจำนวน Parameter และการคูณสะสม (FLOPs) ลงได้ถึง <strong>8 - 9 เท่า</strong> เมื่อเทียบกับ Standard Convolution</li>
+            <li>รักษาความแม่นยำของโมเดลไว้ได้มากกว่า 95% ของโครงข่ายขนาดใหญ่</li>
+          </ul>
+        </div>
+        <div class="card card-gold">
+          <h3>Inverted Residuals & Squeeze-and-Excitation</h3>
+          <ul>
+            <li><strong>Inverted Residual Block :</strong> ขยายช่องสัญญาณชั่วคราวในชั้นคอคอด (Bottleneck) เพื่อให้ฟีเจอร์ไหลผ่านได้สมบูรณ์</li>
+            <li><strong>SE-Block (Squeeze & Excitation) :</strong> กลไก Attention ขนาดเล็ก ช่วยเลือกถ่วงน้ำหนักเฉพาะช่องสัญญาณที่สำคัญต่อรอยโรค</li>
+            <li><strong>Hard-Swish Activation :</strong> ดัดแปลงสมการ Sigmoid ให้คำนวณรวดเร็วบนฮาร์ดแวร์ฝังตัวโดยไม่ต้องใช้ฟังก์ชันลอการิทึมซับซ้อน</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>ผลลัพธ์:</strong> โมเดลขนาดเล็กกว่า 8-15 MB สามารถรันบนชิป Cortex-A / NPU ได้อย่างลื่นไหล
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 20 : CH9 MODEL QUANTIZATION ================= -->
+    <section class="slide" data-slide="20">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-core">บทที่ 9 &bull; การเพิ่มประสิทธิภาพโมเดล</span>
+          <h2>การทำ Model Quantization INT8 และคอมไพล์บน NPU</h2>
+          <div class="slide-subtitle">การบีบอัดน้ำหนักโมเดลจาก Float32 เป็น Integer 8-bit และการใช้งาน TensorRT / TFLite Micro</div>
+        </div>
+        <div class="slide-meta">CHAPTER 09 : INT8 QUANTIZATION</div>
+      </div>
+      <div class="slide-body grid-left-wide">
+        <div class="card">
+          <h3>สมการการแปลงค่า Symmetric / Asymmetric Quantization</h3>
+          <div class="formula-box">
+            q = round( r / S ) + Z &emsp;|&emsp; S = (r_max - r_min) / (q_max - q_min)
+          </div>
+          <table class="tech-table">
+            <thead>
+              <tr><th>ฟอร์แมตโมเดล</th><th>ขนาดไฟล์ (MB)</th><th>ความเร็ว Latency (ms)</th><th>การกินแรม (RAM)</th><th>ความแม่นยำ (mAP)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>PyTorch FP32</strong></td><td>46.8 MB</td><td>185 ms</td><td>142 MB</td><td>91.8%</td></tr>
+              <tr><td><strong>ONNX FP16</strong></td><td>23.4 MB</td><td>78 ms</td><td>74 MB</td><td>91.7%</td></tr>
+              <tr><td><strong>INT8 Quantized (TFLite/TRT)</strong></td><td><strong>11.2 MB (-76%)</strong></td><td><strong>24 ms (7.7x เร็วขึ้น)</strong></td><td><strong>36 MB</strong></td><td><strong>91.2% (หายไป 0.6%)</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card card-emerald">
+          <h3>ขั้นตอน Post-Training Quantization</h3>
+          <ul>
+            <li>ใช้ภาพตัวอย่างตัวแทน (Representative Dataset) 100-200 ภาพ</li>
+            <li>คำนวณหาค่า Scale Factor (S) และ Zero-point (Z)</li>
+            <li>แปลง Operation ทั้งหมดให้คำนวณบน ALU จำนวนเต็ม 8-bit</li>
+            <li>รันอนุมานได้ <strong>&gt; 35 FPS</strong> บนบอร์ดขอบขนาดเล็ก</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>บทสรุปสำคัญ:</strong> INT8 Quantization คือกุญแจสำคัญที่ทำให้โมเดล Deep Learning รันบนบอร์ดราคาประหยัดได้จริง
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 21 : CH10 LORAWAN ARCHITECTURE ================= -->
+    <section class="slide" data-slide="21">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-core">บทที่ 10 &bull; โครงข่ายระยะไกล</span>
+          <h2>สถาปัตยกรรมเครือข่าย LoRaWAN ย่านความถี่ AS923</h2>
+          <div class="slide-subtitle">การเชื่อมโยงโหนดเซนเซอร์ข้ามเนินเขาและชายฝั่ง 5 - 12 กิโลเมตร ด้วยพลังงานต่ำ</div>
+        </div>
+        <div class="slide-meta">CHAPTER 10 : LORAWAN AS923</div>
+      </div>
+      <div class="slide-body grid-2col">
+        <div class="card card-gold">
+          <h3>โทโพโลยี Star-of-Stars และพารามิเตอร์ส่งสัญญาณ</h3>
+          <ul>
+            <li><strong>ย่านความถี่มาตรฐานไทย (NBTC) :</strong> AS923 (920 - 925 MHz) กำลังส่งสูงสุด &le; 500 mW ERP</li>
+            <li><strong>Chirp Spread Spectrum (CSS) :</strong> ทนทานต่อสัญญาณรบกวน ทะลุผ่านใบไม้หนาแน่นของต้นทุเรียนได้ดี</li>
+            <li><strong>Spreading Factor (SF) :</strong> ปรับเปลี่ยนอัตโนมัติ (ADR)
+              <ul>
+                <li><strong>SF7 :</strong> โหนดใกล้เกตเวย์ ใช้เวลา Time-on-Air เพียง 51.5 ms ประหยัดแบตเตอรี่สูงสุด</li>
+                <li><strong>SF12 :</strong> โหนดไกลหลังเขา ทะลวงสัญญาณไกลขึ้น แต่ใช้เวลาส่ง 1.48 วินาที</li>
+              </ul>
+            </li>
+            <li><strong>เกตเวย์อุตสาหกรรม :</strong> 8 ช่องสัญญาณพร้อมกัน (SX1302/SX1303 Core) รองรับโหนด &gt; 1,000 จุด</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>การเข้ารหัสความปลอดภัยระดับอุตสาหกรรม</h3>
+          <ul>
+            <li><strong>การเข้ารหัส 2 ชั้น (Dual-layer AES-128) :</strong>
+              <ul>
+                <li><strong>Network Session Key (NwkSKey) :</strong> ป้องกันความถูกต้องในระดับโครงข่าย</li>
+                <li><strong>Application Session Key (AppSKey) :</strong> ป้องกันข้อมูลลับของฟาร์มไม่ให้ใครดักอ่านได้</li>
+              </ul>
+            </li>
+            <li>ใช้ระบบเปิดใช้งานแบบ <strong>OTAA (Over-The-Air Activation)</strong> มีความปลอดภัยสูงสุด</li>
+            <li>เชื่อมต่อเข้ากับ Local ChirpStack Server หรือ Edge Gateway หน้าฟาร์มได้ 100% โดยไม่ต้องพึ่งพาระบบภายนอก</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>ระยะครอบคลุมจริง:</strong> เกตเวย์ติดตั้งบนเสาสูง 15 เมตร ณ มรภ.รำไพพรรณี รับสัญญาณเซนเซอร์ได้ไกลข้ามตำบลถึง 10.4 กม.
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 22 : CH10 INDUSTRIAL HARDENING ================= -->
+    <section class="slide" data-slide="22">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-core">บทที่ 10 &bull; วิศวกรรมความทนทาน</span>
+          <h2>มาตรฐานการป้องกันน้ำเค็ม ไอน้ำกรด และระบบป้องกันฟ้าผ่า</h2>
+          <div class="slide-subtitle">การออกแบบกล่องหุ้ม IP67/IP68, ซิลิโคน Conformal Coating และ Surge Protection</div>
+        </div>
+        <div class="slide-meta">CHAPTER 10 : ENCLOSURE & SURGE</div>
+      </div>
+      <div class="slide-body grid-3col">
+        <div class="card card-aqua">
+          <h3>1. การป้องกันไอน้ำเค็มและกรด</h3>
+          <ul>
+            <li>กล่องหุ้มมาตรฐาน <strong>Polycarbonate IP67/IP68</strong> กัน UV</li>
+            <li>เคลือบแผงวงจรด้วย <strong>Silicone Conformal Coating</strong> หนา 50-75 &mu;m</li>
+            <li>ใช้เคเบิลแกลนด์ทองเหลืองชุบนิกเกิลหรือสเตนเลส SUS316 ป้องกันการกัดกร่อนจากน้ำทะเล</li>
+          </ul>
+        </div>
+        <div class="card card-gold">
+          <h3>2. อุปกรณ์ป้องกันฟ้าผ่าและเสิร์จ</h3>
+          <ul>
+            <li>ติดตั้ง <strong>Surge Protection Device (SPD Class II)</strong> ที่ตู้คอนโทรล</li>
+            <li>ใช้หลอดก๊าซ <strong>Gas Discharge Tube (GDT)</strong> และ <strong>TVS Diode</strong> คร่อมสายสัญญาณเซนเซอร์ RS485</li>
+            <li>ติดตั้ง Coaxial Lightning Arrestor ที่ฐานสายอากาศ LoRa</li>
+          </ul>
+        </div>
+        <div class="card card-emerald">
+          <h3>3. การจัดการระบายความร้อน</h3>
+          <ul>
+            <li>ติดตั้ง <strong>Vent Valve (Gore Membrane)</strong> ปรับสมดุลความดันภายในกล่องโดยน้ำไม่เข้า</li>
+            <li>แผ่นระบายความร้อนอะลูมิเนียมประกบตัวถังภายนอกสำหรับชิปประมวลผลสูง</li>
+            <li>ลดการควบแน่นของหยดน้ำภายในตู้ช่วงกลางคืน</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>มาตรฐานสากล:</strong> ผ่านการทดสอบ Salt Spray Test ต่อเนื่อง 96 ชั่วโมงตามมาตรฐาน ASTM B117
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 23 : CH10 SOLAR & ENERGY STORAGE ================= -->
+    <section class="slide" data-slide="23">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-core">บทที่ 10 &bull; พลังงานพึ่งพาตนเอง</span>
+          <h2>การออกแบบระบบโซลาร์เซลล์ Off-Grid และแบตเตอรี่ LiFePO4</h2>
+          <div class="slide-subtitle">การคำนวณสมดุลพลังงานเพื่อความต่อเนื่องในการทำงาน (Zero Downtime) แม้ฝนตกติดต่อกัน 3 วัน</div>
+        </div>
+        <div class="slide-meta">CHAPTER 10 : SOLAR PV & BATTERY</div>
+      </div>
+      <div class="slide-body grid-2col">
+        <div class="card card-gold">
+          <h3>สูตรการคำนวณขนาดแผงโซลาร์และแบตเตอรี่สำรอง</h3>
+          <div class="formula-box">
+            E_day = P_avg &times; 24 &emsp;|&emsp; C_batt = ( E_day &times; N_days ) / ( V_sys &times; DoD &times; &eta; )
+          </div>
+          <ul>
+            <li><strong>ตัวอย่างโหนดตรวจวัดในสวน :</strong>
+              <ul>
+                <li>ใช้ไฟเฉลี่ย 1.5 W &rarr; พลังงานรายวัน = 1.5 &times; 24 = 36 Wh/วัน</li>
+                <li>สำรองไฟ 3 วันฟ้าปิด (Autonomy Days = 3) &rarr; 108 Wh</li>
+                <li>ใช้แบตเตอรี่ LiFePO4 12.8V (DoD = 80%, &eta; = 90%) :
+                  <div class="formula-box" style="font-size:12px;">C_batt = 108 / (12.8 &times; 0.8 &times; 0.9) = 11.7 Ah &rarr; เลือก <strong>12.8V 15Ah</strong></div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="card card-emerald">
+          <h3>ขนาดแผงเซลล์แสงอาทิตย์ (Peak Sun Hours = 4.2 ชม.)</h3>
+          <div class="formula-box">
+            P_pv = E_day / ( PSH &times; &eta;_system )
+          </div>
+          <ul>
+            <li>P_pv = 36 Wh / (4.2 &times; 0.75) = <strong>11.4 W &rarr; ติดตั้งแผง 30W Mono-crystalline</strong></li>
+            <li>ใช้เครื่องประจุชาร์จเจอร์ประสิทธิภาพสูงแบบ <strong>MPPT (Maximum Power Point Tracking)</strong></li>
+            <li>ข้อดีของ <strong>LiFePO4 :</strong> วงจรรอบชาร์จ &gt; 3,000 รอบ ทนความร้อนแปลงเกษตรได้ถึง 60 &deg;C ปลอดภัยไม่ระเบิด</li>
+            <li>โหมดประหยัดพลังงาน: ให้ MCU เข้าสู่ <strong>Deep Sleep</strong> ตื่นมาอ่านค่าและส่งข้อมูลทุก 15 นาที</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>ผลการทดสอบ:</strong> อุปกรณ์สามารถจ่ายไฟทำงานต่อเนื่องข้ามฤดูมรสุมภาคตะวันออกได้ 100% โดยไม่ต้องพึ่งพาคนดูแล
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 24 : PRE/POST TEST ASSESSMENT ================= -->
+    <section class="slide" data-slide="24">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-core">การประเมินสมรรถนะ</span>
+          <h2>โครงสร้างคลังข้อสอบ Pre-Test และ Post-Test 40 ข้อ</h2>
+          <div class="slide-subtitle">การวัดผลสัมฤทธิ์ทางการเรียนตามกรอบมาตรฐาน Bloom's Taxonomy และการฝึกปฏิบัติการ</div>
+        </div>
+        <div class="slide-meta">ASSESSMENT MATRIX (40 ITEMS)</div>
+      </div>
+      <div class="slide-body grid-left-wide">
+        <div class="card">
+          <h3>ตารางกระจายข้อสอบตามระดับพุทธิพิสัยและ 10 บทเรียน</h3>
+          <table class="tech-table">
+            <thead>
+              <tr><th>กลุ่มโมดูล</th><th>จำนวนข้อ</th><th>ระดับพุทธิพิสัย (Bloom's Taxonomy)</th><th>หัวข้อประเมินสำคัญ</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>บทที่ 1-2 : ฮาร์ดแวร์และไฟฟ้ากำลัง</strong></td><td>8 ข้อ</td><td>ความจำ, ความเข้าใจ, ประยุกต์ใช้</td><td>Edge AI vs Cloud, Opto-isolation, Snubber, Flyback Diode</td></tr>
+              <tr><td><strong>บทที่ 3-5 : สวนผลไม้และการคัดสุก</strong></td><td>12 ข้อ</td><td>ประยุกต์ใช้, วิเคราะห์, ประเมินค่า</td><td>Darcy-Weisbach, Penman-Monteith, FFT เสียงเคาะ, YOLO รอยโรค</td></tr>
+              <tr><td><strong>บทที่ 6-8 : สัตว์น้ำและการควบคุม</strong></td><td>12 ข้อ</td><td>ประยุกต์ใช้, วิเคราะห์, แก้ปัญหา</td><td>KLa การละลาย O2, VFD Affinity Law, เสียงแทะกุ้ง, ลด FCR</td></tr>
+              <tr><td><strong>บทที่ 9-10 : การ Optimize และไอโอที</strong></td><td>8 ข้อ</td><td>ประยุกต์ใช้, สร้างสรรค์, ออกแบบ</td><td>INT8 Quantization, LoRaWAN AS923, IP68, LiFePO4 Solar</td></tr>
+              <tr><td><strong>รวมทั้งหมด</strong></td><td><strong>40 ข้อ</strong></td><td><strong>ครบทุกระดับขั้นการเรียนรู้</strong></td><td><strong>เกณฑ์ผ่าน Post-Test &ge; 75%</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card card-gold">
+          <h3>ระบบสอบและเฉลยละเอียด</h3>
+          <ul>
+            <li>ไฟล์ข้อมูลข้อสอบมาตรฐาน: <code>cmu_pretest_40.json</code></li>
+            <li>มีคำอธิบายเฉลยทางฟิสิกส์และวิศวกรรมทุกข้ออย่างละเอียด</li>
+            <li>ประเมินทักษะปฏิบัติหน้างาน (Skill Matrix) แยกอีก 5 ฐานการทดลอง</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>มาตรฐาน RBRU:</strong> พัฒนาขึ้นเพื่อรับรองคุณวุฒิวิชาชีพนวัตกรเกษตรดิจิทัลและปัญญาประดิษฐ์ฝังตัว
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 25 : LAB STATIONS ================= -->
+    <section class="slide" data-slide="25">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-core">อุปกรณ์และฐานปฏิบัติการ</span>
+          <h2>ชุดทดลองปฏิบัติการและสถานีภาคสนามจริง</h2>
+          <div class="slide-subtitle">การฝึกอบรมแบบ Hand-on Experience บนอุปกรณ์มาตรฐานอุตสาหกรรม</div>
+        </div>
+        <div class="slide-meta">LABORATORY STATIONS</div>
+      </div>
+      <div class="slide-body grid-4col">
+        <div class="card card-gold">
+          <h3>ฐานที่ 1 : Power & Motor</h3>
+          <ul>
+            <li>ตู้คอนโทรลเลอร์ 3 เฟสจำลอง</li>
+            <li>อินเวอร์เตอร์ VFD 2.2 kW</li>
+            <li>แมกเนติก & โอเวอร์โหลดรีเลย์</li>
+            <li>สโคปวัดคลื่น Transient & EMI</li>
+          </ul>
+        </div>
+        <div class="card card-emerald">
+          <h3>ฐานที่ 2 : Orchard Hydraulics</h3>
+          <ul>
+            <li>ระบบท่อ PVC ใสพร้อมเกจวัด</li>
+            <li>ปั๊มหอยโข่งปรับความเร็วรอบ</li>
+            <li>เซนเซอร์วัดความชื้นดิน FDR</li>
+            <li>สถานีวัดสภาพอากาศคายระเหย</li>
+          </ul>
+        </div>
+        <div class="card card-aqua">
+          <h3>ฐานที่ 3 : Durian Acoustic AI</h3>
+          <ul>
+            <li>เครื่องเคาะสปริงมาตรฐาน</li>
+            <li>ไมโครโฟน MEMS & Piezo</li>
+            <li>จอแสดงผล FFT สเปกตรัมสด</li>
+            <li>ชุดกล้องจำแนกเกรดหนาม</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>ฐานที่ 4 : Aquaculture Testbed</h3>
+          <ul>
+            <li>บ่อทดสอบจำลองน้ำเค็ม 25 ppt</li>
+            <li>Optical DO & Multiparameter</li>
+            <li>ไฮโดรโฟนตรวจเสียงใต้น้ำ</li>
+            <li>เครื่องตีน้ำใบพัดปรับสปีดได้</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>สถานที่ฝึกปฏิบัติการ:</strong> ศูนย์วิจัยฟิสิกส์เกษตรดิจิทัล คณะวิทยาศาสตร์และเทคโนโลยี มรภ.รำไพพรรณี
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 26 : OPERATIONAL BLUEPRINT ================= -->
+    <section class="slide" data-slide="26">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-core">พิมพ์เขียวระบบ</span>
+          <h2>พิมพ์เขียวสถาปัตยกรรมระบบฟาร์มอัจฉริยะแบบครบวงจร</h2>
+          <div class="slide-subtitle">การเชื่อมโยงระบบเซนเซอร์ ระบบปัญญาประดิษฐ์ฝังตัว และระบบควบคุมเครื่องจักร</div>
+        </div>
+        <div class="slide-meta">OPERATIONAL BLUEPRINT</div>
+      </div>
+      <div class="slide-body grid-left-wide">
+        <div class="card card-gold">
+          <h3>ผังลำดับชั้นการส่งต่อข้อมูลและการตัดสินใจ (Hierarchical Control Flow)</h3>
+          <div class="svg-container">
+            <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg">
+              <!-- Background Layer Grids -->
+              <rect x="20" y="20" width="220" height="280" rx="8" fill="#13243B" stroke="#00ADB5" stroke-dasharray="4"/>
+              <text x="130" y="45" fill="#00ADB5" font-family="'Chakra Petch'" font-size="14" font-weight="bold" text-anchor="middle">LAYER 1 : SENSING</text>
+              
+              <rect x="290" y="20" width="220" height="280" rx="8" fill="#13243B" stroke="#F1C40F" stroke-dasharray="4"/>
+              <text x="400" y="45" fill="#F1C40F" font-family="'Chakra Petch'" font-size="14" font-weight="bold" text-anchor="middle">LAYER 2 : EDGE AI</text>
+              
+              <rect x="560" y="20" width="220" height="280" rx="8" fill="#13243B" stroke="#10B981" stroke-dasharray="4"/>
+              <text x="670" y="45" fill="#10B981" font-family="'Chakra Petch'" font-size="14" font-weight="bold" text-anchor="middle">LAYER 3 : ACTION</text>
+              
+              <!-- Layer 1 Nodes -->
+              <rect x="40" y="70" width="180" height="40" rx="6" fill="#0B192C" stroke="#00ADB5"/>
+              <text x="130" y="95" fill="#FFF" font-family="'Sarabun'" font-size="12" text-anchor="middle">Optical DO & Salinity</text>
+              
+              <rect x="40" y="130" width="180" height="40" rx="6" fill="#0B192C" stroke="#00ADB5"/>
+              <text x="130" y="155" fill="#FFF" font-family="'Sarabun'" font-size="12" text-anchor="middle">Acoustic Hydrophone / Mic</text>
+              
+              <rect x="40" y="190" width="180" height="40" rx="6" fill="#0B192C" stroke="#00ADB5"/>
+              <text x="130" y="215" fill="#FFF" font-family="'Sarabun'" font-size="12" text-anchor="middle">Soil Moisture & Climate</text>
+              
+              <rect x="40" y="250" width="180" height="40" rx="6" fill="#0B192C" stroke="#00ADB5"/>
+              <text x="130" y="275" fill="#FFF" font-family="'Sarabun'" font-size="12" text-anchor="middle">RGB-D Field Camera</text>
+
+              <!-- Connectors L1 -> L2 -->
+              <path d="M 220 90 L 310 110" stroke="#00ADB5" stroke-width="2" marker-end="url(#arrow)"/>
+              <path d="M 220 150 L 310 130" stroke="#00ADB5" stroke-width="2"/>
+              <path d="M 220 210 L 310 210" stroke="#00ADB5" stroke-width="2"/>
+              <path d="M 220 270 L 310 230" stroke="#00ADB5" stroke-width="2"/>
+              
+              <!-- Layer 2 Nodes -->
+              <rect x="310" y="80" width="180" height="60" rx="6" fill="#0B192C" stroke="#F1C40F"/>
+              <text x="400" y="105" fill="#F1C40F" font-family="'Sarabun'" font-weight="bold" font-size="13" text-anchor="middle">DSP / FFT Engine</text>
+              <text x="400" y="125" fill="#CBD5E1" font-family="'Sarabun'" font-size="11" text-anchor="middle">วิเคราะห์ความถี่เสียง & คลื่น</text>
+              
+              <rect x="310" y="180" width="180" height="80" rx="6" fill="#0B192C" stroke="#F1C40F"/>
+              <text x="400" y="205" fill="#F1C40F" font-family="'Sarabun'" font-weight="bold" font-size="13" text-anchor="middle">Edge AI NPU (INT8)</text>
+              <text x="400" y="225" fill="#CBD5E1" font-family="'Sarabun'" font-size="11" text-anchor="middle">YOLOv8 / MobileNetV3</text>
+              <text x="400" y="245" fill="#CBD5E1" font-family="'Sarabun'" font-size="11" text-anchor="middle">PID Closed-loop Logic</text>
+
+              <!-- Connectors L2 -> L3 -->
+              <path d="M 490 110 L 580 90" stroke="#F1C40F" stroke-width="2"/>
+              <path d="M 490 220 L 580 150" stroke="#F1C40F" stroke-width="2"/>
+              <path d="M 490 220 L 580 230" stroke="#F1C40F" stroke-width="2"/>
+
+              <!-- Layer 3 Nodes -->
+              <rect x="580" y="70" width="180" height="50" rx="6" fill="#0B192C" stroke="#10B981"/>
+              <text x="670" y="95" fill="#10B981" font-family="'Sarabun'" font-weight="bold" font-size="12" text-anchor="middle">VFD Inverter 3-Phase</text>
+              <text x="670" y="112" fill="#CBD5E1" font-family="'Sarabun'" font-size="10" text-anchor="middle">ปรับรอบใบพัดตีน้ำตามค่า DO</text>
+
+              <rect x="580" y="135" width="180" height="50" rx="6" fill="#0B192C" stroke="#10B981"/>
+              <text x="670" y="160" fill="#10B981" font-family="'Sarabun'" font-weight="bold" font-size="12" text-anchor="middle">Solenoid & Pump Relays</text>
+              <text x="670" y="177" fill="#CBD5E1" font-family="'Sarabun'" font-size="10" text-anchor="middle">เปิด-ปิดวาล์วน้ำตาม ETc</text>
+
+              <rect x="580" y="200" width="180" height="50" rx="6" fill="#0B192C" stroke="#10B981"/>
+              <text x="670" y="225" fill="#10B981" font-family="'Sarabun'" font-weight="bold" font-size="12" text-anchor="middle">Auto Shrimp Feeder</text>
+              <text x="670" y="242" fill="#CBD5E1" font-family="'Sarabun'" font-size="10" text-anchor="middle">จ่ายอาหารเมื่อเสียงกุ้งกินถี่</text>
+
+              <rect x="580" y="260" width="180" height="30" rx="6" fill="#0B192C" stroke="#38BDF8"/>
+              <text x="670" y="280" fill="#38BDF8" font-family="'Chakra Petch'" font-size="11" text-anchor="middle">LoRaWAN Gateway &rarr; Telemetry</text>
+            </svg>
+          </div>
+        </div>
+        <div class="card card-aqua">
+          <h3>คุณสมบัติเด่นของพิมพ์เขียวนี้</h3>
+          <ul>
+            <li><strong>Fail-Safe Design :</strong> มีระบบ Hardware Interlock และ Watchdog Timer รีเซ็ตตัวเองหากแฮงก์</li>
+            <li><strong>Modular Expansion :</strong> สามารถเพิ่มโหนดเซนเซอร์ได้ไม่จำกัดผ่านโครงข่าย LoRaWAN</li>
+            <li><strong>Low Maintenance :</strong> ออกแบบให้เกษตรกรดูแลรักษาได้เองโดยไม่ต้องพึ่งพาช่างเทคนิคจากส่วนกลาง</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>สิทธิประโยชน์:</strong> แพลตฟอร์มนี้เปิดเป็น Open Architecture เพื่อให้เกษตรกรในท้องถิ่นนำไปต่อยอดได้อิสระ
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 27 : ECONOMIC IMPACT ================= -->
+    <section class="slide" data-slide="27">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-core">ผลกระทบทางเศรษฐกิจ</span>
+          <h2>ความคุ้มค่าทางเศรษฐศาสตร์และระยะเวลาคืนทุน (ROI)</h2>
+          <div class="slide-subtitle">การวิเคราะห์ผลตอบแทนจากการลงทุนสำหรับแปลงสวนทุเรียน 25 ไร่ และฟาร์มกุ้ง 10 บ่อ</div>
+        </div>
+        <div class="slide-meta">ECONOMIC FEASIBILITY</div>
+      </div>
+      <div class="slide-body grid-left-wide">
+        <div class="card">
+          <h3>การวิเคราะห์ผลตอบแทนทางการเงินต่อรอบการผลิต</h3>
+          <table class="tech-table">
+            <thead>
+              <tr><th>รายการประเมิน</th><th>กรณีสวนทุเรียนส่งออก (25 ไร่)</th><th>กรณีฟาร์มกุ้งขาวแวนนาไม (10 บ่อ)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>เงินลงทุนระบบ AIoT เริ่มต้น</strong></td><td>185,000 บาท</td><td>320,000 บาท</td></tr>
+              <tr><td><strong>ต้นทุนที่ประหยัดได้ต่อปี</strong></td><td>ค่าน้ำ/ปุ๋ย/สารเคมี ลดลง 115,000 บาท</td><td>ค่าไฟฟ้า + ค่าอาหาร ลดลง 480,000 บาท</td></tr>
+              <tr><td><strong>มูลค่าผลผลิตที่เพิ่มขึ้น</strong></td><td>ทุเรียนเกรด A เพิ่มขึ้น 18% (~ 340,000 บาท)</td><td>อัตรารอดกุ้งเพิ่มขึ้น 12% (~ 420,000 บาท)</td></tr>
+              <tr><td><strong>ผลประโยชน์สุทธิต่อปี</strong></td><td><strong>455,000 บาท / ปี</strong></td><td><strong>900,000 บาท / ปี</strong></td></tr>
+              <tr><td><strong>ระยะเวลาคืนทุน (Payback Period)</strong></td><td><strong style="color:var(--gold-primary);">ประมาณ 4.8 เดือน (ในฤดูกาลแรก)</strong></td><td><strong style="color:var(--emerald);">ประมาณ 4.3 เดือน (2 รอบการเลี้ยง)</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card card-emerald">
+          <h3>ผลประโยชน์ที่ประเมินค่าเป็นเงินไม่ได้</h3>
+          <ul>
+            <li><strong>ลดความเสี่ยง :</strong> ป้องกันความเสียหายเฉียบพลันจากไฟดับ ปั๊มไหม้ หรือกุ้งลอยหัวขาดออกซิเจน</li>
+            <li><strong>คุณภาพชีวิต :</strong> เกษตรกรไม่ต้องตื่นกลางดึกเพื่อเดินเปิด-ปิดวาล์วหรือขับเรือเช็กยอ</li>
+            <li><strong>สิ่งแวดล้อม :</strong> ลดการปล่อยน้ำเสียลงสู่แม่น้ำจันทบุรีและอ่าวไทยตอนบน</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>ข้อสรุปทางการเงิน:</strong> เทคโนโลยี Edge AIoT มีความคุ้มค่าสูงมาก และคืนทุนทั้งหมดได้ภายในปีแรกของการติดตั้ง
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 28 : FUTURE ROADMAP ================= -->
+    <section class="slide" data-slide="28">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-core">ทิศทางในอนาคต</span>
+          <h2>ทิศทางการพัฒนาต่อยอดและการขับเคลื่อนพื้นที่ EEC</h2>
+          <div class="slide-subtitle">การบูรณาการ Generative AI, หุ่นยนต์อัตโนมัติ และระบบตรวจสอบย้อนกลับคาร์บอนเครดิต</div>
+        </div>
+        <div class="slide-meta">FUTURE INNOVATIONS</div>
+      </div>
+      <div class="slide-body grid-3col">
+        <div class="card card-gold">
+          <h3>1. Small Language Models (SLM)</h3>
+          <ul>
+            <li>ติดตั้งโมเดลภาษาขนาดเล็ก (เช่น Gemma 2B / Llama-3-Nano) บนเกตเวย์ขอบ</li>
+            <li>เกษตรกรสามารถคุยสอบถามปัญหาศัตรูพืชด้วยเสียงภาษาไทยหน้างาน</li>
+            <li>แนะนำปริมาณปุ๋ยและยาตามสภาพอากาศเฉพาะแปลงโดยไม่ต้องต่อเน็ต</li>
+          </ul>
+        </div>
+        <div class="card card-aqua">
+          <h3>2. Autonomous Agri-Robotics</h3>
+          <ul>
+            <li>รถตัดหญ้าและฉีดพ่นยากำจัดแมลงอัตโนมัติควบคุมด้วย RTK-GPS</li>
+            <li>เรือกวนตะกอนและดูดเลนใต้น้ำควบคุมด้วย AI วิเคราะห์ภาพ</li>
+            <li>โดรนสำรวจสุขภาพแปลงพืชผสานกล้อง Multispectral</li>
+          </ul>
+        </div>
+        <div class="card card-emerald">
+          <h3>3. Carbon & ESG Traceability</h3>
+          <ul>
+            <li>บันทึกการลดใช้พลังงานไฟฟ้าและน้ำมันลงสู่ Blockchain แบบโปร่งใส</li>
+            <li>สร้าง Carbon Credit รับรองมาตรฐานผลไม้รักษ์โลกเพื่อการส่งออกสหภาพยุโรป</li>
+            <li>ระบบ Digital Product Passport สำหรับทุเรียนพรีเมียมจันทบุรี</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>เป้าหมายยุทธศาสตร์:</strong> ยกระดับภาคเกษตรกรรมภาคตะวันออกสู่เกษตรกรรมอัจฉริยะมาตรฐานระดับโลก (World-Class Smart Agri)
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 29 : CONCLUSION & QA ================= -->
+    <section class="slide" data-slide="29">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <span class="slide-badge badge-core">บทสรุป</span>
+          <h2>สรุปภาพรวมหลักสูตรและเปิดเวทีแลกเปลี่ยนความคิดเห็น</h2>
+          <div class="slide-subtitle">หลักสูตรเกษตรดิจิทัลและปัญญาประดิษฐ์ฝังตัว คณะวิทยาศาสตร์และเทคโนโลยี มหาวิทยาลัยราชภัฏรำไพพรรณี</div>
+        </div>
+        <div class="slide-meta">CONCLUSION &amp; Q&amp;A</div>
+      </div>
+      <div class="slide-body grid-2col">
+        <div class="card card-gold">
+          <h3>ข้อคิดสำคัญในการประยุกต์ใช้เทคโนโลยี (Key Takeaways)</h3>
+          <ul>
+            <li><strong>ฟิสิกส์ต้องมาก่อนโค้ดดิ้ง :</strong> การเข้าใจหลักการกลศาสตร์ของไหล ไฟฟ้ากำลัง และชีววิทยา ทำให้แก้ปัญหาหน้างานได้ตรงจุด</li>
+            <li><strong>ความทนทานคือหัวใจ :</strong> ในสภาพแวดล้อมร้อนชื้นและไอเค็ม อุปกรณ์ต้องป้องกัน IP67/IP68 และมีระบบ Grounding ที่สมบูรณ์</li>
+            <li><strong>Edge AI คือคำตอบของฟาร์ม :</strong> ตัดความพึ่งพาคลาวด์ ทำงานได้อิสระ ปลอดภัย และประหยัดค่าใช้จ่ายระยะยาว</li>
+            <li><strong>ความคุ้มทุนที่พิสูจน์ได้ :</strong> ลดค่าไฟ ค่าอาหาร และเพิ่มสัดส่วนผลผลิตเกรดพรีเมียม คืนทุนได้ในไม่กี่เดือน</li>
+          </ul>
+        </div>
+        <div class="card card-emerald" style="justify-content:center; align-items:center; text-align:center;">
+          <div style="font-size:48px; margin-bottom:12px;">🌾 &bull; 🦐 &bull; 🤖</div>
+          <h3 style="font-size:24px; color:var(--gold-primary); justify-content:center;">พร้อมตอบทุกข้อซักถาม</h3>
+          <p style="font-size:16px; color:#E2E8F0; margin:14px 0 20px; line-height:1.6;">
+            ขอขอบพระคุณผู้ทรงคุณวุฒิ คณาจารย์ และผู้เข้ารับการอบรมทุกท่าน<br>
+            <strong style="color:var(--aqua-cyan);">สำนักพิมพ์มหาวิทยาลัยราชภัฏรำไพพรรณี</strong>
+          </p>
+          <div style="display:flex; gap:12px; justify-content:center;">
+            <button class="deck-btn deck-btn-gold" onclick="jumpToSlide(1)">กลับสู่หน้าแรก (Slide 1)</button>
+            <button class="deck-btn" onclick="toggleDrawer()">เปิดสารบัญสไลด์ (Grid)</button>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <strong>ติดต่อคณะผู้จัดทำ:</strong> คณะวิทยาศาสตร์และเทคโนโลยี มหาวิทยาลัยราชภัฏรำไพพรรณี จังหวัดจันทบุรี
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Interactive Deck Controls -->
+  <footer id="deck-controls">
+    <div class="control-group">
+      <button class="deck-btn" id="btn-prev" onclick="prevSlide()" title="สไลด์ก่อนหน้า (Left Arrow / PageUp)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+        <span>ก่อนหน้า</span>
+      </button>
+      <div id="slide-indicator">1 / 29</div>
+      <button class="deck-btn" id="btn-next" onclick="nextSlide()" title="สไลด์ถัดไป (Right Arrow / Space / PageDown)">
+        <span>ถัดไป</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+    </div>
+
+    <div class="control-group">
+      <button class="deck-btn" id="btn-drawer" onclick="toggleDrawer()" title="เปิดตารางสไลด์ทั้งหมด (G / O)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+        <span>ภาพรวม (Grid)</span>
+      </button>
+      <button class="deck-btn" id="btn-fullscreen" onclick="toggleFullscreen()" title="แสดงเต็มจอ (F)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+        <span>เต็มจอ (F)</span>
+      </button>
+    </div>
+  </footer>
+
+  <!-- Drawer Modal for Quick Jump -->
+  <div id="drawer-modal">
+    <div class="drawer-header">
+      <h3>สารบัญสไลด์นำเสนอ (29 สไลด์)</h3>
+      <button class="deck-btn" onclick="toggleDrawer()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        <span>ปิด (Esc)</span>
+      </button>
+    </div>
+    <div class="drawer-grid" id="drawer-grid-container"></div>
+  </div>
+
+  <!-- Client-side Logic Script -->
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let currentSlide = 1;
+
+    const indicator = document.getElementById('slide-indicator');
+    const progressBar = document.getElementById('progress-bar');
+    const drawerModal = document.getElementById('drawer-modal');
+    const drawerGrid = document.getElementById('drawer-grid-container');
+
+    // Slide Titles for Drawer
+    const slideMeta = [
+      { num: 1, title: "หน้าปกหลักสูตร AIoT 2570", cat: "Cover & Title" },
+      { num: 2, title: "แผนผังหลักสูตร 60 ชั่วโมง (10 โมดูล)", cat: "Roadmap" },
+      { num: 3, title: "บทที่ 1 : ฟิสิกส์เกษตร & Edge AI Paradigm", cat: "Chapter 1" },
+      { num: 4, title: "บทที่ 1 : สเปกฮาร์ดแวร์ MCU / NPU / SBC", cat: "Chapter 1" },
+      { num: 5, title: "บทที่ 2 : อิเล็กทรอนิกส์กำลัง & Flyback Diode", cat: "Chapter 2" },
+      { num: 6, title: "บทที่ 2 : การแยกกราวด์ Opto-Isolation & Earthing", cat: "Chapter 2" },
+      { num: 7, title: "บทที่ 3 : ชลศาสตร์ท่อสวนผลไม้ Darcy-Weisbach", cat: "Chapter 3" },
+      { num: 8, title: "บทที่ 3 : การคายระเหย Penman-Monteith & Soil", cat: "Chapter 3" },
+      { num: 9, title: "บทที่ 4 : คลื่นเสียงเคาะทุเรียนสั่นพ้อง & FFT", cat: "Chapter 4" },
+      { num: 10, title: "บทที่ 4 : คอมพิวเตอร์วิทัศน์คัดเกรด & หนาม", cat: "Chapter 4" },
+      { num: 11, title: "บทที่ 5 : การตรวจจับโรคใบและผลทุเรียน", cat: "Chapter 5" },
+      { num: 12, title: "บทที่ 5 : เมทริกซ์การวัดผล Confusion Matrix", cat: "Chapter 5" },
+      { num: 13, title: "บทที่ 6 : ฟิสิกส์การละลาย O2 ในบ่อกุ้ง (KLa)", cat: "Chapter 6" },
+      { num: 14, title: "บทที่ 6 : เซนเซอร์ Optical DO & Modbus RTU", cat: "Chapter 6" },
+      { num: 15, title: "บทที่ 7 : อินเวอร์เตอร์ VFD & กฎ Affinity Laws", cat: "Chapter 7" },
+      { num: 16, title: "บทที่ 7 : อัลกอริทึม PID & ผลประหยัดไฟ 35%", cat: "Chapter 7" },
+      { num: 17, title: "บทที่ 8 : เสียงแทะอาหารกุ้งใต้น้ำ Hydrophone", cat: "Chapter 8" },
+      { num: 18, title: "บทที่ 8 : การลดค่า FCR เหลือ 1.18 & คุมน้ำเสีย", cat: "Chapter 8" },
+      { num: 19, title: "บทที่ 9 : สถาปัตยกรรม MobileNetV3 & YOLO-Nano", cat: "Chapter 9" },
+      { num: 20, title: "บทที่ 9 : INT8 Quantization เร็วขึ้น 7.7 เท่า", cat: "Chapter 9" },
+      { num: 21, title: "บทที่ 10 : โครงข่าย LoRaWAN AS923 ระยะ 10 km", cat: "Chapter 10" },
+      { num: 22, title: "บทที่ 10 : วิศวกรรมทนน้ำเค็ม IP68 & Surge SPD", cat: "Chapter 10" },
+      { num: 23, title: "บทที่ 10 : โซลาร์เซลล์ Off-Grid & LiFePO4", cat: "Chapter 10" },
+      { num: 24, title: "คลังข้อสอบวัดผล Pre/Post-Test 40 ข้อ", cat: "Assessment" },
+      { num: 25, title: "ชุดทดลองปฏิบัติการ 4 ฐานการเรียนรู้", cat: "Laboratories" },
+      { num: 26, title: "พิมพ์เขียวสถาปัตยกรรมระบบฟาร์มอัจฉริยะ", cat: "Blueprint" },
+      { num: 27, title: "ความคุ้มค่าทางเศรษฐศาสตร์และ ROI", cat: "Economics" },
+      { num: 28, title: "ทิศทางการพัฒนาต่อยอดในพื้นที่ EEC", cat: "Future Trends" },
+      { num: 29, title: "บทสรุปและถาม-ตอบ (Q&A)", cat: "Conclusion" }
+    ];
+
+    // Populate Drawer Grid
+    slideMeta.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'drawer-card';
+      card.dataset.slide = item.num;
+      card.innerHTML = `
+        <div>
+          <span class="card-num">SLIDE ${String(item.num).padStart(2, '0')}</span>
+          <div class="card-name">${item.title}</div>
+        </div>
+        <div class="card-topic">${item.cat}</div>
+      `;
+      card.onclick = () => {
+        jumpToSlide(item.num);
+        toggleDrawer();
+      };
+      drawerGrid.appendChild(card);
+    });
+
+    function updateView() {
+      slides.forEach(slide => {
+        const num = parseInt(slide.dataset.slide);
+        slide.classList.toggle('active', num === currentSlide);
+      });
+
+      indicator.textContent = `${currentSlide} / ${totalSlides}`;
+      const progressPercent = ((currentSlide - 1) / (totalSlides - 1)) * 100;
+      progressBar.style.width = `${progressPercent}%`;
+
+      // Update drawer highlights
+      document.querySelectorAll('.drawer-card').forEach(c => {
+        c.classList.toggle('active-card', parseInt(c.dataset.slide) === currentSlide);
+      });
+
+      // Update URL hash
+      window.location.hash = `slide-${currentSlide}`;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        currentSlide++;
+        updateView();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        currentSlide--;
+        updateView();
+      }
+    }
+
+    function jumpToSlide(num) {
+      if (num >= 1 && num <= totalSlides) {
+        currentSlide = num;
+        updateView();
+      }
+    }
+
+    function toggleDrawer() {
+      drawerModal.classList.toggle('open');
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => console.log(err));
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+
+    // Keyboard Navigation
+    window.addEventListener('keydown', (e) => {
+      if (drawerModal.classList.contains('open')) {
+        if (e.key === 'Escape' || e.key === 'g' || e.key === 'G') {
+          toggleDrawer();
+        }
+        return;
+      }
+
+      switch (e.key) {
+        case 'ArrowRight':
+        case 'ArrowDown':
+        case 'PageDown':
+        case ' ':
+          e.preventDefault();
+          nextSlide();
+          break;
+        case 'ArrowLeft':
+        case 'ArrowUp':
+        case 'PageUp':
+          e.preventDefault();
+          prevSlide();
+          break;
+        case 'Home':
+          e.preventDefault();
+          jumpToSlide(1);
+          break;
+        case 'End':
+          e.preventDefault();
+          jumpToSlide(totalSlides);
+          break;
+        case 'f':
+        case 'F':
+          e.preventDefault();
+          toggleFullscreen();
+          break;
+        case 'g':
+        case 'G':
+        case 'o':
+        case 'O':
+          e.preventDefault();
+          toggleDrawer();
+          break;
+        case 'Escape':
+          if (document.fullscreenElement) {
+            document.exitFullscreen();
+          }
+          break;
+      }
+    });
+
+    // Touch Swipe Navigation for Tablets / Mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    window.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, false);
+    window.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchEndX < touchStartX - 50) {
+        nextSlide();
+      }
+      if (touchEndX > touchStartX + 50) {
+        prevSlide();
+      }
+    }, false);
+
+    // Read initial hash if available
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash;
+      if (hash && hash.startsWith('#slide-')) {
+        const slideNum = parseInt(hash.replace('#slide-', ''));
+        if (slideNum >= 1 && slideNum <= totalSlides) {
+          currentSlide = slideNum;
+        }
+      }
+      updateView();
+    });
+  </script>
+</body>
+</html>

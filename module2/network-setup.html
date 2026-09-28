@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workshop Network Setup</title>
+<meta name="description" content="Network setup">
+<style>
+/* Self-hosted Sarabun + IBM Plex Mono, thai+latin subsets (SIL OFL).
+   These pages are printed and handed to the venue's network provider; they must
+   not depend on a font CDN. Files in docs/fonts/, paths relative to docs/. */
+@font-face {
+  font-family: 'Sarabun';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/sarabun-400-thai.woff2) format('woff2');
+  unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+}
+
+@font-face {
+  font-family: 'Sarabun';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/sarabun-400-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Sarabun';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(fonts/sarabun-600-thai.woff2) format('woff2');
+  unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+}
+
+@font-face {
+  font-family: 'Sarabun';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(fonts/sarabun-600-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Sarabun';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(fonts/sarabun-700-thai.woff2) format('woff2');
+  unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+}
+
+@font-face {
+  font-family: 'Sarabun';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(fonts/sarabun-700-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/ibm-plex-mono-400-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(fonts/ibm-plex-mono-600-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+:root {
+  --ink: #14181d;
+  --ink-soft: #4a545f;
+  --rule: #d9dee4;
+  --rule-soft: #eaeef2;
+  --paper: #ffffff;
+  --wash: #f5f7f9;
+  --accent: #0f6b63;
+  --accent-wash: #e8f3f1;
+  --flag: #8a5a00;
+  --flag-wash: #fdf4e3;
+  --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  padding: 3.5rem 1.25rem 5rem;
+  background: var(--wash);
+  color: var(--ink);
+  font-family: Sarabun, "Leelawadee UI", "Noto Sans Thai", -apple-system,
+               BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.85;
+}
+
+.doc {
+  max-width: 54rem;
+  margin: 0 auto;
+  padding: 3.5rem clamp(1.5rem, 5vw, 4rem) 3rem;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(20, 24, 29, .04), 0 12px 32px rgba(20, 24, 29, .06);
+}
+
+/* ---- masthead ---------------------------------------------------------- */
+
+/* the way back to the workshop front door, above the masthead; hidden in print, where a link is no use */
+.doc-home { margin: -1.5rem 0 1.6rem; font-size: .85rem; }
+.doc-home a { color: var(--ink-soft); text-decoration: none; transition: color 0.12s ease; }
+.doc-home a:hover { color: var(--accent); }
+
+.doc-head { border-bottom: 3px solid var(--accent); padding-bottom: 1.5rem; margin-bottom: 2.5rem; }
+
+.kicker {
+  margin: 0 0 .6rem;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.doc-head h1 { margin: 0; font-size: clamp(1.7rem, 4vw, 2.3rem); line-height: 1.3; font-weight: 700; }
+
+.meta { margin: .75rem 0 0; font-size: .9rem; color: var(--ink-soft); }
+
+.disclosure {
+  margin: 1.1rem 0 0;
+  padding-top: .85rem;
+  border-top: 1px solid var(--rule-soft);
+  font-size: .82rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+/* ---- headings ---------------------------------------------------------- */
+
+h2 {
+  margin: 3rem 0 1rem;
+  padding-bottom: .5rem;
+  border-bottom: 1px solid var(--rule);
+  font-size: 1.4rem;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+h3 {
+  margin: 2rem 0 .75rem;
+  font-size: 1.12rem;
+  line-height: 1.5;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+h2 + h3 { margin-top: 1.25rem; }
+
+p { margin: 0 0 1.15rem; }
+
+a { color: var(--accent); text-underline-offset: 2px; }
+
+strong { font-weight: 700; }
+
+hr { height: 0; margin: 3rem 0; border: 0; border-top: 1px solid var(--rule-soft); }
+
+/* ---- lists ------------------------------------------------------------- */
+
+ul, ol { margin: 0 0 1.15rem; padding-left: 1.35rem; }
+li { margin-bottom: .5rem; }
+li > ul, li > ol { margin-top: .5rem; margin-bottom: .25rem; }
+
+/* ---- tables ------------------------------------------------------------ */
+
+.table-scroll { overflow-x: auto; margin: 0 0 1.6rem; -webkit-overflow-scrolling: touch; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .92rem;
+  line-height: 1.65;
+}
+
+th, td {
+  padding: .6rem .8rem;
+  border: 1px solid var(--rule);
+  text-align: left;
+  vertical-align: top;
+}
+
+thead th {
+  background: var(--wash);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+tbody tr:nth-child(even) { background: #fbfcfd; }
+
+/* ---- callouts (blockquotes carry the load-bearing asks) ---------------- */
+
+blockquote {
+  margin: 0 0 1.6rem;
+  padding: 1.1rem 1.35rem .35rem;
+  background: var(--flag-wash);
+  border: 1px solid #f0dfba;
+  border-left: 4px solid var(--flag);
+  border-radius: 3px;
+}
+
+blockquote p { margin-bottom: .8rem; }
+
+/* ---- code -------------------------------------------------------------- */
+
+code {
+  padding: .12em .38em;
+  background: var(--accent-wash);
+  border-radius: 3px;
+  font-family: var(--mono);
+  font-size: .88em;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+blockquote code { background: #fff; border: 1px solid #ecdcb8; }
+
+figure {
+  margin: 0 0 1.9rem;
+  padding: 1.25rem 1.25rem .9rem;
+  background: #fcfdfd;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+
+figure svg { display: block; width: 100%; height: auto; }
+
+figcaption {
+  margin-top: .9rem;
+  padding-top: .7rem;
+  border-top: 1px solid var(--rule-soft);
+  font-size: .82rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+/* ---- footer ------------------------------------------------------------ */
+
+.doc-foot {
+  margin-top: 3.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+  font-size: .82rem;
+  color: var(--ink-soft);
+}
+
+.doc-foot p { margin: 0; }
+
+/* ---- print ------------------------------------------------------------- */
+
+@media print {
+  @page { size: A4; margin: 16mm 14mm; }
+  body { padding: 0; background: #fff; font-size: 10.5pt; line-height: 1.6; }
+  .doc { max-width: none; padding: 0; border: 0; border-radius: 0; box-shadow: none; }
+  .doc-home { display: none; }
+  a { color: inherit; text-decoration: none; }
+  h2 { break-after: avoid; page-break-after: avoid; }
+  h3 { break-after: avoid; page-break-after: avoid; }
+  table, blockquote, .table-scroll, figure { break-inside: avoid; page-break-inside: avoid; }
+  tr, li { break-inside: avoid; page-break-inside: avoid; }
+  thead { display: table-header-group; }
+  .doc-foot { break-before: avoid; }
+}
+</style>
+</head>
+<body>
+<article class="doc">
+  <p class="doc-home"><a href="https://arnans.github.io/iot-training/">← Workshop home</a></p>
+  <header class="doc-head">
+    <p class="kicker">Network setup</p>
+    <h1>Workshop Network Setup</h1>
+    <p class="meta">IoT in Smart Farming workshop · Last updated 2026-09-22</p>
+    <p class="disclosure">This document was compiled with Claude AI. Its content was designed and reviewed by those responsible, who certify that it reflects the intent of the preparing team in every respect.</p>
+  </header>
+  <p><em>Supersedes <a href="network-requirements-en.html">NETWORK-REQUIREMENTS.md</a> (the per-SSID VLAN design), retired
+  21 Sep 2026. That document and its Thai edition stay in the repository for reference only.</em></p>
+  <p>The workshop runs <strong>two separate wireless networks in one room</strong>:</p>
+  <ol>
+  <li><strong>The workshop LAN</strong> — three GL.iNet Flint routers we bring and configure ourselves, one per
+     zone (red / green / blue). Each carries that zone's boards on 2.4 GHz and that zone's Home
+     Assistant laptop and one phone per team on 5 GHz. This is where boards, Home Assistant and
+     dashboards find each other by hostname (mDNS). No VLANs, no controller, no coordination with
+     anyone: each Flint is its own subnet, so zone isolation is a property of the hardware.</li>
+  <li><strong>The internet WiFi</strong> — provided by NT, 5 GHz only, for every other laptop and phone in the
+     room. Its job is internet access for the worksheet site and web.esphome.io. <strong>Devices on it
+     cannot reach any board or Home Assistant</strong>, and that is by design.</li>
+  </ol>
+  <p>The three Flints plug into NT's gateway by cable for their own internet access (web.esphome.io
+  from the Home Assistant laptop; the Session 3 remote-access demo).</p>
+  <figure>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 488" role="img" aria-label="Three routers we bring, one per zone, each on its own subnet · NT's WiFi reaches only the internet">
+        <defs>
+          <marker id="arrow-good" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7"
+                  markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#0f6b63"/>
+          </marker>
+        </defs>
+        <rect x="290" y="18" width="220" height="44" rx="6" fill="#ffffff" stroke="#14181d" stroke-width="1.8"/>
+      <text x="400" y="45" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="13" font-weight="700" fill="#14181d">NT gateway · internet</text>
+        <rect x="570" y="14" width="330" height="60" rx="6" fill="#d9dee4" fill-opacity=".35" stroke="#5b6570" stroke-width="1.4" stroke-dasharray="6 4"/>
+      <text x="735" y="33" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="12.5" font-weight="700" fill="#14181d">NT WiFi · 5 GHz only</text>
+      <text x="735" y="50" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="400" fill="#5b6570">every other laptop and phone</text>
+      <text x="735" y="66" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#b03a2e">internet only, no boards, no HA</text>
+        <line x1="510" y1="40" x2="570" y2="40" stroke="#5b6570" stroke-width="1.4" stroke-dasharray="6 4"/>
+        <line x1="160" y1="108" x2="800" y2="108" stroke="#14181d" stroke-width="1.8"/>
+        <line x1="400" y1="62" x2="400" y2="108" stroke="#14181d" stroke-width="1.8"/>
+      <text x="408" y="100" text-anchor="start" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#5b6570">3 wired ports</text>
+        <line x1="160" y1="108" x2="160" y2="150" stroke="#14181d" stroke-width="1.8"/>
+        <rect x="15" y="150" width="290" height="222" rx="8" fill="#fdf1ef" stroke="#c0392b" stroke-width="2.5"/>
+      <text x="160" y="174" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="700" fill="#c0392b">Red zone</text>
+        <text x="160" y="193" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5b6570">Flint router&#160;&#160;<tspan font-family="'IBM Plex Mono', ui-monospace, Consolas, monospace" font-size="11.5" font-weight="600" fill="#14181d">10.10.0.0/22</tspan></text>
+        <circle cx="94" cy="265" r="50" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-opacity=".55"/>
+      <text x="94" y="256" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="13" font-weight="700" fill="#14181d">2.4 GHz</text>
+      <text x="94" y="274" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#5b6570">boards</text>
+      <text x="94" y="289" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#5b6570">~67</text>
+        <circle cx="226" cy="265" r="50" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-opacity=".55"/>
+      <text x="226" y="256" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="13" font-weight="700" fill="#14181d">5 GHz</text>
+      <text x="226" y="274" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#5b6570">HA laptop</text>
+      <text x="226" y="289" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#5b6570">1 phone per team</text>
+        <path d="M94,313 Q160,347 226,313" fill="none" stroke="#0f6b63" stroke-width="1.8" marker-start="url(#arrow-good)" marker-end="url(#arrow-good)"/>
+      <text x="160" y="365" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#0f6b63">see each other · mDNS</text>
+        <text x="160" y="415" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#5b6570">2.4 GHz&#160;&#160;<tspan font-family="'IBM Plex Mono', ui-monospace, Consolas, monospace" font-size="12" font-weight="600" fill="#14181d">farm-iot-red</tspan></text>
+        <text x="160" y="437" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#5b6570">5 GHz&#160;&#160;<tspan font-family="'IBM Plex Mono', ui-monospace, Consolas, monospace" font-size="12" font-weight="600" fill="#14181d">farm-laptop-red</tspan></text>
+        <line x1="480" y1="108" x2="480" y2="150" stroke="#14181d" stroke-width="1.8"/>
+        <rect x="335" y="150" width="290" height="222" rx="8" fill="#eef8f1" stroke="#1e8449" stroke-width="2.5"/>
+      <text x="480" y="174" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="700" fill="#1e8449">Green zone</text>
+        <text x="480" y="193" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5b6570">Flint router&#160;&#160;<tspan font-family="'IBM Plex Mono', ui-monospace, Consolas, monospace" font-size="11.5" font-weight="600" fill="#14181d">10.20.0.0/22</tspan></text>
+        <circle cx="414" cy="265" r="50" fill="#ffffff" stroke="#1e8449" stroke-width="1.5" stroke-opacity=".55"/>
+      <text x="414" y="256" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="13" font-weight="700" fill="#14181d">2.4 GHz</text>
+      <text x="414" y="274" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#5b6570">boards</text>
+      <text x="414" y="289" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#5b6570">~67</text>
+        <circle cx="546" cy="265" r="50" fill="#ffffff" stroke="#1e8449" stroke-width="1.5" stroke-opacity=".55"/>
+      <text x="546" y="256" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="13" font-weight="700" fill="#14181d">5 GHz</text>
+      <text x="546" y="274" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#5b6570">HA laptop</text>
+      <text x="546" y="289" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#5b6570">1 phone per team</text>
+        <path d="M414,313 Q480,347 546,313" fill="none" stroke="#0f6b63" stroke-width="1.8" marker-start="url(#arrow-good)" marker-end="url(#arrow-good)"/>
+      <text x="480" y="365" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#0f6b63">see each other · mDNS</text>
+        <text x="480" y="415" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#5b6570">2.4 GHz&#160;&#160;<tspan font-family="'IBM Plex Mono', ui-monospace, Consolas, monospace" font-size="12" font-weight="600" fill="#14181d">farm-iot-green</tspan></text>
+        <text x="480" y="437" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#5b6570">5 GHz&#160;&#160;<tspan font-family="'IBM Plex Mono', ui-monospace, Consolas, monospace" font-size="12" font-weight="600" fill="#14181d">farm-laptop-green</tspan></text>
+        <line x1="800" y1="108" x2="800" y2="150" stroke="#14181d" stroke-width="1.8"/>
+        <rect x="655" y="150" width="290" height="222" rx="8" fill="#eef4fa" stroke="#21618c" stroke-width="2.5"/>
+      <text x="800" y="174" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="700" fill="#21618c">Blue zone</text>
+        <text x="800" y="193" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5b6570">Flint router&#160;&#160;<tspan font-family="'IBM Plex Mono', ui-monospace, Consolas, monospace" font-size="11.5" font-weight="600" fill="#14181d">10.30.0.0/22</tspan></text>
+        <circle cx="734" cy="265" r="50" fill="#ffffff" stroke="#21618c" stroke-width="1.5" stroke-opacity=".55"/>
+      <text x="734" y="256" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="13" font-weight="700" fill="#14181d">2.4 GHz</text>
+      <text x="734" y="274" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#5b6570">boards</text>
+      <text x="734" y="289" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#5b6570">~67</text>
+        <circle cx="866" cy="265" r="50" fill="#ffffff" stroke="#21618c" stroke-width="1.5" stroke-opacity=".55"/>
+      <text x="866" y="256" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="13" font-weight="700" fill="#14181d">5 GHz</text>
+      <text x="866" y="274" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#5b6570">HA laptop</text>
+      <text x="866" y="289" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="400" fill="#5b6570">1 phone per team</text>
+        <path d="M734,313 Q800,347 866,313" fill="none" stroke="#0f6b63" stroke-width="1.8" marker-start="url(#arrow-good)" marker-end="url(#arrow-good)"/>
+      <text x="800" y="365" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#0f6b63">see each other · mDNS</text>
+        <text x="800" y="415" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#5b6570">2.4 GHz&#160;&#160;<tspan font-family="'IBM Plex Mono', ui-monospace, Consolas, monospace" font-size="12" font-weight="600" fill="#14181d">farm-iot-blue</tspan></text>
+        <text x="800" y="437" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#5b6570">5 GHz&#160;&#160;<tspan font-family="'IBM Plex Mono', ui-monospace, Consolas, monospace" font-size="12" font-weight="600" fill="#14181d">farm-laptop-blue</tspan></text>
+        <circle cx="320" cy="261" r="13" fill="#ffffff" stroke="#b03a2e" stroke-width="1.8"/>
+        <path d="M315,256 L325,266 M325,256 L315,266" stroke="#b03a2e" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="640" cy="261" r="13" fill="#ffffff" stroke="#b03a2e" stroke-width="1.8"/>
+        <path d="M635,256 L645,266 M645,256 L635,266" stroke="#b03a2e" stroke-width="2" stroke-linecap="round"/>
+      <text x="480" y="472" text-anchor="middle" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', -apple-system, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="400" fill="#5b6570">Three routers we bring, one per zone, each on its own subnet · NT's WiFi reaches only the internet</text>
+      </svg>
+      <figcaption>The two networks. Three Flint routers, one per zone, each a private subnet with a 2.4 GHz SSID for boards and a 5 GHz SSID for the Home Assistant laptop and one phone. All three plug into NT's gateway by cable. NT's 5 GHz WiFi carries every other laptop and phone and reaches only the internet.</figcaption>
+    </figure>
+  <p>Section 1 is what we ask of NT. Sections 2–5 are our own configuration, the rules for
+  participants, the acceptance test and the risks. Section 6 records why this replaced the VLAN
+  design.</p>
+  <hr>
+  <h2>1. What we ask of NT</h2>
+  <p>NT is the venue's internet provider for this event, contracted for <strong>500 devices</strong>. Nothing below
+  asks NT to configure device-to-device traffic, multicast or VLANs; those all live inside our
+  routers.</p>
+  <h3>1.1 Three wired ports for our routers</h3>
+  <blockquote>
+  <p><strong>Three RJ45 Ethernet ports, 1 GbE, each giving a DHCP lease with plain internet access.</strong> Each
+  port feeds one of our routers, which NATs a zone of roughly 170 clients behind a single MAC and
+  IP. On these three ports: <strong>no captive portal, no MAC registration, no login of any kind</strong>, no
+  per-MAC bandwidth cap that treats the router as one user, and no idle timeout. Isolation between
+  the three ports is fine; they never need to see each other.</p>
+  </blockquote>
+  <p>The ports can be at one location, in which case we run our own cables (up to ~50 m) to the three
+  zone positions, or one near each zone position. Bandwidth need is modest, under 50 Mbps per port.
+  A <strong>fourth port</strong> of the same kind for the presentation laptop, near the stage, if convenient.</p>
+  <p>Outbound traffic: <strong>unrestricted is preferred.</strong> If NT filters, then at minimum TCP 443, UDP 53
+  and UDP 123 from all four ports. No inbound access is required anywhere.</p>
+  <h3>1.2 The internet WiFi</h3>
+  <blockquote>
+  <p><strong>5 GHz only. 2.4 GHz off on every NT access point.</strong> Our three routers are the only 2.4 GHz
+  transmitters in the room; 200 microcontroller boards live there and they are the clients that
+  cannot cope with interference.</p>
+  </blockquote>
+  <ul>
+  <li><strong>Capacity: up to ~600 associations</strong> — 300 laptops plus up to 300 phones, since each team's
+    remaining three members join NT rather than our routers. The contract says 500; the difference
+    is the phones people may not join.</li>
+  <li><strong>SSID name that says what it is</strong>, for instance <code>farm-internet</code>. Participants will see two
+    kinds of WiFi and must pick the right one from the name alone. Please do not name it with
+    <code>farm-iot</code> or <code>farm-laptop</code>; those are ours.</li>
+  <li><strong>Login: preferably none.</strong> If a captive portal is required, one login per device for the
+    whole two days, no daily re-authentication.</li>
+  <li>Client isolation on NT's WiFi is fine, and even preferable: nothing on it talks to anything
+    else on it.</li>
+  </ul>
+  <h3>1.3 Sharing the 5 GHz band</h3>
+  <p>Our routers and NT's access points share 5 GHz in one ballroom. We keep to three narrow,
+  non-DFS channels so NT keeps the rest of the band:</p>
+  <blockquote>
+  <p><strong>Our routers use 5 GHz channels 36, 44 and 149, each at 20 MHz.</strong> Please keep NT's 5 GHz
+  radios off those three channels, or tell us which channel plan NT prefers and we will move.
+  Everything else, including all DFS channels (52–144) and 157–165, is NT's.</p>
+  </blockquote>
+  <p>Please do not mount an NT access point directly above or beside one of our routers; a few metres
+  apart is enough.</p>
+  <h3>1.4 Setup window and support</h3>
+  <p>We ask for the three ports to be live during the <strong>setup window on the afternoon before Day 1</strong>,
+  with someone on call who can change the NT configuration, and on-site or on-call support through
+  the first hour of the workshop. The acceptance test in section 4 is what we will run.</p>
+  <hr>
+  <h2>2. Our routers: configuration per zone</h2>
+  <p>Three GL.iNet Flint routers (Flint 2, GL-MT6000, or Flint 3, GL-BE9300; settings are the same on
+  both), plus a <strong>fourth as a cold spare</strong> carrying all three zone configurations exported. Configure
+  all four in advance, at the office, from a single checklist; the only site work is plugging in.</p>
+  <h3>2.1 SSIDs, subnets, channels</h3>
+  <div class="table-scroll"><table>
+  <thead>
+  <tr>
+  <th>Zone</th>
+  <th>2.4 GHz SSID (boards)</th>
+  <th>5 GHz SSID (HA laptop, one phone)</th>
+  <th>LAN subnet</th>
+  <th>Router IP</th>
+  <th>2.4 GHz ch.</th>
+  <th>5 GHz ch.</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+  <td>red</td>
+  <td><code>farm-iot-red</code></td>
+  <td><code>farm-laptop-red</code></td>
+  <td><code>10.10.0.0/22</code></td>
+  <td><code>10.10.0.1</code></td>
+  <td>1</td>
+  <td>36</td>
+  </tr>
+  <tr>
+  <td>green</td>
+  <td><code>farm-iot-green</code></td>
+  <td><code>farm-laptop-green</code></td>
+  <td><code>10.20.0.0/22</code></td>
+  <td><code>10.20.0.1</code></td>
+  <td>6</td>
+  <td>44</td>
+  </tr>
+  <tr>
+  <td>blue</td>
+  <td><code>farm-iot-blue</code></td>
+  <td><code>farm-laptop-blue</code></td>
+  <td><code>10.30.0.0/22</code></td>
+  <td><code>10.30.0.1</code></td>
+  <td>11</td>
+  <td>149</td>
+  </tr>
+  </tbody>
+  </table></div>
+  <p><strong>Password <code>iotfarmer</code> on all six SSIDs. WPA2-PSK (AES/CCMP), not WPA2/WPA3 mixed.</strong></p>
+  <blockquote>
+  <p><strong>The SSID names and the password are compiled into the firmware of 200 boards</strong> and cannot be
+  changed on site. They are unchanged from the VLAN design, so no firmware rebuild is needed.</p>
+  </blockquote>
+  <p>Why a /22 and not the router's default <code>192.168.8.0/24</code>: a /24 is 250 leases, and one zone needs
+  ~170–270 (67 boards, 34 laptops × 2 for the bridged VM, 34 phones, spares). Distinct subnets per
+  zone also make a wrong-zone device obvious from its address.</p>
+  <h3>2.2 Settings checklist, every router</h3>
+  <p>Work through the GL.iNet admin UI (<code>http://&lt;router IP&gt;</code>) and, where noted, LuCI (<strong>System → Advanced
+  Settings</strong>).</p>
+  <p><strong>Wireless</strong></p>
+  <ul>
+  <li>[ ] 2.4 GHz: SSID and password per the table; <strong>WPA2-PSK</strong>; fixed channel per the table;
+        <strong>20 MHz</strong> bandwidth; TX power maximum; mode left at default (b/g/n/ax mixed). If boards
+        fail to associate on the bench, force <strong>802.11n</strong> in LuCI.</li>
+  <li>[ ] 5 GHz: SSID and password per the table; <strong>WPA2-PSK</strong>; fixed channel per the table;
+        <strong>20 MHz</strong>; TX power maximum. Never a DFS channel (52–144): a radar event vacates the
+        channel for a minute or more and the whole zone drops.</li>
+  <li>[ ] Different SSID per band. Do <strong>not</strong> use "same SSID on both bands" / band steering.</li>
+  <li>[ ] <strong>Guest WiFi off</strong> on both bands (the guest network is the only place client isolation
+        exists on these routers; the main network has none).</li>
+  <li>[ ] PMF / 802.11w: <strong>optional or disabled</strong>, never required. 802.11r off.</li>
+  <li>[ ] 6 GHz radio (Flint 3 only): off. Nothing in the room uses it and it is one more thing to
+        explain.</li>
+  </ul>
+  <p><strong>LAN and DHCP</strong></p>
+  <ul>
+  <li>[ ] LAN IP and mask per the table.</li>
+  <li>[ ] DHCP pool: the whole /22 minus the first 20 addresses. <strong>Lease time 72 hours</strong>, covering both
+        days plus the setup window. Reservations are not needed; everything is addressed by hostname.</li>
+  <li>[ ] Confirm in LuCI that <strong>IGMP snooping is off</strong> on <code>br-lan</code> (OpenWrt default; check it stayed
+        that way).</li>
+  <li>[ ] The router's DNS resolves DHCP client hostnames, so <code>http://gogo-iot-red-6749a4/</code> works from
+        any client of that router <strong>without mDNS</strong>. Leave that on (default) and note it as the
+        fallback if <code>.local</code> ever fails.</li>
+  </ul>
+  <p><strong>WAN</strong></p>
+  <ul>
+  <li>[ ] WAN as DHCP client. Nothing else: <strong>no VPN client, no AdGuard, no DNS override</strong>, no
+        "Internet kill switch", no parental control.</li>
+  <li>[ ] Double NAT (ours behind NT's) is expected and fine for everything we do.</li>
+  </ul>
+  <p><strong>System</strong></p>
+  <ul>
+  <li>[ ] <strong>Auto-update off. Scheduled reboot off.</strong> No maintenance of any kind for the duration.</li>
+  <li>[ ] Admin password set and written on the router with tape; the same on all four.</li>
+  <li>[ ] Export the configuration (<strong>System → Backup</strong>) and load all three exports onto the spare
+        and onto the instructor's USB stick.</li>
+  <li>[ ] Label each router with its zone colour, both sides, large.</li>
+  </ul>
+  <h3>2.3 Placement</h3>
+  <ul>
+  <li><strong>One router per zone area, at the zone's centre</strong>, on a stand about 2 m up, antennas
+    vertical. Boards sit at table height among people, laptops and water glasses; height beats
+    power for even coverage.</li>
+  <li><strong>Mains power at each position</strong> (the Flints are not PoE-powered). Bring a 10 m extension lead
+    and gaffer tape per router.</li>
+  <li>Ethernet from NT's port to each router: bring a 50 m cable per router in case the ports are
+    all in one corner.</li>
+  <li>The spare stays with the instructor kit, powered, on the bench, WAN unplugged.</li>
+  </ul>
+  <h3>2.4 Kit handout follows the router</h3>
+  <p>The zone is compiled into each board, so the zone is now <strong>spatial as well as logical</strong>: a red
+  team must sit where the red router is. Practically:</p>
+  <ul>
+  <li>Divide the floor into three areas before the room opens. Signs in each colour.</li>
+  <li>Hand red kits out only in the red area, and so on. The kit colour is the check.</li>
+  <li>All three routers will be audible from anywhere in a ballroom, so a red kit in the green area
+    still works, only with a weaker signal. "Stay in your zone" is about signal quality, not
+    connectivity.</li>
+  </ul>
+  <hr>
+  <h2>3. Rules for participants: who joins which WiFi</h2>
+  <p>This goes on the team card and is said aloud at the start of Session 1.</p>
+  <div class="table-scroll"><table>
+  <thead>
+  <tr>
+  <th>Device</th>
+  <th>Joins</th>
+  <th>Why</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+  <td>The team's <strong>Home Assistant laptop</strong> (the one running the VM)</td>
+  <td>The team's zone 5 GHz SSID, <code>farm-laptop-&lt;colour&gt;</code> — <strong>and nothing else</strong></td>
+  <td>It must find the team's boards by hostname; that only works on the zone network</td>
+  </tr>
+  <tr>
+  <td><strong>One phone per team</strong> (for the dashboard)</td>
+  <td>The team's zone 5 GHz SSID</td>
+  <td>Same reason; the dashboard is on the laptop, not on the internet</td>
+  </tr>
+  <tr>
+  <td>Every <strong>other laptop and phone</strong></td>
+  <td>NT's internet WiFi</td>
+  <td>Worksheet site and web.esphome.io are online; nothing else is needed</td>
+  </tr>
+  <tr>
+  <td>The two boards</td>
+  <td>Nothing to do: the zone 2.4 GHz SSID is compiled in</td>
+  <td></td>
+  </tr>
+  </tbody>
+  </table></div>
+  <blockquote>
+  <p><strong>The Home Assistant laptop must not have NT's WiFi saved.</strong> If it does, Windows and macOS will
+  hop to it whenever the zone signal dips, Home Assistant loses its boards, and nothing on screen
+  says why. Forget the NT network on that laptop, or never join it.</p>
+  </blockquote>
+  <p>Each zone SSID has room for the HA laptop and one phone per team only. If a whole team of four
+  joins the zone WiFi with every device, the router carries ~200 clients instead of ~140; it may
+  cope, but the bench test (section 4) does not cover it.</p>
+  <p><strong>Instructor kit and stage.</strong> The instructor kit laptop joins its own kit's zone SSID like any
+  team, and gets internet through that router for the Session 3 Home Assistant Cloud demo. The
+  presentation laptop uses NT's fourth wired port, or NT's WiFi.</p>
+  <hr>
+  <h2>4. Acceptance test</h2>
+  <p>Run during the setup window, before anything is handed out. Tests 1–4 need only NT's three ports
+  to be live; the rest need our routers in position. All must pass.</p>
+  <div class="table-scroll"><table>
+  <thead>
+  <tr>
+  <th>#</th>
+  <th>Test</th>
+  <th>Pass criterion</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+  <td>1</td>
+  <td>Each router's WAN, plugged into its NT port</td>
+  <td>Gets a lease; router's own diagnostics reach the internet — <strong>no portal, no MAC auth</strong> (1.1)</td>
+  </tr>
+  <tr>
+  <td>2</td>
+  <td>Laptop on <code>farm-laptop-red</code> opens <a href="https://web.esphome.io">https://web.esphome.io</a> and the worksheet site</td>
+  <td>Both load — internet through the router</td>
+  </tr>
+  <tr>
+  <td>3</td>
+  <td>Laptop on NT's WiFi opens the same two sites</td>
+  <td>Both load — NT WiFi works for the other three members</td>
+  </tr>
+  <tr>
+  <td>4</td>
+  <td>WiFi scanner on a laptop in each zone area</td>
+  <td>NT's 5 GHz radios are <strong>not</strong> on 36, 44 or 149; <strong>no 2.4 GHz</strong> network other than our three (1.2, 1.3)</td>
+  </tr>
+  <tr>
+  <td>5</td>
+  <td>Board on <code>farm-iot-red</code>, laptop on <code>farm-laptop-red</code>: <code>ping &lt;boardname&gt;.local</code></td>
+  <td>Resolves and replies — cross-band mDNS inside a zone</td>
+  </tr>
+  <tr>
+  <td>6</td>
+  <td>Same ping from inside the laptop's bridged VM</td>
+  <td>Resolves and replies — multicast reaches the VM, two MACs behind one client</td>
+  </tr>
+  <tr>
+  <td>7</td>
+  <td>Same laptop: <code>http://&lt;boardname&gt;/</code> (no <code>.local</code>)</td>
+  <td>Loads — the router's DNS fallback works</td>
+  </tr>
+  <tr>
+  <td>8</td>
+  <td>Phone on <code>farm-laptop-red</code> opens <code>http://&lt;VM-ip&gt;</code></td>
+  <td>Dashboard loads — client-to-client, port 80</td>
+  </tr>
+  <tr>
+  <td>9</td>
+  <td>Laptop on <code>farm-laptop-green</code> pings the red board by name; then <code>dns-sd -B _esphome._tcp</code></td>
+  <td><strong>Fails</strong>; only green boards listed — zones isolated (should be true by construction; proves nothing is bridged by mistake)</td>
+  </tr>
+  <tr>
+  <td>10</td>
+  <td>Laptop on NT's WiFi opens <code>http://&lt;VM-ip&gt;</code></td>
+  <td><strong>Fails</strong> — documents the rule in section 3 for anyone who doubts it</td>
+  </tr>
+  <tr>
+  <td>11</td>
+  <td>Laptop connected to a board, idle 30 minutes</td>
+  <td>Connection still live</td>
+  </tr>
+  <tr>
+  <td>12</td>
+  <td><strong>20–30 boards</strong> on one router, then power-cycle that router</td>
+  <td>All associate and get leases; all rejoin within two minutes of the restart</td>
+  </tr>
+  <tr>
+  <td>13</td>
+  <td><strong>Spare swap drill</strong>: unplug the red router, plug the spare in, restore the red export</td>
+  <td>Boards and laptop reconnect; under five minutes end to end</td>
+  </tr>
+  <tr>
+  <td>14</td>
+  <td>Laptop with both <code>farm-laptop-red</code> and NT's WiFi saved, walk to the far side of the room</td>
+  <td>Note what it does. This is the failure the team-card rule prevents; the point is to have seen it</td>
+  </tr>
+  </tbody>
+  </table></div>
+  <blockquote>
+  <p><strong>What this cannot test.</strong> 20–30 boards is about a third of one router's 2.4 GHz load and none
+  of its 5 GHz load. It validates configuration. Router capacity at ~140 clients is the one open
+  question in this design (section 5) and is what the office bench test before the event is for:
+  as many boards, laptops and phones as can be borrowed, on one router, with the power-cycle.</p>
+  </blockquote>
+  <hr>
+  <h2>5. Risks and what covers them</h2>
+  <div class="table-scroll"><table>
+  <thead>
+  <tr>
+  <th>Risk</th>
+  <th>Cover</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+  <td><strong>A Flint at ~140 associated clients</strong> (67 boards + ~34 laptops × 2 + ~34 phones). No published figure; consumer routers are rarely run this way</td>
+  <td>Office bench test with as many real clients as possible. Keep the 5 GHz side to HA laptop + one phone (section 3). If the bench test worries us, split each zone across two routers with a second SSID pair, which needs a firmware rebuild, so decide <strong>at least a week out</strong></td>
+  </tr>
+  <tr>
+  <td><strong>One router dies = a third of the room stops</strong></td>
+  <td>Fourth router, configured, on the bench; swap drill in the acceptance test (#13)</td>
+  </tr>
+  <tr>
+  <td>NT's port turns out to have a captive portal or MAC registration</td>
+  <td>Found by test #1 in the setup window, with NT on call. Fallback for the laptops: the board work in Sessions 1–2 needs no internet at all; only web.esphome.io and the worksheet site are lost, and an instructor phone hotspot covers the Session 3 demo</td>
+  </tr>
+  <tr>
+  <td>HA laptop hops to NT's WiFi mid-session</td>
+  <td>Team-card rule and test #14. Symptom to teach the TAs: entities go <code>unavailable</code> on a laptop that still has internet</td>
+  </tr>
+  <tr>
+  <td>5 GHz channel overlap with NT, or a DFS event</td>
+  <td>Fixed non-DFS channels (2.1); NT told which ones (1.3); test #4</td>
+  </tr>
+  <tr>
+  <td>DHCP pool exhaustion</td>
+  <td>/22 per zone, 72 h lease</td>
+  </tr>
+  <tr>
+  <td>A team sits in the wrong colour area</td>
+  <td>Works anyway, weaker signal. Move them if the TAs notice; not an emergency</td>
+  </tr>
+  <tr>
+  <td>Router firmware auto-updates or reboots overnight</td>
+  <td>Both off in the checklist (2.2). Boards rejoin on their own regardless (<code>reboot_timeout</code> is disabled in the firmware), so even an unplanned reboot costs a minute</td>
+  </tr>
+  <tr>
+  <td>NT has 2.4 GHz on after all</td>
+  <td>Test #4. Ask for it off; if NT cannot, our three channels 1/6/11 still work, with more retries</td>
+  </tr>
+  </tbody>
+  </table></div>
+  <hr>
+  <h2>6. Why this replaced the VLAN design</h2>
+  <p>The VLAN design (<a href="network-requirements-en.html">NETWORK-REQUIREMENTS.md</a>) asked the provider to build
+  three VLANs, broadcast six SSIDs on every AP, forward mDNS inside each VLAN and not between them,
+  tolerate two MACs per client and hold long DHCP leases. Every one of those is off by default on
+  managed enterprise WiFi, the acceptance test existed to catch them, and one wrong controller
+  setting (an mDNS reflector turned on "helpfully") would have silently collapsed the zoning into a
+  flat 500-client multicast domain.</p>
+  <p>With three routers we own:</p>
+  <ul>
+  <li><strong>Zone isolation is physical.</strong> Separate subnets behind separate NATs; nothing to reflect.</li>
+  <li><strong>The 2.4 GHz plan is exactly the ideal one</strong>: three radios on 1 / 6 / 11, one per zone, and
+    with NT's 2.4 GHz off they are alone in the band.</li>
+  <li><strong>mDNS across bands works by default</strong> on an OpenWrt bridge; there is no controller feature to
+    turn off.</li>
+  <li><strong>NT's job shrinks to the thing enterprise WiFi is good at</strong>: internet for 600 laptops and
+    phones, plus three cable ports.</li>
+  <li><strong>The firmware does not change.</strong> Same SSIDs, same password, same zone build.</li>
+  </ul>
+  <p>What it costs: zones become spatial (kits handed out by area), a team's HA laptop must stay off
+  the NT WiFi, and one consumer router per zone carries a client count nobody publishes a figure
+  for. Section 5 covers each.</p>
+  <p>Dropped from the old spec, no longer needed anywhere: VLAN IDs, per-SSID isolation settings,
+  mDNS-reflector prohibition, multicast-to-unicast conversion, association-rate limits, the
+  "fallback flat subnet" (section 6 of the old document) and outbound 8883, since the Session 3
+  remote-access demo is Home Assistant Cloud over 443 and MQTT left the worksheet.</p>
+  <footer class="doc-foot">
+    <p>Generated from NETWORK-SETUP.md in the iot-training repository. Edit the Markdown source and re-render rather than this file.</p>
+  </footer>
+</article>
+</body>
+</html>

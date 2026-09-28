@@ -1,0 +1,11 @@
+# Coffee Leaf Disease & Quality Smart Select YOLO Dataset
+path: .
+train: images
+val: images
+test: images
+
+nc: 3
+names:
+  0: leaf_rust
+  1: phoma
+  2: healthy

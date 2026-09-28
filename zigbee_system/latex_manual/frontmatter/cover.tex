@@ -1,0 +1,64 @@
+% ============================================================
+% ปกหน้าคู่มือวิชาการ (Academic Book Cover)
+% มาตรฐาน มหาวิทยาลัยราชภัฏรำไพพรรณี (RBRU Masterclass)
+% ============================================================
+\thispagestyle{empty}
+\begin{titlepage}
+\begin{tikzpicture}[remember picture, overlay]
+    % พื้นหลังหลักไล่ระดับสีน้ำเงินเข้มและสีเขียวป่าไม้
+    \fill[left color=rbruNavy!98!black, right color=rbruNavy!88!agriForest] 
+        (current page.south west) rectangle (current page.north east);
+    
+    % แถบขลิบทองราชภัฏแนวตั้งทางซ้าย
+    \fill[color=rbruGold] 
+        ([xshift=2.4cm]current page.south west) rectangle ([xshift=2.6cm]current page.north west);
+
+    % เส้นเรขาคณิตเวกเตอร์คลื่นวิทยุโครงข่ายแบบโปร่งแสง
+    \draw[color=white, opacity=0.08, line width=1.0pt]
+        ([xshift=3.5cm, yshift=-2.5cm]current page.north west) -- ([xshift=-1.5cm, yshift=5cm]current page.south east);
+    \draw[color=rbruGold, opacity=0.12, line width=1.2pt]
+        ([xshift=3.5cm, yshift=-6cm]current page.north west) -- ([xshift=-1cm, yshift=2cm]current page.south east);
+
+    % ข้อมูลสังกัดด้านบน
+    \node[anchor=north west, text width=14.5cm] at ([xshift=3.2cm, yshift=-2.0cm]current page.north west) {
+        {\fontsize{14}{18}\selectfont\bfseries\color{rbruGold} คณะวิทยาศาสตร์และเทคโนโลยี มหาวิทยาลัยราชภัฏรำไพพรรณี\par}
+        \vspace{2pt}
+        {\fontsize{10}{13}\selectfont\color{softMist!85} โครงการพัฒนาทักษะวิชาชีพชั้นสูงเพื่อการขับเคลื่อนเศรษฐกิจฐานนวัตกรรม (AIoT 2570)\par}
+    };
+
+    % ส่วนชื่อเรื่องหลัก (Main Title Block)
+    \node[anchor=north west, text width=15.2cm] at ([xshift=3.2cm, yshift=-3.5cm]current page.north west) {
+        {\color{rbruGold}\rule{0.45\textwidth}{3pt}\par}
+        \vspace{8pt}
+        {\fontsize{26}{33}\selectfont\bfseries\color{white} คู่มือระบบสื่อสารไร้สาย Zigbee 3.0\par}
+        \vspace{3pt}
+        {\fontsize{24}{31}\selectfont\bfseries\color{white} สำหรับการเกษตรแม่นยำสูง\par}
+        \vspace{6pt}
+        {\fontsize{14}{19}\selectfont\bfseries\color{zigbeeOrange} เครือข่ายแบบเมช เซนเซอร์เกษตร เกตเวย์ และไมโครคอนโทรลเลอร์ ESP32-C6\par}
+        \vspace{4pt}
+        {\fontsize{9}{13}\selectfont\color{softMist!85} Zigbee 3.0 Wireless Mesh Sensor Networks for Precision Agriculture Manual\\Mesh Topology, Industrial Sensors, MQTT Gateway, and ESP32-C6 Firmware Development\par}
+        \vspace{8pt}
+        {\color{rbruGold}\rule{0.75\textwidth}{1.2pt}\par}
+    };
+
+    % กรอบภาพศิลป์ปก Masterclass (Cover Artwork Window)
+    \node[anchor=center, draw=rbruGold, line width=2.0pt, rounded corners=6pt, inner sep=0pt, fill=black] 
+        at ([xshift=1.0cm, yshift=-1.1cm]current page.center) {
+        \includegraphics[width=14.5cm, height=9.0cm, keepaspectratio=false]{figures/zigbee_farm_mesh_realistic.jpg}
+    };
+
+    % รายนามคณะผู้เขียนและสำนักพิมพ์ด้านล่าง
+    \node[anchor=south west, text width=14.5cm] at ([xshift=3.2cm, yshift=1.8cm]current page.south west) {
+        {\fontsize{12}{15}\selectfont\bfseries\color{white} ผู้ช่วยศาสตราจารย์ ดร.ชีวะ ทัศนา\par}
+        \vspace{2pt}
+        {\fontsize{9.5}{12}\selectfont\color{softMist!90} กลุ่มวิจัยฟิสิกส์เกษตรดิจิทัลและปัญญาประดิษฐ์ฝังตัว\par}
+        \vspace{2pt}
+        {\fontsize{8.5}{11}\selectfont\color{softMist!75} คณะวิทยาศาสตร์และเทคโนโลยี มหาวิทยาลัยราชภัฏรำไพพรรณี\par}
+        \vspace{10pt}
+        {\color{rbruGold}\rule{0.35\textwidth}{0.8pt}\par}
+        \vspace{4pt}
+        {\fontsize{10}{13}\selectfont\bfseries\color{rbruGold} สำนักพิมพ์มหาวิทยาลัยราชภัฏรำไพพรรณี \quad \textbar \quad \color{softMist!80}พ.ศ. 2570\par}
+    };
+\end{tikzpicture}
+\end{titlepage}
+\clearpage
