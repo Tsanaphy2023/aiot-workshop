@@ -578,6 +578,16 @@ class _ConnectionSettingsDialogState extends State<ConnectionSettingsDialog>
             runSpacing: 6,
             children: [
               ActionChip(
+                label: const Text('LAN Server (10.0.0.41)', style: TextStyle(fontSize: 11, color: AppTheme.accentMint)),
+                backgroundColor: AppTheme.cardDark,
+                side: const BorderSide(color: AppTheme.accentMint),
+                onPressed: () {
+                  setState(() {
+                    _webUrlController.text = 'http://10.0.0.41/cmu_aiot/smart_farm_dashboard/api/api.php';
+                  });
+                },
+              ),
+              ActionChip(
                 label: const Text('Localhost (XAMPP)', style: TextStyle(fontSize: 11)),
                 backgroundColor: AppTheme.cardDark,
                 side: const BorderSide(color: AppTheme.cardDarkBorder),
@@ -594,16 +604,6 @@ class _ConnectionSettingsDialogState extends State<ConnectionSettingsDialog>
                 onPressed: () {
                   setState(() {
                     _webUrlController.text = 'http://10.0.2.2/cmu_aiot/smart_farm_dashboard/api/api.php';
-                  });
-                },
-              ),
-              ActionChip(
-                label: const Text('127.0.0.1', style: TextStyle(fontSize: 11)),
-                backgroundColor: AppTheme.cardDark,
-                side: const BorderSide(color: AppTheme.cardDarkBorder),
-                onPressed: () {
-                  setState(() {
-                    _webUrlController.text = 'http://127.0.0.1/cmu_aiot/smart_farm_dashboard/api/api.php';
                   });
                 },
               ),
@@ -890,21 +890,30 @@ class _ConnectionSettingsDialogState extends State<ConnectionSettingsDialog>
             spacing: 8,
             children: [
               ActionChip(
+                label: const Text('10.10.29.103 (บอร์ดควบคุมไฟ/ปั๊มน้ำ)'),
+                backgroundColor: AppTheme.cardDark,
+                side: const BorderSide(color: Color(0xFF38BDF8)),
+                labelStyle: const TextStyle(fontSize: 11, color: Color(0xFF38BDF8), fontWeight: FontWeight.bold),
+                onPressed: () {
+                  _ipController.text = '10.10.29.103';
+                },
+              ),
+              ActionChip(
+                label: const Text('10.10.31.65 (บอร์ดรับค่าเซนเซอร์)'),
+                backgroundColor: AppTheme.cardDark,
+                side: const BorderSide(color: AppTheme.accentMint),
+                labelStyle: const TextStyle(fontSize: 11, color: AppTheme.accentMint, fontWeight: FontWeight.bold),
+                onPressed: () {
+                  _ipController.text = '10.10.31.65';
+                },
+              ),
+              ActionChip(
                 label: const Text('192.168.4.1 (ESP32 AP Hotspot)'),
                 backgroundColor: AppTheme.cardDark,
                 side: const BorderSide(color: AppTheme.cardDarkBorder),
                 labelStyle: const TextStyle(fontSize: 11, color: AppTheme.textSecondaryDark),
                 onPressed: () {
                   _ipController.text = '192.168.4.1';
-                },
-              ),
-              ActionChip(
-                label: const Text('192.168.1.100'),
-                backgroundColor: AppTheme.cardDark,
-                side: const BorderSide(color: AppTheme.cardDarkBorder),
-                labelStyle: const TextStyle(fontSize: 11, color: AppTheme.textSecondaryDark),
-                onPressed: () {
-                  _ipController.text = '192.168.1.100';
                 },
               ),
             ],
