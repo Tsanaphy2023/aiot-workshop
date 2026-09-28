@@ -47,9 +47,13 @@ class FarmViewModel extends ChangeNotifier {
   int get secondsSinceLastPacket => _secondsSinceLastPacket;
   bool get isSimulatorActive => _repository.isUsingSimulator;
   bool get isDirectBoard => _repository.isDirectBoard;
+  bool get isWebDashboard => _repository.isWebDashboard;
   ConnectionMode get connectionMode => _repository.connectionMode;
   String? get connectedBoardIp => _repository.connectedBoardIp;
   String? get connectedBoardName => _repository.connectedBoardName;
+  String? get connectedWebDashboardUrl => _repository.connectedWebDashboardUrl;
+  String get currentWebDashboardArea => _repository.currentWebDashboardArea;
+  Map<String, dynamic> get dashboardAreas => _repository.lastDashboardAreas;
 
   List<DiscoveredBoard> get discoveredBoards => _discoveredBoards;
   bool get isScanning => _isScanning;
@@ -141,7 +145,23 @@ class FarmViewModel extends ChangeNotifier {
     return success;
   }
 
-  /// Disconnect physical board and switch back to Simulator
+  /// Connect to Web Dashboard REST API
+  Future<bool> connectToWebDashboard(String url, {String area = 'flower'}) async {
+    final success = await _repository.connectToWebDashboard(url, area: area);
+    if (success) {
+      _activeAlert = '';
+      notifyListeners();
+    }
+    return success;
+  }
+
+  /// Change active monitored area on Web Dashboard
+  void setWebDashboardArea(String area) {
+    _repository.setWebDashboardArea(area);
+    notifyListeners();
+  }
+
+  /// Disconnect physical board or Web Dashboard and switch back to Simulator
   void disconnectToSimulator() {
     _repository.returnToSimulator();
     notifyListeners();

@@ -8,11 +8,13 @@ import '../services/board_discovery_service.dart';
 import '../services/leaf_disease_service.dart';
 import '../services/predictive_moisture_service.dart';
 import '../services/explainable_ai_service.dart';
+import '../services/web_dashboard_service.dart';
 
 enum ConnectionMode {
   simulator,
   directBoard,
   homeAssistant,
+  webDashboard,
 }
 
 /// Single source of truth for Farm telemetry, Actuation, and Safety Rules
@@ -24,16 +26,22 @@ class FarmRepository {
   final LeafDiseaseService leafDiseaseService;
   final PredictiveMoistureService predictiveMoistureService;
   final ExplainableAiService explainableAiService;
+  final WebDashboardService webDashboardService;
 
   ConnectionMode connectionMode = ConnectionMode.simulator;
   String? connectedBoardIp;
   String? connectedBoardName;
+
+  String? connectedWebDashboardUrl;
+  String currentWebDashboardArea = 'flower';
+  Map<String, DashboardAreaState> lastDashboardAreas = {};
 
   final List<HistoryRecord> _history = [];
   final _historyStreamController = StreamController<List<HistoryRecord>>.broadcast();
   final _sensorStreamController = StreamController<SensorTelemetry>.broadcast();
   StreamSubscription<SensorTelemetry>? _simulatorSensorSub;
   Timer? _directBoardPollTimer;
+  Timer? _webDashboardPollTimer;
 
   FarmRepository({
     required FarmSimulatorService simulatorService,
@@ -43,17 +51,20 @@ class FarmRepository {
     LeafDiseaseService? leafDiseaseService,
     PredictiveMoistureService? predictiveMoistureService,
     ExplainableAiService? explainableAiService,
+    WebDashboardService? webDashboardService,
   })  : _simulatorService = simulatorService,
         directBoardService = directBoardService ?? DirectBoardService(),
         discoveryService = discoveryService ?? BoardDiscoveryService(),
         leafDiseaseService = leafDiseaseService ?? LeafDiseaseService(),
         predictiveMoistureService = predictiveMoistureService ?? PredictiveMoistureService(),
-        explainableAiService = explainableAiService ?? ExplainableAiService() {
+        explainableAiService = explainableAiService ?? ExplainableAiService(),
+        webDashboardService = webDashboardService ?? WebDashboardService() {
     _initHistory();
   }
 
   bool get isUsingSimulator => connectionMode == ConnectionMode.simulator;
   bool get isDirectBoard => connectionMode == ConnectionMode.directBoard;
+  bool get isWebDashboard => connectionMode == ConnectionMode.webDashboard;
 
   Stream<SensorTelemetry> get sensorStream => _sensorStreamController.stream;
   Stream<EspNowTelemetry> get espNowStream => _simulatorService.espNowStream;
@@ -84,6 +95,7 @@ class FarmRepository {
       connectedBoardName = deviceName ?? info['device'] as String? ?? 'LEQs-IoT Node';
       connectionMode = ConnectionMode.directBoard;
 
+      _webDashboardPollTimer?.cancel();
       // Start periodic direct board telemetry polling (1.2s interval)
       _directBoardPollTimer?.cancel();
       _directBoardPollTimer = Timer.periodic(const Duration(milliseconds: 1200), (_) async {
@@ -99,11 +111,48 @@ class FarmRepository {
     return false;
   }
 
-  /// Disconnect physical board and return to Simulator
+  /// Connect to Web Dashboard REST API (http://IP/cmu_aiot/smart_farm_dashboard/api/api.php)
+  Future<bool> connectToWebDashboard(String url, {String area = 'flower'}) async {
+    final ok = await webDashboardService.checkConnection(url);
+    if (ok) {
+      connectedWebDashboardUrl = url;
+      currentWebDashboardArea = area;
+      connectionMode = ConnectionMode.webDashboard;
+
+      _directBoardPollTimer?.cancel();
+      _webDashboardPollTimer?.cancel();
+
+      // Poll Web Dashboard status every 1.2 seconds
+      _webDashboardPollTimer = Timer.periodic(const Duration(milliseconds: 1200), (_) async {
+        if (connectionMode == ConnectionMode.webDashboard && connectedWebDashboardUrl != null) {
+          final areas = await webDashboardService.fetchAllAreas(connectedWebDashboardUrl);
+          if (areas != null && areas.containsKey(currentWebDashboardArea)) {
+            lastDashboardAreas = areas;
+            final activeArea = areas[currentWebDashboardArea]!;
+            _sensorStreamController.add(activeArea.toTelemetry());
+          }
+        }
+      });
+      return true;
+    }
+    return false;
+  }
+
+  /// Change active monitored area on Web Dashboard (flower, corn, grass)
+  void setWebDashboardArea(String area) {
+    currentWebDashboardArea = area;
+    if (lastDashboardAreas.containsKey(area)) {
+      _sensorStreamController.add(lastDashboardAreas[area]!.toTelemetry());
+    }
+  }
+
+  /// Disconnect physical board or web dashboard and return to Simulator
   void returnToSimulator() {
     _directBoardPollTimer?.cancel();
+    _webDashboardPollTimer?.cancel();
     connectedBoardIp = null;
     connectedBoardName = null;
+    connectedWebDashboardUrl = null;
     connectionMode = ConnectionMode.simulator;
   }
 
@@ -112,7 +161,7 @@ class FarmRepository {
     return await discoveryService.scanForBoards();
   }
 
-  /// Update actuators (syncs with physical board if connected)
+  /// Update actuators (syncs with physical board or web dashboard)
   void updateActuatorSimulation({
     required bool isPumpOn,
     required bool isGrowLightOn,
@@ -127,12 +176,48 @@ class FarmRepository {
       directBoardService.setRelay(connectedBoardIp!, 1, isPumpOn);
       directBoardService.setRelay(connectedBoardIp!, 2, isGrowLightOn);
     }
+
+    // If connected to Web Dashboard, sync command via REST API
+    if (connectionMode == ConnectionMode.webDashboard && connectedWebDashboardUrl != null) {
+      webDashboardService.controlActuator(
+        area: currentWebDashboardArea,
+        device: 'pump',
+        state: isPumpOn,
+        customUrl: connectedWebDashboardUrl,
+      );
+      webDashboardService.controlActuator(
+        area: currentWebDashboardArea,
+        device: 'valve',
+        state: isPumpOn,
+        customUrl: connectedWebDashboardUrl,
+      );
+      webDashboardService.controlActuator(
+        area: currentWebDashboardArea,
+        device: 'fan',
+        state: isGrowLightOn,
+        customUrl: connectedWebDashboardUrl,
+      );
+    }
   }
 
-  /// Send Emergency Stop directly to hardware
+  /// Send Emergency Stop directly to hardware or Web Dashboard
   void triggerEmergencyStop(bool isStopped) {
     if (connectionMode == ConnectionMode.directBoard && connectedBoardIp != null) {
       directBoardService.setEmergencyStop(connectedBoardIp!, isStopped);
+    }
+    if (connectionMode == ConnectionMode.webDashboard && connectedWebDashboardUrl != null && isStopped) {
+      webDashboardService.controlActuator(
+        area: currentWebDashboardArea,
+        device: 'pump',
+        state: false,
+        customUrl: connectedWebDashboardUrl,
+      );
+      webDashboardService.controlActuator(
+        area: currentWebDashboardArea,
+        device: 'valve',
+        state: false,
+        customUrl: connectedWebDashboardUrl,
+      );
     }
   }
 
@@ -179,6 +264,7 @@ class FarmRepository {
   void dispose() {
     _simulatorSensorSub?.cancel();
     _directBoardPollTimer?.cancel();
+    _webDashboardPollTimer?.cancel();
     _simulatorService.dispose();
     _sensorStreamController.close();
     _historyStreamController.close();

@@ -77,19 +77,25 @@ class _MainScreenState extends State<MainScreen> {
           ],
         ),
         actions: [
-          // Hardware Connection Indicator & Settings Button
+          // Hardware & Web Dashboard Connection Indicator
           InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () => ConnectionSettingsDialog.show(context),
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 5),
               decoration: BoxDecoration(
-                color: vm.isDirectBoard
-                    ? const Color(0xFF10B981).withValues(alpha: 0.18)
-                    : Colors.white.withValues(alpha: 0.08),
+                color: vm.isWebDashboard
+                    ? const Color(0xFF0284C7).withValues(alpha: 0.22)
+                    : vm.isDirectBoard
+                        ? const Color(0xFF10B981).withValues(alpha: 0.18)
+                        : Colors.white.withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: vm.isDirectBoard ? const Color(0xFF10B981) : Colors.white24,
+                  color: vm.isWebDashboard
+                      ? const Color(0xFF38BDF8)
+                      : vm.isDirectBoard
+                          ? const Color(0xFF10B981)
+                          : Colors.white24,
                   width: 1,
                 ),
               ),
@@ -97,17 +103,33 @@ class _MainScreenState extends State<MainScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
-                    vm.isDirectBoard ? Icons.wifi : Icons.sensors_outlined,
+                    vm.isWebDashboard
+                        ? Icons.sync
+                        : vm.isDirectBoard
+                            ? Icons.wifi
+                            : Icons.sensors_outlined,
                     size: 13,
-                    color: vm.isDirectBoard ? const Color(0xFF10B981) : Colors.grey,
+                    color: vm.isWebDashboard
+                        ? const Color(0xFF38BDF8)
+                        : vm.isDirectBoard
+                            ? const Color(0xFF10B981)
+                            : Colors.grey,
                   ),
                   const SizedBox(width: 4),
                   Text(
-                    vm.isDirectBoard ? (vm.connectedBoardName ?? 'ต่อบอร์ด') : 'Sim',
+                    vm.isWebDashboard
+                        ? 'WebSync'
+                        : vm.isDirectBoard
+                            ? (vm.connectedBoardName ?? 'ต่อบอร์ด')
+                            : 'Sim',
                     style: TextStyle(
                       fontSize: 11,
-                      fontWeight: vm.isDirectBoard ? FontWeight.bold : FontWeight.normal,
-                      color: vm.isDirectBoard ? const Color(0xFF10B981) : Colors.grey.shade300,
+                      fontWeight: (vm.isDirectBoard || vm.isWebDashboard) ? FontWeight.bold : FontWeight.normal,
+                      color: vm.isWebDashboard
+                          ? const Color(0xFF38BDF8)
+                          : vm.isDirectBoard
+                              ? const Color(0xFF10B981)
+                              : Colors.grey.shade300,
                     ),
                   ),
                 ],

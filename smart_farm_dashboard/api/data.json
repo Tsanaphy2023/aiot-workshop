@@ -1,0 +1,46 @@
+{
+    "last_updated": "2026-09-28 02:20:43",
+    "areas": {
+        "flower": {
+            "name": "Flower Farm",
+            "soil": 64.5,
+            "temp": 28.800000000000000710542735760100185871124267578125,
+            "humidity": 70.2000000000000028421709430404007434844970703125,
+            "light": 45000,
+            "valve": true,
+            "pump": false,
+            "mist": false,
+            "fan": false
+        },
+        "corn": {
+            "name": "Corn Farm",
+            "soil": 42.5,
+            "temp": 31.199999999999999289457264239899814128875732421875,
+            "humidity": 55.39999999999999857891452847979962825775146484375,
+            "light": 68000,
+            "valve": false,
+            "pump": false,
+            "mist": false,
+            "fan": false
+        },
+        "grass": {
+            "name": "Grass & Lawn",
+            "soil": 65,
+            "temp": 28,
+            "humidity": 72,
+            "light": 35000,
+            "valve": false,
+            "pump": false,
+            "mist": false,
+            "fan": false
+        }
+    },
+    "history": [
+        {
+            "time": "02:20:43",
+            "area": "flower",
+            "soil": 64.5,
+            "temp": 28.800000000000000710542735760100185871124267578125
+        }
+    ]
+}

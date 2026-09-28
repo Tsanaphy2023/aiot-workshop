@@ -22,20 +22,33 @@ class _ConnectionSettingsDialogState extends State<ConnectionSettingsDialog>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final TextEditingController _ipController = TextEditingController();
+  final TextEditingController _webUrlController = TextEditingController();
+  String _selectedArea = 'flower';
   bool _isTestingPing = false;
   String? _pingResult;
   bool _pingSuccess = false;
 
+  bool _isTestingWeb = false;
+  String? _webResult;
+  bool _webSuccess = false;
+
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
     final vm = context.read<FarmViewModel>();
     if (vm.connectedBoardIp != null) {
       _ipController.text = vm.connectedBoardIp!;
     } else {
       _ipController.text = '192.168.4.1';
     }
+
+    if (vm.connectedWebDashboardUrl != null) {
+      _webUrlController.text = vm.connectedWebDashboardUrl!;
+    } else {
+      _webUrlController.text = 'http://localhost/cmu_aiot/smart_farm_dashboard/api/api.php';
+    }
+    _selectedArea = vm.currentWebDashboardArea;
 
     // Auto-scan on open if not already scanned
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -49,6 +62,7 @@ class _ConnectionSettingsDialogState extends State<ConnectionSettingsDialog>
   void dispose() {
     _tabController.dispose();
     _ipController.dispose();
+    _webUrlController.dispose();
     super.dispose();
   }
 
@@ -82,7 +96,17 @@ class _ConnectionSettingsDialogState extends State<ConnectionSettingsDialog>
   @override
   Widget build(BuildContext context) {
     final vm = context.watch<FarmViewModel>();
-    final isConnected = vm.isDirectBoard && vm.connectedBoardIp != null;
+    final isConnected = (vm.isDirectBoard && vm.connectedBoardIp != null) || vm.isWebDashboard;
+
+    String bannerTitle = 'โหมดจำลอง (Farm Simulator)';
+    String? bannerSubtitle;
+    if (vm.isWebDashboard) {
+      bannerTitle = 'กำลังซิงค์กับแดชบอร์ดเว็บ (Two-Way Sync)';
+      bannerSubtitle = 'URL: ${vm.connectedWebDashboardUrl} (แปลง: ${_getAreaThaiName(vm.currentWebDashboardArea)})';
+    } else if (vm.isDirectBoard) {
+      bannerTitle = 'กำลังต่อบอร์ดจริง: ${vm.connectedBoardName ?? 'LEQs Node'}';
+      bannerSubtitle = 'IP: ${vm.connectedBoardIp}';
+    }
 
     return Dialog(
       backgroundColor: AppTheme.bgDark,
@@ -92,7 +116,7 @@ class _ConnectionSettingsDialogState extends State<ConnectionSettingsDialog>
       ),
       insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 500, maxHeight: 680),
+        constraints: const BoxConstraints(maxWidth: 540, maxHeight: 720),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -120,7 +144,7 @@ class _ConnectionSettingsDialogState extends State<ConnectionSettingsDialog>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'เชื่อมต่อบอร์ดฮาร์ดแวร์ IoT',
+                          'เชื่อมต่อบอร์ดและแดชบอร์ด IoT',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -129,7 +153,7 @@ class _ConnectionSettingsDialogState extends State<ConnectionSettingsDialog>
                         ),
                         SizedBox(height: 2),
                         Text(
-                          'GoGo-IoT / LEQs IoT xAI Direct Wi-Fi',
+                          'GoGo-IoT • LEQs IoT xAI • Web Dashboard REST Sync',
                           style: TextStyle(
                             fontSize: 12,
                             color: AppTheme.textSecondaryDark,
@@ -173,22 +197,22 @@ class _ConnectionSettingsDialogState extends State<ConnectionSettingsDialog>
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            isConnected
-                                ? 'กำลังต่อบอร์ดจริง: ${vm.connectedBoardName ?? 'LEQs Node'}'
-                                : 'โหมดจำลอง (Farm Simulator)',
+                            bannerTitle,
                             style: TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.bold,
                               color: isConnected ? AppTheme.accentMint : AppTheme.textPrimaryDark,
                             ),
                           ),
-                          if (isConnected)
+                          if (bannerSubtitle != null)
                             Text(
-                              'IP: ${vm.connectedBoardIp}',
+                              bannerSubtitle,
                               style: const TextStyle(
                                 fontSize: 11,
                                 color: AppTheme.textSecondaryDark,
                               ),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                             ),
                         ],
                       ),
@@ -200,6 +224,8 @@ class _ConnectionSettingsDialogState extends State<ConnectionSettingsDialog>
                           setState(() {
                             _pingResult = 'กลับสู่โหมด Simulator แล้ว';
                             _pingSuccess = true;
+                            _webResult = 'ตัดการเชื่อมต่อแดชบอร์ดแล้ว';
+                            _webSuccess = false;
                           });
                         },
                         style: TextButton.styleFrom(
@@ -226,11 +252,15 @@ class _ConnectionSettingsDialogState extends State<ConnectionSettingsDialog>
               tabs: const [
                 Tab(
                   icon: Icon(Icons.radar, size: 18),
-                  text: 'สแกนอัตโนมัติ (Auto-Scan)',
+                  text: 'สแกนบอร์ดอัตโนมัติ',
+                ),
+                Tab(
+                  icon: Icon(Icons.dashboard_customize, size: 18),
+                  text: 'แดชบอร์ดเว็บ (Web Sync)',
                 ),
                 Tab(
                   icon: Icon(Icons.edit_note, size: 18),
-                  text: 'กำหนดเอง (Manual IP)',
+                  text: 'IP บอร์ดตรง',
                 ),
               ],
             ),
@@ -241,6 +271,7 @@ class _ConnectionSettingsDialogState extends State<ConnectionSettingsDialog>
                 controller: _tabController,
                 children: [
                   _buildAutoScanTab(context, vm),
+                  _buildWebDashboardTab(context, vm),
                   _buildManualIpTab(context, vm),
                 ],
               ),
@@ -249,6 +280,19 @@ class _ConnectionSettingsDialogState extends State<ConnectionSettingsDialog>
         ),
       ),
     );
+  }
+
+  String _getAreaThaiName(String key) {
+    switch (key) {
+      case 'flower':
+        return 'แปลงไม้ดอก (Flower)';
+      case 'corn':
+        return 'แปลงข้าวโพด (Corn)';
+      case 'grass':
+        return 'สนามหญ้า (Grass)';
+      default:
+        return key;
+    }
   }
 
   Widget _buildAutoScanTab(BuildContext context, FarmViewModel vm) {
@@ -451,6 +495,343 @@ class _ConnectionSettingsDialogState extends State<ConnectionSettingsDialog>
                   ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildWebDashboardTab(BuildContext context, FarmViewModel vm) {
+    final isWebConnected = vm.isWebDashboard;
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // Info banner
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: AppTheme.primaryLight.withValues(alpha: 0.12),
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: AppTheme.primaryLight.withValues(alpha: 0.3)),
+            ),
+            child: const Row(
+              children: [
+                Icon(Icons.sync_alt, color: AppTheme.accentMint, size: 22),
+                SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    'ซิงค์แบบ 2 ทาง (Two-Way Sync) กับหน้าเว็บแดชบอร์ด Smart Farm AIoT: คำสั่งเปิด-ปิดปั๊ม/วาล์ว และข้อมูลเซนเซอร์จะเชื่อมโยงกันแบบ Real-time',
+                    style: TextStyle(fontSize: 12, color: AppTheme.textPrimaryDark),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 16),
+
+          // API Endpoint URL Input
+          const Text(
+            'URL ของแดชบอร์ด REST API (api.php)',
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: AppTheme.textPrimaryDark,
+            ),
+          ),
+          const SizedBox(height: 6),
+          TextField(
+            controller: _webUrlController,
+            style: const TextStyle(color: AppTheme.textPrimaryDark, fontFamily: 'monospace', fontSize: 13),
+            decoration: InputDecoration(
+              hintText: 'http://localhost/cmu_aiot/smart_farm_dashboard/api/api.php',
+              hintStyle: const TextStyle(color: AppTheme.textSecondaryDark, fontSize: 11),
+              filled: true,
+              fillColor: AppTheme.cardDark,
+              prefixIcon: const Icon(Icons.language, color: AppTheme.accentMint, size: 18),
+              suffixIcon: IconButton(
+                icon: const Icon(Icons.clear, color: AppTheme.textSecondaryDark, size: 16),
+                onPressed: () => _webUrlController.clear(),
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(color: AppTheme.cardDarkBorder),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(color: AppTheme.cardDarkBorder),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(color: AppTheme.accentMint, width: 1.5),
+              ),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            ),
+          ),
+
+          const SizedBox(height: 8),
+
+          // Quick Presets
+          Wrap(
+            spacing: 6,
+            runSpacing: 6,
+            children: [
+              ActionChip(
+                label: const Text('Localhost (XAMPP)', style: TextStyle(fontSize: 11)),
+                backgroundColor: AppTheme.cardDark,
+                side: const BorderSide(color: AppTheme.cardDarkBorder),
+                onPressed: () {
+                  setState(() {
+                    _webUrlController.text = 'http://localhost/cmu_aiot/smart_farm_dashboard/api/api.php';
+                  });
+                },
+              ),
+              ActionChip(
+                label: const Text('Android Emulator (10.0.2.2)', style: TextStyle(fontSize: 11)),
+                backgroundColor: AppTheme.cardDark,
+                side: const BorderSide(color: AppTheme.cardDarkBorder),
+                onPressed: () {
+                  setState(() {
+                    _webUrlController.text = 'http://10.0.2.2/cmu_aiot/smart_farm_dashboard/api/api.php';
+                  });
+                },
+              ),
+              ActionChip(
+                label: const Text('127.0.0.1', style: TextStyle(fontSize: 11)),
+                backgroundColor: AppTheme.cardDark,
+                side: const BorderSide(color: AppTheme.cardDarkBorder),
+                onPressed: () {
+                  setState(() {
+                    _webUrlController.text = 'http://127.0.0.1/cmu_aiot/smart_farm_dashboard/api/api.php';
+                  });
+                },
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 16),
+
+          // Select Farm Area to Monitor
+          const Text(
+            'เลือกแปลงเพาะปลูกที่ต้องการติดตาม (Target Farm Area)',
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: AppTheme.textPrimaryDark,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Expanded(
+                child: _buildAreaChoiceChip(
+                  keyId: 'flower',
+                  label: 'แปลงไม้ดอก',
+                  icon: Icons.local_florist,
+                  isSelected: _selectedArea == 'flower',
+                  onTap: () {
+                    setState(() => _selectedArea = 'flower');
+                    if (isWebConnected) vm.setWebDashboardArea('flower');
+                  },
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: _buildAreaChoiceChip(
+                  keyId: 'corn',
+                  label: 'แปลงข้าวโพด',
+                  icon: Icons.grass,
+                  isSelected: _selectedArea == 'corn',
+                  onTap: () {
+                    setState(() => _selectedArea = 'corn');
+                    if (isWebConnected) vm.setWebDashboardArea('corn');
+                  },
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: _buildAreaChoiceChip(
+                  keyId: 'grass',
+                  label: 'สนามหญ้า',
+                  icon: Icons.park,
+                  isSelected: _selectedArea == 'grass',
+                  onTap: () {
+                    setState(() => _selectedArea = 'grass');
+                    if (isWebConnected) vm.setWebDashboardArea('grass');
+                  },
+                ),
+              ),
+            ],
+          ),
+
+          if (_webResult != null) ...[
+            const SizedBox(height: 14),
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: _webSuccess
+                    ? AppTheme.accentMint.withValues(alpha: 0.15)
+                    : AppTheme.alertRed.withValues(alpha: 0.15),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: _webSuccess ? AppTheme.accentMint : AppTheme.alertRed,
+                ),
+              ),
+              child: Row(
+                children: [
+                  Icon(
+                    _webSuccess ? Icons.check_circle : Icons.error_outline,
+                    color: _webSuccess ? AppTheme.accentMint : AppTheme.alertRed,
+                    size: 20,
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      _webResult!,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: _webSuccess ? AppTheme.accentMint : AppTheme.alertRed,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+
+          const SizedBox(height: 20),
+
+          // Action Buttons: Ping & Connect
+          Row(
+            children: [
+              Expanded(
+                child: OutlinedButton.icon(
+                  onPressed: _isTestingWeb
+                      ? null
+                      : () async {
+                          final url = _webUrlController.text.trim();
+                          if (url.isEmpty) return;
+
+                          setState(() {
+                            _isTestingWeb = true;
+                            _webResult = null;
+                          });
+
+                          try {
+                            final ok = await vm.connectToWebDashboard(url, area: _selectedArea);
+                            setState(() {
+                              _isTestingWeb = false;
+                              _webSuccess = ok;
+                              _webResult = ok
+                                  ? 'ติดต่อ Web Dashboard สำเร็จ! ข้อมูลซิงค์เรียบร้อย'
+                                  : 'ไม่สามารถติดต่อ API ที่ $url ได้ กรุณาตรวจสอบสถานะ Apache/XAMPP';
+                            });
+                          } catch (e) {
+                            setState(() {
+                              _isTestingWeb = false;
+                              _webSuccess = false;
+                              _webResult = 'เกิดข้อผิดพลาด: $e';
+                            });
+                          }
+                        },
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: AppTheme.accentMint),
+                    foregroundColor: AppTheme.accentMint,
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  ),
+                  icon: _isTestingWeb
+                      ? const SizedBox(
+                          width: 16,
+                          height: 16,
+                          child: CircularProgressIndicator(strokeWidth: 2, color: AppTheme.accentMint),
+                        )
+                      : const Icon(Icons.network_check, size: 18),
+                  label: const Text('ทดสอบเชื่อมต่อ (Test API)'),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: ElevatedButton.icon(
+                  onPressed: () async {
+                    final url = _webUrlController.text.trim();
+                    if (url.isEmpty) return;
+
+                    final ok = await vm.connectToWebDashboard(url, area: _selectedArea);
+                    if (ok && context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('ซิงค์กับเว็บแดชบอร์ด (${_getAreaThaiName(_selectedArea)}) สำเร็จ!'),
+                          backgroundColor: AppTheme.primaryLight,
+                        ),
+                      );
+                      Navigator.of(context).pop();
+                    } else {
+                      setState(() {
+                        _webSuccess = false;
+                        _webResult = 'การเชื่อมต่อล้มเหลว กรุณาตรวจสอบว่า XAMPP กำลังทำงานอยู่';
+                      });
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppTheme.accentMint,
+                    foregroundColor: Colors.black,
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  ),
+                  icon: const Icon(Icons.link, size: 18),
+                  label: const Text('เชื่อมต่อและซิงค์', style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAreaChoiceChip({
+    required String keyId,
+    required String label,
+    required IconData icon,
+    required bool isSelected,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(10),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+        decoration: BoxDecoration(
+          color: isSelected ? AppTheme.accentMint.withValues(alpha: 0.18) : AppTheme.cardDark,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: isSelected ? AppTheme.accentMint : AppTheme.cardDarkBorder,
+            width: isSelected ? 1.5 : 1,
+          ),
+        ),
+        child: Column(
+          children: [
+            Icon(
+              icon,
+              size: 20,
+              color: isSelected ? AppTheme.accentMint : AppTheme.textSecondaryDark,
+            ),
+            const SizedBox(height: 4),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                color: isSelected ? AppTheme.accentMint : AppTheme.textSecondaryDark,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        ),
       ),
     );
   }
